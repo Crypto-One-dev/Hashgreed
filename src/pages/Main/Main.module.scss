@@ -1,7 +1,6 @@
 @import "styles";
 
 .main {
-  background-color: $bg1;
   padding: 50px 20px;
   display: flex;
   flex-direction: column;
@@ -12,6 +11,11 @@
       background-color: $primary;
       color: white;
       margin-bottom: 100px;
+    }
+    .colorModeSwitcher {
+      position: absolute;
+      top: 50px;
+      right: 50px;
     }
     .container {
       display: flex;
@@ -29,10 +33,15 @@
           flex: 1;
           display: flex;
           flex-direction: column;
-          justify-content: center;
           align-items: center;
-          img {
-            margin: auto;
+          .imgWrapper {
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            svg {
+              margin: auto;
+              width: 100px;
+            }
           }
           .stepText {
             color: $primary;

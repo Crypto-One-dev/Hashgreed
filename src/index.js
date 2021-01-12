@@ -1,44 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import {
   ChakraProvider,
   Box,
   Grid,
-  extendTheme,
 } from '@chakra-ui/react';
 import Routes from './routes';
 import reportWebVitals from './reportWebVitals';
+import ThemeContext from 'context/UserContext';
+import themes from 'theme';
 
-const theme = extendTheme({
-  colors: {
-    bgFirst: {
-      100: "ffffff",
-      900: "35364e",
-    },
-    bgSecond: {
-      100: "f7f7f7",
-      900: "554f6d"
-    },
-    primary: {
-      900: "#d359a6",
-      100: "#e29dc7"
-    },
-    pink: {
-      900: "#d359a6",
-      100: "#e29dc7"
-    }
-  }
-})
+const App = () => {
+  const [theme, setTheme] = useState(themes.light)
+  return (
+    <ThemeContext.Provider value={{theme, setTheme}}>
+      <ChakraProvider>
+        <Box textAlign="center" fontSize="xl">
+          <Grid minH="100vh">
+            <Routes />
+          </Grid>
+        </Box>
+      </ChakraProvider>
+    </ThemeContext.Provider>
+  )
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh">
-          <Routes />
-        </Grid>
-      </Box>
-    </ChakraProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
