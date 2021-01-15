@@ -12,8 +12,9 @@ import themes from 'theme';
 
 const App = () => {
   const [theme, setTheme] = useState(themes.light)
+  const [userInfo, setUserInfo] = useState({})
   return (
-    <ThemeContext.Provider value={{theme, setTheme}}>
+    <ThemeContext.Provider value={{theme, setTheme, userInfo, setUserInfo}}>
       <ChakraProvider>
         <Box textAlign="center" fontSize="xl">
           <Grid minH="100vh">

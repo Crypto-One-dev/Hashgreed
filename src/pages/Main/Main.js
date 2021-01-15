@@ -1,6 +1,9 @@
 import React, {useContext} from 'react';
 import cx from 'classnames';
 import { Button } from '@chakra-ui/react';
+import {Signer} from '@waves/signer';
+import Provider from '@waves.exchange/provider-web';
+import {Link as ReactRouterLink} from 'react-router-dom';
 
 import ThemeContext from 'context/UserContext';
 import {ColorModeSwitcher} from 'component/ColorModeSwitcher';
@@ -9,16 +12,41 @@ import styles from './Main.module.scss';
 import {ReactComponent as Step1} from 'assets/step1.svg';
 import {ReactComponent as Step2} from 'assets/step2.svg';
 import {ReactComponent as Step3} from 'assets/step3.svg';
+import Balances from 'component/Balances/Balances';
 
 export default function Main() {
-  const {theme, setTheme} = useContext(ThemeContext);
+  const {theme, setTheme, userInfo, setUserInfo} = useContext(ThemeContext);
+
+  const onSign = async () => {
+    const signer = new Signer({
+      // Specify URL of the node on Testnet
+      NODE_URL: 'https://nodes.wavesnodes.com'
+    });
+    signer.setProvider(new Provider('https://waves.exchange/signer/'))
+    const user = await signer.login();
+    const balances = await signer.getBalance();
+    console.log('balance', balances)
+    console.log('user', user)
+    setUserInfo({...user, balances});
+  }
+
+  const onManageAccount = () => {
+    window.open('https://waves.exchange/sign-in');
+  }
+
+  const onSwitchAccount = () => {
+    setUserInfo({});
+    onSign();
+  }
+  
   return (
     <div className={styles.main} style={{backgroundColor: theme.background}}>
       <div className={styles.wrapper}>
+        <Balances userInfo={userInfo} />
         <div className={styles.header} style={{backgroundColor: theme.primaryColor}}>FOLLOW THE STEPS TO USE OUR APPLICATION</div>
         <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />
         <div className={styles.container}>
-          <div className={styles.item} style={{backgroundColor: theme.itemBackground}}>
+          <div className={cx(styles.item, userInfo.address && styles.blur)} style={{backgroundColor: theme.itemBackground}}>
             <div className={styles.itemMain}>
               <div className={styles.imgWrapper} style={{backgroundColor: theme.imgWrapper}}>
                 <Step1 />
@@ -29,9 +57,9 @@ export default function Main() {
                 Click on the <span className={styles.boldText}>SIGN IN</span> button below and enter your password or create a new account if you don't have one yet. If you already have an account or multiple accounts they will be listed in the next screen. Select one to connect.
               </Text>
             </div>
-            <Button>SIGN IN</Button>
+            <Button onClick={onSign} disabled={userInfo.address}>SIGN IN</Button>
           </div>
-          <div className={cx(styles.item, styles.blur)} style={{backgroundColor: theme.itemBackground}}>
+          <div className={cx(styles.item, !userInfo.address && styles.blur)} style={{backgroundColor: theme.itemBackground}}>
             <div className={styles.itemMain}>
               <div className={styles.imgWrapper} style={{backgroundColor: theme.imgWrapper}}>
                 <Step2 />
@@ -42,9 +70,10 @@ export default function Main() {
                 You're now connected and able to <span className={styles.boldText}>use the application.</span> We recommend <span className={styles.boldText}>going to step 3</span> to make a backup for your account if you just created one.
               </Text>
             </div>
-            <Button disabled>CERTIFY NOW</Button>
+            <Button as={ReactRouterLink} to={'/certify'} disabled={!userInfo.address}>CERTIFY NOW</Button>
+            { userInfo.address && <Button className={styles.switchAccount} onClick={onSwitchAccount}>SWITCH ACCOUNT</Button>}
           </div>
-          <div className={cx(styles.item, styles.blur)} style={{backgroundColor: theme.itemBackground}}>
+          <div className={cx(styles.item, !userInfo.address && styles.blur)} style={{backgroundColor: theme.itemBackground}}>
             <div className={styles.itemMain}>
               <div className={styles.imgWrapper} style={{backgroundColor: theme.imgWrapper}}>
                 <Step3 />
@@ -55,7 +84,7 @@ export default function Main() {
                 For every newly created account we recommend you to follow these steps. Click on "Manage accounts" below to access <span className={styles.boldText}>waves.exchange</span> and get your account recovery seed. Write it down and keep it safe.
               </Text>
             </div>
-            <Button disabled>MANAGE ACCOUNTS</Button>
+            <Button onClick={onManageAccount} disabled={!userInfo.address}>MANAGE ACCOUNTS</Button>
           </div>
         </div>
         <div className={styles.bottomText}>

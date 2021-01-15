@@ -62,9 +62,12 @@
             }
           }
         }
-        button {
+        button, a {
           background-color: $primary;
           color: white;
+        }
+        .switchAccount {
+          margin-top: 15px;
         }
       }
       .blur {

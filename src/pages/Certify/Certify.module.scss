@@ -1,0 +1,146 @@
+@import "styles";
+
+.main {
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .wrapper {
+    max-width: 1000px;
+    width: 100%;
+    .header {
+      background-color: $primary;
+      color: white;
+      margin-bottom: 20px;
+    }
+    .colorModeSwitcher {
+      position: absolute;
+      top: 50px;
+      right: 50px;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: '100%';
+      .topContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .dropContainer {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 40px;
+        .dropZone {
+          background-color: white;
+          border: 1px dotted $primary;
+          padding: 40px;
+          color: $primary;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-weight: bold;
+          p {
+            font-size: 16px;
+          }
+        }
+        .inputs {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          margin-left: 30px;
+          div {
+            width: 100%;
+            .inputDiv {
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-starte;
+              .boldText {
+                font-size: 16px;
+                font-weight: bold;
+              }
+              .description {
+                font-size: 16px;
+                margin-left: 10px;
+              }
+              .question {
+                color: white;
+                font-size: 14px;
+                border-radius: 10px;
+                background-color: $primary;
+                width: 20px;
+                height: 20px;
+                font-weight: bold;
+                cursor: pointer;
+                margin: 3px 0px 0px 10px;
+              }
+            }
+            .textInput {
+              width: 100%;
+              margin-top: 10px;
+              border: 1px dotted $primary;
+              border-radius: 0px;
+              background-color: white;
+              padding: 10px;
+              margin-bottom: 10px;
+            }
+          }
+          .checkbox>div:first-of-type {
+            width: 16px;
+            div {
+              width: 16px;
+            }
+          }
+        }
+      }
+      .feeContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        .lockContainer {
+          padding: 20px;
+          background-color: $primary;
+        }
+        .transactionText {
+          font-size: 14px;
+          width: 200px;
+          text-align: left;
+          margin-left: 20px;
+        }
+        .comboDiv {
+          margin-left: 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+          .feeText {
+            font-size: 14px;
+          }
+          .primaryText {
+            font-size: 14px;
+            font-weight: 500;
+          }
+          div {
+            select {
+              margin-left: 0px;
+              background-color: white;
+            }
+          }
+        }
+        button {
+          background-color: $primary;
+          color: white;
+          font-size: 14px;
+          padding: 30px;
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+}

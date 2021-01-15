@@ -2,12 +2,13 @@ import React, {useContext} from 'react';
 
 import ThemeContext from 'context/UserContext';
 
-const Text = ({children, ...props}) => {
+const Text = ({ color, children, ...props }) => {
   const {theme} = useContext(ThemeContext);
+
   return (
-    <div style={{color: theme.textColor}} {...props}>
+    <span style={{color: color || theme.textColor}} {...props}>
       {children}
-    </div>
+    </span>
   )
 }
 
