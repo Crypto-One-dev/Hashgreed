@@ -1,89 +1,24 @@
 @import "styles";
 
 .main {
-  padding: 50px 20px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  .wrapper {
-    max-width: 1000px;
-    .header {
-      background-color: $primary;
-      color: white;
-      margin-bottom: 100px;
+  .leftPanel {
+    width: 660px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    box-shadow: 3px -3px 12px -5px rgba(0,0,0,0.4);
+    z-index: 5;
+    transition: all .4s ease;
+    img {
+      margin-bottom: 30px;
     }
     .colorModeSwitcher {
-      position: absolute;
-      top: 50px;
-      right: 50px;
-    }
-    .container {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      .item {
-        width: 30%;
-        background-color: white;
-        border-radius: 20px;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        .itemMain {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          .imgWrapper {
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            svg {
-              margin: auto;
-              width: 100px;
-            }
-          }
-          .stepText {
-            color: $primary;
-            font-weight: bold;
-          }
-          .stepTitle {
-            font-weight: bold;
-            font-size: 20px;
-          }
-          .stepDescription {
-            font-size: 15px;
-            font-weight: 500;
-            margin: 20px 0px;
-            .boldText {
-              color: $primary;
-              font-size: 16px;
-              font-weight: bold;
-            }
-          }
-        }
-        button, a {
-          background-color: $primary;
-          color: white;
-        }
-        .switchAccount {
-          margin-top: 15px;
-        }
-      }
-      .blur {
-        opacity: 0.5;
-      }
-    }
-    .bottomText {
-      margin-top: 50px;
-      .text {
-        font-size: 14px;
-        font-weight: 400;
-        .primaryText {
-          color: $primary;
-        }
-      }
+      margin: 50px 20px 0px 0px;
     }
   }
-  
 }

@@ -1,0 +1,78 @@
+@import "styles";
+
+.wrapper {
+  max-width: 1000px;
+  padding: 20px;
+  .header {
+    background-color: $primary;
+    color: white;
+    margin-bottom: 100px;
+  }
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .item {
+      width: 30%;
+      background-color: white;
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .itemMain {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .imgWrapper {
+          padding: 10px;
+          border-radius: 10px;
+          margin-bottom: 25px;
+          svg {
+            margin: auto;
+            width: 100px;
+          }
+        }
+        .stepText {
+          color: $primary;
+          font-weight: bold;
+        }
+        .stepTitle {
+          font-weight: bold;
+          font-size: 20px;
+        }
+        .stepDescription {
+          font-size: 15px;
+          font-weight: 500;
+          margin: 20px 0px;
+          .boldText {
+            color: $primary;
+            font-size: 16px;
+            font-weight: bold;
+          }
+        }
+      }
+      button, a {
+        background-color: $primary;
+        color: white;
+      }
+      .switchAccount {
+        margin-top: 15px;
+      }
+    }
+    .blur {
+      opacity: 0.5;
+    }
+  }
+  .bottomText {
+    margin-top: 50px;
+    .text {
+      font-size: 14px;
+      font-weight: 400;
+      .primaryText {
+        color: $primary;
+      }
+    }
+  }
+}

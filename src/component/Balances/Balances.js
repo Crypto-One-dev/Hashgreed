@@ -15,10 +15,12 @@ const Balances = ({ userInfo }) => {
           </div>
         )})
       ) : null}
-      <div className={styles.balance}>
-        <span className={styles.title}>Your address</span>
-        <span className={styles.amount}>{userInfo.address}</span>
-      </div>
+      {userInfo.address ? (
+        <div className={styles.balance}>
+          <span className={styles.title}>Your address</span>
+          <span className={styles.amount}>{userInfo.address}</span>
+        </div>
+      ) : null}
     </div>
   )
 }

@@ -1,0 +1,28 @@
+@import "styles";
+
+.main {
+  .inActiveButton {
+    background: transparent;
+    color: black;
+    width: 220px;
+    text-align: right;
+    justify-content: flex-end;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    &:hover {
+      background-color: $primary;
+    }
+  }
+  .activeButton {
+    background-color: $primary;
+    color: white;
+    width: 220px;
+    text-align: right;
+    justify-content: flex-end;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    &:hover {
+      background-color: $primary;
+    }
+  }
+}
