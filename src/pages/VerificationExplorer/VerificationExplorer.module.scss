@@ -1,0 +1,119 @@
+@import "styles";
+
+.wrapper {
+  max-width: 1000px;
+  width: 100%;
+  padding: 20px;
+  .header {
+    background-color: $primary;
+    color: white;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    .item {
+      width: 48%;
+      background-color: white;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #d359a6;
+      border: dotted 1px #d359a6;
+      .itemMain {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .iconSize {
+          font-size: 50px;
+        }
+        .selectText {
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+        }
+        .boldText {
+          color: $primary;
+          font-size: 16px;
+          font-weight: bolder;
+        }
+      }
+      button, a {
+        background-color: $primary;
+        color: white;
+      }
+    }
+    .blur {
+      opacity: 0.5;
+    }
+  }
+  .inputText {
+    width: 100%;
+    color: $primary;
+    border: dotted 1px #d359a6;
+    padding: 10px;
+    margin-top: 1rem;
+  }
+  ::placeholder {
+    color: $primary;
+    opacity: 1;
+  }
+  .referenceWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .referenceText {
+      width: 60%;
+      color: $primary;
+      border: dotted 1px #d359a6;
+      padding: 10px;
+      margin-top: 1rem;
+    }
+    .searchButton {
+      width: 38%;
+      padding: 10px;
+      margin-top: 1rem;
+    }
+    button, a {
+      background-color: $primary;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  }
+
+  button:hover {
+    background-color: #545454;
+  }
+
+  .explorerListWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .explorerList {
+      width: 66%;
+      margin-top: 1rem;
+    }
+    .openSearchForm {
+      width: 30%;
+      padding: 10px;
+      margin-top: 1rem;
+    }
+    button, a {
+      background-color: $primary;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background-color: #545454;
+    }
+  }
+
+}
