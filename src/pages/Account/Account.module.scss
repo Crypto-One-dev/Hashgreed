@@ -6,14 +6,28 @@
   .header {
     background-color: $primary;
     color: white;
-    margin-bottom: 100px;
+    @media(max-width: $mobileClose) {
+      display: none;
+    }
+    margin-bottom: 30px;
   }
   .container {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    @media (max-width: $mobileClose) {
+      flex-direction: column;
+      .item {
+        margin: 15px 0;
+      }
+    }
+    @media (min-width: $desktopOpen) {
+      flex-direction: row;
+      .item {
+        margin: 0 15px;
+      }
+    }
     .item {
-      width: 30%;
+      flex: 1;
       background-color: white;
       border-radius: 20px;
       padding: 20px;
@@ -29,13 +43,12 @@
           padding: 10px;
           border-radius: 10px;
           margin-bottom: 25px;
-          svg {
+          img {
             margin: auto;
-            width: 100px;
+            width: 50%;
           }
         }
         .stepText {
-          color: $primary;
           font-weight: bold;
         }
         .stepTitle {

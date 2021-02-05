@@ -5,16 +5,22 @@
   width: 100%;
   padding: 20px;
   .header {
-    background-color: $primary;
     color: white;
     margin-top: 1rem;
     margin-bottom: 2rem;
+    position: relative;
+    .openIcon {
+      font-size: 25px;
+      position: absolute;
+      right: 5px;
+      top: 3px;
+    }
   }
   .container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     .item {
       width: 48%;
       background-color: white;
@@ -56,6 +62,7 @@
     width: 100%;
     color: $primary;
     border: dotted 1px #d359a6;
+    outline: initial;
     padding: 10px;
     margin-top: 1rem;
   }
@@ -71,6 +78,7 @@
       width: 60%;
       color: $primary;
       border: dotted 1px #d359a6;
+      outline: initial;
       padding: 10px;
       margin-top: 1rem;
     }

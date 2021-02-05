@@ -1,51 +1,62 @@
-import React, {useContext} from 'react';
-import cx from 'classnames';
+import React, {useContext, useState} from 'react';
 import { Button } from '@chakra-ui/react';
-import {FaCertificate} from "react-icons/all";
-import {FaFileAlt} from "react-icons/all";
+import cx from 'classnames';
+import {RiArrowDownCircleLine, FaCertificate, FaFileAlt} from "react-icons/all";
 
 import ThemeContext from "context/UserContext";
 import Text from 'component/Text/Text';
-import Balances from 'component/Balances/Balances';
 import styles from './VerificationExplorer.module.scss';
+import themes from 'theme';
 
 export default function VerificationExplorer() {
-    const {theme, userInfo, setUserInfo} = useContext(ThemeContext);
+    const {theme} = useContext(ThemeContext);
+    const [isSearchOpen, openSearchForm] = useState(false);
 
     return (
         <div className={styles.wrapper}>
-            <Balances userInfo={userInfo} />
-            <div className={styles.header} style={{backgroundColor: theme.primaryColor}}>
-              VERIFICATION EXPLORER
-            </div>
-            <div className={styles.container}>
-                <div className={styles.item} style={{backgroundColor: theme.itemBackground}}>
-                    <div className={styles.itemMain}>
-                        <FaCertificate className={styles.iconSize}/>
-                        <Text className={styles.selectText} style={{color: theme.primaryColor}}>Select or Drop a</Text>
-                        <Text className={styles.boldText} style={{color: theme.primaryColor}}>Proof Of Certification</Text>
+            <div style={{display: isSearchOpen ? 'block' : 'none'}}>
+                <div className={cx(styles.header, styles.clickable)} style={{backgroundColor: theme.primaryColor}} onClick={() => openSearchForm(false)}>
+                    <span>VERIFICATION EXPLORER</span>
+                    <RiArrowDownCircleLine className={styles.openIcon} />
+                </div>
+                <div className={styles.container}>
+                    <div
+                        className={styles.item}
+                        style={{backgroundColor: theme.itemBackground, borderColor: theme === themes.waves ? theme.primaryColor : themes.regular.primaryColor}}
+                    >
+                        <div className={styles.itemMain} style={{color: theme === themes.waves ? theme.primaryText : themes.regular.primaryText}}>
+                            <FaCertificate className={styles.iconSize}/>
+                            <Text className={styles.selectText} style={{color: theme === themes.waves ? theme.primaryText : themes.regular.primaryText}}>Select or Drop a</Text>
+                            <Text className={styles.boldText} style={{color: theme === themes.waves ? theme.primaryText : themes.regular.primaryText}}>Proof Of Certification</Text>
+                        </div>
+                    </div>
+                    <div className={styles.item} style={{backgroundColor: theme.itemBackground}}>
+                        <div className={styles.itemMain}>
+                            <FaFileAlt className={styles.iconSize} style={{color: theme === themes.waves ? theme.primaryText : themes.regular.primaryText}}/>
+                            <Text className={styles.selectText} style={{color: theme === themes.waves ? theme.primaryText : themes.regular.primaryText}}>Select or Drop a</Text>
+                            <Text className={styles.boldText} style={{color: theme === themes.waves ? theme.primaryText : themes.regular.primaryText}}>File to hash</Text>
+                        </div>
                     </div>
                 </div>
-                <div className={styles.item} style={{backgroundColor: theme.itemBackground}}>
-                    <div className={styles.itemMain}>
-                        <FaFileAlt className={styles.iconSize}/>
-                        <Text className={styles.selectText} style={{color: theme.primaryColor}}>Select or Drop a</Text>
-                        <Text className={styles.boldText} style={{color: theme.primaryColor}}>File to hash</Text>
-                    </div>
+                <input className={styles.inputText} style={{backgroundColor: theme.itemBackground}} placeholder="Transaction ID"/>
+                <input className={styles.inputText} style={{backgroundColor: theme.itemBackground}} placeholder="File Hash or Message ID"/>
+                <div className={styles.referenceWrapper}>
+                    <input className={styles.referenceText} style={{backgroundColor: theme.itemBackground}} placeholder="Reference"/>
+                    <Button className={styles.searchButton} style={{backgroundColor: theme === themes.waves ? theme.primaryColor : themes.regular.primaryColor}}>SEARCH</Button>
                 </div>
-            </div>
-            <input className={styles.inputText} placeholder="Transaction ID"/>
-            <input className={styles.inputText} placeholder="File Hash or Message ID"/>
-            <div className={styles.referenceWrapper}>
-                <input className={styles.referenceText} placeholder="Reference"/>
-                <Button className={styles.searchButton}>SEARCH</Button>
             </div>
             <div className={styles.header} style={{backgroundColor: theme.primaryColor}}>
                 RESULT(S)
             </div>
             <div className={styles.explorerListWrapper}>
                 <div className={styles.explorerList}></div>
-                <Button className={styles.openSearchForm}>OPEN SEARCH FORM</Button>
+                <Button
+                    className={styles.openSearchForm}
+                    onClick={() => openSearchForm(!isSearchOpen)}
+                    style={{backgroundColor: theme === themes.waves ? theme.primaryColor : themes.regular.primaryColor}}
+                >
+                    {isSearchOpen ? 'CLOSE' : 'OPEN'} SEARCH FORM
+                </Button>
             </div>
         </div>
     )

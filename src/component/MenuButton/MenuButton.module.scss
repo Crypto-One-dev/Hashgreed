@@ -1,28 +1,24 @@
 @import "styles";
 
 .main {
-  .inActiveButton {
-    background: transparent;
-    color: black;
+  border-bottom: solid 1px ;
+  border-radius: 5px 0 0 5px;
+  .menuButton {
     width: 220px;
+    height: 35px;
     text-align: right;
     justify-content: flex-end;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
-    &:hover {
-      background-color: $primary;
+    padding-right: 10px;
+  }
+  .inactive {
+    &:not(:hover) {
+      background-color: transparent !important;
     }
   }
-  .activeButton {
-    background-color: $primary;
-    color: white;
-    width: 220px;
-    text-align: right;
-    justify-content: flex-end;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    &:hover {
-      background-color: $primary;
-    }
+  .active {
+    color: white !important;
+    padding-right: 15px;
   }
 }

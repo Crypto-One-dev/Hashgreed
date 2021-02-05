@@ -1,3 +1,12 @@
 
-$bg1: #f7f7f7;
 $primary: #d359a6;
+$hover: #545454;
+$mobileClose: 997px;
+$desktopOpen: 998px;
+
+.clickable {
+  cursor: pointer;
+  &:hover:enabled {
+    background-color: $hover !important;
+  }
+}

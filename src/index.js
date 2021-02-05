@@ -11,7 +11,7 @@ import ThemeContext from 'context/UserContext';
 import themes from 'theme';
 
 const App = () => {
-  const [theme, setTheme] = useState(themes.light)
+  const [theme, setTheme] = useState(themes.regular)
   const [userInfo, setUserInfo] = useState({})
   return (
     <ThemeContext.Provider value={{theme, setTheme, userInfo, setUserInfo}}>

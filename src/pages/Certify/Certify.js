@@ -5,7 +5,7 @@ import { FaLock } from 'react-icons/fa';
 import { Button } from '@chakra-ui/react';
 
 import ThemeContext from 'context/UserContext';
-import {ColorModeSwitcher} from 'component/ColorModeSwitcher';
+import {ColorModeSwitcher} from 'component/ColorModeSwitcher/ColorModeSwitcher';
 import Text from 'component/Text/Text';
 import styles from './Certify.module.scss';
 import Balances from 'component/Balances/Balances';
