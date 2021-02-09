@@ -1,0 +1,26 @@
+@import 'styles';
+
+.main {
+  padding: 15px;
+  .prices {
+    display: flex;
+    flex-direction: row;
+    margin: 30px 0;
+    
+    @media (max-width: $mobileClose) {
+      flex-direction: column;
+      margin: 0;
+    }
+  }
+
+  .header {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  .subheader {
+    font-size: 16px;
+    text-align: left;
+    margin-bottom: 15px;
+  }
+}

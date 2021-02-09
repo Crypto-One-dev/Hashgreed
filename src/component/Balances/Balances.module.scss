@@ -1,19 +1,39 @@
+@import 'styles';
+
 .balances {
-  background-color: white;
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  padding: 15px;
+
+  @media (max-width: $mobileClose) {
+    display: none;
+  }
+
   .balance {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin: 0 15px;
+    font-size: 14px;
     .title {
-      font-size: 18px;
       font-weight: bold;
     }
     .amount {
-      font-size: 16px;
+      display: flex;
+      align-items: center;
+      .creditIcon {
+        font-size: 15px;
+        color: $primary;
+        margin-right: 5px;
+      }
+      .wavesIcon {
+        width: 8px;
+        height: 8px;
+        margin-right: 5px;
+        background-color: #1f5af6;
+        transform: rotate(-45deg);
+      }
     }
   }
 }

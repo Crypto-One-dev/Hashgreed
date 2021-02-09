@@ -4,7 +4,6 @@
   max-width: 1000px;
   padding: 20px;
   .header {
-    background-color: $primary;
     color: white;
     @media(max-width: $mobileClose) {
       display: none;

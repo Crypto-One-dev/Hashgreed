@@ -1,28 +1,51 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {FaCertificate} from "react-icons/all";
 
+import logo from 'assets/logo.png';
+import ThemeContext from 'context/UserContext';
+import walletContainer from 'redux/containers/wallet';
 import styles from './Balances.module.scss';
 
-const Balances = ({ userInfo }) => {
+const Balances = ({ walletState }) => {
+  const {theme} = useContext(ThemeContext);
+
   return (
-    <div className={styles.balances}>
-      {userInfo.balances ? (
-        userInfo.balances.map(balance => {
-          console.log('amount', balance.amount, balance.decimals, balance.amount / Math.pow(10, balance.decimals))
-          return (
-          <div key={balance.assetId} className={styles.balance}>
-            <span className={styles.title}>{balance.assetName}</span>
-            <span className={styles.amount}>{balance.amount / Math.pow(10, balance.decimals)}</span>
-          </div>
-        )})
+    <div className={styles.balances} style={{backgroundColor: theme.balancesBack, color: theme.primaryText}}>
+      {walletState.address ? (
+        <div className={styles.balance}>
+          <span className={styles.title}>CREDIT</span>
+          <span className={styles.amount}>
+            <FaCertificate className={styles.creditIcon}/>
+            {walletState.credit}
+          </span>
+        </div>
       ) : null}
-      {userInfo.address ? (
+      {walletState.address ? (
+        <div className={styles.balance}>
+          <span className={styles.title}>HASH Balance</span>
+          <span className={styles.amount}>
+            <img src={logo} alt="logo" style={{height: 15}} />
+            {walletState.token_balance}
+          </span>
+        </div>
+      ) : null}
+      {walletState.address ? (
+        <div className={styles.balance}>
+          <span className={styles.title}>WAVES Balance</span>
+          <span className={styles.amount}>
+            <div className={styles.wavesIcon}></div>
+            {walletState.waves_balance}
+          </span>
+        </div>
+      ) : null}
+      {walletState.address ? (
         <div className={styles.balance}>
           <span className={styles.title}>Your address</span>
-          <span className={styles.amount}>{userInfo.address}</span>
+          <span className={styles.amount}>{walletState.address}</span>
         </div>
       ) : null}
     </div>
   )
 }
 
-export default Balances;
+export default walletContainer(Balances);

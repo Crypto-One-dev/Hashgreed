@@ -2,7 +2,7 @@ const themes = {
   regular: {
     itemBackground: '#ffffff',
     grayText: '#707070',
-    textColor: 'black',
+    textColor: '#000000',
     imgWrapper: '#ffffff',
 
     menuItemBorder: '#d8d8d8',
@@ -14,11 +14,16 @@ const themes = {
     secondaryBack: "#f7f7f7",
     buttonBack: '#d359a6',
     hamburger: '#000000',
+    balancesBack: '#ffffff',
+    overviewPriceBack: '#ffffff',
+    overviewPriceBorder: '#d359a6',
+    overviewPrimaryText: '#d359a6',
+    overviewSecondaryText: '#000000',
   },
   dark: {
     itemBackground: '#35364e',
     grayText: '#aa91d8',
-    textColor: 'white',
+    textColor: '#ffffff',
     imgWrapper: '#7a7298',
 
     menuItemBorder: '#151519',
@@ -30,11 +35,16 @@ const themes = {
     secondaryBack: "#7a7298",
     buttonBack: '#d359a6',
     hamburger: '#ffffff',
+    balancesBack: '#1d1e27',
+    overviewPriceBack: '#35364e',
+    overviewPriceBorder: '#8a2e87',
+    overviewPrimaryText: '#ffffff',
+    overviewSecondaryText: '#ffffff',
   },
   waves: {
     itemBackground: '#ffffff',
     grayText: '#707070',
-    textColor: 'white',
+    textColor: '#ffffff',
     imgWrapper: '#ffffff',
     
     menuItemBorder: '#d8d8d8',
@@ -46,6 +56,11 @@ const themes = {
     secondaryBack: "#f7f7f7",
     buttonBack: '#0055ff',
     hamburger: '#000000',
+    balancesBack: '#ffffff',
+    overviewPriceBack: '#0055ff',
+    overviewPriceBorder: '#0055ff',
+    overviewPrimaryText: '#ffffff',
+    overviewSecondaryText: '#ffffff',
   }
 };
 

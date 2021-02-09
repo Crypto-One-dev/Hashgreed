@@ -5,13 +5,13 @@ import { FaLock } from 'react-icons/fa';
 import { Button } from '@chakra-ui/react';
 
 import ThemeContext from 'context/UserContext';
-import {ColorModeSwitcher} from 'component/ColorModeSwitcher/ColorModeSwitcher';
+import ColorModeSwitcher from 'component/ColorModeSwitcher/ColorModeSwitcher';
 import Text from 'component/Text/Text';
 import styles from './Certify.module.scss';
 import Balances from 'component/Balances/Balances';
 
 export default function Certify() {
-  const {theme, setTheme, userInfo} = useContext(ThemeContext);
+  const {theme, setTheme} = useContext(ThemeContext);
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
   }, [])
@@ -21,7 +21,7 @@ export default function Certify() {
   return (
     <div className={styles.main} style={{backgroundColor: theme.background}}>
       <div className={styles.wrapper}>
-        <Balances userInfo={userInfo} />
+        <Balances />
         <div className={styles.header} style={{backgroundColor: theme.primaryColor}}>CERTIFY A FILE</div>
         <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />
         <div className={styles.container}>

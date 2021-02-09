@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
+import { Provider as ReduxProvider } from "react-redux"
 import {
   ChakraProvider,
   Box,
@@ -8,19 +9,24 @@ import {
 import Routes from './routes';
 import reportWebVitals from './reportWebVitals';
 import ThemeContext from 'context/UserContext';
+import configureStore from "redux/store"
 import themes from 'theme';
+
+const reduxStore = configureStore(window.REDUX_INITIAL_DATA)
 
 const App = () => {
   const [theme, setTheme] = useState(themes.regular)
-  const [userInfo, setUserInfo] = useState({})
+  const [activeMenu, setActiveMenu] = useState(0)
   return (
-    <ThemeContext.Provider value={{theme, setTheme, userInfo, setUserInfo}}>
+    <ThemeContext.Provider value={{theme, setTheme, activeMenu, setActiveMenu}}>
       <ChakraProvider>
-        <Box textAlign="center" fontSize="xl">
-          <Grid minH="100vh">
-            <Routes />
-          </Grid>
-        </Box>
+        <ReduxProvider store={reduxStore}>
+          <Box textAlign="center" fontSize="xl">
+            <Grid minH="100vh">
+              <Routes />
+            </Grid>
+          </Box>
+        </ReduxProvider>
       </ChakraProvider>
     </ThemeContext.Provider>
   )

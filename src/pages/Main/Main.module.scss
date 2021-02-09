@@ -31,14 +31,53 @@
       box-shadow: 3px -3px 12px -5px rgba(0,0,0,0.4);
       transition: all .4s ease;
       padding-top: 15px;
-      img {
+      .logo {
         margin-bottom: 30px;
+        height: 77px;
         @media (max-width: $mobileClose) {
           display: none;
         }
       }
       .colorModeSwitcher {
         margin: 50px 20px 0px 0px;
+      }
+
+      .balances {
+        display: flex;
+        flex-direction: column;
+        margin-top: 30px;
+        width: 100%;
+      
+        @media (min-width: $desktopOpen) {
+          display: none;
+        }
+      
+        .balance {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 5px 0;
+          font-size: 14px;
+          .title {
+            font-weight: bold;
+          }
+          .amount {
+            display: flex;
+            align-items: center;
+            .creditIcon {
+              font-size: 15px;
+              color: $primary;
+              margin-right: 5px;
+            }
+            .wavesIcon {
+              width: 8px;
+              height: 8px;
+              margin-right: 5px;
+              background-color: #1f5af6;
+              transform: rotate(-45deg);
+            }
+          }
+        }
       }
     } 
     .closemenu {

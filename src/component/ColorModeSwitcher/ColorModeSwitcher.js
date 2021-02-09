@@ -1,11 +1,11 @@
 import React from 'react';
 import cx from 'classnames';
 import { Tooltip  } from '@chakra-ui/react';
-import styles from './ColorModeSwitcher.module.scss';
 
 import themes from 'theme';
+import styles from './ColorModeSwitcher.module.scss';
 
-export const ColorModeSwitcher = props => {
+const ColorModeSwitcher = props => {
   return (
     <div className={styles.main}>
       <Tooltip hasArrow label="Regular">
@@ -29,3 +29,5 @@ export const ColorModeSwitcher = props => {
     </div>
   );
 };
+
+export default ColorModeSwitcher

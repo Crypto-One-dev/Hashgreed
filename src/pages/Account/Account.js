@@ -1,39 +1,30 @@
 import React, {useContext} from 'react';
 import cx from 'classnames';
 import {Button} from '@chakra-ui/react';
-import {Signer} from '@waves/signer';
-import Provider from '@waves.exchange/provider-web';
-import {Link as ReactRouterLink} from 'react-router-dom';
 
-import ThemeContext from 'context/UserContext';
-import Text from 'component/Text/Text';
 import Step1 from 'assets/step1.svg';
 import Step2 from 'assets/step2.svg';
 import Step3 from 'assets/step3.svg';
+import Text from 'component/Text/Text';
+import WavesConfig from 'config/waves';
+import ThemeContext from 'context/UserContext';
+import walletContainer from 'redux/containers/wallet';
+import WavesUtils from 'utils/waves'
 import styles from './Account.module.scss';
 
-export default function Account() {
-  const {theme, userInfo, setUserInfo} = useContext(ThemeContext);
-
-  const onSign = async () => {
-    const signer = new Signer({
-      // Specify URL of the node on Testnet
-      NODE_URL: 'https://nodes.wavesnodes.com'
-    });
-    signer.setProvider(new Provider('https://waves.exchange/signer/'))
-    const user = await signer.login();
-    const balances = await signer.getBalance();
-    console.log('balance', balances)
-    console.log('user', user)
-    setUserInfo({...user, balances});
-  }
+function Account({walletState, walletActions}) {
+  const {theme, setActiveMenu} = useContext(ThemeContext);
 
   const onManageAccount = () => {
-    window.open('https://waves.exchange/sign-in');
+    window.open(WavesConfig.ACCOUNT_URL);
+  }
+
+  const onSign =() => {
+    WavesUtils.unlockWallet(walletActions.unlockWallet, walletActions.lockWallet)
   }
 
   const onSwitchAccount = () => {
-    setUserInfo({});
+    walletActions.lockWallet();
     onSign();
   }
 
@@ -41,7 +32,7 @@ export default function Account() {
     <div className={styles.wrapper}>
       <div className={styles.header} style={{backgroundColor: theme.primaryColor}}>FOLLOW THE STEPS TO USE OUR APPLICATION</div>
       <div className={styles.container}>
-        <div className={cx(styles.item, userInfo.address && styles.blur)} style={{backgroundColor: theme.itemBackground}}>
+        <div className={cx(styles.item, walletState.address && styles.blur)} style={{backgroundColor: theme.itemBackground}}>
           <div className={styles.itemMain}>
             <div className={styles.imgWrapper} style={{backgroundColor: theme.imgWrapper, color: theme.primaryText}}>
               <img src={Step1} alt="STEP1" />
@@ -56,12 +47,12 @@ export default function Account() {
             onClick={onSign}
             className={styles.clickable}
             style={{backgroundColor: theme.buttonBack}}
-            disabled={userInfo.address}
+            disabled={walletState.address}
           >
             SIGN IN
           </Button>
         </div>
-        <div className={cx(styles.item, !userInfo.address && styles.blur)} style={{backgroundColor: theme.itemBackground}}>
+        <div className={cx(styles.item, !walletState.address && styles.blur)} style={{backgroundColor: theme.itemBackground}}>
           <div className={styles.itemMain}>
             <div className={styles.imgWrapper} style={{backgroundColor: theme.imgWrapper, color: theme.primaryText}}>
               <img src={Step2} alt="STEP2" />
@@ -73,17 +64,16 @@ export default function Account() {
             </Text>
           </div>
           <Button
-            as={ReactRouterLink}
-            to={'/certify'}
+            onClick={() => setActiveMenu('CERTIFY')}
             className={styles.clickable}
             style={{backgroundColor: theme.buttonBack}}
-            disabled={!userInfo.address}
+            disabled={!walletState.address}
           >
             CERTIFY NOW
           </Button>
-          { userInfo.address && <Button className={styles.switchAccount} onClick={onSwitchAccount}>SWITCH ACCOUNT</Button>}
+          { walletState.address && <Button className={styles.switchAccount} onClick={onSwitchAccount}>SWITCH ACCOUNT</Button>}
         </div>
-        <div className={cx(styles.item, !userInfo.address && styles.blur)} style={{backgroundColor: theme.itemBackground}}>
+        <div className={cx(styles.item, !walletState.address && styles.blur)} style={{backgroundColor: theme.itemBackground}}>
           <div className={styles.itemMain}>
             <div className={styles.imgWrapper} style={{backgroundColor: theme.imgWrapper, color: theme.primaryText}}>
               <img src={Step3} alt="STEP3" />
@@ -98,7 +88,7 @@ export default function Account() {
             onClick={onManageAccount}
             className={styles.clickable}
             style={{backgroundColor: theme.buttonBack}}
-            disabled={!userInfo.address}
+            disabled={!walletState.address}
           >
             MANAGE ACCOUNTS
           </Button>
@@ -118,3 +108,5 @@ export default function Account() {
     </div>
   )
 }
+
+export default walletContainer(Account);
