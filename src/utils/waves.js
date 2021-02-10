@@ -43,7 +43,8 @@ const getBalance = async (callback, error_callback) => {
     console.error(e)
   }
 }
-export default {
+const WavesUtils = {
   unlockWallet,
   getBalance,
 }
+export default WavesUtils;

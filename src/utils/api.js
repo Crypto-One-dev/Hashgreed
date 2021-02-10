@@ -28,7 +28,9 @@ const getTransactions = async (address, callback) => {
   }
 }
 
-export default {
+const ApiUtils = {
   getPrice,
   getTransactions,
 }
+
+export default ApiUtils

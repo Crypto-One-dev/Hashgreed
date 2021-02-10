@@ -19,6 +19,10 @@ const themes = {
     overviewPriceBorder: '#d359a6',
     overviewPrimaryText: '#d359a6',
     overviewSecondaryText: '#000000',
+    overviewTransactionArrow: '#d359a6',
+    overviewTransactionTimestamp: '#d359a6',
+    overviewTransactionId: '#a2a2a2',
+    overviewTransactionEnvelope: '#868686',
   },
   dark: {
     itemBackground: '#35364e',
@@ -40,6 +44,10 @@ const themes = {
     overviewPriceBorder: '#8a2e87',
     overviewPrimaryText: '#ffffff',
     overviewSecondaryText: '#ffffff',
+    overviewTransactionArrow: '#d6d0e0',
+    overviewTransactionTimestamp: '#8f7ab7',
+    overviewTransactionId: '#8f7ab7',
+    overviewTransactionEnvelope: '#d6d0e0',
   },
   waves: {
     itemBackground: '#ffffff',
@@ -61,6 +69,10 @@ const themes = {
     overviewPriceBorder: '#0055ff',
     overviewPrimaryText: '#ffffff',
     overviewSecondaryText: '#ffffff',
+    overviewTransactionArrow: '#0055ff',
+    overviewTransactionTimestamp: '#0055ff',
+    overviewTransactionId: '#a2a2a2',
+    overviewTransactionEnvelope: '#868686',
   }
 };
 
