@@ -38,6 +38,16 @@ function Main({walletState, walletActions}) {
       }
     }
   }, [walletState.address, walletActions])
+
+  const [manageTokenShow, ShowManageToken] = useState(false);
+  const toggleManageToken = () => {
+    ShowManageToken(!manageTokenShow);
+  }
+
+  const [certificationToolsShow, ShowCertificationTools] = useState(false);
+  const toggleCertificationTools = () => {
+    ShowCertificationTools(!certificationToolsShow);
+  }
   
   return (
     <div className={styles.main} style={{backgroundColor: theme.background}}>
@@ -52,6 +62,42 @@ function Main({walletState, walletActions}) {
             walletState.address ?
               <>
                 <MenuButton active={activeMenu === 'OVERVIEW'} onClick={() => openMenu('OVERVIEW')}>Overview</MenuButton>
+              </>
+            :
+              null
+          }
+          {
+            walletState.address ?
+              <>
+                <MenuButton onClick={() => toggleManageToken()}>Manage Token</MenuButton>
+                {
+                  manageTokenShow ?
+                    <>
+                      <MenuButton active={activeMenu === 'RECEIVE'} sub={true} onClick={() => openMenu('RECEIVE')}>Receive</MenuButton>
+                      <MenuButton active={activeMenu === 'SEND'} sub={true} onClick={() => openMenu('SEND')}>Send</MenuButton>
+                      <MenuButton active={activeMenu === 'MASS'} sub={true} onClick={() => openMenu('MASS')}>Mass Send</MenuButton>
+                    </>
+                  :
+                    null
+                }
+              </>
+            :
+              null
+          }
+          {
+            walletState.address ?
+              <>
+                <MenuButton onClick={() => toggleCertificationTools()}>Certification Tools</MenuButton>
+                {
+                  certificationToolsShow ?
+                    <>
+                      <MenuButton active={activeMenu === 'FILE'} sub={true} onClick={() => openMenu('FILE')}>File Certification</MenuButton>
+                      <MenuButton active={activeMenu === 'EMAIL'} sub={true} onClick={() => openMenu('EMAIL')}>Email Certification</MenuButton>
+                      <MenuButton active={activeMenu === 'MUTUAL'} sub={true} onClick={() => openMenu('MUTUAL')}>Mutual Certification</MenuButton>
+                    </>
+                  :
+                    null
+                }
               </>
             :
               null
@@ -101,16 +147,10 @@ function Main({walletState, walletActions}) {
           walletState.address ? <Balances /> : null
         }
         {
-          activeMenu === 'OVERVIEW' ? <Overview /> : null
-        }
-        {
-          activeMenu === 'CERTIFY' ? <Certify /> : null
-        }
-        {
-          activeMenu === 'VERIFICATION' ? <VerificationExplorer /> : null
-        }
-        {
-          !activeMenu ? <Account /> : null
+          walletState.address && activeMenu === 'OVERVIEW' ? <Overview /> :
+          walletState.address && activeMenu === 'CERTIFY' ? <Certify /> :
+          activeMenu === 'VERIFICATION' ? <VerificationExplorer /> :
+          <Account />
         }
       </div>
     </div>

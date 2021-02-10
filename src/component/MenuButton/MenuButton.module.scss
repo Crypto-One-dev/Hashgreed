@@ -17,6 +17,11 @@
       background-color: transparent !important;
     }
   }
+  .subinactive {
+    &:not(:hover) {
+      background-color: #f7f7f7 !important;
+    }
+  }
   .active {
     color: white !important;
     padding-right: 15px;

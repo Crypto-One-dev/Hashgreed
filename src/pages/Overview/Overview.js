@@ -14,11 +14,13 @@ function Overview({walletState, priceState, priceActions}) {
   useEffect(() => {
     let interval = -1
     if(walletState.address) {
-      interval = setInterval(() => {
+      const proc = () => {
         ApiUtils.getPrice('signaturechain', 'TOKEN', priceActions.setPrice);
         ApiUtils.getPrice('waves', 'WAVES', priceActions.setPrice);
         ApiUtils.getTransactions(walletState.address, setTransactions);
-      }, 1000)
+      }
+      proc()
+      interval = setInterval(proc, 10000)
     }
   
     return () => {

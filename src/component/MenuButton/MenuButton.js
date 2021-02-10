@@ -3,9 +3,10 @@ import { Button } from '@chakra-ui/react';
 import cx from 'classnames';
 
 import ThemeContext from 'context/UserContext';
+import themes from 'theme';
 import styles from './MenuButton.module.scss';
 
-const MenuButton = ({children, active, ...props}) => {
+const MenuButton = ({children, active, sub, ...props}) => {
   const {theme} = useContext(ThemeContext);
   return (
     <div
@@ -13,7 +14,7 @@ const MenuButton = ({children, active, ...props}) => {
       style={{borderBottomColor: theme.menuItemBorder}}
     >
       <Button
-        className={cx(styles.menuButton, active ? styles.active : styles.inactive)}
+        className={cx(styles.menuButton, active ? styles.active : sub && theme !== themes.dark ? styles.subinactive : styles.inactive)}
         style={{backgroundColor: theme.buttonBack, color: theme.primaryText}}
         fontWeight={400}
         {...props}

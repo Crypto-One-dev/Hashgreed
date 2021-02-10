@@ -79,6 +79,8 @@
   }
   .bottomText {
     margin-top: 50px;
+    display: flex;
+    flex-direction: column;
     .text {
       font-size: 14px;
       font-weight: 400;
