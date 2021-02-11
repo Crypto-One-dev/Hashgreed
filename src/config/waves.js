@@ -11,9 +11,13 @@ const NodeUrls = {
   'testnet': 'https://nodes-testnet.wavesnodes.com',
   'prod': 'https://nodes.wavesexplorer.com'
 }
-const ProviderUrls = {
+const SeedProviderUrls = {
   'testnet': 'https://testnet.waves.exchange/signer/',
   'prod': 'https://waves.exchange/signer/'
+}
+const CloudProviderUrls = {
+  'testnet': 'https://testnet.waves.exchange/signer-cloud/',
+  'prod': 'https://waves.exchange/signer-cloud/'
 }
 const explorerUrls = {
   'testnet': 'https://testnet.wavesexplorer.com',
@@ -35,7 +39,8 @@ const AccountUrls = {
 const config = {
   WAVES_PLATFORM: REACT_APP_WAVES_PLATFORM,
   NODE_URL: NodeUrls[REACT_APP_WAVES_PLATFORM],
-  PROVIDER_URL: ProviderUrls[REACT_APP_WAVES_PLATFORM],
+  SEED_PROVIDER_URL: SeedProviderUrls[REACT_APP_WAVES_PLATFORM],
+  CLOUD_PROVIDER_URL: CloudProviderUrls[REACT_APP_WAVES_PLATFORM],
   EXPLORER_URL: explorerUrls[REACT_APP_WAVES_PLATFORM],
   API_URL: apiUrls[REACT_APP_WAVES_PLATFORM],
   TOKEN_ID: REACT_APP_TOKEN_ASSET_ID,

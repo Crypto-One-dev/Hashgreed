@@ -3,10 +3,10 @@ import Provider from '@waves.exchange/provider-web'
 
 import WavesConfig from 'config/waves'
 
-const unlockWallet = async (callback, error_callback) => {
+const unlockWallet = async (link, callback, error_callback) => {
   try {
     window.waves = new Signer({NODE_URL: WavesConfig.NODE_URL})
-    const provider = new Provider(WavesConfig.PROVIDER_URL)
+    const provider = new Provider(link === 'SEED' ? WavesConfig.SEED_PROVIDER_URL : WavesConfig.CLOUD_PROVIDER_URL)
     window.waves.setProvider(provider)
     const user = await window.waves.login()
     if(callback) {
