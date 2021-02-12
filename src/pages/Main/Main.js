@@ -11,6 +11,7 @@ import Account from 'pages/Account/Account';
 import Certify from 'pages/Certify/Certify';
 import Overview from 'pages/Overview/Overview';
 import Receive from 'pages/Receive/Receive';
+import Send from 'pages/Send/Send';
 import VerificationExplorer from 'pages/VerificationExplorer/VerificationExplorer';
 import walletContainer from 'redux/containers/wallet'
 import WavesUtils from 'utils/waves'
@@ -148,11 +149,12 @@ function Main({walletState, walletActions}) {
           walletState.address ? <Balances /> : null
         }
         {
-          walletState.address && activeMenu === 'OVERVIEW' ? <Overview /> :
-          walletState.address && activeMenu === 'CERTIFY' ? <Certify /> :
-          walletState.address && activeMenu === 'RECEIVE' ? <Receive /> :
-          activeMenu === 'VERIFICATION' ? <VerificationExplorer /> :
-          <Account />
+          walletState.address && activeMenu === 'OVERVIEW'      ? <Overview /> :
+          walletState.address && activeMenu === 'CERTIFY'       ? <Certify /> :
+          walletState.address && activeMenu === 'RECEIVE'       ? <Receive /> :
+          walletState.address && activeMenu === 'SEND'          ? <Send /> :
+                                 activeMenu === 'VERIFICATION'  ? <VerificationExplorer /> :
+                                                                  <Account />
         }
       </div>
     </div>

@@ -6,7 +6,7 @@ $desktopOpen: 998px;
 
 .clickable {
   cursor: pointer;
-  &:hover:enabled {
+  &:hover:not(:disabled) {
     background-color: $hover !important;
   }
 }

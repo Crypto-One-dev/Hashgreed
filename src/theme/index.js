@@ -37,7 +37,7 @@ const themes = {
     primaryText: '#d6d0e0',
     highlightText: '#ffffff',
     primaryBack: '#383250',
-    secondaryBack: "#7a7298",
+    secondaryBack: "#554f6d",
     buttonBack: '#d359a6',
     hamburger: '#ffffff',
     balancesBack: '#1d1e27',

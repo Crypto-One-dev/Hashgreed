@@ -62,7 +62,7 @@ function Receive({walletState}) {
           </div>
           <div className={styles.buttons} style={{color: theme.primaryText}}>
             <CopyToClipboard text={walletState.address}>
-              <span className={styles.button}>
+              <span className={styles.button} style={{marginRight: 30}}>
                 <FaPaste className={styles.icon} style={{color: theme.manageTokenHighlight}} />
                 Copy address
               </span>
