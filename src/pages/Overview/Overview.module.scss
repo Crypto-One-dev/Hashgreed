@@ -1,7 +1,8 @@
 @import 'styles';
 
 .main {
-  padding: 15px;
+  max-width: 1000px;
+  padding: 20px;
   .prices {
     display: flex;
     flex-direction: row;

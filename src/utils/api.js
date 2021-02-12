@@ -28,9 +28,20 @@ const getTransactions = async (address, callback) => {
   }
 }
 
+const getReceiveTransactions = async (address, callback) => {
+  try {
+    const receive = await axios.get(WavesConfig.API_URL + '/v0/transactions/transfer?limit=100&recipient=' + address + '&assetId=' + WavesConfig.TOKEN_ID)
+    if(callback)
+      callback(receive.data.data)
+  } catch(e) {
+    console.error(e)
+  }
+}
+
 const ApiUtils = {
   getPrice,
   getTransactions,
+  getReceiveTransactions,
 }
 
 export default ApiUtils

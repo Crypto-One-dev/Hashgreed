@@ -1,0 +1,66 @@
+@import 'styles';
+
+.main {
+  max-width: 1000px;
+  padding: 20px;  
+  .header {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  .subheader {
+    font-size: 16px;
+    text-align: left;
+    margin-bottom: 15px;
+  }
+  .info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 15px;
+    .address {
+      flex: 1;
+      margin-left: 30px;
+      text-align: left;
+      .balance {
+        font-size: 22px;
+      }
+      .status {
+        display: flex;
+        flex-direction: row;
+        margin: 15px 0;
+        font-size: 16px;
+        .label {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 15px;
+        }
+        .value {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          flex: 1;
+          padding: 15px;
+          border-style: dotted;
+          border-width: 1px;
+        }
+      }
+      .buttons {
+        display: flex;
+        flex-direction: row;
+        font-size: 16px;
+        .button {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin-right: 30px;
+          cursor: pointer;
+        }
+      }
+      .icon {
+        margin-right: 10px;
+      }
+    }
+  }
+}

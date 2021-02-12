@@ -23,6 +23,7 @@ const themes = {
     overviewTransactionTimestamp: '#d359a6',
     overviewTransactionId: '#a2a2a2',
     overviewTransactionEnvelope: '#868686',
+    manageTokenHighlight: '#d359a6',
   },
   dark: {
     itemBackground: '#35364e',
@@ -48,6 +49,7 @@ const themes = {
     overviewTransactionTimestamp: '#8f7ab7',
     overviewTransactionId: '#8f7ab7',
     overviewTransactionEnvelope: '#d6d0e0',
+    manageTokenHighlight: '#d6d0e0',
   },
   waves: {
     itemBackground: '#ffffff',
@@ -73,6 +75,7 @@ const themes = {
     overviewTransactionTimestamp: '#0055ff',
     overviewTransactionId: '#a2a2a2',
     overviewTransactionEnvelope: '#868686',
+    manageTokenHighlight: '#0055ff',
   }
 };
 

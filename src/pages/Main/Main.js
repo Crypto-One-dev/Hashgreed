@@ -10,6 +10,7 @@ import ThemeContext from 'context/UserContext';
 import Account from 'pages/Account/Account';
 import Certify from 'pages/Certify/Certify';
 import Overview from 'pages/Overview/Overview';
+import Receive from 'pages/Receive/Receive';
 import VerificationExplorer from 'pages/VerificationExplorer/VerificationExplorer';
 import walletContainer from 'redux/containers/wallet'
 import WavesUtils from 'utils/waves'
@@ -149,6 +150,7 @@ function Main({walletState, walletActions}) {
         {
           walletState.address && activeMenu === 'OVERVIEW' ? <Overview /> :
           walletState.address && activeMenu === 'CERTIFY' ? <Certify /> :
+          walletState.address && activeMenu === 'RECEIVE' ? <Receive /> :
           activeMenu === 'VERIFICATION' ? <VerificationExplorer /> :
           <Account />
         }
