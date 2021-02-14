@@ -1,14 +1,14 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import { Button, Checkbox, Input, Text, Tooltip } from '@chakra-ui/react';
+import { Button, Checkbox, Input, Text, Textarea, Tooltip } from '@chakra-ui/react';
 import cx from 'classnames';
 import {useDropzone} from 'react-dropzone';
 import {FaLock, RiArrowDownCircleLine} from "react-icons/all";
 
 import ThemeContext from "context/UserContext";
 import walletContainer from 'redux/containers/wallet';
-import styles from './File.module.scss';
+import styles from './Mutual.module.scss';
 
-function File({walletState}) {
+function Mutual({walletState}) {
     const {theme} = useContext(ThemeContext);
     const [isCertifyFormOpen, openCertifyForm] = useState(false);
     const [certifications, setCertifications] = useState([]);
@@ -17,7 +17,7 @@ function File({walletState}) {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-        //   ApiUtils.getFileCertifications(walletState.address, setCertifications);
+        //   ApiUtils.getMutualCertifications(walletState.address, setCertifications);
         }
         proc()
         interval = setInterval(proc, 10000)
@@ -39,12 +39,13 @@ function File({walletState}) {
         <div className={styles.wrapper}>
             <div style={{display: isCertifyFormOpen ? 'block' : 'none'}}>
                 <div className={cx(styles.header, styles.clickable)} style={{backgroundColor: theme.primaryColor}} onClick={() => openCertifyForm(false)}>
-                    <span>CERTIFY A FILE</span>
+                    <span>CERTIFY A MUTUAL AGREEMENT</span>
                     <RiArrowDownCircleLine className={styles.openIcon} />
                 </div>
                 <div style={{fontSize: 16, margin: '30px 0', color: theme.primaryText}}>
-                    <div>Click to select or drag and drop any type of file.</div>
-                    <div>Bigger files will take longer to compute. Max tested file size is 10 GB.</div>
+                    <div>Click to select or drag and drop the agreement document.</div>
+                    <div>Enter a reference for this contract and add the counterparts required to sign it.</div>
+                    <div>Creating an agreement automatically sign it with your account.</div>
                 </div>
                 <div className={styles.container}>
                     <div className={styles.dropContainer}>
@@ -81,6 +82,13 @@ function File({walletState}) {
                                     </Tooltip>
                                 </div>
                             </Checkbox>
+                            <div>
+                                <div className={styles.inputDiv}>
+                                    <Text color={theme.manageTokenHighlight}>Recipients addresses (5 max)</Text>
+                                    <Text color={theme.grayText} className={styles.description}>- Enter all counterparts with one address (no alias) per line.</Text>
+                                </div>
+                                <Textarea className={styles.textInput} style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                            </div>
                         </div>
                     </div>
                     <div className={styles.certificationFee}>
@@ -114,23 +122,23 @@ function File({walletState}) {
                             </div>
                         </div>
                         <Button className={cx(styles.certify, styles.clickable)} style={{backgroundColor: theme.buttonBack}}>
-                            CERTIFY FILE
+                            CREATE AGREEMENT
                         </Button>
                     </div>
                 </div>
             </div>
             <div className={styles.header} style={{backgroundColor: theme.primaryColor}}>
-                CERTIFIED FILE HISTORY
+                MUTUAL AGREEMENT HISTORY
             </div>
             <div className={styles.subheader} style={{color: theme.primaryText}}>
-                <span>Here is your last certified files</span>
+                <span>Here is your last certified agreements</span>
                 <Button
                     className={cx(styles.certifyForm, styles.clickable)}
                     onClick={() => openCertifyForm(!isCertifyFormOpen)}
                     style={{backgroundColor: theme.buttonBack}}
                 >
                     {
-                        isCertifyFormOpen ? 'CLOSE THE FORM' : 'CERTIFY NOW'
+                        isCertifyFormOpen ? 'CLOSE THE FORM' : 'CREATE AGREEMENT NOW'
                     }
                 </Button>
             </div>
@@ -144,4 +152,4 @@ function File({walletState}) {
     )
 }
 
-export default walletContainer(File);
+export default walletContainer(Mutual);

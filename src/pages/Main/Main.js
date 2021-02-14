@@ -11,6 +11,7 @@ import Account from 'pages/Account/Account';
 import Certify from 'pages/Certify/Certify';
 import File from 'pages/File/File';
 import MassSend from 'pages/MassSend/MassSend';
+import Mutual from 'pages/Mutual/Mutual';
 import Overview from 'pages/Overview/Overview';
 import Receive from 'pages/Receive/Receive';
 import Send from 'pages/Send/Send';
@@ -157,6 +158,7 @@ function Main({walletState, walletActions}) {
           walletState.address && activeMenu === 'SEND'          ? <Send /> :
           walletState.address && activeMenu === 'MASS'          ? <MassSend /> :
           walletState.address && activeMenu === 'FILE'          ? <File /> :
+          walletState.address && activeMenu === 'MUTUAL'        ? <Mutual /> :
                                  activeMenu === 'VERIFICATION'  ? <VerificationExplorer /> :
                                                                   <Account />
         }
