@@ -71,7 +71,7 @@ function Account({walletState, walletActions}) {
               </Text>
             </div>
             <Button
-              onClick={() => setActiveMenu('CERTIFY')}
+              onClick={() => setActiveMenu('FILE')}
               className={styles.clickable}
               style={{backgroundColor: theme.buttonBack}}
               disabled={!walletState.address}
