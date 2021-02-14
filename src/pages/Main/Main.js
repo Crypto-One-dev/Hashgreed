@@ -9,6 +9,7 @@ import MenuButton from 'component/MenuButton/MenuButton';
 import ThemeContext from 'context/UserContext';
 import Account from 'pages/Account/Account';
 import Certify from 'pages/Certify/Certify';
+import MassSend from 'pages/MassSend/MassSend';
 import Overview from 'pages/Overview/Overview';
 import Receive from 'pages/Receive/Receive';
 import Send from 'pages/Send/Send';
@@ -153,6 +154,7 @@ function Main({walletState, walletActions}) {
           walletState.address && activeMenu === 'CERTIFY'       ? <Certify /> :
           walletState.address && activeMenu === 'RECEIVE'       ? <Receive /> :
           walletState.address && activeMenu === 'SEND'          ? <Send /> :
+          walletState.address && activeMenu === 'MASS'          ? <MassSend /> :
                                  activeMenu === 'VERIFICATION'  ? <VerificationExplorer /> :
                                                                   <Account />
         }

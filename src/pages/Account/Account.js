@@ -78,7 +78,7 @@ function Account({walletState, walletActions}) {
             >
               CERTIFY NOW
             </Button>
-            { walletState.address && <Button className={cx(styles.switchAccount, styles.clickable)} onClick={onSwitchAccount}>SWITCH ACCOUNT</Button>}
+            { walletState.address && <Button className={cx(styles.switchAccount, styles.clickable)} style={{backgroundColor: theme.buttonBack}} onClick={onSwitchAccount}>SWITCH ACCOUNT</Button>}
           </div>
           <div className={cx(styles.item, !walletState.address && styles.blur)} style={{backgroundColor: theme.itemBackground}}>
             <div className={styles.itemMain}>

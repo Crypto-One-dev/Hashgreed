@@ -6,7 +6,6 @@ import {RiArrowDownCircleLine, FaCertificate, FaFileAlt} from "react-icons/all";
 import ThemeContext from "context/UserContext";
 import Text from 'component/Text/Text';
 import styles from './VerificationExplorer.module.scss';
-import themes from 'theme';
 
 export default function VerificationExplorer() {
     const {theme} = useContext(ThemeContext);
@@ -22,27 +21,27 @@ export default function VerificationExplorer() {
                 <div className={styles.container}>
                     <div
                         className={styles.item}
-                        style={{backgroundColor: theme.itemBackground, borderColor: theme === themes.waves ? theme.primaryColor : themes.regular.primaryColor}}
+                        style={{backgroundColor: theme.itemBackground, borderColor: theme.buttonBack}}
                     >
-                        <div className={styles.itemMain} style={{color: theme === themes.waves ? theme.primaryText : themes.regular.primaryText}}>
-                            <FaCertificate className={styles.iconSize}/>
-                            <Text className={styles.selectText} style={{color: theme === themes.waves ? theme.primaryText : themes.regular.primaryText}}>Select or Drop a</Text>
-                            <Text className={styles.boldText} style={{color: theme === themes.waves ? theme.primaryText : themes.regular.primaryText}}>Proof Of Certification</Text>
+                        <div className={styles.itemMain} style={{color: theme.buttonBack}}>
+                            <FaCertificate className={styles.iconSize} style={{color: theme.buttonBack}}/>
+                            <Text className={styles.selectText} style={{color: theme.buttonBack}}>Select or Drop a</Text>
+                            <Text className={styles.boldText} style={{color: theme.buttonBack}}>Proof Of Certification</Text>
                         </div>
                     </div>
                     <div className={styles.item} style={{backgroundColor: theme.itemBackground}}>
                         <div className={styles.itemMain}>
-                            <FaFileAlt className={styles.iconSize} style={{color: theme === themes.waves ? theme.primaryText : themes.regular.primaryText}}/>
-                            <Text className={styles.selectText} style={{color: theme === themes.waves ? theme.primaryText : themes.regular.primaryText}}>Select or Drop a</Text>
-                            <Text className={styles.boldText} style={{color: theme === themes.waves ? theme.primaryText : themes.regular.primaryText}}>File to hash</Text>
+                            <FaFileAlt className={styles.iconSize} style={{color: theme.buttonBack}}/>
+                            <Text className={styles.selectText} style={{color: theme.buttonBack}}>Select or Drop a</Text>
+                            <Text className={styles.boldText} style={{color: theme.buttonBack}}>File to hash</Text>
                         </div>
                     </div>
                 </div>
-                <input className={styles.inputText} style={{backgroundColor: theme.itemBackground}} placeholder="Transaction ID"/>
-                <input className={styles.inputText} style={{backgroundColor: theme.itemBackground}} placeholder="File Hash or Message ID"/>
+                <input className={styles.inputText} style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight}} placeholder="Transaction ID"/>
+                <input className={styles.inputText} style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight}} placeholder="File Hash or Message ID"/>
                 <div className={styles.referenceWrapper}>
-                    <input className={styles.referenceText} style={{backgroundColor: theme.itemBackground}} placeholder="Reference"/>
-                    <Button className={styles.searchButton} style={{backgroundColor: theme === themes.waves ? theme.primaryColor : themes.regular.primaryColor}}>SEARCH</Button>
+                    <input className={styles.referenceText} style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight}} placeholder="Reference"/>
+                    <Button className={styles.searchButton} style={{backgroundColor: theme.buttonBack}}>SEARCH</Button>
                 </div>
             </div>
             <div className={styles.header} style={{backgroundColor: theme.primaryColor}}>
@@ -53,7 +52,7 @@ export default function VerificationExplorer() {
                 <Button
                     className={styles.openSearchForm}
                     onClick={() => openSearchForm(!isSearchOpen)}
-                    style={{backgroundColor: theme === themes.waves ? theme.primaryColor : themes.regular.primaryColor}}
+                    style={{backgroundColor: theme.buttonBack}}
                 >
                     {isSearchOpen ? 'CLOSE' : 'OPEN'} SEARCH FORM
                 </Button>

@@ -1,24 +1,27 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { Button } from '@chakra-ui/react';
 import cx from 'classnames';
-import {FaLock, FaUser, RiArrowDownCircleLine} from "react-icons/all";
+import _ from "lodash"
+import {FaMinusCircle, FaLock, FaPlusCircle, FaUser, RiArrowDownCircleLine} from "react-icons/all";
 
 import Transaction from 'component/Transaction/Transaction';
 import ThemeContext from "context/UserContext";
 import walletContainer from 'redux/containers/wallet';
 import ApiUtils from 'utils/api';
-import styles from './Send.module.scss';
+import styles from './MassSend.module.scss';
 
-function Send({walletState}) {
+function MassSend({walletState}) {
     const {theme} = useContext(ThemeContext);
     const [isTransferFormOpen, openTransferForm] = useState(false);
     const [transactions, setTransactions] = useState([]);
+    const emptyRecipient = {address: '', amount: 0};
+    const [recipients, setRecipients] = useState([_.cloneDeep(emptyRecipient)]);
 
     useEffect(() => {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-          ApiUtils.getSendTransactions(walletState.address, setTransactions);
+          ApiUtils.getMassTransactions(walletState.address, setTransactions);
         }
         proc()
         interval = setInterval(proc, 10000)
@@ -31,31 +34,50 @@ function Send({walletState}) {
       }
     }, [walletState.address])
 
+    const addNewRecipient = () => {
+        setRecipients([...recipients, _.cloneDeep(emptyRecipient)]);
+    }
+    const removeRecipient = (index) => {
+        const newRecipients = _.cloneDeep(recipients);
+        newRecipients.splice(index, 1);
+        setRecipients(newRecipients);
+    }
+
     return (
         <div className={styles.wrapper}>
             <div style={{display: isTransferFormOpen ? 'block' : 'none'}}>
                 <div className={cx(styles.header, styles.clickable)} style={{backgroundColor: theme.primaryColor}} onClick={() => openTransferForm(false)}>
-                    <span>TRANSFER SIGN</span>
+                    <span>MASS TRANSFER SIGN</span>
                     <RiArrowDownCircleLine className={styles.openIcon} />
                 </div>
                 <div className={styles.container}>
-                    <div className={styles.info}>
-                        <div className={styles.addressArea}>
-                            <div className={styles.user} style={{backgroundColor: theme.buttonBack, color: '#ffffff'}}>
-                                <FaUser className={styles.icon} />
+                    {recipients.map((recipient, index) => (
+                        <div className={styles.info} key={index}>
+                            <div className={styles.addressArea}>
+                                <div className={styles.user} style={{backgroundColor: theme.buttonBack, color: '#ffffff'}}>
+                                    <FaUser className={styles.icon} />
+                                </div>
+                                <input
+                                    className={styles.address}
+                                    style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    placeholder="Recipient address / alias"
+                                />
                             </div>
-                            <input
-                                className={styles.address}
-                                style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
-                                placeholder="Recipient address / alias"
-                            />
+                            <div className={styles.amountArea}>
+                                <input
+                                    className={styles.amount}
+                                    style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    placeholder="Amount"
+                                />
+                                {
+                                    index === recipients.length - 1 ?
+                                        <FaPlusCircle className={styles.cursor} onClick={addNewRecipient} style={{color: theme.buttonBack}} />
+                                    :
+                                        <FaMinusCircle className={styles.cursor} onClick={() => removeRecipient(index)} style={{color: theme.buttonBack}} />
+                                }
+                            </div>
                         </div>
-                        <input
-                            className={styles.amount}
-                            style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
-                            placeholder="Amount"
-                        />
-                    </div>
+                    ))}
                     <div className={styles.commentArea}>
                         <div style={{fontSize: 16}}>
                             <span style={{color: theme.highlightText}}>Comments/Notes</span>
@@ -77,28 +99,27 @@ function Send({walletState}) {
                                 Transaction fee:
                             </div>
                             <select style={{color: theme.highlightText, backgroundColor: theme.itemBackground, borderColor: theme.buttonBack, borderWidth: 1, borderStyle: 'solid'}}>
-                                <option value="token">10 SIGN</option>
-                                <option value="waves">0.001 waves</option>
+                                <option value="waves">0.002 waves</option>
                             </select>
                         </div>
                         <Button className={cx(styles.transfer, styles.clickable)} style={{backgroundColor: theme.buttonBack}}>
-                            CONFIRM TRANSFER
+                            CONFIRM MASS TRANSFER
                         </Button>
                     </div>
                 </div>
             </div>
             <div className={styles.header} style={{backgroundColor: theme.primaryColor}}>
-                TRANSFER HISTORY
+                MASS TRANSFER HISTORY
             </div>
             <div className={styles.subheader} style={{color: theme.primaryText}}>
-                <span>Here is your last outgoing transaction</span>
+                <span>Here is your last mass transaction</span>
                 <Button
                     className={cx(styles.transferForm, styles.clickable)}
                     onClick={() => openTransferForm(!isTransferFormOpen)}
                     style={{backgroundColor: theme.buttonBack}}
                 >
                     {
-                        isTransferFormOpen ? 'CLOSE THE FORM' : 'TRANSFER NOW'
+                        isTransferFormOpen ? 'CLOSE THE FORM' : 'MASS TRANSFER NOW'
                     }
                 </Button>
             </div>
@@ -111,4 +132,4 @@ function Send({walletState}) {
     )
 }
 
-export default walletContainer(Send);
+export default walletContainer(MassSend);
