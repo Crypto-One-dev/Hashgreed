@@ -20,7 +20,7 @@ const ColorModeSwitcher = props => {
           onClick={() => props.setTheme(themes.dark)}
         > </div>
       </Tooltip>
-      <Tooltip hasArrow label="Waves">
+      <Tooltip hasArrow label="Ocean">
         <div
           className={cx(styles.themeIcon, styles.wavesTheme, props.theme === themes.waves ? styles.on : null)}
           onClick={() => props.setTheme(themes.waves)}
