@@ -49,7 +49,7 @@ function Receive({walletState}) {
         <QRCode value={walletState.address} includeMargin={true} size={164} id="ADDRESS" />
         <div className={styles.address}>
           <div className={styles.balance}>
-            You have: <span style={{color: theme.manageTokenHighlight, fontWeight: 'bold'}}>{walletState.token_balance}</span> RKMT
+            You have: <span style={{color: theme.manageTokenHighlight, fontWeight: 'bold'}}>{walletState.rkmt_balance}</span> RKMT
           </div>
           <div className={styles.status}>
             <div className={styles.label} style={{backgroundColor: theme.buttonBack, color: '#ffffff'}}>

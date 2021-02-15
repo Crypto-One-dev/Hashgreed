@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {FaCertificate} from "react-icons/all";
 
+import hash from 'assets/hash.png';
+import krosscoin from 'assets/krosscoin.png';
 import logo from 'assets/logo.png';
 import Balances from 'component/Balances/Balances';
 import ColorModeSwitcher from 'component/ColorModeSwitcher/ColorModeSwitcher';
@@ -123,10 +124,10 @@ function Main({walletState, walletActions}) {
           <div className={styles.balances} style={{color: theme.hamburger}}>
             {walletState.address ? (
               <div className={styles.balance}>
-                <span className={styles.title}>CREDIT</span>
+                <span className={styles.title}>HASH Balance</span>
                 <span className={styles.amount}>
-                  <FaCertificate className={styles.creditIcon}/>
-                  {walletState.credit}
+                  <img src={hash} alt="logo" style={{height: 15}} />
+                  {walletState.hash_balance}
                 </span>
               </div>
             ) : null}
@@ -134,8 +135,8 @@ function Main({walletState, walletActions}) {
               <div className={styles.balance}>
                 <span className={styles.title}>RKMT Balance</span>
                 <span className={styles.amount}>
-                  <img src={logo} alt="logo" style={{height: 15}} />
-                  {walletState.token_balance}
+                  <img src={krosscoin} alt="logo" className={styles.krosscoinIcon} style={{height: 15}} />
+                  {walletState.rkmt_balance}
                 </span>
               </div>
             ) : null}

@@ -4,7 +4,7 @@ import ACTIONS from "../actions/price"
 
 const mapStateToProps = state => ({
   priceState: {
-    token_price: state.priceReducer.token_price,
+    rkmt_price: state.priceReducer.rkmt_price,
     waves_price: state.priceReducer.waves_price,
   }
 })

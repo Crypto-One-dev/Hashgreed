@@ -12,9 +12,9 @@ const unlockWallet = (address) => ({
 const lockWallet = () => ({
   type: Types.LOCK_WALLET
 })
-const setBalance = (token_balance, waves_balance, credit) => ({
+const setBalance = (rkmt_balance, hash_balance, waves_balance) => ({
   type: Types.SET_BALANCE,
-  payload: { token_balance, waves_balance, credit }
+  payload: { rkmt_balance, hash_balance, waves_balance }
 })
 
 const walletActions = {

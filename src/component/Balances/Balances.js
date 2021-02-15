@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
-import {FaCertificate} from "react-icons/all";
 
-import logo from 'assets/logo.png';
+import hash from 'assets/hash.png';
+import krosscoin from 'assets/krosscoin.png';
 import ThemeContext from 'context/UserContext';
 import walletContainer from 'redux/containers/wallet';
 import styles from './Balances.module.scss';
@@ -13,10 +13,10 @@ const Balances = ({ walletState }) => {
     <div className={styles.balances} style={{backgroundColor: theme.balancesBack, color: theme.primaryText}}>
       {walletState.address ? (
         <div className={styles.balance}>
-          <span className={styles.title}>CREDIT</span>
+          <span className={styles.title}>HASH Balance</span>
           <span className={styles.amount}>
-            <FaCertificate className={styles.creditIcon}/>
-            {walletState.credit}
+            <img src={hash} alt="logo" style={{height: 15}} />
+            {walletState.hash_balance}
           </span>
         </div>
       ) : null}
@@ -24,8 +24,8 @@ const Balances = ({ walletState }) => {
         <div className={styles.balance}>
           <span className={styles.title}>RKMT Balance</span>
           <span className={styles.amount}>
-            <img src={logo} alt="logo" style={{height: 15}} />
-            {walletState.token_balance}
+            <img src={krosscoin} alt="logo" className={styles.krosscoinIcon} style={{height: 15}} />
+            {walletState.rkmt_balance}
           </span>
         </div>
       ) : null}
