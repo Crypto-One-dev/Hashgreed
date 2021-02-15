@@ -115,12 +115,15 @@ function Account({walletState, walletActions}) {
       </div>
       <Modal closeOnOverlayClick={false} isCentered isOpen={isSignModalOpen} onClose={() => showSignModal(false)}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Connect wallet</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6} style={{display: 'flex', flexDirection: 'column'}}>
-            <Button onClick={() => onSignMethod('SEED')} style={{margin: '10px 0'}}>Waves Exchange Seed</Button>
-            <Button onClick={() => onSignMethod('CLOUD')} style={{margin: '10px 0'}}>Waves Exchange Email</Button>
+        <ModalContent style={{backgroundColor: theme.primaryColor}}>
+          <ModalHeader style={{color: 'white', paddingTop: '2rem', paddingBottom: '2rem', textAlign: 'center'}}>
+            <div>Connect wallet</div>
+            <div style={{fontSize: 14, fontWeight:'normal', marginTop: 50}}>By connecting, I accept Hashgreed's<br /><u style={{cursor: 'pointer'}}>Terms of Use</u></div>
+          </ModalHeader>
+          <ModalCloseButton style={{color: 'white'}} />
+          <ModalBody pb={6} style={{display: 'flex', flexDirection: 'column', backgroundColor: theme.secondaryBack}}>
+            <Button onClick={() => onSignMethod('SEED')} style={{margin: '10px 0', backgroundColor: theme.primaryColor, color: 'white'}}>Waves Exchange Seed</Button>
+            <Button onClick={() => onSignMethod('CLOUD')} style={{margin: '10px 0', backgroundColor: theme.primaryColor, color: 'white'}}>Waves Exchange Email</Button>
           </ModalBody>
         </ModalContent>
       </Modal>
