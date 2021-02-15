@@ -22,7 +22,7 @@ const Balances = ({ walletState }) => {
       ) : null}
       {walletState.address ? (
         <div className={styles.balance}>
-          <span className={styles.title}>HASH Balance</span>
+          <span className={styles.title}>RKMT Balance</span>
           <span className={styles.amount}>
             <img src={logo} alt="logo" style={{height: 15}} />
             {walletState.token_balance}

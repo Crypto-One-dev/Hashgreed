@@ -88,7 +88,7 @@ function File({walletState}) {
                             Certification fee:
                         </div>
                         <div style={{color: theme.manageTokenHighlight}}>
-                            267.78935561 SIGN (0.5$)
+                            100 RKMT
                         </div>
                     </div>
                     <div className={styles.buttonArea}>
@@ -101,7 +101,6 @@ function File({walletState}) {
                                 Transaction fee:
                             </div>
                             <select style={{color: theme.highlightText, backgroundColor: theme.itemBackground, borderColor: theme.buttonBack, borderWidth: 1, borderStyle: 'solid'}}>
-                                <option value="token">50 SIGN</option>
                                 <option value="waves">0.005 waves</option>
                             </select>
                         </div>
@@ -110,7 +109,7 @@ function File({walletState}) {
                                 Certification fee:
                             </div>
                             <div style={{color: theme.manageTokenHighlight}}>
-                                267.78935561 SIGN (0.5$)
+                                100 RKMT
                             </div>
                         </div>
                         <Button className={cx(styles.certify, styles.clickable)} style={{backgroundColor: theme.buttonBack}}>

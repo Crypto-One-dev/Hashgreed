@@ -53,6 +53,15 @@ function Main({walletState, walletActions}) {
   const toggleCertificationTools = () => {
     ShowCertificationTools(!certificationToolsShow);
   }
+
+  useEffect(() => {
+    const googleTranslateElementInit = () => {
+      new window.google.translate.TranslateElement({pageLanguage: 'en', layout: 0}, 'google_translate_element')
+    }
+    setTimeout(() => {
+      googleTranslateElementInit();
+    }, 2000);
+  }, []);
   
   return (
     <div className={styles.main} style={{backgroundColor: theme.background}}>
@@ -123,7 +132,7 @@ function Main({walletState, walletActions}) {
             ) : null}
             {walletState.address ? (
               <div className={styles.balance}>
-                <span className={styles.title}>HASH Balance</span>
+                <span className={styles.title}>RKMT Balance</span>
                 <span className={styles.amount}>
                   <img src={logo} alt="logo" style={{height: 15}} />
                   {walletState.token_balance}
@@ -140,6 +149,7 @@ function Main({walletState, walletActions}) {
               </div>
             ) : null}
           </div>
+          <div id="google_translate_element"></div>
         </div>
         <div
           className={styles.closemenu}

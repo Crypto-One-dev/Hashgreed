@@ -105,7 +105,7 @@ function Email({walletState}) {
                             Certification fee:
                         </div>
                         <div style={{color: theme.manageTokenHighlight}}>
-                            267.78935561 SIGN (0.5$)
+                            200 RKMT
                         </div>
                     </div>
                     <div className={styles.buttonArea}>
@@ -118,7 +118,6 @@ function Email({walletState}) {
                                 Transaction fee:
                             </div>
                             <select style={{color: theme.highlightText, backgroundColor: theme.itemBackground, borderColor: theme.buttonBack, borderWidth: 1, borderStyle: 'solid'}}>
-                                <option value="token">10 SIGN</option>
                                 <option value="waves">0.001 waves</option>
                             </select>
                         </div>
@@ -127,7 +126,7 @@ function Email({walletState}) {
                                 Certification fee:
                             </div>
                             <div style={{color: theme.manageTokenHighlight}}>
-                                267.78935561 SIGN (0.5$)
+                                200 RKMT
                             </div>
                         </div>
                         <Button className={cx(styles.certify, styles.clickable)} style={{backgroundColor: theme.buttonBack}}>

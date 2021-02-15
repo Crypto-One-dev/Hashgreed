@@ -35,7 +35,7 @@ function Send({walletState}) {
         <div className={styles.wrapper}>
             <div style={{display: isTransferFormOpen ? 'block' : 'none'}}>
                 <div className={cx(styles.header, styles.clickable)} style={{backgroundColor: theme.primaryColor}} onClick={() => openTransferForm(false)}>
-                    <span>TRANSFER SIGN</span>
+                    <span>TRANSFER RKMT</span>
                     <RiArrowDownCircleLine className={styles.openIcon} />
                 </div>
                 <div className={styles.container}>
@@ -77,7 +77,6 @@ function Send({walletState}) {
                                 Transaction fee:
                             </div>
                             <select style={{color: theme.highlightText, backgroundColor: theme.itemBackground, borderColor: theme.buttonBack, borderWidth: 1, borderStyle: 'solid'}}>
-                                <option value="token">10 SIGN</option>
                                 <option value="waves">0.001 waves</option>
                             </select>
                         </div>

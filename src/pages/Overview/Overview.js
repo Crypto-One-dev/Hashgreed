@@ -15,7 +15,7 @@ function Overview({walletState, priceState, priceActions}) {
     let interval = -1
     if(walletState.address) {
       const proc = () => {
-        ApiUtils.getPrice('signaturechain', 'TOKEN', priceActions.setPrice);
+        priceActions.setPrice('ToKEN', 0);
         ApiUtils.getPrice('waves', 'WAVES', priceActions.setPrice);
         ApiUtils.getTransactions(walletState.address, setTransactions);
       }
@@ -33,9 +33,9 @@ function Overview({walletState, priceState, priceActions}) {
   return (
     <div className={styles.main}>
       <div className={styles.prices}>
-        <Price Coin="HASH" Description="Current Price" Price={priceState.token_price + '$'} Decimals={8} />
+        <Price Coin="RKMT" Description="Current Price" Price={priceState.token_price + '$'} Decimals={8} />
         <Price Coin="WAVES" Description="Current Price" Price={priceState.waves_price + '$'} Decimals={2} />
-        <Price Coin="USD" Description="Total HASH Balance" Price={priceState.token_price * walletState.token_balance} Decimals={4} />
+        <Price Coin="USD" Description="Total RKMT Balance" Price={priceState.token_price * walletState.token_balance} Decimals={4} />
       </div>
       <div className={styles.header} style={{backgroundColor: theme.primaryColor}}>TRANSACTIONS HISTORY</div>
       <div className={styles.subheader} style={{color: theme.primaryText}}>Here is your last transaction</div>

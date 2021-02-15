@@ -47,7 +47,7 @@ function MassSend({walletState}) {
         <div className={styles.wrapper}>
             <div style={{display: isTransferFormOpen ? 'block' : 'none'}}>
                 <div className={cx(styles.header, styles.clickable)} style={{backgroundColor: theme.primaryColor}} onClick={() => openTransferForm(false)}>
-                    <span>MASS TRANSFER SIGN</span>
+                    <span>MASS TRANSFER RKMT</span>
                     <RiArrowDownCircleLine className={styles.openIcon} />
                 </div>
                 <div className={styles.container}>

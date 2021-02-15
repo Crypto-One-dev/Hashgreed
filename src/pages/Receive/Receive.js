@@ -44,12 +44,12 @@ function Receive({walletState}) {
 
   return (
     <div className={styles.main}>
-      <div className={styles.header} style={{backgroundColor: theme.primaryColor}}>DEPOSIT HASH</div>
+      <div className={styles.header} style={{backgroundColor: theme.primaryColor}}>DEPOSIT RKMT</div>
       <div className={styles.info}>
         <QRCode value={walletState.address} includeMargin={true} size={164} id="ADDRESS" />
         <div className={styles.address}>
           <div className={styles.balance}>
-            You have: <span style={{color: theme.manageTokenHighlight, fontWeight: 'bold'}}>{walletState.token_balance}</span> HASH
+            You have: <span style={{color: theme.manageTokenHighlight, fontWeight: 'bold'}}>{walletState.token_balance}</span> RKMT
           </div>
           <div className={styles.status}>
             <div className={styles.label} style={{backgroundColor: theme.buttonBack, color: '#ffffff'}}>
