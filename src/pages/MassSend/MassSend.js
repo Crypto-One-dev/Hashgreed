@@ -72,7 +72,7 @@ function MassSend({walletState}) {
         }
         if(isNaN(total) || total <= 0 || total > walletState.rkmt_balance) {
             alert('Amount is not valid');
-            // return;
+            return;
         }
         WavesUtils.masssend(recipients, comment);
     }
