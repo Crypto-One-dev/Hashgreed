@@ -4,8 +4,9 @@ import _ from "lodash"
 const defaultState = {
   address: '',
   rkmt_balance: 0,
-  waves_balance: 0,
   hash_balance: 0,
+  usdt_balance: 0,
+  waves_balance: 0,
 }
 
 const walletReducer = (state = defaultState, action) => {
@@ -23,10 +24,11 @@ const walletReducer = (state = defaultState, action) => {
       return newState
     }
     case ACTIONS.Types.SET_BALANCE: {
-      let { rkmt_balance, hash_balance, waves_balance } = action.payload
+      let { rkmt_balance, hash_balance, usdt_balance, waves_balance } = action.payload
       let newState = _.cloneDeep(state)
       newState.rkmt_balance = rkmt_balance
       newState.hash_balance = hash_balance
+      newState.usdt_balance = usdt_balance
       newState.waves_balance = waves_balance
       return newState
     }

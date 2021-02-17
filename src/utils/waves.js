@@ -33,7 +33,7 @@ const getBalance = async (callback, error_callback) => {
   try {
     if(window.waves) {
       const balances = await window.waves.getBalance()
-      var rkmt_balance = 0, hash_balance = 0, waves_balance = 0
+      var rkmt_balance = 0, hash_balance = 0, usdt_balance = 0, waves_balance = 0
       balances.forEach(item => {
         if(item.assetId === WavesConfig.RKMT_ID) {
           rkmt_balance = item.amount / (10 ** WavesConfig.RKMT_DECIMALS)
@@ -41,12 +41,15 @@ const getBalance = async (callback, error_callback) => {
         if(item.assetId === WavesConfig.HASH_ID) {
           hash_balance = item.amount / (10 ** WavesConfig.HASH_DECIMALS)
         }
+        if(item.assetId === WavesConfig.USDT_ID) {
+          usdt_balance = item.amount / (10 ** WavesConfig.USDT_DECIMALS)
+        }
         if(item.assetId === WavesConfig.WAVES_ID) {
           waves_balance = item.amount / (10 ** WavesConfig.WAVES_DECIMALS)
         }
       })
       if(callback) {
-        callback(rkmt_balance, hash_balance, waves_balance)
+        callback(rkmt_balance, hash_balance, usdt_balance, waves_balance)
       }
     }
   } catch(e) {

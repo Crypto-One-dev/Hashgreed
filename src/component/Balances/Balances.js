@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 
 import hash from 'assets/hash.png';
 import krosscoin from 'assets/krosscoin.png';
+import usdt from 'assets/usdt.svg';
 import ThemeContext from 'context/UserContext';
 import walletContainer from 'redux/containers/wallet';
 import styles from './Balances.module.scss';
@@ -24,8 +25,17 @@ const Balances = ({ walletState }) => {
         <div className={styles.balance}>
           <span className={styles.title}>RKMT Balance</span>
           <span className={styles.amount}>
-            <img src={krosscoin} alt="logo" className={styles.krosscoinIcon} style={{height: 15}} />
+            <img src={krosscoin} alt="logo" className={styles.iconGap} style={{height: 15}} />
             {walletState.rkmt_balance}
+          </span>
+        </div>
+      ) : null}
+      {walletState.address ? (
+        <div className={styles.balance}>
+          <span className={styles.title}>USDT Balance</span>
+          <span className={styles.amount}>
+            <img src={usdt} alt="logo" className={styles.iconGap} style={{height: 15}} />
+            {walletState.usdt_balance}
           </span>
         </div>
       ) : null}
