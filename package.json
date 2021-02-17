@@ -21,6 +21,7 @@
     "framer-motion": "^3.1.4",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
+    "multicoin-address-validator": "^0.4.16",
     "node-sass": "^4.14.1",
     "qrcode.react": "^1.0.1",
     "query-string": "^6.13.8",

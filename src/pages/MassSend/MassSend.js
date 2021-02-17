@@ -2,20 +2,24 @@ import React, {useContext, useEffect, useState} from 'react';
 import { Button } from '@chakra-ui/react';
 import cx from 'classnames';
 import _ from "lodash"
+import WAValidator from 'multicoin-address-validator'
 import {FaMinusCircle, FaLock, FaPlusCircle, FaUser, RiArrowDownCircleLine} from "react-icons/all";
 
 import Transaction from 'component/Transaction/Transaction';
+import WavesConfig from 'config/waves';
 import ThemeContext from "context/UserContext";
 import walletContainer from 'redux/containers/wallet';
 import ApiUtils from 'utils/api';
+import WavesUtils from 'utils/waves';
 import styles from './MassSend.module.scss';
 
 function MassSend({walletState}) {
     const {theme} = useContext(ThemeContext);
     const [isTransferFormOpen, openTransferForm] = useState(false);
     const [transactions, setTransactions] = useState([]);
-    const emptyRecipient = {address: '', amount: 0};
+    const emptyRecipient = {address: '', amount: ''};
     const [recipients, setRecipients] = useState([_.cloneDeep(emptyRecipient)]);
+    const [comment, setComment] = useState('');
 
     useEffect(() => {
       let interval = -1
@@ -42,6 +46,37 @@ function MassSend({walletState}) {
         newRecipients.splice(index, 1);
         setRecipients(newRecipients);
     }
+    const setRecipientAddress = (index, value) => {
+        const newRecipients = _.cloneDeep(recipients);
+        newRecipients[index].address = value;  
+        setRecipients(newRecipients);
+    }
+    const setRecipientAmount = (index, value) => {
+        const newRecipients = _.cloneDeep(recipients);
+        newRecipients[index].amount = value;  
+        setRecipients(newRecipients);
+    }
+
+    const confirmTransfer = () => {
+        var total = 0;
+        for (var i = 0; i < recipients.length; ++i) {
+            if(!WAValidator.validate(recipients[i].address, 'waves', WavesConfig.WAVES_PLATFORM)) {
+              alert('#' + (i + 1) + ' Recipient address is not valid');
+              return;
+            }
+            if(isNaN(recipients[i].amount) || recipients[i].amount <= 0) {
+                alert('#' + (i + 1) + ' Amount is not valid');
+                return;
+            }
+            total += recipients[i].amount;
+        }
+        if(isNaN(total) || total <= 0 || total > walletState.rkmt_balance) {
+            alert('Amount is not valid');
+            // return;
+        }
+        WavesUtils.masssend(recipients, comment);
+    }
+
 
     return (
         <div className={styles.wrapper}>
@@ -61,6 +96,8 @@ function MassSend({walletState}) {
                                     className={styles.address}
                                     style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
                                     placeholder="Recipient address / alias"
+                                    value={recipient.address}
+                                    onChange={(e) => setRecipientAddress(index, e.target.value)}
                                 />
                             </div>
                             <div className={styles.amountArea}>
@@ -68,6 +105,8 @@ function MassSend({walletState}) {
                                     className={styles.amount}
                                     style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
                                     placeholder="Amount"
+                                    value={recipient.amount}
+                                    onChange={(e) => setRecipientAmount(index, e.target.value)}
                                 />
                                 {
                                     index === recipients.length - 1 ?
@@ -86,6 +125,8 @@ function MassSend({walletState}) {
                         <textarea
                             className={styles.comment}
                             style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
                         >
                         </textarea>
                     </div>
@@ -102,7 +143,7 @@ function MassSend({walletState}) {
                                 <option value="waves">0.002 waves</option>
                             </select>
                         </div>
-                        <Button className={cx(styles.transfer, styles.clickable)} style={{backgroundColor: theme.buttonBack}}>
+                        <Button className={cx(styles.transfer, styles.clickable)} style={{backgroundColor: theme.buttonBack}} onClick={confirmTransfer}>
                             CONFIRM MASS TRANSFER
                         </Button>
                     </div>

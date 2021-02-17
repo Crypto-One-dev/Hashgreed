@@ -1,7 +1,16 @@
 import {Signer} from '@waves/signer'
 import Provider from '@waves.exchange/provider-web'
+import {base58Encode, stringToBytes} from '@waves/ts-lib-crypto'
 
 import WavesConfig from 'config/waves'
+
+const showAlert = (e) => {
+  if(typeof e === 'string') {
+    alert(e)
+  } else if(typeof e === 'object' && e.message) {
+    alert(e.message)
+  }
+}
 
 const unlockWallet = async (link, callback, error_callback) => {
   try {
@@ -17,6 +26,7 @@ const unlockWallet = async (link, callback, error_callback) => {
       error_callback()
     }
     console.error(e)
+    showAlert(e)
   }
 }
 const getBalance = async (callback, error_callback) => {
@@ -44,10 +54,55 @@ const getBalance = async (callback, error_callback) => {
       error_callback()
     }
     console.error(e)
+    showAlert(e)
+  }
+}
+const send = async (recipient, amount, comment) => {
+  try {
+    if(window.waves) {
+      let transfer = {
+        recipient: recipient,
+        amount: amount * (10 ** WavesConfig.RKMT_DECIMALS),
+        assetId: WavesConfig.RKMT_ID,
+      }
+      if(comment) {
+        transfer.attachment = base58Encode(stringToBytes(comment))
+      }
+      await window.waves.transfer(transfer).broadcast()
+    }
+  } catch(e) {
+    console.error(e)
+    showAlert(e)
+  }
+}
+const masssend = async (recipients, comment) => {
+  try {
+    if(window.waves) {
+      let massTransfer = {
+        transfers: [],
+        assetId: WavesConfig.RKMT_ID,
+        fee: 0.002 * (10 ** WavesConfig.WAVES_DECIMALS),
+      }
+      recipients.forEach(recipient => {
+        massTransfer.transfers.push({
+          recipient: recipient.address,
+          amount: recipient.amount * (10 ** WavesConfig.RKMT_DECIMALS),
+       })
+      })
+      if(comment) {
+        massTransfer.attachment = base58Encode(stringToBytes(comment))
+      }
+      await window.waves.massTransfer(massTransfer).broadcast()
+    }
+  } catch(e) {
+    console.error(e)
+    showAlert(e)
   }
 }
 const WavesUtils = {
   unlockWallet,
   getBalance,
+  send,
+  masssend,
 }
 export default WavesUtils;

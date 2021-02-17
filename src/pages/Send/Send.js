@@ -1,12 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { Button } from '@chakra-ui/react';
 import cx from 'classnames';
+import WAValidator from 'multicoin-address-validator'
 import {FaLock, FaUser, RiArrowDownCircleLine} from "react-icons/all";
 
 import Transaction from 'component/Transaction/Transaction';
+import WavesConfig from 'config/waves';
 import ThemeContext from "context/UserContext";
 import walletContainer from 'redux/containers/wallet';
 import ApiUtils from 'utils/api';
+import WavesUtils from 'utils/waves';
 import styles from './Send.module.scss';
 
 function Send({walletState}) {
@@ -31,6 +34,22 @@ function Send({walletState}) {
       }
     }, [walletState.address])
 
+    const [recipient, setRecipient] = useState('');
+    const [amount, setAmount] = useState();
+    const [comment, setComment] = useState('');
+
+    const confirmTransfer = () => {
+        if(!WAValidator.validate(recipient, 'waves', WavesConfig.WAVES_PLATFORM)) {
+          alert('Recipient address is not valid');
+          return;
+        }
+        if(isNaN(amount) || amount <= 0 || amount > walletState.rkmt_balance) {
+            alert('Amount is not valid');
+            return;
+        }
+        WavesUtils.send(recipient, amount, comment);
+    }
+
     return (
         <div className={styles.wrapper}>
             <div style={{display: isTransferFormOpen ? 'block' : 'none'}}>
@@ -48,12 +67,16 @@ function Send({walletState}) {
                                 className={styles.address}
                                 style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
                                 placeholder="Recipient address / alias"
+                                value={recipient}
+                                onChange={(e) => setRecipient(e.target.value)}
                             />
                         </div>
                         <input
                             className={styles.amount}
                             style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
                             placeholder="Amount"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
                         />
                     </div>
                     <div className={styles.commentArea}>
@@ -64,6 +87,8 @@ function Send({walletState}) {
                         <textarea
                             className={styles.comment}
                             style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
                         >
                         </textarea>
                     </div>
@@ -80,7 +105,7 @@ function Send({walletState}) {
                                 <option value="waves">0.001 waves</option>
                             </select>
                         </div>
-                        <Button className={cx(styles.transfer, styles.clickable)} style={{backgroundColor: theme.buttonBack}}>
+                        <Button className={cx(styles.transfer, styles.clickable)} style={{backgroundColor: theme.buttonBack}} onClick={confirmTransfer}>
                             CONFIRM TRANSFER
                         </Button>
                     </div>
