@@ -1,6 +1,8 @@
 import {Signer} from '@waves/signer'
 import Provider from '@waves.exchange/provider-web'
 import {base58Encode, stringToBytes} from '@waves/ts-lib-crypto'
+import { nodeInteraction } from "@waves/waves-transactions";
+
 
 import WavesConfig from 'config/waves'
 
@@ -102,10 +104,69 @@ const masssend = async (recipients, comment) => {
     showAlert(e)
   }
 }
+const CertifyFile = async (reference, hash, uuid, timestamp, certFee, transactionFee) => {
+  try {
+    if(window.waves) {
+      await window.waves.invoke({
+        dApp: WavesConfig.SMART_CONTRACT,
+        payment: [{
+          assetId: WavesConfig.RKMT_ID,
+          amount: certFee * (10 ** WavesConfig.RKMT_DECIMALS)
+        }],
+        fee: transactionFee * (10 ** WavesConfig.WAVES_DECIMALS),
+        call:{
+          function: 'fileCertification',
+          args: [
+            {
+              "type": "string",
+              "value": hash
+            },
+            {
+              "type": "string",
+              "value": reference
+            },
+            {
+              "type": "string",
+              "value": uuid
+            },
+            {
+              "type": "string",
+              "value": JSON.stringify({
+                hash: hash,
+                timestamp: timestamp,
+                title: reference
+              })
+            }
+          ]
+        },
+        chainId: WavesConfig.CHAIN_ID
+      }).broadcast()
+    }
+  } catch(e) {
+    console.error(e)
+    showAlert(e)
+  }
+}
+
+const getFileCertifications = async (address, filter, callback) => {
+  try {
+    const key = new RegExp('(.*)')
+    let certificates = await nodeInteraction.accountData({
+      address: WavesConfig.SMART_CONTRACT,
+      match: filter + '([A-Za-z0-9]*)_' + address
+    }, WavesConfig.NODE_URL)
+    if(callback)
+      callback(certificates)
+  } catch(e) {
+    console.error(e)
+  }
+}
 const WavesUtils = {
   unlockWallet,
   getBalance,
   send,
   masssend,
+  CertifyFile,
+  getFileCertifications,
 }
 export default WavesUtils;

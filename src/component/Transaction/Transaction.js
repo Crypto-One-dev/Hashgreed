@@ -1,4 +1,5 @@
 import React, {useContext, useState} from 'react';
+import moment from 'moment';
 import {FaLongArrowAltDown, FaLongArrowAltUp, FaRegEnvelope} from 'react-icons/all';
 import {base58Decode, bytesToString} from '@waves/ts-lib-crypto';
 
@@ -18,6 +19,7 @@ function Transaction({detail, owner}) {
   const message = detail.data.attachment ? bytesToString(base58Decode(detail.data.attachment)) : '';
   const direction = detail.data.sender === owner ? 'to' : 'from';
   const target = detail.data.sender === owner ? detail.data.recipient : detail.data.sender;
+  const timestamp = moment(detail.data.timestamp).toString()
   return (
     <div className={styles.tx}>
       <div className={styles.transaction}>
@@ -29,7 +31,7 @@ function Transaction({detail, owner}) {
               <FaLongArrowAltDown className={styles.arrow} style={{color: theme.overviewTransactionArrow}} />
           }
           <div className={styles.info}>
-            <span className={styles.timestamp} style={{color: theme.overviewTransactionTimestamp}}>{detail.data.timestamp}</span>
+            <span className={styles.timestamp} style={{color: theme.overviewTransactionTimestamp}}>{timestamp}</span>
             <span className={styles.address} style={{color: theme.primaryText}}>
               <b>Transfer {direction}: </b>{target}
             </span>

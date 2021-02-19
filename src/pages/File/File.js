@@ -1,23 +1,30 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import { Button, Checkbox, Input, Text, Tooltip } from '@chakra-ui/react';
+import { Button, Input, Text, Tooltip } from '@chakra-ui/react';
 import cx from 'classnames';
+import {sha256} from 'js-sha256';
 import {useDropzone} from 'react-dropzone';
 import {FaLock, RiArrowDownCircleLine} from "react-icons/all";
+import { v4 as uuidv4 } from 'uuid';
 
+import FileCertification from 'component/FileCertification/FileCertification';
 import ThemeContext from "context/UserContext";
 import walletContainer from 'redux/containers/wallet';
 import styles from './File.module.scss';
+import WavesUtils from 'utils/waves';
 
 function File({walletState}) {
     const {theme} = useContext(ThemeContext);
     const [isCertifyFormOpen, openCertifyForm] = useState(false);
-    const [certifications, setCertifications] = useState([]);
+    const [certifications, setCertifications] = useState({});
+
+    const certFee = 100;
+    const transactionFee = 0.005;
 
     useEffect(() => {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-        //   ApiUtils.getFileCertifications(walletState.address, setCertifications);
+            WavesUtils.getFileCertifications(walletState.address, 'data_fc_', setCertifications);
         }
         proc()
         interval = setInterval(proc, 10000)
@@ -30,10 +37,30 @@ function File({walletState}) {
       }
     }, [walletState.address])
 
+    const [hash, setHash] = useState('');
+    const [reference, setReference] = useState('');
+    const [uuid, setUUID] = useState('');
     
     const onDrop = useCallback(acceptedFiles => {
+        if(acceptedFiles.length === 1) {
+            const reader = new FileReader()
+            reader.onload = () => {
+                const binaryStr = reader.result
+                setHash(sha256(binaryStr))
+                setReference(acceptedFiles[0].path)
+                setUUID(uuidv4())
+            }
+            reader.readAsArrayBuffer(acceptedFiles[0])
+        }
     }, [])
-    const {getRootProps, getInputProps} = useDropzone({onDrop})
+    const {acceptedFiles, getRootProps, getInputProps} = useDropzone({onDrop})
+
+    const Certify = () => {
+        if(acceptedFiles.length === 1 && hash && reference && uuid) {
+            const timestamp = Date.now()
+            WavesUtils.CertifyFile(reference, hash, uuid, timestamp, certFee, transactionFee)
+        }
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -50,9 +77,14 @@ function File({walletState}) {
                     <div className={styles.dropContainer}>
                         <div {...getRootProps()} className={styles.dropZone} style={{backgroundColor: theme.itemBackground, color: theme.buttonBack, borderColor: theme.manageTokenHighlight}}>
                         <input {...getInputProps()} />
+                        <p>
                         {
-                            <p>Select or Drop a file</p>
+                            acceptedFiles.length === 1 ?
+                                acceptedFiles[0].path
+                            :
+                                "Select or Drop a file"
                         }
+                        </p>
                         </div>
                         <div className={styles.inputs}>
                             <div>
@@ -63,24 +95,25 @@ function File({walletState}) {
                                         <span className={styles.question} style={{backgroundColor: theme.manageTokenHighlight}}>?</span>
                                     </Tooltip>
                                 </div>
-                                <Input className={styles.textInput} style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                                <Input
+                                    className={styles.textInput}
+                                    style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    value={reference}
+                                    onChange={e => setReference(e.target.value)}
+                                />
                             </div>
                             <div>
                                 <div className={styles.inputDiv}>
                                     <Text color={theme.manageTokenHighlight}>File hash</Text>
                                     <Text color={theme.grayText} className={styles.description}>- No file is sent or stored online unless you choose IPFS option.</Text>
                                 </div>
-                                <Input className={styles.textInput} style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                                <Input
+                                    className={styles.textInput}
+                                    style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    value={hash}
+                                    onChange={e => setHash(e.target.value)}
+                                />
                             </div>
-                            <Checkbox className={styles.checkbox}>
-                                <div className={styles.inputDiv}>
-                                    <Text color={theme.primaryText}>Store file on IPFS</Text>
-                                    <Text color={theme.grayText} className={styles.description}>(10MB max)</Text>
-                                    <Tooltip label="Fill will be public and permanently stored on IPFS, this is not a personal storage. Always keep your own copy and don't use it for sensitive/private files." placement="right">
-                                        <span className={styles.question} style={{backgroundColor: theme.manageTokenHighlight}}>?</span>
-                                    </Tooltip>
-                                </div>
-                            </Checkbox>
                         </div>
                     </div>
                     <div className={styles.certificationFee}>
@@ -88,7 +121,7 @@ function File({walletState}) {
                             Certification fee:
                         </div>
                         <div style={{color: theme.manageTokenHighlight}}>
-                            100 RKMT
+                            {certFee} RKMT
                         </div>
                     </div>
                     <div className={styles.buttonArea}>
@@ -101,7 +134,7 @@ function File({walletState}) {
                                 Transaction fee:
                             </div>
                             <select style={{color: theme.highlightText, backgroundColor: theme.itemBackground, borderColor: theme.buttonBack, borderWidth: 1, borderStyle: 'solid'}}>
-                                <option value="waves">0.005 waves</option>
+                                <option value="waves">{transactionFee} waves</option>
                             </select>
                         </div>
                         <div className={cx(styles.feeArea, styles.certificationFee2)}>
@@ -109,10 +142,10 @@ function File({walletState}) {
                                 Certification fee:
                             </div>
                             <div style={{color: theme.manageTokenHighlight}}>
-                                100 RKMT
+                                {certFee} RKMT
                             </div>
                         </div>
-                        <Button className={cx(styles.certify, styles.clickable)} style={{backgroundColor: theme.buttonBack}}>
+                        <Button className={cx(styles.certify, styles.clickable)} style={{backgroundColor: theme.buttonBack}} onClick={Certify}>
                             CERTIFY FILE
                         </Button>
                     </div>
@@ -134,10 +167,13 @@ function File({walletState}) {
                 </Button>
             </div>
             <div className={styles.certifications}>
-                {certifications.map((certification, index) => (
-                    // <Certification key={index} detail={certification} />
-                    <div key={index}></div>
-                ))}
+                {
+                    Object.keys(certifications).map((key, index) => {
+                        return (
+                            <FileCertification key={index} detail={certifications[key]} owner={walletState.address} />
+                        )
+                    })
+                }
             </div>
         </div>
     )

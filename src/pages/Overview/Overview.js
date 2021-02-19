@@ -20,7 +20,7 @@ function Overview({walletState, priceState, priceActions}) {
         ApiUtils.getTransactions(walletState.address, setTransactions);
       }
       proc()
-      interval = setInterval(proc, 10000)
+      // interval = setInterval(proc, 1000 * 60)
     }
   
     return () => {
