@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Price from 'component/Price/Price';
 import Transaction from 'component/Transaction/Transaction';
+import WavesConfig from 'config/waves';
 import ThemeContext from 'context/UserContext';
 import priceContainer from 'redux/containers/price';
 import walletContainer from 'redux/containers/wallet';
@@ -16,7 +17,8 @@ function Overview({walletState, priceState, priceActions}) {
     if(walletState.address) {
       const proc = () => {
         priceActions.setPrice('RKMT', 0);
-        ApiUtils.getPrice('waves', 'WAVES', priceActions.setPrice);
+        ApiUtils.getPrice(WavesConfig.WAVES_ID, 'WAVES', priceActions.setPrice);
+        ApiUtils.getPrice(WavesConfig.RKMT_ID, 'RKMT', priceActions.setPrice);
         ApiUtils.getTransactions(walletState.address, setTransactions);
       }
       proc()

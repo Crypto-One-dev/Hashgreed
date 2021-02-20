@@ -1,13 +1,13 @@
 import axios from 'axios';
-import WavesConfig from 'config/waves'
+import WavesConfig from 'config/waves';
 
-const getPrice = (key, type, callback) => {
+const getPrice = (token, type, callback) => {
   axios
-    .get('https://api.coingecko.com/api/v3/coins/' + key)
+    .get('https://marketdata.wavesplatform.com/api/candles/' + token + '/' + WavesConfig.USDN_ID + '/1440/1')
     .then(res => {
       try {
         if(callback)
-          callback(type, res.data.market_data.current_price.usd)
+          callback(type, parseFloat(res.data[0].vwap))
       } catch(err) {
         console.error(err)
       }

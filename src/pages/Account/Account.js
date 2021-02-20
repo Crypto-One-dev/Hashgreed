@@ -2,6 +2,8 @@ import React, {useContext, useState} from 'react';
 import cx from 'classnames';
 import {Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody} from '@chakra-ui/react';
 
+import email from 'assets/email.svg';
+import seed from 'assets/seed.svg';
 import Step1 from 'assets/step1.svg';
 import Step2 from 'assets/step2.svg';
 import Step3 from 'assets/step3.svg';
@@ -122,8 +124,26 @@ function Account({walletState, walletActions}) {
           </ModalHeader>
           <ModalCloseButton style={{color: 'white'}} />
           <ModalBody pb={6} style={{display: 'flex', flexDirection: 'column', backgroundColor: theme.secondaryBack}}>
-            <Button onClick={() => onSignMethod('SEED')} style={{margin: '10px 0', backgroundColor: theme.primaryColor, color: 'white'}}>Waves Exchange Seed</Button>
-            <Button onClick={() => onSignMethod('CLOUD')} style={{margin: '10px 0', backgroundColor: theme.primaryColor, color: 'white'}}>Waves Exchange Email</Button>
+            <Button onClick={() => onSignMethod('CLOUD')} style={{margin: '10px 0', backgroundColor: theme.primaryColor, color: 'white'}}>
+              Waves Exchange Email
+              <img src={email} alt="E" style={{marginLeft: 15}} />
+              <span
+                style={{
+                  fontSize: 10,
+                  position: 'absolute',
+                  left: 10, top: -7,
+                  backgroundColor: theme.grayText, color: theme.primaryText,
+                  padding: '2px 15px',
+                  borderRadius: 6
+                }}
+              >
+                RECOMMENDED
+              </span>
+            </Button>
+            <Button onClick={() => onSignMethod('SEED')} style={{margin: '10px 0', backgroundColor: theme.primaryColor, color: 'white'}}>
+              Waves Exchange Seed
+              <img src={seed} alt="S" style={{marginLeft: 15}} />
+            </Button>
           </ModalBody>
         </ModalContent>
       </Modal>

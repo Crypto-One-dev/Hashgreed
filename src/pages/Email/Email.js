@@ -105,7 +105,7 @@ function Email({walletState}) {
                             Certification fee:
                         </div>
                         <div style={{color: theme.manageTokenHighlight}}>
-                            200 RKMT
+                            100 RKMT
                         </div>
                     </div>
                     <div className={styles.buttonArea}>
@@ -126,7 +126,7 @@ function Email({walletState}) {
                                 Certification fee:
                             </div>
                             <div style={{color: theme.manageTokenHighlight}}>
-                                200 RKMT
+                                100 RKMT
                             </div>
                         </div>
                         <Button className={cx(styles.certify, styles.clickable)} style={{backgroundColor: theme.buttonBack}}>

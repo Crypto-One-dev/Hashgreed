@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import { Button, Checkbox, Input, Text, Textarea, Tooltip } from '@chakra-ui/react';
+import { Button, Input, Text, Textarea, Tooltip } from '@chakra-ui/react';
 import cx from 'classnames';
 import {useDropzone} from 'react-dropzone';
 import {FaLock, RiArrowDownCircleLine} from "react-icons/all";
@@ -73,18 +73,9 @@ function Mutual({walletState}) {
                                 </div>
                                 <Input className={styles.textInput} style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
                             </div>
-                            <Checkbox className={styles.checkbox}>
-                                <div className={styles.inputDiv}>
-                                    <Text color={theme.primaryText}>Store file on IPFS</Text>
-                                    <Text color={theme.grayText} className={styles.description}>(10MB max)</Text>
-                                    <Tooltip label="Fill will be public and permanently stored on IPFS, this is not a personal storage. Always keep your own copy and don't use it for sensitive/private files." placement="right">
-                                        <span className={styles.question} style={{backgroundColor: theme.manageTokenHighlight}}>?</span>
-                                    </Tooltip>
-                                </div>
-                            </Checkbox>
                             <div>
                                 <div className={styles.inputDiv}>
-                                    <Text color={theme.manageTokenHighlight}>Recipients addresses (5 max)</Text>
+                                    <Text color={theme.manageTokenHighlight}>Recipients addresses (100 max)</Text>
                                     <Text color={theme.grayText} className={styles.description}>- Enter all counterparts with one address (no alias) per line.</Text>
                                 </div>
                                 <Textarea className={styles.textInput} style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
@@ -96,7 +87,7 @@ function Mutual({walletState}) {
                             Certification fee:
                         </div>
                         <div style={{color: theme.manageTokenHighlight}}>
-                            200 RKMT
+                            100 RKMT
                         </div>
                     </div>
                     <div className={styles.buttonArea}>
@@ -117,7 +108,7 @@ function Mutual({walletState}) {
                                 Certification fee:
                             </div>
                             <div style={{color: theme.manageTokenHighlight}}>
-                                200 RKMT
+                                100 RKMT
                             </div>
                         </div>
                         <Button className={cx(styles.certify, styles.clickable)} style={{backgroundColor: theme.buttonBack}}>
