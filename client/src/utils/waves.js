@@ -150,7 +150,6 @@ const CertifyFile = async (reference, hash, uuid, timestamp, certFee, transactio
 
 const getFileCertifications = async (address, filter, callback) => {
   try {
-    const key = new RegExp('(.*)')
     let certificates = await nodeInteraction.accountData({
       address: WavesConfig.SMART_CONTRACT,
       match: filter + '([A-Za-z0-9]*)_' + address

@@ -11,10 +11,6 @@ function FileCertification({detail, owner}) {
   const {theme} = useContext(ThemeContext);
   const [messageShow, ShowMessage] = useState(false);
 
-  const toggleMessage = () => {
-    ShowMessage(!messageShow);
-  }
-
   const data = JSON.parse(detail.value)
   const timestamp = moment(data.timestamp).toString()
   const txid = detail.key.replace('data_fc_', '').replace('_' + owner, '')
