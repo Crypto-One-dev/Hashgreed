@@ -22,7 +22,7 @@ import walletContainer from 'redux/containers/wallet'
 import WavesUtils from 'utils/waves'
 import styles from './Main.module.scss';
 
-function Main({walletState, walletActions}) {
+function Main({walletState, walletActions, match}) {
   const {theme, setTheme, activeMenu, setActiveMenu} = useContext(ThemeContext);
   const [isHamburgerOpen, openHamburger] = useState(false);
 
@@ -64,6 +64,17 @@ function Main({walletState, walletActions}) {
       googleTranslateElementInit();
     }, 2000);
   }, []);
+
+  const [query, setQuery] = useState('');
+  useEffect(() => {
+    if(match.path === '/explorer') {
+      setActiveMenu('VERIFICATION')
+    }
+    if(match.path === '/explorer/:txid') {
+      setActiveMenu('VERIFICATION')
+      setQuery(match.params.txid)
+    }
+  }, [setActiveMenu, setQuery, match]);
   
   return (
     <div className={styles.main} style={{backgroundColor: theme.background}}>
@@ -180,7 +191,7 @@ function Main({walletState, walletActions}) {
           walletState.address && activeMenu === 'FILE'          ? <File /> :
           walletState.address && activeMenu === 'EMAIL'         ? <Email /> :
           walletState.address && activeMenu === 'MUTUAL'        ? <Mutual /> :
-                                 activeMenu === 'VERIFICATION'  ? <VerificationExplorer /> :
+                                 activeMenu === 'VERIFICATION'  ? <VerificationExplorer query={query}/> :
                                                                   <Account />
         }
       </div>

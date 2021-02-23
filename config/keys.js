@@ -12,4 +12,6 @@ module.exports = {
   nodeUrl: NodeUrls[platform],
   chainID: ChainIDs[platform],
   mongoURI: process.env.MONGO_URI,
+  smartContract: process.env.REACT_APP_SMART_CONTRACT,
+  baseUrl: process.env.REACT_APP_BASE_URL,
 }

@@ -58,12 +58,40 @@ const getMassTransactions = async (address, callback) => {
   }
 }
 
+const getFileCertifications = async (address, filter, callback) => {
+  try {
+    axios
+      .post('/api/certifications/getFileCertifications', {address, filter})
+      .then(res => {
+        if(callback)
+          callback(res.data)
+      })
+  } catch(e) {
+    console.error(e)
+  }
+}
+
+const searchCertification = async (transactionID, hashID, reference, callback) => {
+  try {
+    axios
+      .post('/api/certifications/searchCertification', {transactionID, hashID, reference})
+      .then(res => {
+        if(callback)
+          callback(res.data)
+      })
+  } catch(e) {
+    console.error(e)
+  }
+}
+
 const ApiUtils = {
   getPrice,
   getTransactions,
   getReceiveTransactions,
   getSendTransactions,
   getMassTransactions,
+  getFileCertifications,
+  searchCertification,
 }
 
 export default ApiUtils

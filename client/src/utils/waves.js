@@ -1,8 +1,6 @@
 import {Signer} from '@waves/signer'
 import Provider from '@waves.exchange/provider-web'
 import {base58Encode, stringToBytes} from '@waves/ts-lib-crypto'
-import { nodeInteraction } from "@waves/waves-transactions";
-
 
 import WavesConfig from 'config/waves'
 
@@ -20,8 +18,9 @@ const unlockWallet = async (link, callback, error_callback) => {
     const provider = new Provider(link === 'SEED' ? WavesConfig.SEED_PROVIDER_URL : WavesConfig.CLOUD_PROVIDER_URL)
     window.waves.setProvider(provider)
     const user = await window.waves.login()
+    console.log(user)
     if(callback) {
-      callback(user.address)
+      callback(user.address, user.publicKey)
     }
   } catch(e) {
     if(error_callback) {
@@ -104,7 +103,8 @@ const masssend = async (recipients, comment) => {
     showAlert(e)
   }
 }
-const CertifyFile = async (reference, hash, uuid, timestamp, certFee, transactionFee) => {
+
+const CertifyFile = async (reference, hash, uuid, timestamp, publicKey, certFee, transactionFee) => {
   try {
     if(window.waves) {
       await window.waves.invoke({
@@ -136,7 +136,11 @@ const CertifyFile = async (reference, hash, uuid, timestamp, certFee, transactio
                 timestamp: timestamp,
                 title: reference
               })
-            }
+            },
+            {
+              "type": "string",
+              "value": publicKey
+            },
           ]
         },
         chainId: WavesConfig.CHAIN_ID
@@ -148,24 +152,44 @@ const CertifyFile = async (reference, hash, uuid, timestamp, certFee, transactio
   }
 }
 
-const getFileCertifications = async (address, filter, callback) => {
+const RevokeCertificate = async (txid, publicKey, certFee, transactionFee) => {
   try {
-    let certificates = await nodeInteraction.accountData({
-      address: WavesConfig.SMART_CONTRACT,
-      match: filter + '([A-Za-z0-9]*)_' + address
-    }, WavesConfig.NODE_URL)
-    if(callback)
-      callback(certificates)
+    if(window.waves) {
+      await window.waves.invoke({
+        dApp: WavesConfig.SMART_CONTRACT,
+        payment: [{
+          assetId: WavesConfig.RKMT_ID,
+          amount: certFee * (10 ** WavesConfig.RKMT_DECIMALS)
+        }],
+        fee: transactionFee * (10 ** WavesConfig.WAVES_DECIMALS),
+        call:{
+          function: 'revokeCertification',
+          args: [
+            {
+              "type": "string",
+              "value": txid
+            },
+            {
+              "type": "string",
+              "value": publicKey
+            },
+          ]
+        },
+        chainId: WavesConfig.CHAIN_ID
+      }).broadcast()
+    }
   } catch(e) {
     console.error(e)
+    showAlert(e)
   }
 }
+
 const WavesUtils = {
   unlockWallet,
   getBalance,
   send,
   masssend,
   CertifyFile,
-  getFileCertifications,
+  RevokeCertificate,
 }
 export default WavesUtils;

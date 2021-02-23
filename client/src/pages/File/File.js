@@ -10,6 +10,7 @@ import FileCertification from 'component/FileCertification/FileCertification';
 import ThemeContext from "context/UserContext";
 import walletContainer from 'redux/containers/wallet';
 import styles from './File.module.scss';
+import ApiUtils from 'utils/api';
 import WavesUtils from 'utils/waves';
 
 function File({walletState}) {
@@ -24,7 +25,7 @@ function File({walletState}) {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-            WavesUtils.getFileCertifications(walletState.address, 'data_fc_', setCertifications);
+            ApiUtils.getFileCertifications(walletState.address, 'data_fc_', setCertifications);
         }
         proc()
         interval = setInterval(proc, 10000)
@@ -58,7 +59,7 @@ function File({walletState}) {
     const Certify = () => {
         if(acceptedFiles.length === 1 && hash && reference && uuid) {
             const timestamp = Date.now()
-            WavesUtils.CertifyFile(reference, hash, uuid, timestamp, certFee, transactionFee)
+            WavesUtils.CertifyFile(reference, hash, uuid, timestamp, walletState.publicKey, certFee, transactionFee)
         }
     }
 

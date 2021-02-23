@@ -3,6 +3,7 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const path = require('path')
 const keys = require('./config/keys')
+const certifications = require("./routes/api/certifications")
 
 Object.keys(keys).forEach(function(key) {
   console.log(key + " : " + keys[key])
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 })
+app.use("/api/certifications", certifications)
 const port = process.env.PORT || 5000
 
 app.listen(port, () => console.log(`Server up and running on port ${port} !`))

@@ -3,6 +3,7 @@ import _ from "lodash"
 
 const defaultState = {
   address: '',
+  publicKey: '',
   rkmt_balance: 0,
   hash_balance: 0,
   usdt_balance: 0,
@@ -12,14 +13,16 @@ const defaultState = {
 const walletReducer = (state = defaultState, action) => {
   switch (action.type) {
     case ACTIONS.Types.UNLOCK_WALLET: {
-      let { address } = action.payload
+      let { address, publicKey } = action.payload
       let newState = _.cloneDeep(state)
       newState.address = address
+      newState.publicKey = publicKey
       return newState
     }
     case ACTIONS.Types.LOCK_WALLET: {
       let newState = _.cloneDeep(state)
       newState.address = ''
+      newState.publicKey = ''
       window.waves = null
       return newState
     }

@@ -21,13 +21,18 @@
     "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
     "dotenv": "^8.2.0",
+    "downloadjs": "^1.4.7",
     "express": "^4.16.4",
+    "html-pdf": "^2.2.0",
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.3.0",
+    "moment": "^2.29.1",
     "mongoose": "^5.3.11",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "path": "^0.12.7",
+    "puppeteer": "^7.1.0",
+    "qrcode": "^1.4.4",
     "validator": "^10.9.0"
   }
 }

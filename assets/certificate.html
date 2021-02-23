@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <mate charest="utf-8" />
+        <title>{{title}}</title>
+        <style>
+            body
+            {
+                margin: 0;
+            }
+        	#body
+        	{
+                background-image: url("{{bgImg}}");
+        		background-repeat: no-repeat;
+		        background-position: center;
+		        background-size: cover;
+	        	width: 841px;
+		        height: 595px;
+        	}
+        	#content
+        	{
+        		padding: 100px 0;
+        		width: 100%;
+        		height: calc(100% - 200px);
+
+		        display: flex;
+		        flex-direction: column;
+		        justify-content: space-between;
+		        align-items: center;
+		        word-break: break-all;
+		        text-align: center;
+		        position: relative;
+        	}
+        	#title
+        	{
+        		font-size: 48px;
+        	}
+        	#subtitle
+        	{
+        		font-size: 22px;
+        	}
+        	#info
+        	{
+        		font-size: 18px;
+        	}
+        	#links
+        	{
+        		width: 50%;
+        		display: flex;
+        		flex-direction: row;
+        		justify-content: space-between;
+        		font-size: 16px;
+        		color: black;
+        	}
+        	a {
+			    color: black;
+			    text-decoration: none;
+			}
+			a:hover 
+			{
+			     color: black; 
+			     text-decoration:none; 
+			     cursor: pointer;  
+			}
+        	#qr
+        	{
+        		position: absolute;
+        		right: 10px;
+        		bottom: 10px;
+        		width: 100px;
+        		height: 100px;
+        	}
+        </style>
+    </head>
+    <body>
+    	<div id="body"><div id="content">
+    		<div id="title">PROOF OF CERTIFICATION</div>
+    		<div id="subtitle">YOU CERTIFIED THE FOLLOWING FILE ON THE<br><b>WAVES BLOCKCHAIN</b></div>
+    		<div id="info"><b>Reference:</b><br><i>{{reference}}</i></div>
+    		<div id="info"><b>Date:</b><br><i>{{date}}</i></div>
+    		<div id="info"><b>File hash:</b><br><i>{{hash}}</i></div>
+    		<div id="links">
+    			<a href="https://wavesexplorer.com/tx/{{txid}}" target="_blank">SEE ON WAVES</a>
+    			<a href="{{baseUrl}}" target="_blank">NEW CERTIFICATION</a>
+    		</div>
+    		<img src="{{qr}}" id="qr">
+    	</div></div>
+    </body>
+</html>

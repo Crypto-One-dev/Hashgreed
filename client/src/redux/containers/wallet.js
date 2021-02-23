@@ -5,6 +5,7 @@ import ACTIONS from "../actions/wallet"
 const mapStateToProps = state => ({
   walletState: {
     address: state.walletReducer.address,
+    publicKey: state.walletReducer.publicKey,
     rkmt_balance: state.walletReducer.rkmt_balance,
     hash_balance: state.walletReducer.hash_balance,
     usdt_balance: state.walletReducer.usdt_balance,
@@ -14,7 +15,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   walletActions: {
-    unlockWallet: (address) => dispatch(ACTIONS.unlockWallet(address)),
+    unlockWallet: (address, publicKey) => dispatch(ACTIONS.unlockWallet(address, publicKey)),
     lockWallet: () => dispatch(ACTIONS.lockWallet()),
     setBalance: (rkmt_balance, hash_balance, usdt_balance, waves_balance) => dispatch(ACTIONS.setBalance(rkmt_balance, hash_balance, usdt_balance, waves_balance)),
   }

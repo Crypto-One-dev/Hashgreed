@@ -5,9 +5,9 @@ const Types = {
 }
 
 // actions
-const unlockWallet = (address) => ({
+const unlockWallet = (address, publicKey) => ({
   type: Types.UNLOCK_WALLET,
-  payload: { address }
+  payload: { address, publicKey }
 })
 const lockWallet = () => ({
   type: Types.LOCK_WALLET

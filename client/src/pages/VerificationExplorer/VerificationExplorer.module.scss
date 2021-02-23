@@ -7,7 +7,7 @@
   .header {
     color: white;
     margin-top: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     position: relative;
     .openIcon {
       font-size: 25px;
@@ -30,11 +30,13 @@
       align-items: center;
       color: #d359a6;
       border: dotted 1px #d359a6;
+      cursor: pointer;
       .itemMain {
         flex: 1;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         .iconSize {
           font-size: 50px;
         }
@@ -97,24 +99,33 @@
 
   .explorerListWrapper {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    .explorerList {
-      margin-top: 1rem;
-    }
+    flex-direction: column;
     .openSearchForm {
       padding: 10px;
-      margin-top: 1rem;
-    }
-    button, a {
+      margin-bottom: 10px;
       background-color: $primary;
       color: white;
       font-weight: bold;
       font-size: 14px;
     }
+    .explorerList {
+      .item {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        width: 100%;
+        height: auto;
+        min-height: 600px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
 
-    button:hover {
-      background-color: #545454;
+        margin-bottom: 25px;
+        padding: 80px 0;
+        font-size: 18px;
+        word-break: break-all;
+      }
     }
   }
 
