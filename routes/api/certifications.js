@@ -66,7 +66,8 @@ router.post('/downloadCertificate', async (req, res) => {
     const {hash, timestamp, title, txid} = req.body
 
     const browser = await puppeteer.launch({
-      headless: true
+      headless: true,
+      args: ['--no-sandbox'],
     })
     const page = await browser.newPage()
     var html = fs.readFileSync('assets/certificate.html', 'utf8')
