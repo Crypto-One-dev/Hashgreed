@@ -27,7 +27,6 @@ const unlockWallet = async (link, callback, error_callback) => {
       error_callback()
     }
     console.error(e)
-    showAlert(e)
   }
 }
 const getBalance = async (callback, error_callback) => {
@@ -54,11 +53,7 @@ const getBalance = async (callback, error_callback) => {
       }
     }
   } catch(e) {
-    if(error_callback) {
-      error_callback()
-    }
     console.error(e)
-    showAlert(e)
   }
 }
 const send = async (recipient, amount, comment) => {

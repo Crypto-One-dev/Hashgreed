@@ -36,7 +36,7 @@ function Main({walletState, walletActions, match}) {
     if(walletState.address) {
       interval = setInterval(() => {
         WavesUtils.getBalance(walletActions.setBalance, walletActions.lockWallet)
-      }, 1000)
+      }, 10000)
     }
   
     return () => {
