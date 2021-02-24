@@ -17,6 +17,7 @@ import Mutual from 'pages/Mutual/Mutual';
 import Overview from 'pages/Overview/Overview';
 import Receive from 'pages/Receive/Receive';
 import Send from 'pages/Send/Send';
+import Stake from 'pages/Stake/Stake';
 import VerificationExplorer from 'pages/VerificationExplorer/VerificationExplorer';
 import walletContainer from 'redux/containers/wallet'
 import WavesUtils from 'utils/waves'
@@ -131,7 +132,14 @@ function Main({walletState, walletActions, match}) {
             :
               null
           }
-          <MenuButton active={activeMenu === 'STAKE'} onClick={() => openMenu('STAKE')}>Stake n Earn Waves Tokens</MenuButton>
+          {
+            walletState.address ?
+              <>
+                <MenuButton active={activeMenu === 'STAKE'} onClick={() => openMenu('STAKE')}>Stake n Earn Waves Tokens</MenuButton>
+              </>
+            :
+              null
+          }
           <MenuButton active={activeMenu === 'VERIFICATION'} onClick={() => openMenu('VERIFICATION')}>Verification Explorer</MenuButton>
           <MenuButton active={!activeMenu} onClick={() => openMenu('')}>Account</MenuButton>
           <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />
@@ -194,7 +202,7 @@ function Main({walletState, walletActions, match}) {
           walletState.address && activeMenu === 'FILE'          ? <File /> :
           walletState.address && activeMenu === 'EMAIL'         ? <Email /> :
           walletState.address && activeMenu === 'MUTUAL'        ? <Mutual /> :
-          walletState.address && activeMenu === 'STAKE'         ? <Mutual /> :
+          walletState.address && activeMenu === 'STAKE'         ? <Stake /> :
                                  activeMenu === 'VERIFICATION'  ? <VerificationExplorer query={query}/> :
                                                                   <Account />
         }
