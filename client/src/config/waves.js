@@ -14,8 +14,8 @@ const WAVES_ASSET_ID = "WAVES"
 const WAVES_DECIMALS = 8
 
 const NodeUrls = {
-  'testnet': 'https://nodes-testnet.wavesnodes.com',
-  'prod': 'https://nodes.wavesexplorer.com'
+  'testnet': 'https://testnet.wavesplatform.com',
+  'prod': 'https://nodes.wavesplatform.com'
 }
 const SeedProviderUrls = {
   'testnet': 'https://testnet.waves.exchange/signer/',

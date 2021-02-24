@@ -1,7 +1,7 @@
 require('dotenv').config()
 const NodeUrls = {
-  'testnet': 'https://nodes-testnet.wavesnodes.com',
-  'prod': 'https://nodes.wavesexplorer.com'
+  'testnet': 'https://testnet.wavesplatform.com',
+  'prod': 'https://nodes.wavesplatform.com'
 }
 const ChainIDs = {
   'testnet': 'T',
