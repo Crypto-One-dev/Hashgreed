@@ -7,11 +7,11 @@ const ChainIDs = {
   'testnet': 'T',
   'prod': 'W'
 }
-const platform = process.env.REACT_APP_WAVES_PLATFORM
+const platform = 'prod'
 module.exports = {
   nodeUrl: NodeUrls[platform],
   chainID: ChainIDs[platform],
-  mongoURI: process.env.MONGO_URI,
-  smartContract: process.env.REACT_APP_SMART_CONTRACT,
+  smartContract: '3PG8noVrXvBH7VTzgjsQyzPiAtfoXxHqRbX',
   baseUrl: process.env.REACT_APP_BASE_URL,
+  mongoURI: process.env.MONGO_URI,
 }

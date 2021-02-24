@@ -34,9 +34,11 @@ function Main({walletState, walletActions, match}) {
   useEffect(() => {
     let interval = -1
     if(walletState.address) {
-      interval = setInterval(() => {
+      const proc = () => {
         WavesUtils.getBalance(walletActions.setBalance, walletActions.lockWallet)
-      }, 10000)
+      }
+      proc()
+      interval = setInterval(proc, 10000)
     }
   
     return () => {
@@ -129,6 +131,7 @@ function Main({walletState, walletActions, match}) {
             :
               null
           }
+          <MenuButton active={activeMenu === 'STAKE'} onClick={() => openMenu('STAKE')}>Stake n Earn Waves Tokens</MenuButton>
           <MenuButton active={activeMenu === 'VERIFICATION'} onClick={() => openMenu('VERIFICATION')}>Verification Explorer</MenuButton>
           <MenuButton active={!activeMenu} onClick={() => openMenu('')}>Account</MenuButton>
           <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />
@@ -191,6 +194,7 @@ function Main({walletState, walletActions, match}) {
           walletState.address && activeMenu === 'FILE'          ? <File /> :
           walletState.address && activeMenu === 'EMAIL'         ? <Email /> :
           walletState.address && activeMenu === 'MUTUAL'        ? <Mutual /> :
+          walletState.address && activeMenu === 'STAKE'         ? <Mutual /> :
                                  activeMenu === 'VERIFICATION'  ? <VerificationExplorer query={query}/> :
                                                                   <Account />
         }

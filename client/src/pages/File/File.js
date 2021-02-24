@@ -4,10 +4,11 @@ import cx from 'classnames';
 import {sha256} from 'js-sha256';
 import {useDropzone} from 'react-dropzone';
 import {FaLock, RiArrowDownCircleLine} from "react-icons/all";
-import { v4 as uuidv4 } from 'uuid';
+import { v5 as uuidgen } from 'uuid';
 
 import FileCertification from 'component/FileCertification/FileCertification';
 import ThemeContext from "context/UserContext";
+import WavesConfig from 'config/waves';
 import walletContainer from 'redux/containers/wallet';
 import styles from './File.module.scss';
 import ApiUtils from 'utils/api';
@@ -47,9 +48,10 @@ function File({walletState}) {
             const reader = new FileReader()
             reader.onload = () => {
                 const binaryStr = reader.result
-                setHash(sha256(binaryStr))
+                const hash = sha256(binaryStr)
+                setHash(hash)
                 setReference(acceptedFiles[0].path)
-                setUUID(uuidv4())
+                setUUID(uuidgen(hash, WavesConfig.UUID_NAMESPACE))
             }
             reader.readAsArrayBuffer(acceptedFiles[0])
         }

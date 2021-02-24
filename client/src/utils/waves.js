@@ -179,6 +179,51 @@ const RevokeCertificate = async (txid, publicKey, certFee, transactionFee) => {
   }
 }
 
+const DepositRKMT = async (amount) => {
+  try {
+    if(window.waves) {
+      await window.waves.invoke({
+        dApp: WavesConfig.STAKE_SCRIPT,
+        payment: [{
+          assetId: WavesConfig.RKMT_ID,
+          amount: amount * (10 ** WavesConfig.RKMT_DECIMALS)
+        }],
+        call:{
+          function: 'depositRKMT',
+          args: []
+        },
+        chainId: WavesConfig.CHAIN_ID
+      }).broadcast()
+    }
+  } catch(e) {
+    console.error(e)
+    showAlert(e)
+  }
+}
+
+const WithdrawRKMT = async (amount) => {
+  try {
+    if(window.waves) {
+      await window.waves.invoke({
+        dApp: WavesConfig.STAKE_SCRIPT,
+        call:{
+          function: 'withdrawRKMT',
+          args: [
+            {
+              "type": "integer",
+              "value": amount
+            }
+          ]
+        },
+        chainId: WavesConfig.CHAIN_ID
+      }).broadcast()
+    }
+  } catch(e) {
+    console.error(e)
+    showAlert(e)
+  }
+}
+
 const WavesUtils = {
   unlockWallet,
   getBalance,
@@ -186,5 +231,7 @@ const WavesUtils = {
   masssend,
   CertifyFile,
   RevokeCertificate,
+  DepositRKMT,
+  WithdrawRKMT,
 }
 export default WavesUtils;
