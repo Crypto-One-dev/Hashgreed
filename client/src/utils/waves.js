@@ -1,24 +1,18 @@
 import {Signer} from '@waves/signer'
-import Provider from '@waves.exchange/provider-web'
+import {ProviderCloud} from '@waves.exchange/provider-cloud'
+import {ProviderWeb} from '@waves.exchange/provider-web'
 import {base58Encode, stringToBytes} from '@waves/ts-lib-crypto'
+import {nodeInteraction} from '@waves/waves-transactions'
 
 import WavesConfig from 'config/waves'
-
-const showAlert = (e) => {
-  if(typeof e === 'string') {
-    alert(e)
-  } else if(typeof e === 'object' && e.message) {
-    alert(e.message)
-  }
-}
+import AlertUtils from 'utils/alert'
 
 const unlockWallet = async (link, callback, error_callback) => {
   try {
     window.waves = new Signer({NODE_URL: WavesConfig.NODE_URL})
-    const provider = new Provider(link === 'SEED' ? WavesConfig.SEED_PROVIDER_URL : WavesConfig.CLOUD_PROVIDER_URL)
+    const provider = link === 'SEED' ? new ProviderWeb() : new ProviderCloud()
     window.waves.setProvider(provider)
     const user = await window.waves.login()
-    console.log(user)
     if(callback) {
       callback(user.address, user.publicKey)
     }
@@ -71,7 +65,7 @@ const send = async (recipient, amount, comment) => {
     }
   } catch(e) {
     console.error(e)
-    showAlert(e)
+    AlertUtils.SystemAlert(e)
   }
 }
 const masssend = async (recipients, comment) => {
@@ -95,14 +89,14 @@ const masssend = async (recipients, comment) => {
     }
   } catch(e) {
     console.error(e)
-    showAlert(e)
+    AlertUtils.SystemAlert(e)
   }
 }
 
 const CertifyFile = async (reference, hash, uuid, timestamp, publicKey, certFee, transactionFee) => {
   try {
     if(window.waves) {
-      await window.waves.invoke({
+      const tx = await window.waves.invoke({
         dApp: WavesConfig.SMART_CONTRACT,
         payment: [{
           assetId: WavesConfig.RKMT_ID,
@@ -140,11 +134,13 @@ const CertifyFile = async (reference, hash, uuid, timestamp, publicKey, certFee,
         },
         chainId: WavesConfig.CHAIN_ID
       }).broadcast()
+      return tx.id
     }
   } catch(e) {
     console.error(e)
-    showAlert(e)
+    AlertUtils.SystemAlert(e)
   }
+  return 0
 }
 
 const RevokeCertificate = async (txid, publicKey, certFee, transactionFee) => {
@@ -175,7 +171,7 @@ const RevokeCertificate = async (txid, publicKey, certFee, transactionFee) => {
     }
   } catch(e) {
     console.error(e)
-    showAlert(e)
+    AlertUtils.SystemAlert(e)
   }
 }
 
@@ -197,7 +193,7 @@ const DepositRKMT = async (amount) => {
     }
   } catch(e) {
     console.error(e)
-    showAlert(e)
+    AlertUtils.SystemAlert(e)
   }
 }
 
@@ -220,7 +216,17 @@ const WithdrawRKMT = async (amount) => {
     }
   } catch(e) {
     console.error(e)
-    showAlert(e)
+    AlertUtils.SystemAlert(e)
+  }
+}
+
+const StakedRKMT = async (address, callback) => {
+  try {
+    var data = await nodeInteraction.accountData(WavesConfig.STAKE_SCRIPT, WavesConfig.NODE_URL)
+    if(address in data && callback)
+      callback(data[address].value / (10 ** WavesConfig.RKMT_DECIMALS))
+  } catch(e) {
+    console.error(e)
   }
 }
 
@@ -233,5 +239,6 @@ const WavesUtils = {
   RevokeCertificate,
   DepositRKMT,
   WithdrawRKMT,
+  StakedRKMT,
 }
 export default WavesUtils;

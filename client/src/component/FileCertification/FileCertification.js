@@ -3,7 +3,7 @@ import {Button, Modal, ModalOverlay, ModalContent, ModalBody} from '@chakra-ui/r
 import download from 'downloadjs';
 import moment from 'moment';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import {FaCertificate, FaFilePdf, FaPaste, FaTimes} from 'react-icons/all';
+import {FaCertificate, FaDownload, FaFilePdf, FaPaste, FaTimes} from 'react-icons/all';
 
 import WavesConfig from 'config/waves';
 import ThemeContext from 'context/UserContext';
@@ -14,8 +14,7 @@ import styles from './FileCertification.module.scss';
 function FileCertification({detail, owner, walletState}) {
   const {theme} = useContext(ThemeContext);
 
-  const data = JSON.parse(detail.value)
-  const timestamp = moment(data.timestamp).toString()
+  const timestamp = moment(detail.timestamp).toString()
   const txid = detail.key.replace('data_fc_', '').replace('_' + owner, '');
 
   const [modalShow, ShowModal] = useState(false);
@@ -33,7 +32,7 @@ function FileCertification({detail, owner, walletState}) {
       method: 'POST',
       body: JSON.stringify({
         txid,
-        ...data
+        ...detail
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -41,8 +40,12 @@ function FileCertification({detail, owner, walletState}) {
     }).then(function(resp) {
       return resp.blob();
     }).then(function(blob) {
-      return download(blob, data.title + '.pdf');
+      return download(blob, detail.title + '.pdf');
     });
+  }
+
+  const ShowIPFS = () => {
+    window.open(detail.link)
   }
   
   return (
@@ -53,16 +56,22 @@ function FileCertification({detail, owner, walletState}) {
           <div className={styles.info}>
             <div className={styles.timestamp} style={{color: theme.overviewTransactionTimestamp}}>{timestamp}</div>
             <div className={styles.reference} style={{color: theme.primaryText}}>
-              Reference: <b>{data.title}</b>
+              Reference: <b>{detail.title}</b>
             </div>
             <div className={styles.hash} style={{color: theme.primaryText}}>
-              Hash: <span style={{color: theme.buttonBack}}>{data.hash}</span>
+              Hash: <span style={{color: theme.buttonBack}}>{detail.hash}</span>
             </div>
             <div className={styles.txid} style={{color: theme.overviewTransactionId}}>
               TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
             </div>
           </div>
           <div className={styles.actions}>
+            {
+              detail.link?
+                <FaDownload className={styles.action} style={{color: theme.manageTokenHighlight}} onClick={ShowIPFS} />
+              :
+                null
+            }
             <FaTimes className={styles.action} style={{color: theme.manageTokenHighlight}} onClick={() => ShowModal(true)} />
             <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + txid}>
               <FaPaste className={styles.action} style={{color: theme.manageTokenHighlight}} />

@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import { Button, Input, Text, Tooltip } from '@chakra-ui/react';
+import { Button, Checkbox, Input, Text, Tooltip } from '@chakra-ui/react';
 import cx from 'classnames';
 import {sha256} from 'js-sha256';
 import {useDropzone} from 'react-dropzone';
@@ -17,7 +17,7 @@ import WavesUtils from 'utils/waves';
 function File({walletState}) {
     const {theme} = useContext(ThemeContext);
     const [isCertifyFormOpen, openCertifyForm] = useState(false);
-    const [certifications, setCertifications] = useState({});
+    const [certifications, setCertifications] = useState([]);
 
     const certFee = 100;
     const transactionFee = 0.005;
@@ -42,6 +42,7 @@ function File({walletState}) {
     const [hash, setHash] = useState('');
     const [reference, setReference] = useState('');
     const [uuid, setUUID] = useState('');
+    const [store, setStore] = useState(false)
     
     const onDrop = useCallback(acceptedFiles => {
         if(acceptedFiles.length === 1) {
@@ -58,11 +59,16 @@ function File({walletState}) {
     }, [])
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({onDrop})
 
-    const Certify = () => {
+    const Certify = async () => {
         if(acceptedFiles.length === 1 && hash && reference && uuid) {
             const timestamp = Date.now()
-            WavesUtils.CertifyFile(reference, hash, uuid, timestamp, walletState.publicKey, certFee, transactionFee)
+            // const txid = await WavesUtils.CertifyFile(reference, hash, uuid, timestamp, walletState.publicKey, certFee, transactionFee)
+            const txid = '8HCDmgxQMEAxmCUKBg8uYzkK6pjtv7eWqvp3nFTufDP3'
+            if(txid && store) {
+                ApiUtils.fileUpload(acceptedFiles[0], txid)
+            }
         }
+        setStore(false)
     }
 
     return (
@@ -117,6 +123,15 @@ function File({walletState}) {
                                     onChange={e => setHash(e.target.value)}
                                 />
                             </div>
+                            <Checkbox className={styles.checkbox} isChecked={store} onChange={e => setStore(e.target.checked)}>
+                                <div className={styles.inputDiv}>
+                                    <Text color={theme.primaryText}>Store file on IPFS</Text>
+                                    <Text color={theme.grayText} className={styles.description}>(10MB max)</Text>
+                                    <Tooltip label="Fill will be public and permanently stored on IPFS, this is not a personal storage. Always keep your own copy and don't use it for sensitive/private files." placement="right">
+                                        <span className={styles.question} style={{backgroundColor: theme.manageTokenHighlight}}>?</span>
+                                    </Tooltip>
+                                </div>
+                            </Checkbox>
                         </div>
                     </div>
                     <div className={styles.certificationFee}>
@@ -171,9 +186,9 @@ function File({walletState}) {
             </div>
             <div className={styles.certifications}>
                 {
-                    Object.keys(certifications).map((key, index) => {
+                    certifications.map((cert, index) => {
                         return (
-                            <FileCertification key={index} detail={certifications[key]} owner={walletState.address} />
+                            <FileCertification key={index} detail={cert} owner={walletState.address} />
                         )
                     })
                 }

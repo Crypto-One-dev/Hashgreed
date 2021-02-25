@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 import WavesConfig from 'config/waves';
+import AlertUtils from 'utils/alert'
 
 const getPrice = (token, type, callback) => {
   axios
@@ -84,6 +86,20 @@ const searchCertification = async (transactionID, hashID, reference, callback) =
   }
 }
 
+const fileUpload = async (file, txid) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file)
+    formData.append('txid', txid)
+    const status = await axios.post('/api/upload/file', formData, {headers:{'content-type':'multipart/form-data'}})
+    if(status !== 'Success')
+      AlertUtils.SystemAlert(status)
+  } catch(e) {
+    console.error(e)
+    AlertUtils.SystemAlert(e)
+  }
+}
+
 const ApiUtils = {
   getPrice,
   getTransactions,
@@ -92,6 +108,7 @@ const ApiUtils = {
   getMassTransactions,
   getFileCertifications,
   searchCertification,
+  fileUpload,
 }
 
 export default ApiUtils

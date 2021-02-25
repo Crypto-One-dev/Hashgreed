@@ -4,8 +4,8 @@ const NodeUrls = {
   'prod': 'https://nodes.wavesplatform.com'
 }
 const ChainIDs = {
-  'testnet': 'T',
-  'prod': 'W'
+  'testnet': 84,
+  'prod': 87
 }
 const platform = 'prod'
 module.exports = {

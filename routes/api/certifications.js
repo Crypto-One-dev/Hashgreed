@@ -7,6 +7,7 @@ const puppeteer = require('puppeteer')
 const QRCode = require('qrcode')
 
 const {nodeUrl, smartContract, baseUrl} = require('../../config/keys')
+const File = require('../../models/File')
 
 router.post('/getFileCertifications', async (req, res) => {
   try {
@@ -15,7 +16,24 @@ router.post('/getFileCertifications', async (req, res) => {
       address: smartContract,
       match: filter + '([A-Za-z0-9]*)_' + address
     }, nodeUrl)
-    return res.status(200).json(certificates)
+    result = []
+    for(key in certificates) {
+      let value = JSON.parse(certificates[key].value)
+      value.key = key
+      const txid = key.split('_')[2]
+      const found = await File.find({ txid }).limit(1).exec()
+      if(found.length > 0)
+        value.link = found[0].link
+      result.push(value)
+    }
+    result.sort((x, y) => {
+      if(x.timestamp > y.timestamp)
+        return -1
+      if(x.timestamp < y.timestamp)
+        return 1
+      return 0
+    })
+    return res.status(200).json(result)
   } catch(e) {
     console.error(e)
     return res.status(500).json(e)
@@ -52,6 +70,9 @@ router.post('/searchCertification', async (req, res) => {
       result.txid = keys[2]
       result.address = keys[3]
       result.type = keys[1]
+      const found = await File.find({ txid: result.txid }).limit(1).exec()
+      if(found.length > 0)
+        result.link = found[0].link
       return res.status(200).json(result)
     }
     return res.status(200).json(null)

@@ -24,8 +24,8 @@ const apiUrls = {
   'prod': 'https://api.wavesplatform.com'
 }
 const ChainIDs = {
-  'testnet': 'T',
-  'prod': 'W'
+  'testnet': 84,
+  'prod': 87
 }
 const AccountUrls = {
   'testnet': 'https://testnet.waves.exchange/sign-in',
