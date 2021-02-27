@@ -20,7 +20,11 @@ const IPFS = require('../../utils/ipfs')
 router.post('/file', upload.single('file'), async (req, res) => {
   try {
     const link = await IPFS.uploadOnIPFS(req.file.path)
-    fs.unlink(req.file.path)
+    fs.unlink(req.file.path, function (err) {
+      if(err)
+        console.error(err)
+      console.log('File deleted!');
+    })
     if(link === null) {
       return res.status(500).json('Upload failed')
     }
@@ -29,7 +33,11 @@ router.post('/file', upload.single('file'), async (req, res) => {
     return res.status(200).json('Success')
   } catch(e) {
     console.error(e)
-    fs.unlink(req.file.path)
+    fs.unlink(req.file.path, function (err) {
+      if(err)
+        console.error(err)
+      console.log('File deleted!');
+    })
     return res.status(500).json(e)
   }
 })
