@@ -1,5 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Button, Flex, NumberInput,  NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Text} from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+  NumberInput,  NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper,
+  Slider, SliderTrack, SliderFilledTrack, SliderThumb,
+  Stat, StatLabel, StatNumber, StatHelpText,
+  Text
+} from '@chakra-ui/react';
 
 import ThemeContext from "context/UserContext";
 import walletContainer from 'redux/containers/wallet';
@@ -115,6 +122,28 @@ function Stake({walletState}) {
           isDisabled={staked === 0}
         >
           Withdraw</Button>
+      </Flex>
+      <Flex className={styles.stats}>
+          <Stat>
+            <StatLabel>Daily</StatLabel>
+            <StatNumber>{(sendAmount * 0.04 / 100).toFixed(2)}</StatNumber>
+            <StatHelpText>0.04%</StatHelpText>
+          </Stat>
+          <Stat>
+            <StatLabel>Weekly</StatLabel>
+            <StatNumber>{(sendAmount * 0.28 / 100).toFixed(2)}</StatNumber>
+            <StatHelpText>0.28%</StatHelpText>
+          </Stat>
+          <Stat>
+            <StatLabel>Monthly</StatLabel>
+            <StatNumber>{(sendAmount * 1.2 / 100).toFixed(2)}</StatNumber>
+            <StatHelpText>1.2%</StatHelpText>
+          </Stat>
+          <Stat>
+            <StatLabel>Yearly</StatLabel>
+            <StatNumber>{(sendAmount * 14.6 / 100).toFixed(2)}</StatNumber>
+            <StatHelpText>14.6%</StatHelpText>
+          </Stat>
       </Flex>
     </div>
   )

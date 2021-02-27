@@ -133,7 +133,7 @@ const CertifyFile = async (reference, hash, uuid, timestamp, publicKey, certFee,
           ]
         },
         chainId: WavesConfig.CHAIN_ID
-      })
+      }).broadcast()
       return tx
     }
   } catch(e) {
