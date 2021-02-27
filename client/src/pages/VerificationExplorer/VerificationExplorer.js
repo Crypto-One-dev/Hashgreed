@@ -12,6 +12,7 @@ import ThemeContext from "context/UserContext";
 import WavesConfig from 'config/waves';
 import ApiUtils from 'utils/api';
 import styles from './VerificationExplorer.module.scss';
+import AlertUtils from 'utils/alert';
 
 function VerificationExplorer({query}) {
     const {theme} = useContext(ThemeContext);
@@ -21,6 +22,7 @@ function VerificationExplorer({query}) {
     const [hashID, setHashID] = useState('');
     const [reference, setReference] = useState('');
     const searchButton = useRef(null);
+    const [certification, setCertification] = useState();
 
     useEffect(() => {
         if(query) {
@@ -37,9 +39,19 @@ function VerificationExplorer({query}) {
         if(acceptedFiles.length === 1) {
             const reader = new FileReader()
             reader.onload = () => {
-                const binaryStr = reader.result
+                const str = reader.result
+                const regex = /https:\/\/wavesexplorer.com\/tx\/[A-Za-z0-9]*/g;
+                const found = str.match(regex);
+                if(found.length === 1) {
+                    console.log(found[0])
+                    const txid = found[0].replace('https://wavesexplorer.com/tx/', '')
+                    console.log(txid)
+                    ApiUtils.searchCertification(txid, '', '', setCertification)
+                } else {
+                    AlertUtils.SystemAlert('Not supported certification')
+                }
             }
-            reader.readAsArrayBuffer(acceptedFiles[0])
+            reader.readAsText(acceptedFiles[0])
         }
     }, [])
     const poc = useDropzone({onDrop: onCertDrop})
@@ -57,7 +69,6 @@ function VerificationExplorer({query}) {
     }, [])
     const fth = useDropzone({onDrop: onFileDrop})
 
-    const [certification, setCertification] = useState()
     const Search = () => {
         if(!transactionID && !hashID && !reference) {
             return
