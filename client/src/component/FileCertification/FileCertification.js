@@ -14,8 +14,9 @@ import styles from './FileCertification.module.scss';
 function FileCertification({detail, owner, walletState}) {
   const {theme} = useContext(ThemeContext);
 
-  const timestamp = moment(detail.timestamp).toString()
+  const timestamp = moment(detail.timestamp).toString();
   const txid = detail.key.replace('data_fc_', '').replace('_' + owner, '');
+  const revoked = detail.status ? detail.status.replace('REVOKED_', '') : '';
 
   const [modalShow, ShowModal] = useState(false);
 
@@ -72,7 +73,16 @@ function FileCertification({detail, owner, walletState}) {
               :
                 null
             }
-            <FaTimes className={styles.action} style={{color: theme.manageTokenHighlight}} onClick={() => ShowModal(true)} />
+            {
+              revoked?
+                <span className={styles.status}>
+                  <a href={"http://wavesexplorer.com/tx/" + revoked} target="_blank">
+                    REVOKED
+                  </a>
+                </span>
+              :
+                <FaTimes className={styles.action} style={{color: theme.manageTokenHighlight}} onClick={() => ShowModal(true)} />
+            }
             <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + txid}>
               <FaPaste className={styles.action} style={{color: theme.manageTokenHighlight}} />
             </CopyToClipboard>

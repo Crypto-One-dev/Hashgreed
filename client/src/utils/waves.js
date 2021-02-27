@@ -133,14 +133,14 @@ const CertifyFile = async (reference, hash, uuid, timestamp, publicKey, certFee,
           ]
         },
         chainId: WavesConfig.CHAIN_ID
-      }).broadcast()
-      return tx.id
+      })
+      return tx
     }
   } catch(e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
-  return 0
+  return null
 }
 
 const RevokeCertificate = async (txid, publicKey, certFee, transactionFee) => {

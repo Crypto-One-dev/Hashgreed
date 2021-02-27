@@ -62,10 +62,11 @@ function File({walletState}) {
     const Certify = async () => {
         if(acceptedFiles.length === 1 && hash && reference && uuid) {
             const timestamp = Date.now()
-            // const txid = await WavesUtils.CertifyFile(reference, hash, uuid, timestamp, walletState.publicKey, certFee, transactionFee)
-            const txid = '8HCDmgxQMEAxmCUKBg8uYzkK6pjtv7eWqvp3nFTufDP3'
-            if(txid && store) {
-                ApiUtils.fileUpload(acceptedFiles[0], txid)
+            const tx = await WavesUtils.CertifyFile(reference, hash, uuid, timestamp, walletState.publicKey, certFee, transactionFee)
+            if(tx) {
+                if(store)
+                    await ApiUtils.fileUpload(acceptedFiles[0], tx.id)
+                await tx.broadcast()
             }
         }
         setStore(false)

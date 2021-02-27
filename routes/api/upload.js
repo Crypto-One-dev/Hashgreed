@@ -31,4 +31,14 @@ router.post('/file', upload.single('file'), async (req, res) => {
   }
 })
 
+router.post('/email', async (req, res) => {
+  try {
+    const {smtp, server, port, login, password, first_name, last_name, email_sender, email_recipient, message, reference, messageid, txid} = req.body
+    return res.status(200).json('Success')
+  } catch(e) {
+    console.error(e)
+    return res.status(500).json(e)
+  }
+})
+
 module.exports = router
