@@ -46,7 +46,7 @@ function FileCertification({detail, owner, walletState}) {
   }
 
   const ShowIPFS = () => {
-    window.open(detail.link)
+    window.open('https://ipfs.io/ipfs/' + detail.link)
   }
   
   return (
