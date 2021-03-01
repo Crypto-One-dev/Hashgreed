@@ -34,7 +34,7 @@ function Email({walletState}) {
     
     const onDrop = useCallback(acceptedFiles => {
     }, [])
-    const {getRootProps, getInputProps} = useDropzone({onDrop})
+    const {acceptedFiles, getRootProps, getInputProps} = useDropzone({onDrop})
 
     return (
         <div className={styles.wrapper}>
@@ -84,9 +84,14 @@ function Email({walletState}) {
                         </div>
                         <div {...getRootProps()} className={cx(styles.fullRow, styles.dropzone)} style={{backgroundColor: theme.itemBackground, color: theme.buttonBack, borderColor: theme.manageTokenHighlight}}>
                             <input {...getInputProps()} />
-                            {
-                                <p>Select or Drop a file</p>
-                            }
+                            <p>
+                                {
+                                    acceptedFiles.length === 1 ?
+                                        acceptedFiles[0].path
+                                    :
+                                        "Select or Drop a file"
+                                }
+                            </p>
                         </div>
                         <div className={cx(styles.fullRow, styles.smallfont)} style={{height: 'initial'}}>
                             Recommendations: 10MB total, including message and attachment(s); 2MB limit per attachment.

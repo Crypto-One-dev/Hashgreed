@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
+import {FaComments, FaLink, FaSquareFull, FaTelegramPlane} from 'react-icons/all';
 
 import hash from 'assets/hash.png';
 import krosscoin from 'assets/krosscoin.png';
@@ -8,6 +9,7 @@ import Balances from 'component/Balances/Balances';
 import ColorModeSwitcher from 'component/ColorModeSwitcher/ColorModeSwitcher';
 import Header from 'component/Header/Header';
 import MenuButton from 'component/MenuButton/MenuButton';
+import WavesConfig from 'config/waves';
 import ThemeContext from 'context/UserContext';
 import Account from 'pages/Account/Account';
 import Email from 'pages/Email/Email';
@@ -182,12 +184,30 @@ function Main({walletState, walletActions, match}) {
               </div>
             ) : null}
           </div>
+          <div className={styles.links} style={{color: theme.hamburger}}>
+            <div className={styles.link}>
+              <FaLink className={styles.icon} />
+              <a href={WavesConfig.BASE_URL} target="_blank" rel="noreferrer">Website</a>
+            </div>
+            <div className={styles.link}>
+              <FaTelegramPlane className={styles.icon} />
+              <a href="https://t.me/krosscoin_kss" target="_blank" rel="noreferrer">Telegram</a>
+            </div>
+            <div className={styles.link}>
+              <FaSquareFull className={styles.icon} />
+              <a href={`https://waves.exchange/dex?assetId2=${WavesConfig.RKMT_ID}&assetId1=WAVES`} target="_blank" rel="noreferrer">Trade RKMT on WAVES</a>
+            </div>
+            <div className={styles.link}>
+              <FaComments className={styles.icon} />
+              <a href="mailto:support@krosscoin.io" target="_blank" rel="noreferrer">Technical Support</a>
+            </div>
+          </div>
+          <div
+            className={styles.closemenu}
+            onClick={() => openHamburger(false)}
+          >
+          </div>
           <div id="google_translate_element"></div>
-        </div>
-        <div
-          className={styles.closemenu}
-          onClick={() => openHamburger(false)}
-        >
         </div>
       </div>
       <div className={styles.rightPanel} style={{background: theme.secondaryBack}}>

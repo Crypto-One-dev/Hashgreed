@@ -26,7 +26,7 @@ function File({walletState}) {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-            ApiUtils.getFileCertifications(walletState.address, 'data_fc_', setCertifications);
+            ApiUtils.getCertifications(walletState.address, 'data_fc_', setCertifications);
         }
         proc()
         interval = setInterval(proc, 10000)

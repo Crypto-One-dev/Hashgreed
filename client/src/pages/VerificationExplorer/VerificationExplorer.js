@@ -3,6 +3,7 @@ import { Button } from '@chakra-ui/react';
 import cx from 'classnames';
 import {sha256} from 'js-sha256';
 import moment from 'moment';
+import QRCode from 'qrcode.react';
 import {useDropzone} from 'react-dropzone';
 import {RiArrowDownCircleLine, FaCertificate, FaFileAlt} from "react-icons/all";
 
@@ -162,6 +163,17 @@ function VerificationExplorer({query}) {
                                 <a style={{color: theme.buttonBack}} href={`${WavesConfig.EXPLORER_URL}/tx/${certification.txid}`} target="_blank" rel="noreferrer">
                                     SEE ON WAVES EXPLORER
                                 </a>
+                                <QRCode value={WavesConfig.BASE_URL + '/explorer/' + certification.txid} includeMargin={true} size={72} className={styles.qr} />
+                                {
+                                    certification.status?
+                                        <span className={styles.status}>
+                                            <a href={"http://wavesexplorer.com/tx/" + certification.status.replace('REVOKED_', '')} target="_blank" rel="noreferrer">
+                                                REVOKED
+                                            </a>
+                                        </span>
+                                    :
+                                        null
+                                }
                             </div>
                         </div>
                     :

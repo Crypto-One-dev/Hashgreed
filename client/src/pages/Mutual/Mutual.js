@@ -1,23 +1,31 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import { Button, Input, Text, Textarea, Tooltip } from '@chakra-ui/react';
+import { Button, Checkbox, Input, Spinner, Text, Tooltip } from '@chakra-ui/react';
 import cx from 'classnames';
+import {sha256} from 'js-sha256';
 import {useDropzone} from 'react-dropzone';
 import {FaLock, RiArrowDownCircleLine} from "react-icons/all";
+import { v5 as uuidgen } from 'uuid';
 
 import ThemeContext from "context/UserContext";
+import WavesConfig from 'config/waves';
 import walletContainer from 'redux/containers/wallet';
 import styles from './Mutual.module.scss';
+import ApiUtils from 'utils/api';
+import WavesUtils from 'utils/waves';
 
 function Mutual({walletState}) {
     const {theme} = useContext(ThemeContext);
     const [isCertifyFormOpen, openCertifyForm] = useState(false);
     const [certifications, setCertifications] = useState([]);
 
+    const certFee = 100;
+    const transactionFee = 0.005;
+
     useEffect(() => {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-        //   ApiUtils.getMutualCertifications(walletState.address, setCertifications);
+            // ApiUtils.getCertifications(walletState.address, 'data_mc_', setCertifications);
         }
         proc()
         interval = setInterval(proc, 10000)
@@ -30,13 +38,54 @@ function Mutual({walletState}) {
       }
     }, [walletState.address])
 
+    const [hash, setHash] = useState('');
+    const [reference, setReference] = useState('');
+    const [uuid, setUUID] = useState('');
+    const [store, setStore] = useState(false)
+    const [uploading, setUploading] = useState(false)
     
     const onDrop = useCallback(acceptedFiles => {
+        if(acceptedFiles.length === 1) {
+            const reader = new FileReader()
+            reader.onload = () => {
+                const binaryStr = reader.result
+                const hash = sha256(binaryStr)
+                setHash(hash)
+                setReference(acceptedFiles[0].path)
+                setUUID(uuidgen(hash, WavesConfig.UUID_NAMESPACE))
+            }
+            reader.readAsArrayBuffer(acceptedFiles[0])
+        }
     }, [])
-    const {getRootProps, getInputProps} = useDropzone({onDrop})
+    const {acceptedFiles, getRootProps, getInputProps} = useDropzone({onDrop})
+
+    const Certify = async () => {
+        if(acceptedFiles.length === 1 && hash && reference && uuid) {
+            const timestamp = Date.now()
+            const tx = await WavesUtils.CertifyFile(reference, hash, uuid, timestamp, walletState.publicKey, certFee, transactionFee)
+            if(tx && store) {
+                setUploading(true)
+                await ApiUtils.fileUpload(acceptedFiles[0], tx.id)
+            }
+        }
+        acceptedFiles.splice(0, acceptedFiles.length);
+        setHash('')
+        setReference('')
+        setUUID('')
+        setStore(false)
+        setUploading(false)
+    }
 
     return (
         <div className={styles.wrapper}>
+            {
+                uploading ?
+                    <div className={styles.spinner}>
+                        <Spinner size="xl" color="red.500" />
+                    </div>
+                :
+                    null
+            }
             <div style={{display: isCertifyFormOpen ? 'block' : 'none'}}>
                 <div className={cx(styles.header, styles.clickable)} style={{backgroundColor: theme.primaryColor}} onClick={() => openCertifyForm(false)}>
                     <span>CERTIFY A MUTUAL AGREEMENT</span>
@@ -51,9 +100,14 @@ function Mutual({walletState}) {
                     <div className={styles.dropContainer}>
                         <div {...getRootProps()} className={styles.dropZone} style={{backgroundColor: theme.itemBackground, color: theme.buttonBack, borderColor: theme.manageTokenHighlight}}>
                         <input {...getInputProps()} />
+                        <p>
                         {
-                            <p>Select or Drop a file</p>
+                            acceptedFiles.length === 1 ?
+                                acceptedFiles[0].path
+                            :
+                                "Select or Drop a file"
                         }
+                        </p>
                         </div>
                         <div className={styles.inputs}>
                             <div>
@@ -64,22 +118,36 @@ function Mutual({walletState}) {
                                         <span className={styles.question} style={{backgroundColor: theme.manageTokenHighlight}}>?</span>
                                     </Tooltip>
                                 </div>
-                                <Input className={styles.textInput} style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                                <Input
+                                    className={styles.textInput}
+                                    style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    value={reference}
+                                    onChange={e => setReference(e.target.value)}
+                                />
                             </div>
                             <div>
                                 <div className={styles.inputDiv}>
                                     <Text color={theme.manageTokenHighlight}>File hash</Text>
                                     <Text color={theme.grayText} className={styles.description}>- No file is sent or stored online unless you choose IPFS option.</Text>
                                 </div>
-                                <Input className={styles.textInput} style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                                <Input
+                                    className={styles.textInput}
+                                    style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    value={hash}
+                                    onChange={e => setHash(e.target.value)}
+                                />
                             </div>
-                            <div>
-                                <div className={styles.inputDiv}>
-                                    <Text color={theme.manageTokenHighlight}>Recipients addresses (100 max)</Text>
-                                    <Text color={theme.grayText} className={styles.description}>- Enter all counterparts with one address (no alias) per line.</Text>
+                            <Checkbox className={styles.checkbox} isChecked={store} onChange={e => setStore(e.target.checked)}>
+                                <div>
+                                    <div className={styles.inputDiv}>
+                                        <Text color={theme.primaryText}>Store file on IPFS</Text>
+                                        <Text color={theme.grayText} className={styles.description}>(10MB max)</Text>
+                                        <Tooltip label="Fill will be public and permanently stored on IPFS, this is not a personal storage. Always keep your own copy and don't use it for sensitive/private files." placement="right">
+                                            <span className={styles.question} style={{backgroundColor: theme.manageTokenHighlight}}>?</span>
+                                        </Tooltip>
+                                    </div>
                                 </div>
-                                <Textarea className={styles.textInput} style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
-                            </div>
+                            </Checkbox>
                         </div>
                     </div>
                     <div className={styles.certificationFee}>
@@ -87,7 +155,7 @@ function Mutual({walletState}) {
                             Certification fee:
                         </div>
                         <div style={{color: theme.manageTokenHighlight}}>
-                            100 RKMT
+                            {certFee} RKMT
                         </div>
                     </div>
                     <div className={styles.buttonArea}>
@@ -100,7 +168,7 @@ function Mutual({walletState}) {
                                 Transaction fee:
                             </div>
                             <select style={{color: theme.highlightText, backgroundColor: theme.itemBackground, borderColor: theme.buttonBack, borderWidth: 1, borderStyle: 'solid'}}>
-                                <option value="waves">0.005 waves</option>
+                                <option value="waves">{transactionFee} waves</option>
                             </select>
                         </div>
                         <div className={cx(styles.feeArea, styles.certificationFee2)}>
@@ -108,10 +176,10 @@ function Mutual({walletState}) {
                                 Certification fee:
                             </div>
                             <div style={{color: theme.manageTokenHighlight}}>
-                                100 RKMT
+                                {certFee} RKMT
                             </div>
                         </div>
-                        <Button className={cx(styles.certify, styles.clickable)} style={{backgroundColor: theme.buttonBack}}>
+                        <Button className={cx(styles.certify, styles.clickable)} style={{backgroundColor: theme.buttonBack}} onClick={Certify}>
                             CREATE AGREEMENT
                         </Button>
                     </div>
@@ -133,10 +201,14 @@ function Mutual({walletState}) {
                 </Button>
             </div>
             <div className={styles.certifications}>
-                {certifications.map((certification, index) => (
-                    // <Certification key={index} detail={certification} />
-                    <div key={index}></div>
-                ))}
+                {
+                    certifications.map((cert, index) => {
+                        return (
+                            // <Certification key={index} detail={certification} />
+                            <div key={index}></div>
+                        )
+                    })
+                }
             </div>
         </div>
     )

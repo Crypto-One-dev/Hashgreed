@@ -76,7 +76,7 @@ function FileCertification({detail, owner, walletState}) {
             {
               revoked?
                 <span className={styles.status}>
-                  <a href={"http://wavesexplorer.com/tx/" + revoked} target="_blank">
+                  <a href={"http://wavesexplorer.com/tx/" + revoked} target="_blank" rel="noreferrer">
                     REVOKED
                   </a>
                 </span>

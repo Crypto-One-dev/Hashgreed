@@ -122,9 +122,27 @@
         align-items: center;
 
         margin-bottom: 25px;
-        padding: 80px 0;
+        padding: 80px 5px;
         font-size: 18px;
         word-break: break-all;
+
+        position: relative;
+        .qr {
+          position: absolute;
+          right: 25px;
+          bottom: 15px;
+        }
+        .status {
+          background-color: red;
+          color: white;
+          font-size: 20px;
+          margin-right: 10px;
+          padding: 0 5px;
+
+          position: absolute;
+          right: 35px;
+          top: 25px;
+        }
       }
     }
   }

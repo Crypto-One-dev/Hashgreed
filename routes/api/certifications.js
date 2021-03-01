@@ -9,7 +9,7 @@ const QRCode = require('qrcode')
 const {nodeUrl, smartContract, baseUrl} = require('../../config/keys')
 const File = require('../../models/File')
 
-router.post('/getFileCertifications', async (req, res) => {
+router.post('/getCertifications', async (req, res) => {
   try {
     const {address, filter} = req.body
     let certificates = await nodeInteraction.accountData({

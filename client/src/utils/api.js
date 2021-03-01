@@ -60,10 +60,10 @@ const getMassTransactions = async (address, callback) => {
   }
 }
 
-const getFileCertifications = async (address, filter, callback) => {
+const getCertifications = async (address, filter, callback) => {
   try {
     axios
-      .post('/api/certifications/getFileCertifications', {address, filter})
+      .post('/api/certifications/getCertifications', {address, filter})
       .then(res => {
         if(callback)
           callback(res.data)
@@ -106,7 +106,7 @@ const ApiUtils = {
   getReceiveTransactions,
   getSendTransactions,
   getMassTransactions,
-  getFileCertifications,
+  getCertifications,
   searchCertification,
   fileUpload,
 }
