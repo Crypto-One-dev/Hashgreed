@@ -11,7 +11,7 @@ const platform = 'prod'
 module.exports = {
   nodeUrl: NodeUrls[platform],
   chainID: ChainIDs[platform],
-  smartContract: '3PG8noVrXvBH7VTzgjsQyzPiAtfoXxHqRbX',
+  smartContract: '3P7JCNf1Z8uPWaNayLg2hTrhgLktDxgfXmm',
   baseUrl: process.env.REACT_APP_BASE_URL,
   mongoURI: process.env.MONGO_URI,
 }

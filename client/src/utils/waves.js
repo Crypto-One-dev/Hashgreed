@@ -175,6 +175,65 @@ const RevokeCertificate = async (txid, publicKey, certFee, transactionFee) => {
   }
 }
 
+const CertifyMutual = async (reference, hash, recp, uuid, timestamp, publicKey, certFee, transactionFee) => {
+  try {
+    if(window.waves) {
+      let json = {
+        title: reference,
+        timestamp: timestamp,
+        hash: hash,
+        creator: ''
+      }
+      recp.forEach((rec, index) => {
+        json['address' + (index + 1)] = rec
+      })
+      const tx = await window.waves.invoke({
+        dApp: WavesConfig.SMART_CONTRACT,
+        payment: [{
+          assetId: WavesConfig.RKMT_ID,
+          amount: certFee * (10 ** WavesConfig.RKMT_DECIMALS)
+        }],
+        fee: transactionFee * (10 ** WavesConfig.WAVES_DECIMALS),
+        call:{
+          function: 'createAgreement',
+          args: [
+            {
+              "type": "string",
+              "value": hash
+            },
+            {
+              "type": "string",
+              "value": reference
+            },
+            {
+              "type": "string",
+              "value": JSON.stringify(json)
+            },
+            {
+              "type": "string",
+              "value": recp.join(',')
+            },
+            {
+              "type": "string",
+              "value": publicKey
+            },
+            {
+              "type": "string",
+              "value": uuid
+            },
+          ]
+        },
+        chainId: WavesConfig.CHAIN_ID
+      }).broadcast()
+      return tx
+    }
+  } catch(e) {
+    console.error(e)
+    AlertUtils.SystemAlert(e)
+  }
+  return null
+}
+
 const DepositRKMT = async (amount) => {
   try {
     if(window.waves) {
@@ -237,6 +296,7 @@ const WavesUtils = {
   masssend,
   CertifyFile,
   RevokeCertificate,
+  CertifyMutual,
   DepositRKMT,
   WithdrawRKMT,
   StakedRKMT,

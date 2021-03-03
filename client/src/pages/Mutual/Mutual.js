@@ -1,11 +1,12 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import { Button, Checkbox, Input, Spinner, Text, Tooltip } from '@chakra-ui/react';
+import { Button, Checkbox, Input, Spinner, Text, Textarea, Tooltip } from '@chakra-ui/react';
 import cx from 'classnames';
 import {sha256} from 'js-sha256';
 import {useDropzone} from 'react-dropzone';
 import {FaLock, RiArrowDownCircleLine} from "react-icons/all";
 import { v5 as uuidgen } from 'uuid';
 
+import MutualCertification from 'component/MutualCertification/MutualCertification';
 import ThemeContext from "context/UserContext";
 import WavesConfig from 'config/waves';
 import walletContainer from 'redux/containers/wallet';
@@ -18,14 +19,14 @@ function Mutual({walletState}) {
     const [isCertifyFormOpen, openCertifyForm] = useState(false);
     const [certifications, setCertifications] = useState([]);
 
-    const certFee = 100;
+    const certFee = 300;
     const transactionFee = 0.005;
 
     useEffect(() => {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-            // ApiUtils.getCertifications(walletState.address, 'data_mc_', setCertifications);
+            ApiUtils.getCertifications(walletState.address, 'data_MA_', setCertifications);
         }
         proc()
         interval = setInterval(proc, 10000)
@@ -42,6 +43,7 @@ function Mutual({walletState}) {
     const [reference, setReference] = useState('');
     const [uuid, setUUID] = useState('');
     const [store, setStore] = useState(false)
+    const [recipients, setRecipients] = useState('')
     const [uploading, setUploading] = useState(false)
     
     const onDrop = useCallback(acceptedFiles => {
@@ -60,9 +62,10 @@ function Mutual({walletState}) {
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({onDrop})
 
     const Certify = async () => {
-        if(acceptedFiles.length === 1 && hash && reference && uuid) {
+        const recp = recipients.split('\n')
+        if(acceptedFiles.length === 1 && hash && reference && uuid && recp.length > 0) {
             const timestamp = Date.now()
-            const tx = await WavesUtils.CertifyFile(reference, hash, uuid, timestamp, walletState.publicKey, certFee, transactionFee)
+            const tx = await WavesUtils.CertifyMutual(reference, hash, recp, uuid, timestamp, walletState.publicKey, certFee, transactionFee)
             if(tx && store) {
                 setUploading(true)
                 await ApiUtils.fileUpload(acceptedFiles[0], tx.id)
@@ -74,6 +77,7 @@ function Mutual({walletState}) {
         setUUID('')
         setStore(false)
         setUploading(false)
+        setRecipients('')
     }
 
     return (
@@ -140,7 +144,7 @@ function Mutual({walletState}) {
                             <Checkbox className={styles.checkbox} isChecked={store} onChange={e => setStore(e.target.checked)}>
                                 <div>
                                     <div className={styles.inputDiv}>
-                                        <Text color={theme.primaryText}>Store file on IPFS</Text>
+                                        <Text color={theme.manageTokenHighlight}>Store file on IPFS</Text>
                                         <Text color={theme.grayText} className={styles.description}>(10MB max)</Text>
                                         <Tooltip label="Fill will be public and permanently stored on IPFS, this is not a personal storage. Always keep your own copy and don't use it for sensitive/private files." placement="right">
                                             <span className={styles.question} style={{backgroundColor: theme.manageTokenHighlight}}>?</span>
@@ -148,6 +152,19 @@ function Mutual({walletState}) {
                                     </div>
                                 </div>
                             </Checkbox>
+                            <div>
+                                <div className={styles.inputDiv}>
+                                    <Text color={theme.manageTokenHighlight}>Recipients addresses (6 max)</Text>
+                                    <Text color={theme.grayText} className={styles.description}>- Enter all counterparts with one address (no alias) per line.</Text>
+                                </div>
+                                <Textarea
+                                    className={styles.textInput}
+                                    style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    rows={6}
+                                    value={recipients}
+                                    onChange={e => setRecipients(e.target.value)}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className={styles.certificationFee}>
@@ -204,8 +221,7 @@ function Mutual({walletState}) {
                 {
                     certifications.map((cert, index) => {
                         return (
-                            // <Certification key={index} detail={certification} />
-                            <div key={index}></div>
+                            <MutualCertification key={index} detail={cert} owner={walletState.address} />
                         )
                     })
                 }
