@@ -107,8 +107,8 @@ function MutualCertification({detail, owner, walletState}) {
         <div className={styles.counterparts_title}>Counterparts</div>
         <div className={styles.counterparts}>
           {
-            counterparts.map(each => {
-              return <div>
+            counterparts.map((each, index) => {
+              return <div key={index}>
                 {
                   each.status === 'PENDING' ?
                     <>

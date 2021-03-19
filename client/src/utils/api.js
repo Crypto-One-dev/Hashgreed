@@ -59,6 +59,13 @@ const getMutualCertifications = async (address, callback) => {
       const origin = await axios.post('/api/certifications/getCertifications', {filter: 'data_MA_' + split[2] + '_([A-Za-z0-9]*)'})
       mutuals = mutuals.concat(origin.data)
     }
+    mutuals = mutuals.sort((l, r) => {
+      if(l.timestamp > r.timestamp)
+        return -1
+      if(l.timestamp > r.timestamp)
+        return 1
+      return 0
+    })
     if(callback) {
       callback(mutuals)
     }
