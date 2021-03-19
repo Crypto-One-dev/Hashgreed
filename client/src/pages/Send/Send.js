@@ -115,7 +115,7 @@ function Send({walletState}) {
                 TRANSFER HISTORY
             </div>
             <div className={styles.subheader} style={{color: theme.primaryText}}>
-                <span>Here is your last outgoing transaction</span>
+                <span>Here is your latest outgoing transaction</span>
                 <Button
                     className={cx(styles.transferForm, styles.clickable)}
                     onClick={() => openTransferForm(!isTransferFormOpen)}

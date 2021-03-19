@@ -153,7 +153,7 @@ function MassSend({walletState}) {
                 MASS TRANSFER HISTORY
             </div>
             <div className={styles.subheader} style={{color: theme.primaryText}}>
-                <span>Here is your last mass transaction</span>
+                <span>Here is your latest mass transaction</span>
                 <Button
                     className={cx(styles.transferForm, styles.clickable)}
                     onClick={() => openTransferForm(!isTransferFormOpen)}

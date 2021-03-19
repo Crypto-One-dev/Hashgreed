@@ -3,7 +3,7 @@ import {Button, Modal, ModalOverlay, ModalContent, ModalBody} from '@chakra-ui/r
 import download from 'downloadjs';
 import moment from 'moment';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import {FaCertificate, FaDownload, FaFilePdf, FaPaste, FaTimes} from 'react-icons/all';
+import {FaCertificate, FaDownload, FaPaste, FaRegFilePdf, FaTimes} from 'react-icons/all';
 
 import WavesConfig from 'config/waves';
 import ThemeContext from 'context/UserContext';
@@ -89,7 +89,7 @@ function FileCertification({detail, owner, walletState}) {
           </div>
         </div>
         <div className={styles.extra} style={{color: theme.primaryText, backgroundColor: theme.itemBackground}}>
-          <FaFilePdf className={styles.envelope} style={{color: theme.overviewTransactionEnvelope}} onClick={DownloadCertificate} />
+          <FaRegFilePdf className={styles.envelope} style={{color: theme.overviewTransactionEnvelope}} onClick={DownloadCertificate} />
         </div>
       </div>
       <Modal isCentered isOpen={modalShow} size='xl' onClose={() => ShowModal(false)}>

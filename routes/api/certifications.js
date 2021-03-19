@@ -9,12 +9,26 @@ const QRCode = require('qrcode')
 const {nodeUrl, smartContract, baseUrl} = require('../../config/keys')
 const File = require('../../models/File')
 
-router.post('/getCertifications', async (req, res) => {
+router.post('/filterCertifications', async (req, res) => {
   try {
-    const {address, filter} = req.body
+    const {filter} = req.body
     let certificates = await nodeInteraction.accountData({
       address: smartContract,
-      match: filter + '([A-Za-z0-9]*)_' + address
+      match: filter
+    }, nodeUrl)
+    return res.status(200).json(certificates)
+  } catch(e) {
+    console.error(e)
+    return res.status(500).json(e)
+  }
+})
+
+router.post('/getCertifications', async (req, res) => {
+  try {
+    const {filter} = req.body
+    let certificates = await nodeInteraction.accountData({
+      address: smartContract,
+      match: filter
     }, nodeUrl)
     result = []
     for(key in certificates) {

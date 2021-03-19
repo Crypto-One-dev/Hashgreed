@@ -40,7 +40,7 @@ function Overview({walletState, priceState, priceActions}) {
         <Price Coin="USDT" Description="Total RKMT Balance" Price={priceState.rkmt_price * walletState.rkmt_balance} Decimals={4} />
       </div>
       <div className={styles.header} style={{backgroundColor: theme.primaryColor}}>TRANSACTIONS HISTORY</div>
-      <div className={styles.subheader} style={{color: theme.primaryText}}>Here is your last transaction</div>
+      <div className={styles.subheader} style={{color: theme.primaryText}}>Here is your latest transactions</div>
       
       <div className={styles.transactions}>
         {transactions.map((transfer, index) => (

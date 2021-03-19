@@ -26,7 +26,7 @@ function File({walletState}) {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-            ApiUtils.getCertifications(walletState.address, 'data_fc_', setCertifications);
+            ApiUtils.getCertifications('data_fc_([A-Za-z0-9]*)_' + walletState.address, setCertifications);
         }
         proc()
         interval = setInterval(proc, 10000)
@@ -189,7 +189,7 @@ function File({walletState}) {
                 CERTIFIED FILE HISTORY
             </div>
             <div className={styles.subheader} style={{color: theme.primaryText}}>
-                <span>Here is your last certified files</span>
+                <span>Here is your latest certified files</span>
                 <Button
                     className={cx(styles.certifyForm, styles.clickable)}
                     onClick={() => openCertifyForm(!isCertifyFormOpen)}

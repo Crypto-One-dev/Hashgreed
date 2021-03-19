@@ -26,7 +26,7 @@ function Mutual({walletState}) {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-            ApiUtils.getCertifications(walletState.address, 'data_MA_', setCertifications);
+            ApiUtils.getMutualCertifications(walletState.address, setCertifications);
         }
         proc()
         interval = setInterval(proc, 10000)
@@ -206,7 +206,7 @@ function Mutual({walletState}) {
                 MUTUAL AGREEMENT HISTORY
             </div>
             <div className={styles.subheader} style={{color: theme.primaryText}}>
-                <span>Here is your last certified agreements</span>
+                <span>Here is your latest certified agreements</span>
                 <Button
                     className={cx(styles.certifyForm, styles.clickable)}
                     onClick={() => openCertifyForm(!isCertifyFormOpen)}

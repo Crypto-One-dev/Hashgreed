@@ -75,7 +75,7 @@ function Receive({walletState}) {
         </div>
       </div>
       <div className={styles.header} style={{backgroundColor: theme.primaryColor}}>DEPOSIT HISTORY</div>
-      <div className={styles.subheader} style={{color: theme.primaryText}}>Here is your last incoming transaction</div>
+      <div className={styles.subheader} style={{color: theme.primaryText}}>Here is your latest incoming transaction</div>
       <div className={styles.transactions}>
         {transactions.map((transfer, index) => (
           <Transaction key={index} detail={transfer} owner={walletState.address} />

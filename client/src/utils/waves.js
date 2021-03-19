@@ -234,6 +234,39 @@ const CertifyMutual = async (reference, hash, recp, uuid, timestamp, publicKey, 
   return null
 }
 
+const SignMutual = async (hash, agreementId, publicKey) => {
+  try {
+    if(window.waves) {
+      const tx = await window.waves.invoke({
+        dApp: WavesConfig.SMART_CONTRACT,
+        call:{
+          function: 'signAgreement',
+          args: [
+            {
+              "type": "string",
+              "value": hash
+            },
+            {
+              "type": "string",
+              "value": agreementId
+            },
+            {
+              "type": "string",
+              "value": publicKey
+            },
+          ]
+        },
+        chainId: WavesConfig.CHAIN_ID
+      }).broadcast()
+      return tx
+    }
+  } catch(e) {
+    console.error(e)
+    AlertUtils.SystemAlert(e)
+  }
+  return null
+}
+
 const DepositRKMT = async (amount) => {
   try {
     if(window.waves) {
@@ -297,6 +330,7 @@ const WavesUtils = {
   CertifyFile,
   RevokeCertificate,
   CertifyMutual,
+  SignMutual,
   DepositRKMT,
   WithdrawRKMT,
   StakedRKMT,

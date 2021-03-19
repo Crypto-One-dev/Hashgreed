@@ -20,11 +20,69 @@ const getTransactions = async (address, callback) => {
   try {
     const send = await axios.get(WavesConfig.API_URL + '/v0/transactions/transfer?limit=100&sender=' + address + '&assetId=' + WavesConfig.RKMT_ID)
     const receive = await axios.get(WavesConfig.API_URL + '/v0/transactions/transfer?limit=100&recipient=' + address + '&assetId=' + WavesConfig.RKMT_ID)
+    let files = await axios.post('/api/certifications/getCertifications', {filter: 'data_fc_([A-Za-z0-9]*)_' + address})
+    const mutuals = await getMutualCertifications(address)
+    let certTmp = [...files.data, ...mutuals], certArray = []
+    certTmp.forEach(cert => {
+      cert.timestamp = new Date(cert.timestamp).toISOString()
+      const split = cert.key.split('_')
+      cert.type = split[1]
+      cert.id = split[2]
+      cert.publisher = split[3]
+      certArray.push({
+        __type: 'certification',
+        data: cert
+      })
+    })
 
-    let transfers = [...send.data.data, ...receive.data.data]
-    transfers = transfers.sort((l, r) => l.data.height > r.data.height)
+    let transfers = [...send.data.data, ...receive.data.data, ...certArray]
+    transfers = transfers.sort((l, r) => {
+      if(l.data.timestamp > r.data.timestamp)
+        return -1
+      if(l.data.timestamp > r.data.timestamp)
+        return 1
+      return 0
+    })
+    console.log(transfers)
     if(callback)
       callback(transfers)
+  } catch(e) {
+    console.error(e)
+  }
+}
+
+const getMutualCertifications = async (address, callback) => {
+  try {
+    const inactive = await axios.post('/api/certifications/filterCertifications', {filter: address + '_MA_([A-Za-z0-9]*)'})
+    let mutuals = []
+    for(const key in inactive.data) {
+      const split = key.split('_')
+      const origin = await axios.post('/api/certifications/getCertifications', {filter: 'data_MA_' + split[2] + '_([A-Za-z0-9]*)'})
+      mutuals = mutuals.concat(origin.data)
+    }
+    if(callback) {
+      callback(mutuals)
+    }
+    return mutuals
+  } catch(e) {
+    console.error(e)
+    return []
+  }
+}
+
+const getCounterparts = async (txid, callback) => {
+  try {
+    const counterparts = await axios.post('/api/certifications/filterCertifications', {filter: '([A-Za-z0-9]*)_MA_' + txid})
+    let result = []
+    for(const key in counterparts.data) {
+      let tmp = counterparts.data[key]
+      const split = key.split('_')
+      tmp.address = split[0]
+      tmp.status = tmp.value.replace('SIGNED_', '')
+      result.push(tmp)
+    }
+    if(callback)
+      callback(result)
   } catch(e) {
     console.error(e)
   }
@@ -60,10 +118,10 @@ const getMassTransactions = async (address, callback) => {
   }
 }
 
-const getCertifications = async (address, filter, callback) => {
+const getCertifications = async (filter, callback) => {
   try {
     axios
-      .post('/api/certifications/getCertifications', {address, filter})
+      .post('/api/certifications/getCertifications', {filter})
       .then(res => {
         if(callback)
           callback(res.data)
@@ -106,6 +164,8 @@ const ApiUtils = {
   getReceiveTransactions,
   getSendTransactions,
   getMassTransactions,
+  getMutualCertifications,
+  getCounterparts,
   getCertifications,
   searchCertification,
   fileUpload,

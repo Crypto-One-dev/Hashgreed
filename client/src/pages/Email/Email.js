@@ -144,7 +144,7 @@ function Email({walletState}) {
                 CERTIFIED EMAIL HISTORY
             </div>
             <div className={styles.subheader} style={{color: theme.primaryText}}>
-                <span>Here is your last certified emails</span>
+                <span>Here is your latest certified emails</span>
                 <Button
                     className={cx(styles.certifyForm, styles.clickable)}
                     onClick={() => openCertifyForm(!isCertifyFormOpen)}
