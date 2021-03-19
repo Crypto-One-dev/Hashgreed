@@ -43,7 +43,6 @@ const getTransactions = async (address, callback) => {
         return 1
       return 0
     })
-    console.log(transfers)
     if(callback)
       callback(transfers)
   } catch(e) {

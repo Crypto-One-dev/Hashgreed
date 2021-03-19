@@ -23,10 +23,10 @@ router.post('/file', upload.single('file'), async (req, res) => {
     fs.unlink(req.file.path, function (err) {
       if(err)
         console.error(err)
-      console.log('File deleted!');
+      console.log('File deleted after upload on IPFS!');
     })
     if(link === null) {
-      return res.status(500).json('Upload failed')
+      return res.status(500).json('Upload on IPFS failed!')
     }
     console.log('https://ipfs.io/ipfs/' + link)
     await new File({link, txid: req.body.txid}).save()
@@ -36,7 +36,7 @@ router.post('/file', upload.single('file'), async (req, res) => {
     fs.unlink(req.file.path, function (err) {
       if(err)
         console.error(err)
-      console.log('File deleted!');
+      console.log('File deleted due to error!');
     })
     return res.status(500).json(e)
   }

@@ -44,9 +44,7 @@ function VerificationExplorer({query}) {
                 const regex = /https:\/\/wavesexplorer.com\/tx\/[A-Za-z0-9]*/g;
                 const found = str.match(regex);
                 if(found.length === 1) {
-                    console.log(found[0])
                     const txid = found[0].replace('https://wavesexplorer.com/tx/', '')
-                    console.log(txid)
                     ApiUtils.searchCertification(txid, '', '', setCertification)
                 } else {
                     AlertUtils.SystemAlert('Not supported certification')
