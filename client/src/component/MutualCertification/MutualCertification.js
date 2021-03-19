@@ -11,6 +11,7 @@ import walletContainer from 'redux/containers/wallet';
 import WavesUtils from 'utils/waves';
 import styles from './MutualCertification.module.scss';
 import ApiUtils from 'utils/api';
+import AlertUtils from 'utils/alert';
 
 function MutualCertification({detail, owner, walletState}) {
   const {theme} = useContext(ThemeContext);
@@ -52,8 +53,11 @@ function MutualCertification({detail, owner, walletState}) {
     window.open('https://ipfs.io/ipfs/' + detail.link)
   }
 
-  const sign = () => {
-    WavesUtils.SignMutual(detail.hash, txid, walletState.publicKey)
+  const sign = async () => {
+    const tx = await WavesUtils.SignMutual(detail.hash, txid, walletState.publicKey)
+    if(tx) {
+      AlertUtils.SystemAlert('You signed the contract successfully, Transaction ID: ' + tx.id)
+    }
   }
   
   return (

@@ -41,7 +41,7 @@ function Main({walletState, walletActions, match}) {
         WavesUtils.getBalance(walletActions.setBalance, walletActions.lockWallet)
       }
       proc()
-      interval = setInterval(proc, 10000)
+      interval = setInterval(proc, 60000)
     }
   
     return () => {

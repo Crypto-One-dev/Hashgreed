@@ -29,7 +29,7 @@ function File({walletState}) {
             ApiUtils.getCertifications('data_fc_([A-Za-z0-9]*)_' + walletState.address, setCertifications);
         }
         proc()
-        interval = setInterval(proc, 10000)
+        interval = setInterval(proc, 60000)
       }
     
       return () => {

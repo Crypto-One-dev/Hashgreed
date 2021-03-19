@@ -28,7 +28,7 @@ function MassSend({walletState}) {
           ApiUtils.getMassTransactions(walletState.address, setTransactions);
         }
         proc()
-        interval = setInterval(proc, 10000)
+        interval = setInterval(proc, 60000)
       }
     
       return () => {
