@@ -20,7 +20,7 @@ const getTransactions = async (address, callback) => {
   try {
     const send = await axios.get(WavesConfig.API_URL + '/v0/transactions/transfer?limit=100&sender=' + address + '&assetId=' + WavesConfig.RKMT_ID)
     const receive = await axios.get(WavesConfig.API_URL + '/v0/transactions/transfer?limit=100&recipient=' + address + '&assetId=' + WavesConfig.RKMT_ID)
-    let files = await axios.post('/api/certifications/getCertifications', {filter: 'data_fc_([A-Za-z0-9]*)_' + address})
+    const files = await axios.post('/api/certifications/getCertifications', {filter: 'data_fc_([A-Za-z0-9]*)_' + address})
     const mutuals = await getMutualCertifications(address)
     let certTmp = [...files.data, ...mutuals], certArray = []
     certTmp.forEach(cert => {

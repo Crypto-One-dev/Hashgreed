@@ -15,7 +15,7 @@
     "@waves/provider-seed": "^0.1.1",
     "@waves/signer": "^1.0.2",
     "@waves/ts-lib-crypto": "^1.4.3",
-    "@waves/waves-transactions": "^4.1.8-beta2",
+    "@waves/waves-transactions": "^4.1.8",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
