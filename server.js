@@ -31,7 +31,9 @@ app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 })
 app.use("/api/certifications", certifications)
+app.use("/certifications", certifications) // for server
 app.use("/api/upload", upload)
+app.use("/upload", upload) // for server
 const port = process.env.PORT || 5000
 
 app.listen(port, () => console.log(`Server up and running on port ${port} !`))
