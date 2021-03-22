@@ -19,7 +19,7 @@ function Mutual({walletState}) {
     const [isCertifyFormOpen, openCertifyForm] = useState(false);
     const [certifications, setCertifications] = useState([]);
 
-    const [certFee, setCertFee] = useState(300);
+    const [certFee, setCertFee] = useState(100);
     const transactionFee = 0.009;
 
     useEffect(() => {
@@ -47,8 +47,10 @@ function Mutual({walletState}) {
     const [uploading, setUploading] = useState(false)
 
     useEffect(() => {
-        const lines = recipients.trim().split('\n').length
-        setCertFee(lines > 2 ? (lines + 1) * 100 : 300)
+        let lines = recipients.trim().split('\n').length
+        if(!recipients.trim())
+            lines = 0
+        setCertFee(lines > 5 ? 600 : (lines + 1) * 100)
     }, [recipients])
     
     const onDrop = useCallback(acceptedFiles => {
