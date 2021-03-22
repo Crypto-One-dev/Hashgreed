@@ -201,13 +201,13 @@ function Main({walletState, walletActions, match}) {
               <FaComments className={styles.icon} />
               <a href="mailto:support@krosscoin.io" target="_blank" rel="noreferrer">Technical Support</a>
             </div>
+            <div id="google_translate_element"></div>
           </div>
-          <div
-            className={styles.closemenu}
-            onClick={() => openHamburger(false)}
-          >
-          </div>
-          <div id="google_translate_element"></div>
+        </div>
+        <div
+          className={styles.closemenu}
+          onClick={() => openHamburger(false)}
+        >
         </div>
       </div>
       <div className={styles.rightPanel} style={{background: theme.secondaryBack}}>

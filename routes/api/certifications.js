@@ -63,7 +63,7 @@ router.post('/searchCertification', async (req, res) => {
     if(reference)
       key = reference + '([a-z0-9\-]*)'
     if(transactionID)
-      key = 'data_([a-z]*)_' + transactionID + '_([A-Za-z0-9]*)'
+      key = 'data_([A-Za-z]*)_' + transactionID + '_([A-Za-z0-9]*)'
     let certificates = await nodeInteraction.accountData({
       address: smartContract,
       match: key
@@ -73,7 +73,7 @@ router.post('/searchCertification', async (req, res) => {
     if(certificates.length === 1 && !transactionID) {
       certificates = await nodeInteraction.accountData({
         address: smartContract,
-        match: 'data_([a-z]*)_' + certificates[0].value + '_([A-Za-z0-9]*)'
+        match: 'data_([A-Za-z]*)_' + certificates[0].value + '_([A-Za-z0-9]*)'
       }, nodeUrl)
       keys = Object.keys(certificates)
       certificates = Object.values(certificates)

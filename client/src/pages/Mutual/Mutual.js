@@ -19,8 +19,8 @@ function Mutual({walletState}) {
     const [isCertifyFormOpen, openCertifyForm] = useState(false);
     const [certifications, setCertifications] = useState([]);
 
-    const certFee = 300;
-    const transactionFee = 0.005;
+    const [certFee, setCertFee] = useState(300);
+    const transactionFee = 0.009;
 
     useEffect(() => {
       let interval = -1
@@ -45,6 +45,11 @@ function Mutual({walletState}) {
     const [store, setStore] = useState(false)
     const [recipients, setRecipients] = useState('')
     const [uploading, setUploading] = useState(false)
+
+    useEffect(() => {
+        const lines = recipients.trim().split('\n').length
+        setCertFee(lines > 2 ? (lines + 1) * 100 : 300)
+    }, [recipients])
     
     const onDrop = useCallback(acceptedFiles => {
         if(acceptedFiles.length === 1) {
@@ -62,7 +67,7 @@ function Mutual({walletState}) {
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({onDrop})
 
     const Certify = async () => {
-        const recp = recipients.split('\n')
+        const recp = recipients.trim().split('\n')
         if(acceptedFiles.length === 1 && hash && reference && uuid && recp.length > 0) {
             const timestamp = Date.now()
             const tx = await WavesUtils.CertifyMutual(reference, hash, recp, uuid, timestamp, walletState.publicKey, certFee, transactionFee)
@@ -154,13 +159,13 @@ function Mutual({walletState}) {
                             </Checkbox>
                             <div>
                                 <div className={styles.inputDiv}>
-                                    <Text color={theme.manageTokenHighlight}>Recipients addresses (6 max)</Text>
+                                    <Text color={theme.manageTokenHighlight}>Recipients addresses (5 max)</Text>
                                     <Text color={theme.grayText} className={styles.description}>- Enter all counterparts with one address (no alias) per line.</Text>
                                 </div>
                                 <Textarea
                                     className={styles.textInput}
                                     style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
-                                    rows={6}
+                                    rows={5}
                                     value={recipients}
                                     onChange={e => setRecipients(e.target.value)}
                                 />

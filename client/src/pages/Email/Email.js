@@ -19,6 +19,7 @@ function Email({walletState}) {
       if(walletState.address) {
         const proc = () => {
         //   ApiUtils.getEmailCertifications(walletState.address, setCertifications);
+            setCertifications([]) // For Debug
         }
         proc()
         interval = setInterval(proc, 60000)
