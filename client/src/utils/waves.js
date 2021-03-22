@@ -193,7 +193,7 @@ const CertifyMutual = async (reference, hash, recp, uuid, timestamp, publicKey, 
           assetId: WavesConfig.RKMT_ID,
           amount: certFee * (10 ** WavesConfig.RKMT_DECIMALS)
         }],
-        fee: transactionFee * (10 ** WavesConfig.WAVES_DECIMALS),
+        fee: Math.round(transactionFee * (10 ** WavesConfig.WAVES_DECIMALS)),
         call:{
           function: 'createAgreement',
           args: [
