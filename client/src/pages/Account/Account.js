@@ -120,7 +120,11 @@ function Account({walletState, walletActions}) {
         <ModalContent style={{backgroundColor: theme.primaryColor}}>
           <ModalHeader style={{color: 'white', paddingTop: '2rem', paddingBottom: '2rem', textAlign: 'center'}}>
             <div>Connect wallet</div>
-            <div style={{fontSize: 14, fontWeight:'normal', marginTop: 50}}>By connecting, I accept Hashgreed's<br /><u style={{cursor: 'pointer'}}>Terms of Use</u></div>
+            <div style={{fontSize: 14, fontWeight:'normal', marginTop: 50}}>By connecting, I accept Hashgreed's<br />
+              <u style={{cursor: 'pointer'}}>
+                <a href="https://clique.krosscoin.io/images/Terms-and-Conditions.pdf" target="_blank" rel="noreferrer">Terms of Use</a>
+              </u>
+            </div>
           </ModalHeader>
           <ModalCloseButton style={{color: 'white'}} />
           <ModalBody pb={6} style={{display: 'flex', flexDirection: 'column', backgroundColor: theme.secondaryBack}}>
