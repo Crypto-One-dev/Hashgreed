@@ -1,25 +1,29 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import { Button, Input, Textarea } from '@chakra-ui/react';
+import { Button, Input, Spinner, Textarea } from '@chakra-ui/react';
 import cx from 'classnames';
 import {useDropzone} from 'react-dropzone';
 import {FaLock, RiArrowDownCircleLine} from "react-icons/all";
+import { v4 as uuidgen } from 'uuid';
 
+import EmailCertification from 'component/EmailCertification/EmailCertification';
 import ThemeContext from "context/UserContext";
 import walletContainer from 'redux/containers/wallet';
+import ApiUtils from 'utils/api';
+import WavesUtils from 'utils/waves';
+
 import styles from './Email.module.scss';
+
 
 function Email({walletState}) {
     const {theme} = useContext(ThemeContext);
     const [isCertifyFormOpen, openCertifyForm] = useState(false);
     const [certifications, setCertifications] = useState([]);
-    const [smtp, setSmtp] = useState('open');
 
     useEffect(() => {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-        //   ApiUtils.getEmailCertifications(walletState.address, setCertifications);
-            setCertifications([]) // For Debug
+            ApiUtils.getCertifications('data_ec_([A-Za-z0-9]*)_' + walletState.address, setCertifications);
         }
         proc()
         interval = setInterval(proc, 60000)
@@ -32,13 +36,64 @@ function Email({walletState}) {
       }
     }, [walletState.address])
 
+    const certFee = 100;
+    const transactionFee = 0.005;
     
     const onDrop = useCallback(acceptedFiles => {
     }, [])
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({onDrop})
 
+    const [smtp, setSmtp] = useState('open')
+    const [server, setServer] = useState('')
+    const [port, setPort] = useState('')
+    const [login, setLogin] = useState('')
+    const [password, setPassword] = useState('')
+    const [first_name, setFirstName] = useState('')
+    const [last_name, setLastName] = useState('')
+    const [email_sender, setEmailSender] = useState('')
+    const [email_recipient, setEmailRecipient] = useState('')
+    const [message, setMessage] = useState('')
+    const [reference, setReference] = useState('')
+    const [uploading, setUploading] = useState(false)
+
+    const Certify = async () => {
+        if(reference) {
+            const timestamp = Date.now()
+            const uuid = uuidgen()
+            const domain = smtp === 'open' ? 'hashgreed.com' : login.split('@').pop()
+            const tx = await WavesUtils.CertifyEmail(reference, uuid, domain, timestamp, walletState.publicKey, certFee, transactionFee)
+            if(tx && acceptedFiles.length === 1) {
+                setUploading(true)
+                await ApiUtils.emailUpload(
+                    acceptedFiles.length === 1 ? acceptedFiles[0] : null, 
+                    smtp, server, port, login, password, first_name, last_name, email_sender, email_recipient, message, reference, uuid + '@' + domain, tx.id)
+            }
+        }
+        acceptedFiles.splice(0, acceptedFiles.length);
+        setSmtp('')
+        setServer('')
+        setPort('')
+        setLogin('')
+        setPassword('')
+        setFirstName('')
+        setLastName('')
+        setEmailSender('')
+        setEmailRecipient('')
+        setMessage('')
+        setReference('')
+        setUploading(false)
+    }
+
     return (
         <div className={styles.wrapper}>
+            {
+                uploading ?
+                    <div className={styles.spinner}>
+                        <Spinner size="xl" color="red.500" />
+                    </div>
+                :
+                    null
+            }
             <div style={{display: isCertifyFormOpen ? 'block' : 'none'}}>
                 <div className={cx(styles.header, styles.clickable)} style={{backgroundColor: theme.primaryColor}} onClick={() => openCertifyForm(false)}>
                     <span>SEND A CERTIFIED EMAIL</span>
@@ -57,31 +112,40 @@ function Email({walletState}) {
                             </select>
                         </div>
                         <div className={smtp === 'open' ? styles.twoInRow : styles.threeInRow}>
-                            <Input className={styles.textInput} placeholder="Reference *" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                            <Input className={styles.textInput} placeholder="Reference *" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} 
+                                    value={reference} onChange={e => setReference(e.target.value)} />
                         </div>
                         <div className={smtp === 'open' ? styles.twoInRow : styles.threeInRow} style={{display: smtp === 'open' ? 'none' : 'block'}}>
-                            <Input className={styles.textInput} placeholder="Server" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                            <Input className={styles.textInput} placeholder="Server" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    value={server} onChange={e => setServer(e.target.value)} />
                         </div>
                         <div className={smtp === 'open' ? styles.twoInRow : styles.threeInRow} style={{display: smtp === 'open' ? 'none' : 'block'}}>
-                            <Input className={styles.textInput} placeholder="Port" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                            <Input className={styles.textInput} placeholder="Port" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    value={port} onChange={e => setPort(e.target.value)} />
                         </div>
                         <div className={smtp === 'open' ? styles.twoInRow : styles.threeInRow} style={{display: smtp === 'open' ? 'none' : 'block'}}>
-                            <Input className={styles.textInput} placeholder="Login" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                            <Input className={styles.textInput} placeholder="Login" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    value={login} onChange={e => setLogin(e.target.value)} />
                         </div>
                         <div className={smtp === 'open' ? styles.twoInRow : styles.threeInRow} style={{display: smtp === 'open' ? 'none' : 'block'}}>
-                            <Input className={styles.textInput} placeholder="Password" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                            <Input className={styles.textInput} placeholder="Password" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    value={password} onChange={e => setPassword(e.target.value)} />
                         </div>
                         <div className={smtp === 'open' ? styles.twoInRow : styles.threeInRow}>
-                            <Input className={styles.textInput} placeholder="First name" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                            <Input className={styles.textInput} placeholder="First name" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    value={first_name} onChange={e => setFirstName(e.target.value)} />
                         </div>
                         <div className={smtp === 'open' ? styles.twoInRow : styles.threeInRow}>
-                            <Input className={styles.textInput} placeholder="Last name" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                            <Input className={styles.textInput} placeholder="Last name" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    value={last_name} onChange={e => setLastName(e.target.value)} />
                         </div>
                         <div className={smtp === 'open' ? styles.twoInRow : styles.threeInRow}>
-                            <Input className={styles.textInput} placeholder="Email sender" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                            <Input className={styles.textInput} placeholder="Email sender" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    value={email_sender} onChange={e => setEmailSender(e.target.value)} />
                         </div>
                         <div className={smtp === 'open' ? styles.twoInRow : styles.threeInRow}>
-                            <Input className={styles.textInput} placeholder="Email recipient" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}} />
+                            <Input className={styles.textInput} placeholder="Email recipient" style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                                    value={email_recipient} onChange={e => setEmailRecipient(e.target.value)} />
                         </div>
                         <div {...getRootProps()} className={cx(styles.fullRow, styles.dropzone)} style={{backgroundColor: theme.itemBackground, color: theme.buttonBack, borderColor: theme.manageTokenHighlight}}>
                             <input {...getInputProps()} />
@@ -98,7 +162,9 @@ function Email({walletState}) {
                             Recommendations: 10MB total, including message and attachment(s); 2MB limit per attachment.
                         </div>
                         <div className={styles.fullRow} style={{height: 150}}>
-                            <Textarea style={{backgroundColor: theme.itemBackground, color: theme.buttonBack, borderColor: theme.manageTokenHighlight}}></Textarea>
+                            <Textarea style={{backgroundColor: theme.itemBackground, color: theme.buttonBack, borderColor: theme.manageTokenHighlight}}
+                                    value={message} onChange={e => setMessage(e.target.value)} >
+                            </Textarea>
                         </div>
                         <div className={cx(styles.fullRow, styles.smallfont)} style={{height: 'initial'}}>
                             <div>* The reference has a maximum of 45 characters. This will be public on the blockchain and used as a reference in the webapp.</div>
@@ -111,7 +177,7 @@ function Email({walletState}) {
                             Certification fee:
                         </div>
                         <div style={{color: theme.manageTokenHighlight}}>
-                            100 RKMT
+                            {certFee} RKMT
                         </div>
                     </div>
                     <div className={styles.buttonArea}>
@@ -132,10 +198,10 @@ function Email({walletState}) {
                                 Certification fee:
                             </div>
                             <div style={{color: theme.manageTokenHighlight}}>
-                                100 RKMT
+                                {certFee} RKMT
                             </div>
                         </div>
-                        <Button className={cx(styles.certify, styles.clickable)} style={{backgroundColor: theme.buttonBack}}>
+                        <Button className={cx(styles.certify, styles.clickable)} style={{backgroundColor: theme.buttonBack}} onClick={Certify}>
                             CERTIFY EMAIL
                         </Button>
                     </div>
@@ -157,10 +223,13 @@ function Email({walletState}) {
                 </Button>
             </div>
             <div className={styles.certifications}>
-                {certifications.map((certification, index) => (
-                    // <Certification key={index} detail={certification} />
-                    <div key={index}></div>
-                ))}
+                {
+                    certifications.map((cert, index) => {
+                        return (
+                            <EmailCertification key={index} detail={cert} owner={walletState.address} />
+                        )
+                    })
+                }
             </div>
         </div>
     )

@@ -7,7 +7,7 @@ const certifications = require("./routes/api/certifications")
 const upload = require("./routes/api/upload")
 
 Object.keys(keys).forEach(function(key) {
-  console.log(key + " : " + keys[key])
+  console.log(key + " : " + JSON.stringify(keys[key]))
 })
 
 const db = keys.mongoURI

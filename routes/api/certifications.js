@@ -98,7 +98,7 @@ router.post('/searchCertification', async (req, res) => {
 
 router.post('/downloadCertificate', async (req, res) => {
   try {
-    const {hash, timestamp, title, txid} = req.body
+    const {hash, hash_title, timestamp, title, txid} = req.body
 
     const browser = await puppeteer.launch({
       headless: true,
@@ -113,6 +113,7 @@ router.post('/downloadCertificate', async (req, res) => {
       reference: title,
       date: moment(timestamp).toString(),
       hash: hash,
+      label: hash_title,
       txid: txid,
       qr: qr,
       bgImg: 'data:image/jpg;base64,' + bgImg,

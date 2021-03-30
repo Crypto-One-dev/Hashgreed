@@ -37,6 +37,7 @@ function MutualCertification({detail, owner, walletState}) {
       method: 'POST',
       body: JSON.stringify({
         txid,
+        hash_title: 'File hash',
         ...detail
       }),
       headers: {

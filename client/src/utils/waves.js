@@ -175,6 +175,57 @@ const RevokeCertificate = async (txid, publicKey, certFee, transactionFee) => {
   }
 }
 
+const CertifyEmail = async(reference, uuid, domain, timestamp, publicKey, certFee, transactionFee) => {
+  try {
+    if(window.waves) {
+      let json = {
+        messageid: uuid + '@' + domain,
+        timestamp: timestamp,
+        reference: reference
+      }
+      const tx = await window.waves.invoke({
+        dApp: WavesConfig.SMART_CONTRACT,
+        payment: [{
+          assetId: WavesConfig.RKMT_ID,
+          amount: certFee * (10 ** WavesConfig.RKMT_DECIMALS)
+        }],
+        fee: transactionFee * (10 ** WavesConfig.WAVES_DECIMALS),
+        call: {
+          function: 'emailCertification',
+          args: [
+            {
+              'type': 'string',
+              'value': domain
+            },
+            {
+              'type': 'string',
+              'value': reference
+            },
+            {
+              'type': 'string',
+              'value': uuid
+            },
+            {
+              "type": "string",
+              "value": JSON.stringify(json)
+            },
+            {
+              "type": "string",
+              "value": publicKey
+            },
+          ]
+        },
+        chainId: WavesConfig.CHAIN_ID
+      }).broadcast()
+      return tx
+    }
+  } catch(e) {
+    console.error(e)
+    AlertUtils.SystemAlert(e)
+  }
+  return null
+}
+
 const CertifyMutual = async (reference, hash, recp, uuid, timestamp, publicKey, certFee, transactionFee) => {
   try {
     if(window.waves) {
@@ -329,6 +380,7 @@ const WavesUtils = {
   masssend,
   CertifyFile,
   RevokeCertificate,
+  CertifyEmail,
   CertifyMutual,
   SignMutual,
   DepositRKMT,

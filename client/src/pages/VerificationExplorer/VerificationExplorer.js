@@ -146,7 +146,7 @@ function VerificationExplorer({query}) {
                                 <span>
                                     <b>Reference:</b>
                                     <br/>
-                                    {certification.title}
+                                    {certification.title || certification.reference}
                                 </span>
                                 <span>
                                     <b>Date:</b>
@@ -154,9 +154,9 @@ function VerificationExplorer({query}) {
                                     {moment(certification.timestamp).toString()}
                                 </span>
                                 <span>
-                                    <b>File Hash:</b>
+                                    <b>{certification.hash ? 'File Hash' : 'Message ID'}:</b>
                                     <br/>
-                                    {certification.hash}
+                                    {certification.hash || certification.messageid}
                                 </span>
                                 <a style={{color: theme.buttonBack}} href={`${WavesConfig.EXPLORER_URL}/tx/${certification.txid}`} target="_blank" rel="noreferrer">
                                     SEE ON WAVES EXPLORER

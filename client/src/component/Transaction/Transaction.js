@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import moment from 'moment';
-import {FaCertificate, FaFileContract, FaLongArrowAltDown, FaLongArrowAltUp, FaQuestion, FaRegEnvelope, FaSignature} from 'react-icons/all';
+import {FaCertificate, FaEnvelope, FaFileContract, FaLongArrowAltDown, FaLongArrowAltUp, FaQuestion, FaRegEnvelope, FaSignature} from 'react-icons/all';
 import {base58Decode, bytesToString} from '@waves/ts-lib-crypto';
 
 
@@ -19,9 +19,11 @@ function Transaction({detail, owner}) {
   const message = detail.data.attachment ? bytesToString(base58Decode(detail.data.attachment)) : '';
   const type = detail.data.sender ? detail.data.sender === owner ? 'to' : 'from' : detail.data.type;
   const target = detail.data.sender === owner ? detail.data.recipient : detail.data.sender;
-  const reference = detail.data.title
+  const title = detail.data.title
+  const reference = detail.data.reference
   const publisher = detail.data.publisher
   const hash = detail.data.hash
+  const messageid = detail.data.messageid
   const timestamp = moment(detail.data.timestamp).toString()
   return (
     <div className={styles.tx}>
@@ -34,6 +36,8 @@ function Transaction({detail, owner}) {
               <FaLongArrowAltDown className={styles.arrow} style={{color: theme.overviewTransactionArrow}} />
             : type === 'fc' ?
               <FaCertificate className={styles.arrow} style={{color: theme.overviewTransactionArrow}} />
+            : type === 'ec' ?
+              <FaEnvelope className={styles.arrow} style={{color: theme.overviewTransactionArrow}} />
             : type === 'MA' && publisher === owner ?
               <FaFileContract className={styles.arrow} style={{color: theme.overviewTransactionArrow}} />
             : type === 'MA' && publisher !== owner ?
@@ -48,11 +52,13 @@ function Transaction({detail, owner}) {
                 type === 'to' || type === 'from' ?
                   <><b>Transfer {type}: </b>{target}</>
                 : type === 'fc' ?
-                  <><b>File Certification: </b>{reference}</>
+                  <><b>File Certification: </b>{title}</>
+                : type === 'ec' ?
+                  <><b>Email Certification: </b>{reference}</>
                 : type === 'MA' && publisher === owner ?
-                  <><b>Agreement request: </b>{reference}</>
+                  <><b>Agreement request: </b>{title}</>
                 : type === 'MA' && publisher !== owner ?
-                  <><b>Signature requested: </b>{reference}</>
+                  <><b>Signature requested: </b>{title}</>
                 :
                   null
               }
@@ -67,12 +73,13 @@ function Transaction({detail, owner}) {
               Amount: 
               {
                 type === 'fc' ? 100 :
+                type === 'ec' ? 100 :
                 type === 'MA' ? 300 :
                 detail.data.amount
               }
           </span>
           {
-            message || hash ?
+            message || hash || messageid?
             <span className={styles.attachment} onClick={()=>toggleMessage()} style={{backgroundColor: theme.itemBackground}}>
                 <FaRegEnvelope className={styles.envelope} style={{color: theme.overviewTransactionEnvelope}} />
               </span>
@@ -83,6 +90,7 @@ function Transaction({detail, owner}) {
       <div className={styles.message} style={{display: messageShow ? 'block' : 'none', backgroundColor: theme.itemBackground, color: theme.primaryText}}>
         {
           type === 'fc' ? <>Hash: {hash}</> :
+          type === 'ec' ? <>Message ID: {messageid}</> :
           type === 'MA' ? <>Agreement file hash: {hash}</> :
           message ? <>Message: {message}</> :
           null

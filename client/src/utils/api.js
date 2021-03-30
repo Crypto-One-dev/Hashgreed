@@ -21,8 +21,9 @@ const getTransactions = async (address, callback) => {
     const send = await axios.get(WavesConfig.API_URL + '/v0/transactions/transfer?limit=100&sender=' + address + '&assetId=' + WavesConfig.RKMT_ID)
     const receive = await axios.get(WavesConfig.API_URL + '/v0/transactions/transfer?limit=100&recipient=' + address + '&assetId=' + WavesConfig.RKMT_ID)
     const files = await axios.post('/api/certifications/getCertifications', {filter: 'data_fc_([A-Za-z0-9]*)_' + address})
+    const emails = await axios.post('/api/certifications/getCertifications', {filter: 'data_ec_([A-Za-z0-9]*)_' + address})
     const mutuals = await getMutualCertifications(address)
-    let certTmp = [...files.data, ...mutuals], certArray = []
+    let certTmp = [...files.data, ...emails.data, ...mutuals], certArray = []
     certTmp.forEach(cert => {
       cert.timestamp = new Date(cert.timestamp).toISOString()
       const split = cert.key.split('_')
@@ -164,6 +165,33 @@ const fileUpload = async (file, txid) => {
   }
 }
 
+const emailUpload = async (file, smtp, server, port, login, password, first_name, last_name, email_sender, email_recipient, message, reference, messageid, txid) => {
+  try {
+    const formData = new FormData();
+    if(file)
+      formData.append('attachment', file)
+    formData.append('smtp', smtp)
+    formData.append('server', server)
+    formData.append('port', port)
+    formData.append('login', login)
+    formData.append('password', password)
+    formData.append('first_name', first_name)
+    formData.append('last_name', last_name)
+    formData.append('email_sender', email_sender)
+    formData.append('email_recipient', email_recipient)
+    formData.append('message', message)
+    formData.append('reference', reference)
+    formData.append('messageid', messageid)
+    formData.append('txid', txid)
+    const status = await axios.post('/api/upload/email', formData, {headers:{'content-type':'multipart/form-data'}})
+    if(status !== 'Success')
+      AlertUtils.SystemAlert(status)
+  } catch(e) {
+    console.error(e)
+    AlertUtils.SystemAlert(e)
+  }
+}
+
 const ApiUtils = {
   getPrice,
   getTransactions,
@@ -175,6 +203,7 @@ const ApiUtils = {
   getCertifications,
   searchCertification,
   fileUpload,
+  emailUpload,
 }
 
 export default ApiUtils

@@ -14,4 +14,10 @@ module.exports = {
   smartContract: '3P7JCNf1Z8uPWaNayLg2hTrhgLktDxgfXmm',
   baseUrl: process.env.REACT_APP_BASE_URL,
   mongoURI: process.env.MONGO_URI,
+  sendBlue: {
+    host: 'smtp-relay.sendinblue.com',
+    port: 587,
+    login: process.env.SENDINBLUE_LOGIN,
+    passw: process.env.SENDINBLUE_PASSW,
+  }
 }
