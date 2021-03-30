@@ -54,10 +54,10 @@ router.post('/email', async (req, res) => {
         console.error(err)
       }
 
-      let attach = null
+      let attach = null, attachName = ''
       if(req.file.path) {
         attach = fs.readFileSync(req.file.path, {encoding: 'base64'})
-        const attachName = req.file.originalname
+        attachName = req.file.originalname
         fs.unlink(req.file.path, function (err) {
           if(err)
             console.error(err)

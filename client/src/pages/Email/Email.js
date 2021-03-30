@@ -8,6 +8,7 @@ import { v4 as uuidgen } from 'uuid';
 import EmailCertification from 'component/EmailCertification/EmailCertification';
 import ThemeContext from "context/UserContext";
 import walletContainer from 'redux/containers/wallet';
+import AlertUtils from 'utils/alert';
 import ApiUtils from 'utils/api';
 import WavesUtils from 'utils/waves';
 
@@ -67,6 +68,7 @@ function Email({walletState}) {
                 await ApiUtils.emailUpload(
                     acceptedFiles.length === 1 ? acceptedFiles[0] : null, 
                     smtp, server, port, login, password, first_name, last_name, email_sender, email_recipient, message, reference, uuid + '@' + domain, tx.id)
+                AlertUtils.SystemAlert('You sent a Hashgreed Certified Email')
             }
         }
         acceptedFiles.splice(0, acceptedFiles.length);
@@ -190,7 +192,7 @@ function Email({walletState}) {
                                 Transaction fee:
                             </div>
                             <select style={{color: theme.highlightText, backgroundColor: theme.itemBackground, borderColor: theme.buttonBack, borderWidth: 1, borderStyle: 'solid'}}>
-                                <option value="waves">0.001 waves</option>
+                                <option value="waves">{transactionFee} waves</option>
                             </select>
                         </div>
                         <div className={cx(styles.feeArea, styles.certificationFee2)}>
