@@ -56,7 +56,7 @@ router.post('/email', async (req, res) => {
 
       let attach = null, attachName = ''
       if(req.file.path) {
-        attach = fs.readFileSync(req.file.path, {encoding: 'base64'})
+        attach = fs.readFileSync(req.file.path)
         attachName = req.file.originalname
         fs.unlink(req.file.path, function (err) {
           if(err)
