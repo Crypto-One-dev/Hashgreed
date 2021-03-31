@@ -63,7 +63,7 @@ function Email({walletState}) {
             const uuid = uuidgen()
             const domain = smtp === 'open' ? 'hashgreed.com' : login.split('@').pop()
             const tx = await WavesUtils.CertifyEmail(reference, uuid, domain, timestamp, walletState.publicKey, certFee, transactionFee)
-            if(tx && acceptedFiles.length === 1) {
+            if(tx) {
                 setUploading(true)
                 await ApiUtils.emailUpload(
                     acceptedFiles.length === 1 ? acceptedFiles[0] : null, 
@@ -72,7 +72,7 @@ function Email({walletState}) {
             }
         }
         acceptedFiles.splice(0, acceptedFiles.length);
-        setSmtp('')
+        setSmtp('open')
         setServer('')
         setPort('')
         setLogin('')
