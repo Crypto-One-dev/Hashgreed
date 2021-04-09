@@ -55,7 +55,7 @@ function AuctionTx({detail, owner, height, filter}) {
   return (
     <div
       className={styles.auction}
-      style={{backgroundColor: theme.itemBackground, color: theme.primaryText, display: (!filter || nft.name.indexOf(filter) !== -1) ? 'block' : 'none'}}
+      style={{backgroundColor: theme.itemBackground, color: theme.primaryText, display: (!filter || nft.name.toLowerCase().indexOf(filter.toLowerCase()) !== -1) ? 'block' : 'none'}}
     >
       <div className={styles.row}>
         <span className={styles.label}>Auction ID:</span>
