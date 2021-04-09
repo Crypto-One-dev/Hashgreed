@@ -19,6 +19,7 @@ function Auction({walletState}) {
     const [running, showRunning] = useState(true)
     const [expired, showExpired] = useState(false)
     const [soldout, showSoldout] = useState(false)
+    const [search, setSearch] = useState('')
 
     useEffect(() => {
       let interval = -1
@@ -176,6 +177,13 @@ function Auction({walletState}) {
                         <Text color={theme.primaryText}>Show Running Auctions</Text>
                     </Checkbox>
 
+                    <input
+                        className={styles.input}
+                        style={{backgroundColor: theme.itemBackground, color: theme.manageTokenHighlight, borderColor: theme.manageTokenHighlight}}
+                        placeholder="Search"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
                 </div>
 
                 <Button
@@ -191,7 +199,7 @@ function Auction({walletState}) {
             <div className={styles.auctions}>
                 {auctions.map((auction, index) => (
                     (soldout && auction.operator) || (expired && !auction.operator && auction.end_block <= height) || (running && auction.end_block > height) ?
-                        <AuctionTx key={index} detail={auction} owner={walletState.address} height={height} />
+                        <AuctionTx key={index} detail={auction} owner={walletState.address} height={height} filter={search} />
                     : null
                 ))}
             </div>

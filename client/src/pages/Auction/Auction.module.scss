@@ -40,6 +40,13 @@
     .filter {
       display: flex;
       flex-direction: column;
+      .input {
+        flex: 1;
+        border-style: dotted;
+        border-width: 1px;
+        outline: none;
+        padding: 0 10px;
+      }
     }
   }
   .container {

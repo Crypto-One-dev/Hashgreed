@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import { Button, Tooltip } from '@chakra-ui/react';
+import cx from 'classnames';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 import ThemeContext from 'context/UserContext';
@@ -8,7 +9,7 @@ import WavesConfig from 'config/waves';
 import WavesUtils from 'utils/waves';
 import ApiUtils from 'utils/api';
 
-function AuctionTx({detail, owner, height}) {
+function AuctionTx({detail, owner, height, filter}) {
   const {theme} = useContext(ThemeContext);
   const clipboard = useRef(null);
   const isOwner = owner === detail.organizer
@@ -54,11 +55,11 @@ function AuctionTx({detail, owner, height}) {
   return (
     <div
       className={styles.auction}
-      style={{backgroundColor: theme.itemBackground, color: theme.primaryText}}
+      style={{backgroundColor: theme.itemBackground, color: theme.primaryText, display: (!filter || nft.name.indexOf(filter) !== -1) ? 'block' : 'none'}}
     >
       <div className={styles.row}>
-        <span className={styles.label}>ID:</span>
-        <span className={styles.value}>{detail.id}</span>
+        <span className={styles.label}>Auction ID:</span>
+        <span className={cx(styles.value, styles.smaller)}>{detail.id}</span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>NFT Asset:</span>
@@ -84,7 +85,7 @@ function AuctionTx({detail, owner, height}) {
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Current Winner:</span>
-        <span className={styles.value}>{detail.winner || '?'}</span>
+        <span className={cx(styles.value, styles.smaller)}>{detail.winner || '?'}</span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Time Left:</span>
