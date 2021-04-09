@@ -1,0 +1,114 @@
+@import "styles";
+
+.wrapper {
+  max-width: 1000px;
+  padding: 20px; 
+  .header {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 15px;
+    position: relative;
+    .openIcon {
+      font-size: 25px;
+      position: absolute;
+      right: 5px;
+      top: 3px;
+    }
+  }
+  .subheader {
+    font-size: 16px;
+    text-align: left;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .transferForm {
+      color: white;
+    }
+    span {
+      flex: 1;
+    }
+  }
+  .container {
+    margin-bottom: 30px;
+    .info {
+      display: flex;
+      flex-direction: row;
+      margin: 15px 0;
+      @media (max-width: $mobileClose) {
+        flex-direction: column;
+        margin: 0;
+      }
+      .input {
+        flex: 1;
+        border-style: dotted;
+        border-width: 1px;
+        outline: none;
+        padding: 0 10px;
+        @media (max-width: $mobileClose) {
+          margin: 7px 0;
+        }
+      }
+    }
+    .dropZone {
+      background-color: white;
+      border-width: 1px;
+      border-style: dotted;
+      padding: 40px;
+      color: $primary;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      flex: 1;
+      cursor: pointer;
+      margin-bottom: 15px;
+      @media (max-width: $mobileClose) {
+        margin-top: 7px;
+      }
+      p {
+        font-size: 16px;
+      }
+    }
+    .buttonArea {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .lock {
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        @media (max-width: $mobileClose) {
+          display: none;
+        }
+      }
+      .description {
+        flex: 1;
+        font-size: 14px;
+        margin-right: 15px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        @media (max-width: $mobileClose) {
+          display: none;
+        }
+      }
+      .feeArea {
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .transfer {
+        color: white;
+        padding: 27px;
+        margin: auto 0 auto 15px;
+      }
+    }
+  }
+  .auctions {
+  }
+}

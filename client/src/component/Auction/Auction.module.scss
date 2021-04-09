@@ -1,0 +1,54 @@
+@import 'styles';
+.auction {
+  float: left;
+  word-break: break-all;
+  text-align: left;
+  padding: 10px;
+  height: 420px;
+  // cursor: pointer;
+  position: relative;
+  
+  width: calc(33% - 30px);
+  margin: 15px;
+  @media (max-width: $mobileClose) {
+    width: 100%;
+    margin: 15px 0;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: column;
+    .label {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .value {
+      font-size: 14px;
+      padding: 0 10px;
+    }
+  }
+
+  .badge {
+    color: white;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+    padding: 5px 10px;
+    cursor: no-drop;
+  }
+  .withdraw {
+    text-align: center;
+    color: white;
+  }
+  .placebid {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    .bidinput {
+      border: dashed 1px gray;
+      flex: 1;
+      outline: none;
+    }
+  }
+}

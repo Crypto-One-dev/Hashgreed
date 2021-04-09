@@ -192,6 +192,30 @@ const emailUpload = async (file, smtp, server, port, login, password, first_name
   }
 }
 
+const getAssetDecimals = async(assetID) => {
+  try {
+    const asset = await axios.get(WavesConfig.API_URL + '/v0/assets/' + assetID)
+    return asset.data.data.precision
+  } catch(e) {
+    return 0
+  }
+}
+
+const getAuctions = async(auctionCallback, heightCallback) => {
+  try {
+    axios
+      .post('/api/certifications/getAuctions')
+      .then(res => {
+        if(auctionCallback && res.data.result)
+          auctionCallback(res.data.result)
+        if(heightCallback && res.data.height)
+          heightCallback(res.data.height)
+      })
+  } catch(e) {
+    console.error(e)
+  }
+}
+
 const ApiUtils = {
   getPrice,
   getTransactions,
@@ -204,6 +228,8 @@ const ApiUtils = {
   searchCertification,
   fileUpload,
   emailUpload,
+  getAssetDecimals,
+  getAuctions,
 }
 
 export default ApiUtils

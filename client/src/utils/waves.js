@@ -6,6 +6,7 @@ import {nodeInteraction} from '@waves/waves-transactions'
 
 import WavesConfig from 'config/waves'
 import AlertUtils from 'utils/alert'
+import ApiUtils from 'utils/api'
 
 const unlockWallet = async (link, callback, error_callback) => {
   try {
@@ -373,6 +374,94 @@ const StakedRKMT = async (address, callback) => {
   }
 }
 
+const StartAuction = async (duration, startingPrice, priceAssetID, nftAssetID, nftAssetAmount) => {
+  try {
+    if(window.waves) {
+      const price_decimals = await ApiUtils.getAssetDecimals(priceAssetID)
+      const nft_decimals = await ApiUtils.getAssetDecimals(nftAssetID)
+      await window.waves.invoke({
+        dApp: WavesConfig.NFT_SCRIPT,
+        payment: [{
+          assetId: nftAssetID,
+          amount: nftAssetAmount * (10 ** nft_decimals)
+        }],
+        call: {
+          function: 'startAuction',
+          args: [
+            {
+              "type": "integer",
+              "value": duration
+            },
+            {
+              "type": "integer",
+              "value": startingPrice * (10 ** price_decimals)
+            },
+            {
+              "type": "string",
+              "value": priceAssetID
+            }
+          ]
+        },
+        chainId: WavesConfig.CHAIN_ID
+      }).broadcast()
+    }
+  } catch(e) {
+    console.error(e)
+    AlertUtils.SystemAlert(e)
+  }
+}
+
+const WithdrawAuction = async (auctionID) => {
+  try {
+    if(window.waves) {
+      await window.waves.invoke({
+        dApp: WavesConfig.NFT_SCRIPT,
+        call: {
+          function: 'withdraw',
+          args: [
+            {
+              "type": "string",
+              "value": auctionID
+            }
+          ]
+        },
+        chainId: WavesConfig.CHAIN_ID
+      }).broadcast()
+    }
+  } catch(e) {
+    console.error(e)
+    AlertUtils.SystemAlert(e)
+  }
+}
+
+const BidAuction = async (auctionID, bidAmount, bidAssetID) => {
+  try {
+    if(window.waves) {
+      const bid_decimals = await ApiUtils.getAssetDecimals(bidAssetID)
+      await window.waves.invoke({
+        dApp: WavesConfig.NFT_SCRIPT,
+        payment: [{
+          assetId: bidAssetID,
+          amount: bidAmount * (10 ** bid_decimals)
+        }],
+        call: {
+          function: 'withdraw',
+          args: [
+            {
+              "type": "string",
+              "value": auctionID
+            }
+          ]
+        },
+        chainId: WavesConfig.CHAIN_ID
+      }).broadcast()
+    }
+  } catch(e) {
+    console.error(e)
+    AlertUtils.SystemAlert(e)
+  }
+}
+
 const WavesUtils = {
   unlockWallet,
   getBalance,
@@ -386,5 +475,8 @@ const WavesUtils = {
   DepositRKMT,
   WithdrawRKMT,
   StakedRKMT,
+  StartAuction,
+  WithdrawAuction,
+  BidAuction,
 }
 export default WavesUtils;

@@ -6,7 +6,7 @@ const moment = require('moment')
 const puppeteer = require('puppeteer')
 const QRCode = require('qrcode')
 
-const {nodeUrl, smartContract, baseUrl} = require('../../config/keys')
+const {nodeUrl, smartContract, nftContract, baseUrl} = require('../../config/keys')
 const File = require('../../models/File')
 
 router.post('/filterCertifications', async (req, res) => {
@@ -133,6 +133,54 @@ router.post('/downloadCertificate', async (req, res) => {
     })
     await browser.close()
     return res.status(200).download('assets/certificate.pdf')
+  } catch(e) {
+    console.error(e)
+    return res.status(500).json(e)
+  }
+})
+
+const updateAuction = (auction, key, pool, id, suffix) => {
+  if(pool[id + suffix]) {
+    auction[key] = pool[id + suffix].value
+  }
+}
+
+router.post('/getAuctions', async (req, res) => {
+  try {
+    const height = await nodeInteraction.currentHeight(nodeUrl)
+    let auctions = await nodeInteraction.accountData({
+      address: nftContract
+    }, nodeUrl)
+    let result = []
+    for(key in auctions) {
+      if(key.length === 44) { // auction id
+        let auction = {id: key}
+        updateAuction(auction, 'end_block', auctions, key, '')
+        updateAuction(auction, 'nft_amount', auctions, key, '_lot_amount')
+        updateAuction(auction, 'nft_id', auctions, key, '_lot_assetId')
+        updateAuction(auction, 'organizer', auctions, key, '_organizer')
+        updateAuction(auction, 'price_id', auctions, key, '_priceAssetId')
+        updateAuction(auction, 'price', auctions, key, '_startPrice')
+        updateAuction(auction, 'bid', auctions, key, '_winAmount')
+        updateAuction(auction, 'winner', auctions, key, '_winner')
+        updateAuction(auction, 'operator', auctions, key, '_lot_passed')
+        result.push(auction)
+      }
+    }
+    result.sort((x, y) => {
+      if(!x.operator && y.operator)
+        return -1
+      if(x.operator && !y.operator)
+        return 1
+
+      if(x.end_block > y.end_block)
+        return -1
+      if(x.end_block < y.end_block)
+        return 1
+        
+      return 0
+    })
+    return res.status(200).json({ height, result })
   } catch(e) {
     console.error(e)
     return res.status(500).json(e)

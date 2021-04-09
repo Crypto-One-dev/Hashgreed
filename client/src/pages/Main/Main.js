@@ -19,6 +19,7 @@ import Mutual from 'pages/Mutual/Mutual';
 import Overview from 'pages/Overview/Overview';
 import Receive from 'pages/Receive/Receive';
 import Send from 'pages/Send/Send';
+import Auction from 'pages/Auction/Auction';
 import Stake from 'pages/Stake/Stake';
 import VerificationExplorer from 'pages/VerificationExplorer/VerificationExplorer';
 import walletContainer from 'redux/containers/wallet'
@@ -137,6 +138,14 @@ function Main({walletState, walletActions, match}) {
           {
             walletState.address ?
               <>
+                <MenuButton active={activeMenu === 'AUCTION'} onClick={() => openMenu('AUCTION')}>Auctions</MenuButton>
+              </>
+            :
+              null
+          }
+          {
+            walletState.address ?
+              <>
                 <MenuButton active={activeMenu === 'STAKE'} onClick={() => openMenu('STAKE')}>Stake n Earn Waves Tokens</MenuButton>
               </>
             :
@@ -222,6 +231,7 @@ function Main({walletState, walletActions, match}) {
           walletState.address && activeMenu === 'FILE'          ? <File /> :
           walletState.address && activeMenu === 'EMAIL'         ? <Email /> :
           walletState.address && activeMenu === 'MUTUAL'        ? <Mutual /> :
+          walletState.address && activeMenu === 'AUCTION'       ? <Auction /> :
           walletState.address && activeMenu === 'STAKE'         ? <Stake /> :
                                  activeMenu === 'VERIFICATION'  ? <VerificationExplorer query={query}/> :
                                                                   <Account />
