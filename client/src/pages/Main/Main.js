@@ -138,7 +138,7 @@ function Main({walletState, walletActions, match}) {
           {
             walletState.address ?
               <>
-                <MenuButton active={activeMenu === 'AUCTION'} onClick={() => openMenu('AUCTION')}>Auctions</MenuButton>
+                <MenuButton active={activeMenu === 'AUCTION'} onClick={() => openMenu('AUCTION')}>NFT Auctions</MenuButton>
               </>
             :
               null

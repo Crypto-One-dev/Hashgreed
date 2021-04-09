@@ -28,18 +28,10 @@ function AuctionTx({detail, owner, height}) {
     ApiUtils.getAssetInfo(detail.price_id, setPrice)
   }, [detail.nft_id, detail.price_id])
 
-  const Withdrawn = () => {
+  const Badge = ({text, color}) => {
     return (
-      <div className={styles.badge} style={{backgroundColor: theme.buttonBack}}>
-        Withdrawn
-      </div>
-    )
-  }
-
-  const SoldOut = () => {
-    return (
-      <div className={styles.badge} style={{backgroundColor: theme.buttonBack}}>
-        Sold Out
+      <div className={styles.badge} style={{backgroundColor: color || theme.buttonBack}}>
+        {text}
       </div>
     )
   }
@@ -58,10 +50,14 @@ function AuctionTx({detail, owner, height}) {
       style={{backgroundColor: theme.itemBackground, color: theme.primaryText}}
     >
       <div className={styles.row}>
+        <span className={styles.label}>ID:</span>
+        <span className={styles.value}>{detail.id}</span>
+      </div>
+      <div className={styles.row}>
         <span className={styles.label}>NFT Asset:</span>
         <span className={styles.value}>
           {nft.name}
-          <Tooltip label={detail.nft_id} placement="right">
+          <Tooltip placement="right" label="Buying and Selling NFT are subject to risk so better you will do your own research before buying. Be aware of scam assets as we are only a platform to provide services">
             <span className={styles.question} style={{backgroundColor: theme.manageTokenHighlight}} onClick={() => clipboard.current.click()}>
               ?
             </span>
@@ -91,6 +87,10 @@ function AuctionTx({detail, owner, height}) {
         <span className={styles.label}>Current Winner:</span>
         <span className={styles.value}>{detail.winner || '?'}</span>
       </div>
+      <div className={styles.row}>
+        <span className={styles.label}>Time Left:</span>
+        <span className={styles.value}>{detail.end_block >= height ? detail.end_block - height : 0}</span>
+      </div>
       {/* {
         detail.avatar ?
           <div className={styles.row}>
@@ -101,38 +101,47 @@ function AuctionTx({detail, owner, height}) {
       } */}
       {
         detail.operator ?
-          isOwner?  <Withdrawn />
-          :         <SoldOut />
+          isOwner?  <Badge text="Withdrawn" color="#ff0000" />
+          :         <Badge text="SoldOut" color="#7c7c00"/>
         :
-          isOwner?
-            <div className={styles.withdraw}>
-              <Button
-                className={styles.clickable}
-                style={{backgroundColor: theme.buttonBack}}
-                disabled={!isOutdated}
-                onClick={Withdraw}
-              >
-                Withdraw
-              </Button>
-            </div>
-          :
-            <div className={styles.placebid}>
-              <input
-                value={bid}
-                onChange={(e) => setBid(e.target.value)}
-                className={styles.bidinput}
-                style={{backgroundColor: theme.itemBackground}}
-                disabled={isOutdated}
-              />
-              <Button
-                className={styles.clickable}
-                style={{backgroundColor: theme.buttonBack, color: 'white'}}
-                disabled={isOutdated}
-                onClick={Bid}
-              >
-                Bid
-              </Button>
-            </div>
+          <>
+            {
+              detail.end_block <= height ? <Badge text="Expired Auction" color="#333333" />
+              : null
+            }
+            {
+              isOwner?
+                <div className={styles.withdraw}>
+                  <Button
+                    className={styles.clickable}
+                    style={{backgroundColor: theme.buttonBack}}
+                    disabled={!isOutdated}
+                    onClick={Withdraw}
+                  >
+                    Withdraw
+                  </Button>
+                </div>
+              :
+                <div className={styles.placebid}>
+                  <input
+                    value={bid}
+                    onChange={(e) => setBid(e.target.value)}
+                    className={styles.bidinput}
+                    style={{backgroundColor: theme.itemBackground}}
+                    disabled={isOutdated}
+                  />
+                  <Button
+                    className={styles.clickable}
+                    style={{backgroundColor: theme.buttonBack, color: 'white'}}
+                    disabled={isOutdated}
+                    onClick={Bid}
+                  >
+                    Bid
+                  </Button>
+                </div>
+            }
+          </>
+          
       }
     </div>
   )
