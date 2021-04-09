@@ -379,7 +379,7 @@ const StartAuction = async (duration, startingPrice, priceAssetID, nftAssetID, n
     if(window.waves) {
       const price_decimals = await ApiUtils.getAssetDecimals(priceAssetID)
       const nft_decimals = await ApiUtils.getAssetDecimals(nftAssetID)
-      await window.waves.invoke({
+      const tx = await window.waves.invoke({
         dApp: WavesConfig.NFT_SCRIPT,
         payment: [{
           assetId: nftAssetID,
@@ -404,11 +404,13 @@ const StartAuction = async (duration, startingPrice, priceAssetID, nftAssetID, n
         },
         chainId: WavesConfig.CHAIN_ID
       }).broadcast()
+      return tx
     }
   } catch(e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
+  return null
 }
 
 const WithdrawAuction = async (auctionID) => {

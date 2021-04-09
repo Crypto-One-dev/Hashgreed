@@ -4,7 +4,7 @@
   word-break: break-all;
   text-align: left;
   padding: 10px;
-  height: 420px;
+  height: 475px;
   // cursor: pointer;
   position: relative;
   
@@ -25,6 +25,11 @@
     .value {
       font-size: 14px;
       padding: 0 10px;
+    }
+    .avatar {
+      width: 64px;
+      height: 64px;
+      margin: 15px auto;
     }
   }
 

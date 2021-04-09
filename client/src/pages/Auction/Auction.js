@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { Button } from '@chakra-ui/react';
+import { Button, Checkbox, Spinner, Text } from '@chakra-ui/react';
 import cx from 'classnames';
 import {FaLock, RiArrowDownCircleLine} from "react-icons/all";
 import {useDropzone} from 'react-dropzone';
@@ -16,15 +16,16 @@ function Auction({walletState}) {
     const [isTransferFormOpen, openTransferForm] = useState(false);
     const [auctions, setAuctions] = useState([]);
     const [height, setHeight] = useState(0);
+    const [hidden, setHidden] = useState(false)
 
     useEffect(() => {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-          ApiUtils.getAuctions(setAuctions, setHeight);
+          ApiUtils.getAuctions(walletState.address, hidden, setAuctions, setHeight);
         }
         proc()
-        interval = setInterval(proc, 60000)
+        interval = setInterval(proc, 30000)
       }
     
       return () => {
@@ -34,15 +35,20 @@ function Auction({walletState}) {
       }
     }, [walletState.address])
 
+    useEffect(() => {
+        if(walletState.address)
+            ApiUtils.getAuctions(walletState.address, hidden, setAuctions, setHeight)
+    }, [hidden])
+
     const [duration, setDuration] = useState('');
     const [price, setPrice] = useState('');
     const [priceID, setPriceID] = useState('');
     const [nftID, setNFTID] = useState('');
     const [nftAmount, setNFTAmount] = useState('');
-
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({ accept: 'image/jpeg, image/png' })
+    const [uploading, setUploading] = useState(false)
 
-    const startAuction = () => {
+    const startAuction = async () => {
         if(isNaN(price) || price <= 0) {
             alert('Starting Price is not valid');
             return;
@@ -59,13 +65,32 @@ function Auction({walletState}) {
             alert('You must upload 1 image for NFT');
             return;
         }
-        WavesUtils.StartAuction(parseInt(duration), parseInt(price), priceID, nftID, parseInt(nftAmount))
+        const tx = await WavesUtils.StartAuction(parseInt(duration), parseFloat(price), priceID, nftID, parseFloat(nftAmount))
+        if(tx) {
+            setUploading(true)
+            await ApiUtils.auctionUpload(acceptedFiles[0], tx.id)
+        }
+        setDuration('')
+        setPrice('')
+        setPriceID('')
+        setNFTID('')
+        setNFTAmount('')
+        acceptedFiles.splice(0, acceptedFiles.length);
+        setUploading(false)
     }
 
     
 
     return (
         <div className={styles.wrapper}>
+            {
+                uploading ?
+                    <div className={styles.spinner}>
+                        <Spinner size="xl" color="red.500" />
+                    </div>
+                :
+                    null
+            }
             <div style={{display: isTransferFormOpen ? 'block' : 'none'}}>
                 <div className={cx(styles.header, styles.clickable)} style={{backgroundColor: theme.primaryColor}} onClick={() => openTransferForm(false)}>
                     <span>START AN AUCTION</span>
@@ -143,7 +168,9 @@ function Auction({walletState}) {
                 AUCTION HISTORY
             </div>
             <div className={styles.subheader} style={{color: theme.primaryText}}>
-                <span>Here is latest auctions</span>
+                <Checkbox className={styles.checkbox} isChecked={hidden} onChange={e => setHidden(e.target.checked)}>
+                    <Text color={theme.primaryText}>Show Soldout/Withdrawn Auctions</Text>
+                </Checkbox>
                 <Button
                     className={cx(styles.transferForm, styles.clickable)}
                     onClick={() => openTransferForm(!isTransferFormOpen)}

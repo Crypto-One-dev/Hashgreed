@@ -3,6 +3,7 @@ const router = express.Router()
 const fs = require('fs');
 const path = require('path')
 const nodemailer = require('nodemailer')
+const sharp = require('sharp')
 
 const multer  = require('multer')
 const storage = multer.diskStorage({
@@ -105,6 +106,50 @@ router.post('/email', async (req, res) => {
       return res.status(500).json(e)
     }
   })
+})
+
+router.post('/auction', upload.single('avatar'), async (req, res) => {
+  try {
+    await sharp(req.file.path).resize(32, 32).toFile(req.file.path + '_resize')
+    const resize_link = await IPFS.uploadOnIPFS(req.file.path + '_resize')
+    fs.unlink(req.file.path + '_resize', function (err) {
+      if(err)
+        console.error(err)
+      console.log('Resized Image deleted after upload on IPFS!')
+    })
+    if(resize_link === null) {
+      return res.status(500).json('Upload on IPFS failed!')
+    }
+    console.log('https://ipfs.io/ipfs/' + resize_link)
+    await new File({link: resize_link, txid: req.body.txid}).save()
+
+    const link = await IPFS.uploadOnIPFS(req.file.path)
+    fs.unlink(req.file.path, function (err) {
+      if(err)
+        console.error(err)
+      console.log('Image deleted after upload on IPFS!')
+    })
+    if(link === null) {
+      return res.status(500).json('Upload on IPFS failed!')
+    }
+    console.log('https://ipfs.io/ipfs/' + link)
+    await new File({link, txid: req.body.txid+'_original'}).save()
+
+    return res.status(200).json('Success')
+  } catch(e) {
+    console.error(e)
+    fs.unlink(req.file.path + '_resize', function (err) {
+      if(err)
+        console.error(err)
+      console.log('Resized Image deleted due to error!');
+    })
+    fs.unlink(req.file.path, function (err) {
+      if(err)
+        console.error(err)
+      console.log('Image deleted due to error!');
+    })
+    return res.status(500).json(e)
+  }
 })
 
 module.exports = router

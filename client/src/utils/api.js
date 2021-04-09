@@ -165,6 +165,20 @@ const fileUpload = async (file, txid) => {
   }
 }
 
+const auctionUpload = async (file, txid) => {
+  try {
+    const formData = new FormData();
+    formData.append('avatar', file)
+    formData.append('txid', txid)
+    const status = await axios.post('/api/upload/auction', formData, {headers:{'content-type':'multipart/form-data'}})
+    if(status !== 'Success')
+      AlertUtils.SystemAlert(status)
+  } catch(e) {
+    console.error(e)
+    AlertUtils.SystemAlert(e)
+  }
+}
+
 const emailUpload = async (file, smtp, server, port, login, password, first_name, last_name, email_sender, email_recipient, message, reference, messageid, txid) => {
   try {
     const formData = new FormData();
@@ -192,6 +206,19 @@ const emailUpload = async (file, smtp, server, port, login, password, first_name
   }
 }
 
+const getAssetInfo = async(assetID, callback) => {
+  try {
+    const asset = await axios.get(WavesConfig.API_URL + '/v0/assets/' + assetID)
+    if(callback) {
+      callback({
+        name: asset.data.data.name,
+        decimals: asset.data.data.precision
+      })
+    }
+  } catch(e) {
+  }
+}
+
 const getAssetDecimals = async(assetID) => {
   try {
     const asset = await axios.get(WavesConfig.API_URL + '/v0/assets/' + assetID)
@@ -201,10 +228,10 @@ const getAssetDecimals = async(assetID) => {
   }
 }
 
-const getAuctions = async(auctionCallback, heightCallback) => {
+const getAuctions = async(address, hidden, auctionCallback, heightCallback) => {
   try {
     axios
-      .post('/api/certifications/getAuctions')
+      .post('/api/certifications/getAuctions', { address, hidden })
       .then(res => {
         if(auctionCallback && res.data.result)
           auctionCallback(res.data.result)
@@ -228,8 +255,10 @@ const ApiUtils = {
   searchCertification,
   fileUpload,
   emailUpload,
+  getAssetInfo,
   getAssetDecimals,
   getAuctions,
+  auctionUpload,
 }
 
 export default ApiUtils

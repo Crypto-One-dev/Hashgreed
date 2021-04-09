@@ -1,15 +1,29 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { Button } from '@chakra-ui/react';
 
 import ThemeContext from 'context/UserContext';
 import styles from './Auction.module.scss';
 import WavesUtils from 'utils/waves';
+import ApiUtils from 'utils/api';
 
 function AuctionTx({detail, owner, height}) {
   const {theme} = useContext(ThemeContext);
   const isOwner = owner === detail.organizer
   const isOutdated = detail.end_block <= height
   const [bid, setBid] = useState('')
+  const [nft, setNFT] = useState({
+    name: detail.nft_id,
+    decimals: 0
+  })
+  const [price, setPrice] = useState({
+    name: detail.price_id,
+    decimals: 0
+  })
+
+  useEffect(() => {
+    ApiUtils.getAssetInfo(detail.nft_id, setNFT)
+    ApiUtils.getAssetInfo(detail.price_id, setPrice)
+  }, [])
 
   const Withdrawn = () => {
     return (
@@ -42,28 +56,36 @@ function AuctionTx({detail, owner, height}) {
     >
       <div className={styles.row}>
         <span className={styles.label}>NFT Asset ID:</span>
-        <span className={styles.value}>{detail.nft_id}</span>
+        <span className={styles.value}>{nft.name}</span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>NFT Asset Amount:</span>
-        <span className={styles.value}>{detail.nft_amount}</span>
+        <span className={styles.value}>{detail.nft_amount / (10 ** nft.decimals)}</span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Price Asset ID:</span>
-        <span className={styles.value}>{detail.price_id}</span>
+        <span className={styles.value}>{price.name}</span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Min Price:</span>
-        <span className={styles.value}>{detail.price}</span>
+        <span className={styles.value}>{detail.price / (10 ** price.decimals)}</span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Current Bid:</span>
-        <span className={styles.value}>{detail.bid || '?'}</span>
+        <span className={styles.value}>{detail.bid / (10 ** price.decimals) || '?'}</span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Current Winner:</span>
         <span className={styles.value}>{detail.winner || '?'}</span>
       </div>
+      {
+        detail.avatar ?
+          <div className={styles.row}>
+            <img src={`https://ipfs.io/ipfs/${detail.avatar}`} alt="" className={styles.avatar} />
+          </div>
+        :
+          null
+      }
       {
         detail.operator ?
           isOwner?  <Withdrawn />
