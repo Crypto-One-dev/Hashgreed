@@ -228,10 +228,10 @@ const getAssetDecimals = async(assetID) => {
   }
 }
 
-const getAuctions = async(address, hidden, auctionCallback, heightCallback) => {
+const getAuctions = async(address, auctionCallback, heightCallback) => {
   try {
     axios
-      .post('/api/certifications/getAuctions', { address, hidden })
+      .post('/api/certifications/getAuctions', { address })
       .then(res => {
         if(auctionCallback && res.data.result)
           auctionCallback(res.data.result)

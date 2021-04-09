@@ -147,7 +147,7 @@ const updateAuction = (auction, key, pool, id, suffix) => {
 
 router.post('/getAuctions', async (req, res) => {
   try {
-    const { address, hidden } = req.body
+    const { address } = req.body
     const height = await nodeInteraction.currentHeight(nodeUrl)
     let auctions = await nodeInteraction.accountData({
       address: nftContract
@@ -165,13 +165,11 @@ router.post('/getAuctions', async (req, res) => {
         updateAuction(auction, 'bid', auctions, key, '_winAmount')
         updateAuction(auction, 'winner', auctions, key, '_winner')
         updateAuction(auction, 'operator', auctions, key, '_lot_passed')
-        if(hidden || !auction.operator) {
-          const owner = auction.operator ? auction.operator : auction.winner ? auction.winner : auction.organizer
-          const found = await File.find({ txid: owner === address ? key + '_original' : key }).limit(1).exec()
-          if(found.length > 0)
-            auction.avatar = found[0].link
-          result.push(auction)
-        }
+        const owner = auction.operator ? auction.operator : auction.winner ? auction.winner : auction.organizer
+        const found = await File.find({ txid: owner === address ? key + '_original' : key }).limit(1).exec()
+        if(found.length > 0)
+          auction.avatar = found[0].link
+        result.push(auction)
       }
     }
     result.sort((x, y) => {

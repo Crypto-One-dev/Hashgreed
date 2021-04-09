@@ -22,7 +22,7 @@ function Auction({walletState}) {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-          ApiUtils.getAuctions(walletState.address, hidden, setAuctions, setHeight);
+          ApiUtils.getAuctions(walletState.address, setAuctions, setHeight);
         }
         proc()
         interval = setInterval(proc, 30000)
@@ -34,11 +34,6 @@ function Auction({walletState}) {
         }
       }
     }, [walletState.address])
-
-    useEffect(() => {
-        if(walletState.address)
-            ApiUtils.getAuctions(walletState.address, hidden, setAuctions, setHeight)
-    }, [hidden])
 
     const [duration, setDuration] = useState('');
     const [price, setPrice] = useState('');
@@ -183,7 +178,9 @@ function Auction({walletState}) {
             </div>
             <div className={styles.auctions}>
                 {auctions.map((auction, index) => (
-                    <AuctionTx key={index} detail={auction} owner={walletState.address} height={height} />
+                    hidden || !auction.operator ?
+                        <AuctionTx key={index} detail={auction} owner={walletState.address} height={height} />
+                    : null
                 ))}
             </div>
         </div>

@@ -23,7 +23,7 @@ function AuctionTx({detail, owner, height}) {
   useEffect(() => {
     ApiUtils.getAssetInfo(detail.nft_id, setNFT)
     ApiUtils.getAssetInfo(detail.price_id, setPrice)
-  }, [])
+  }, [detail.nft_id, detail.price_id])
 
   const Withdrawn = () => {
     return (
