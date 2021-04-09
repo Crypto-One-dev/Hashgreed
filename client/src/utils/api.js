@@ -212,7 +212,8 @@ const getAssetInfo = async(assetID, callback) => {
     if(callback) {
       callback({
         name: asset.data.data.name,
-        decimals: asset.data.data.precision
+        decimals: asset.data.data.precision,
+        description: asset.data.data.description,
       })
     }
   } catch(e) {

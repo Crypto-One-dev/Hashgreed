@@ -16,11 +16,13 @@ function AuctionTx({detail, owner, height}) {
   const [bid, setBid] = useState('')
   const [nft, setNFT] = useState({
     name: detail.nft_id,
-    decimals: 0
+    decimals: 0,
+    description: ''
   })
   const [price, setPrice] = useState({
     name: detail.price_id,
-    decimals: 0
+    decimals: 0,
+    description: ''
   })
 
   useEffect(() => {
@@ -45,6 +47,7 @@ function AuctionTx({detail, owner, height}) {
         alert('Bid amount is not valid');
         return;
     }
+    alert('Buying and Selling NFT are subject to risk so better you will do your own research before buying. Be aware of scam assets as we are only a platform to provide services')
     WavesUtils.BidAuction(detail.id, bid, detail.price_id)
   }
 
@@ -61,7 +64,7 @@ function AuctionTx({detail, owner, height}) {
         <span className={styles.label}>NFT Asset:</span>
         <span className={styles.value}>
           {nft.name}
-          <Tooltip placement="right" label="Buying and Selling NFT are subject to risk so better you will do your own research before buying. Be aware of scam assets as we are only a platform to provide services">
+          <Tooltip placement="right" label={nft.description}>
             <span className={styles.question} style={{backgroundColor: theme.manageTokenHighlight}} onClick={() => clipboard.current.click()}>
               ?
             </span>

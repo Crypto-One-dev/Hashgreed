@@ -16,7 +16,9 @@ function Auction({walletState}) {
     const [isTransferFormOpen, openTransferForm] = useState(false);
     const [auctions, setAuctions] = useState([]);
     const [height, setHeight] = useState(0);
-    const [hidden, setHidden] = useState(false)
+    const [running, showRunning] = useState(true)
+    const [expired, showExpired] = useState(false)
+    const [soldout, showSoldout] = useState(false)
 
     useEffect(() => {
       let interval = -1
@@ -163,9 +165,19 @@ function Auction({walletState}) {
                 AUCTION HISTORY
             </div>
             <div className={styles.subheader} style={{color: theme.primaryText}}>
-                <Checkbox className={styles.checkbox} isChecked={hidden} onChange={e => setHidden(e.target.checked)}>
-                    <Text color={theme.primaryText}>Show Soldout/Withdrawn Auctions</Text>
-                </Checkbox>
+                <div className={styles.filter}>
+                    <Checkbox className={styles.checkbox} isChecked={soldout} onChange={e => showSoldout(e.target.checked)}>
+                        <Text color={theme.primaryText}>Show Soldout/Withdrawn Auctions</Text>
+                    </Checkbox>
+                    <Checkbox className={styles.checkbox} isChecked={expired} onChange={e => showExpired(e.target.checked)}>
+                        <Text color={theme.primaryText}>Show Expired Auctions</Text>
+                    </Checkbox>
+                    <Checkbox className={styles.checkbox} isChecked={running} onChange={e => showRunning(e.target.checked)}>
+                        <Text color={theme.primaryText}>Show Running Auctions</Text>
+                    </Checkbox>
+
+                </div>
+
                 <Button
                     className={cx(styles.transferForm, styles.clickable)}
                     onClick={() => openTransferForm(!isTransferFormOpen)}
@@ -178,7 +190,7 @@ function Auction({walletState}) {
             </div>
             <div className={styles.auctions}>
                 {auctions.map((auction, index) => (
-                    hidden || !auction.operator ?
+                    (soldout && auction.operator) || (expired && !auction.operator && auction.end_block <= height) || (running && auction.end_block > height) ?
                         <AuctionTx key={index} detail={auction} owner={walletState.address} height={height} />
                     : null
                 ))}
