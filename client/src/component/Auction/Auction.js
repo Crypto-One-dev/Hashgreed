@@ -15,12 +15,12 @@ function AuctionTx({detail, owner, height}) {
   const isOutdated = detail.end_block <= height
   const [bid, setBid] = useState('')
   const [nft, setNFT] = useState({
-    name: detail.nft_id,
+    name: '',
     decimals: 0,
     description: ''
   })
   const [price, setPrice] = useState({
-    name: detail.price_id,
+    name: '',
     decimals: 0,
     description: ''
   })
@@ -79,16 +79,12 @@ function AuctionTx({detail, owner, height}) {
         <span className={styles.value}>{detail.nft_amount / (10 ** nft.decimals)}</span>
       </div>
       <div className={styles.row}>
-        <span className={styles.label}>Price Asset:</span>
-        <span className={styles.value}>{price.name}</span>
-      </div>
-      <div className={styles.row}>
         <span className={styles.label}>Min Price:</span>
-        <span className={styles.value}>{detail.price / (10 ** price.decimals)}</span>
+        <span className={styles.value}>{detail.price / (10 ** price.decimals)} <b>{price.name}</b></span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Current Bid:</span>
-        <span className={styles.value}>{detail.bid / (10 ** price.decimals) || '?'}</span>
+        <span className={styles.value}>{detail.bid / (10 ** price.decimals) || '?'} <b>{price.name}</b></span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Current Winner:</span>
