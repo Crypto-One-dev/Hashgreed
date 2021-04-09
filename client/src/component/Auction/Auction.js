@@ -101,13 +101,13 @@ function AuctionTx({detail, owner, height}) {
       } */}
       {
         detail.operator ?
-          isOwner?  <Badge text="Withdrawn" color="#ff0000" />
-          :         <Badge text="SoldOut" color="#7c7c00"/>
+          isOwner?  <Badge text="Withdrawn" color="#0000ff" />
+          :         <Badge text="SoldOut" color="#0000ff"/>
         :
           <>
             {
-              detail.end_block <= height ? <Badge text="Expired Auction" color="#333333" />
-              : null
+              detail.end_block <= height ? <Badge text="Expired Auction" color="#ee0000" />
+              : <Badge text="Running" color="#008800" />
             }
             {
               isOwner?
