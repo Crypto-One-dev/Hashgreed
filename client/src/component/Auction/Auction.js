@@ -1,13 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react';
-import { Button } from '@chakra-ui/react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
+import { Button, Tooltip } from '@chakra-ui/react';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 import ThemeContext from 'context/UserContext';
 import styles from './Auction.module.scss';
+import WavesConfig from 'config/waves';
 import WavesUtils from 'utils/waves';
 import ApiUtils from 'utils/api';
 
 function AuctionTx({detail, owner, height}) {
   const {theme} = useContext(ThemeContext);
+  const clipboard = useRef(null);
   const isOwner = owner === detail.organizer
   const isOutdated = detail.end_block <= height
   const [bid, setBid] = useState('')
@@ -56,7 +59,17 @@ function AuctionTx({detail, owner, height}) {
     >
       <div className={styles.row}>
         <span className={styles.label}>NFT Asset:</span>
-        <span className={styles.value}>{nft.name}</span>
+        <span className={styles.value}>
+          {nft.name}
+          <Tooltip label={detail.nft_id} placement="right">
+            <span className={styles.question} style={{backgroundColor: theme.manageTokenHighlight}} onClick={() => clipboard.current.click()}>
+              ?
+            </span>
+          </Tooltip>
+          <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + detail.nft_id}>
+            <span ref={clipboard}></span>
+          </CopyToClipboard>
+        </span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>NFT Asset Amount:</span>
@@ -78,14 +91,14 @@ function AuctionTx({detail, owner, height}) {
         <span className={styles.label}>Current Winner:</span>
         <span className={styles.value}>{detail.winner || '?'}</span>
       </div>
-      {
+      {/* {
         detail.avatar ?
           <div className={styles.row}>
             <img src={`https://ipfs.io/ipfs/${detail.avatar}`} alt="" className={styles.avatar} />
           </div>
         :
           null
-      }
+      } */}
       {
         detail.operator ?
           isOwner?  <Withdrawn />
