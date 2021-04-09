@@ -96,7 +96,7 @@ function AuctionTx({detail, owner, height}) {
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Time Left:</span>
-        <span className={styles.value}>{detail.end_block >= height ? detail.end_block - height : 0}</span>
+        <span className={styles.value}>~ {detail.end_block >= height ? detail.end_block - height : 0} minutes</span>
       </div>
       {/* {
         detail.avatar ?
