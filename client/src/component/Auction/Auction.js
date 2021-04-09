@@ -63,7 +63,7 @@ function AuctionTx({detail, owner, height}) {
       <div className={styles.row}>
         <span className={styles.label}>NFT Asset:</span>
         <span className={styles.value}>
-          {nft.name}
+          {detail.nft_amount / (10 ** nft.decimals)} <b>{nft.name}</b>
           <Tooltip placement="right" label={nft.description}>
             <span className={styles.question} style={{backgroundColor: theme.manageTokenHighlight}} onClick={() => clipboard.current.click()}>
               ?
@@ -73,10 +73,6 @@ function AuctionTx({detail, owner, height}) {
             <span ref={clipboard}></span>
           </CopyToClipboard>
         </span>
-      </div>
-      <div className={styles.row}>
-        <span className={styles.label}>NFT Asset Amount:</span>
-        <span className={styles.value}>{detail.nft_amount / (10 ** nft.decimals)}</span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Min Price:</span>
@@ -92,7 +88,7 @@ function AuctionTx({detail, owner, height}) {
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Time Left:</span>
-        <span className={styles.value}>~ {detail.end_block >= height ? detail.end_block - height : 0} minutes</span>
+        <span className={styles.value}>~ {detail.end_block >= height ? detail.end_block - height : 0} <b>minutes</b></span>
       </div>
       {/* {
         detail.avatar ?
