@@ -55,7 +55,7 @@ function AuctionTx({detail, owner, height}) {
       style={{backgroundColor: theme.itemBackground, color: theme.primaryText}}
     >
       <div className={styles.row}>
-        <span className={styles.label}>NFT Asset ID:</span>
+        <span className={styles.label}>NFT Asset:</span>
         <span className={styles.value}>{nft.name}</span>
       </div>
       <div className={styles.row}>
@@ -63,7 +63,7 @@ function AuctionTx({detail, owner, height}) {
         <span className={styles.value}>{detail.nft_amount / (10 ** nft.decimals)}</span>
       </div>
       <div className={styles.row}>
-        <span className={styles.label}>Price Asset ID:</span>
+        <span className={styles.label}>Price Asset:</span>
         <span className={styles.value}>{price.name}</span>
       </div>
       <div className={styles.row}>
