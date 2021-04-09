@@ -41,6 +41,10 @@ function AuctionTx({detail, owner, height}) {
   }
 
   const Bid = () => {
+    if(isNaN(bid) || bid <= 0) {
+        alert('Bid amount is not valid');
+        return;
+    }
     WavesUtils.BidAuction(detail.id, bid, detail.price_id)
   }
 

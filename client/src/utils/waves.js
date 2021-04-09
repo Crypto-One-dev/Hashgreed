@@ -447,7 +447,7 @@ const BidAuction = async (auctionID, bidAmount, bidAssetID) => {
           amount: bidAmount * (10 ** bid_decimals)
         }],
         call: {
-          function: 'withdraw',
+          function: 'bid',
           args: [
             {
               "type": "string",
