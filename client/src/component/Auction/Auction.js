@@ -8,6 +8,7 @@ import styles from './Auction.module.scss';
 import WavesConfig from 'config/waves';
 import WavesUtils from 'utils/waves';
 import ApiUtils from 'utils/api';
+import AlertUtils from 'utils/alert';
 
 function AuctionTx({detail, owner, height, filter}) {
   const {theme} = useContext(ThemeContext);
@@ -41,15 +42,17 @@ function AuctionTx({detail, owner, height, filter}) {
 
   const Withdraw = () => {
     WavesUtils.WithdrawAuction(detail.id)
+    AlertUtils.SystemAlert("NFT successfully withdraw")
   }
 
   const Bid = () => {
     if(isNaN(bid) || bid <= 0) {
-        alert('Bid amount is not valid');
+      AlertUtils.SystemAlert('Bid amount is not valid');
         return;
     }
-    alert('Buying and Selling NFT are subject to risk so better you will do your own research before buying. Be aware of scam assets as we are only a platform to provide services')
+    AlertUtils.SystemAlert('Buying and Selling NFT are subject to risk so better you will do your own research before buying. Be aware of scam assets as we are only a platform to provide services')
     WavesUtils.BidAuction(detail.id, bid, detail.price_id)
+    AlertUtils.SystemAlert("You've successfully placed a bid")
   }
 
   return (

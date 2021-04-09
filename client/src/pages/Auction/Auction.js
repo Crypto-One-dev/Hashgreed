@@ -10,6 +10,7 @@ import walletContainer from 'redux/containers/wallet';
 import ApiUtils from 'utils/api';
 import WavesUtils from 'utils/waves';
 import styles from './Auction.module.scss';
+import AlertUtils from 'utils/alert';
 
 function Auction({walletState}) {
     const {theme} = useContext(ThemeContext);
@@ -48,19 +49,19 @@ function Auction({walletState}) {
 
     const startAuction = async () => {
         if(isNaN(price) || price <= 0) {
-            alert('Starting Price is not valid');
+            AlertUtils.SystemAlert('Starting Price is not valid');
             return;
         }
         if(isNaN(nftAmount) || nftAmount <= 0) {
-            alert('NFT Asset Amount is not valid');
+            AlertUtils.SystemAlert('NFT Asset Amount is not valid');
             return;
         }
         if(isNaN(duration) || duration <= 0) {
-            alert('Duration in blocks is not valid');
+            AlertUtils.SystemAlert('Duration in blocks is not valid');
             return;
         }
         if(acceptedFiles.length !== 1) {
-            alert('You must upload 1 image for NFT');
+            AlertUtils.SystemAlert('You must upload 1 image for NFT');
             return;
         }
         const tx = await WavesUtils.StartAuction(parseInt(duration), parseFloat(price), priceID, nftID, parseFloat(nftAmount))
@@ -75,6 +76,7 @@ function Auction({walletState}) {
         setNFTAmount('')
         acceptedFiles.splice(0, acceptedFiles.length);
         setUploading(false)
+        AlertUtils.SystemAlert('Auction was successfully started')
     }
 
     

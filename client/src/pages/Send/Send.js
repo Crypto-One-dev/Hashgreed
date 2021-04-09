@@ -11,6 +11,7 @@ import walletContainer from 'redux/containers/wallet';
 import ApiUtils from 'utils/api';
 import WavesUtils from 'utils/waves';
 import styles from './Send.module.scss';
+import AlertUtils from 'utils/alert';
 
 function Send({walletState}) {
     const {theme} = useContext(ThemeContext);
@@ -40,11 +41,11 @@ function Send({walletState}) {
 
     const confirmTransfer = () => {
         if(!WAValidator.validate(recipient, 'waves', WavesConfig.WAVES_PLATFORM)) {
-          alert('Recipient address is not valid');
-          return;
+            AlertUtils.SystemAlert('Recipient address is not valid');
+            return;
         }
         if(isNaN(amount) || amount <= 0 || amount > walletState.rkmt_balance) {
-            alert('Amount is not valid');
+            AlertUtils.SystemAlert('Amount is not valid');
             return;
         }
         WavesUtils.send(recipient, amount, comment);

@@ -12,6 +12,7 @@ import walletContainer from 'redux/containers/wallet';
 import ApiUtils from 'utils/api';
 import WavesUtils from 'utils/waves';
 import styles from './MassSend.module.scss';
+import AlertUtils from 'utils/alert';
 
 function MassSend({walletState}) {
     const {theme} = useContext(ThemeContext);
@@ -61,17 +62,17 @@ function MassSend({walletState}) {
         var total = 0;
         for (var i = 0; i < recipients.length; ++i) {
             if(!WAValidator.validate(recipients[i].address, 'waves', WavesConfig.WAVES_PLATFORM)) {
-              alert('#' + (i + 1) + ' Recipient address is not valid');
+                AlertUtils.SystemAlert('#' + (i + 1) + ' Recipient address is not valid');
               return;
             }
             if(isNaN(recipients[i].amount) || recipients[i].amount <= 0) {
-                alert('#' + (i + 1) + ' Amount is not valid');
+                AlertUtils.SystemAlert('#' + (i + 1) + ' Amount is not valid');
                 return;
             }
             total += recipients[i].amount;
         }
         if(isNaN(total) || total <= 0 || total > walletState.rkmt_balance) {
-            alert('Amount is not valid');
+            AlertUtils.SystemAlert('Amount is not valid');
             return;
         }
         WavesUtils.masssend(recipients, comment);
