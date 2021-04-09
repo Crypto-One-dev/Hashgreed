@@ -12,7 +12,7 @@ import ApiUtils from 'utils/api';
 function AuctionTx({detail, owner, height, filter}) {
   const {theme} = useContext(ThemeContext);
   const clipboard = useRef(null);
-  const isOwner = owner === detail.organizer
+  const isOwner = detail.winner ? owner === detail.winner : owner === detail.organizer
   const isOutdated = detail.end_block <= height
   const [bid, setBid] = useState('')
   const [nft, setNFT] = useState({
