@@ -94,14 +94,14 @@ function AuctionTx({detail, owner, height, filter}) {
         <span className={styles.label}>Time Left:</span>
         <span className={styles.value}>~ {detail.end_block >= height ? detail.end_block - height : 0} <b>minutes</b></span>
       </div>
-      {/* {
+      {
         detail.avatar ?
           <div className={styles.row}>
             <img src={`https://ipfs.io/ipfs/${detail.avatar}`} alt="" className={styles.avatar} />
           </div>
         :
           null
-      } */}
+      }
       {
         detail.operator ?
           isOwner?  <Badge text="Withdrawn" color="#0000ff" />

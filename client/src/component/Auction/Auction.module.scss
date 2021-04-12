@@ -4,8 +4,8 @@
   word-break: break-all;
   text-align: left;
   padding: 10px;
-  // height: 475px;
-  height: 350px;
+  height: 425px;
+  // height: 350px;
   position: relative;
   
   width: calc(33% - 30px);
@@ -42,7 +42,7 @@
     .avatar {
       width: 64px;
       height: 64px;
-      margin: 15px auto;
+      margin: 15px auto 0 auto;
     }
   }
 
