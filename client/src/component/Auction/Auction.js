@@ -52,7 +52,7 @@ function AuctionTx({detail, owner, height, filter}) {
     }
     AlertUtils.SystemAlert('Buying and Selling NFT are subject to risk so better you will do your own research before buying. Be aware of scam assets as we are only a platform to provide services')
     WavesUtils.BidAuction(detail.id, bid, detail.price_id)
-    AlertUtils.SystemAlert("You've successfully placed a bid")
+    AlertUtils.SystemAlert("You have successfully placed a bid. When someone else places a higher bid, your bid will be returned back to you")
   }
 
   return (
