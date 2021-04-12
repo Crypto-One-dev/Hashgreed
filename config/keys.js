@@ -12,7 +12,7 @@ module.exports = {
   nodeUrl: NodeUrls[platform],
   chainID: ChainIDs[platform],
   smartContract: '3P7JCNf1Z8uPWaNayLg2hTrhgLktDxgfXmm',
-  nftContract: '3PJhNzTRqgd6YPwf77Sg9wzmAYpiBXHNe52',
+  nftContract: '3PJKkEKwuySZDAzFvNouVA5Ke2uLsyx5bAe',
   baseUrl: process.env.REACT_APP_BASE_URL,
   mongoURI: process.env.MONGO_URI,
   sendBlue: {
