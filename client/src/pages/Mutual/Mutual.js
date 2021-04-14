@@ -152,7 +152,7 @@ function Mutual({walletState}) {
                                 <div>
                                     <div className={styles.inputDiv}>
                                         <Text color={theme.manageTokenHighlight}>Store file on IPFS</Text>
-                                        <Text color={theme.grayText} className={styles.description}>(10MB max)</Text>
+                                        <Text color={theme.grayText} className={styles.description}>(1GB max)</Text>
                                         <Tooltip label="Fill will be public and permanently stored on IPFS, this is not a personal storage. Always keep your own copy and don't use it for sensitive/private files." placement="right">
                                             <span className={styles.question} style={{backgroundColor: theme.manageTokenHighlight}}>?</span>
                                         </Tooltip>
