@@ -20,5 +20,9 @@ module.exports = {
     port: 587,
     login: process.env.SENDINBLUE_LOGIN,
     passw: process.env.SENDINBLUE_PASSW,
-  }
+  },
+  pinata: {
+    api: process.env.PINATA_API,
+    secret: process.env.PINATA_SECRET,
+  },
 }

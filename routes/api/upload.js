@@ -18,12 +18,15 @@ const upload = multer({ storage })
 const attachment = upload.single('attachment')
 
 const File = require('../../models/File')
-const IPFS = require('../../utils/ipfs')
 const keys = require('../../config/keys')
+
+const pinataSDK = require('@pinata/sdk')
+const pinata = pinataSDK(keys.pinata.api, keys.pinata.secret)
 
 router.post('/file', upload.single('file'), async (req, res) => {
   try {
-    const link = await IPFS.uploadOnIPFS(req.file.path)
+    const result = await pinata.pinFromFS(req.file.path)
+    const link = result.IpfsHash
     fs.unlink(req.file.path, function (err) {
       if(err)
         console.error(err)
@@ -111,7 +114,8 @@ router.post('/email', async (req, res) => {
 router.post('/auction', upload.single('avatar'), async (req, res) => {
   try {
     await sharp(req.file.path).resize(32, 32).toFile(req.file.path + '_resize')
-    const resize_link = await IPFS.uploadOnIPFS(req.file.path + '_resize')
+    const resize_result = await pinata.pinFromFS(req.file.path + '_resize')
+    const resize_link = resize_result.IpfsHash
     fs.unlink(req.file.path + '_resize', function (err) {
       if(err)
         console.error(err)
@@ -123,7 +127,8 @@ router.post('/auction', upload.single('avatar'), async (req, res) => {
     console.log('https://ipfs.io/ipfs/' + resize_link)
     await new File({link: resize_link, txid: req.body.txid}).save()
 
-    const link = await IPFS.uploadOnIPFS(req.file.path)
+    const result = await pinata.pinFromFS(req.file.path)
+    const link = result.IpfsHash
     fs.unlink(req.file.path, function (err) {
       if(err)
         console.error(err)
