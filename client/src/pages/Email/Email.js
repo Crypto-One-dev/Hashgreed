@@ -161,7 +161,7 @@ function Email({walletState}) {
                             </p>
                         </div>
                         <div className={cx(styles.fullRow, styles.smallfont)} style={{height: 'initial'}}>
-                            Recommendations: 10MB total, including message and attachment(s); 2MB limit per attachment.
+                            Recommendations: 30MB total, including message and attachment.
                         </div>
                         <div className={styles.fullRow} style={{height: 150}}>
                             <Textarea style={{backgroundColor: theme.itemBackground, color: theme.buttonBack, borderColor: theme.manageTokenHighlight}}
