@@ -1,0 +1,21 @@
+.filled {
+  background: #FE006C;
+  color: white;
+  border-radius: 20px;
+  padding: 7px 20px;
+  cursor: pointer;
+}
+.outline {
+  border: 2px solid #FE006C;
+  color: #000451;
+  border-radius: 20px;
+  padding: 7px 20px;
+  cursor: pointer;
+}
+.disabled {
+  background: #BFBFBF;
+  color: white;
+  border-radius: 20px;
+  padding: 7px 20px;
+  cursor: no-drop;
+}

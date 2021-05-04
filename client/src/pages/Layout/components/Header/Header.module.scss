@@ -1,0 +1,46 @@
+@import 'base.scss';
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 40px;
+
+  &>* {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .image {
+    width: 350px;
+  }
+
+  .about {
+    font-size: 16px;
+    font-weight: 500;
+    color: #15143966;
+    &>* {
+      margin: 0 20px;
+    }
+  }
+
+  .menu {
+    width: 350px;
+    font-size: 16px;
+    font-weight: 500;
+    &>* {
+      margin: 0 15px;
+    }
+    .explorer {
+      color: #FE006C;
+    }
+    .account {
+      font-size: 14px;
+    }
+    .lang {
+      font-weight: 400;
+      color: #C8C6C7;
+    }
+  }
+}

@@ -6,29 +6,23 @@ import {
   Box,
   Grid,
 } from '@chakra-ui/react';
-import Routes from './routes';
+import Layout from 'pages/Layout';
 import reportWebVitals from './reportWebVitals';
-import ThemeContext from 'context/UserContext';
 import configureStore from "redux/store"
-import themes from 'theme';
 
 const reduxStore = configureStore(window.REDUX_INITIAL_DATA)
 
 const App = () => {
-  const [theme, setTheme] = useState(themes.regular)
-  const [activeMenu, setActiveMenu] = useState(0)
   return (
-    <ThemeContext.Provider value={{theme, setTheme, activeMenu, setActiveMenu}}>
       <ChakraProvider>
         <ReduxProvider store={reduxStore}>
           <Box textAlign="center" fontSize="xl">
             <Grid minH="100vh">
-              <Routes />
+              <Layout />
             </Grid>
           </Box>
         </ReduxProvider>
       </ChakraProvider>
-    </ThemeContext.Provider>
   )
 }
 

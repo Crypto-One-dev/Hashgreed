@@ -1,0 +1,54 @@
+@import 'base.scss';
+
+.footer {
+  background: #000451;
+  padding: 50px 100px;
+
+  .description {
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    text-align: justify;
+    margin-bottom: 80px;
+
+    &>a {
+      color: #FE006C;
+    }
+  }
+  .logoNlink {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+    .links {
+      display: flex;
+      flex-direction: row;
+      a {
+        font-size: 16px;
+        margin: 0 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center
+      }
+    }
+  }
+  .border {
+    border-top-width: 2px;
+    margin-bottom: 50px;
+  }
+  .linkNinfo {
+    font-size: 16px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .links {
+      a {
+        margin: 0 15px;
+      }
+    }
+  }
+}
