@@ -1,0 +1,10 @@
+@import 'base.scss';
+
+.mainLayout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .mainBody {
+    flex: 1;
+  }
+}
