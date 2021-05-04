@@ -11,7 +11,9 @@ function Layout({walletState, walletActions}) {
   return (
     <div className={styles.mainLayout}>
       <Header />
-      <Content />
+      <div className={styles.mainBody}>
+        <Content />
+      </div>
       <Footer />
     </div>
   )
