@@ -1,0 +1,42 @@
+@import 'base.scss';
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 50px;
+
+  .menuitem {
+    background: #000451;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    margin: 0 15px;
+    cursor: pointer;
+  }
+  .activeitem {
+    background: #FE006C;
+  }
+  .submenu {
+    padding: 15px 56px;
+    backdrop-filter: blur(10px);
+    .subitem {
+      padding: 10px 15px;
+      text-align: left;
+      color: white;
+      cursor: pointer;
+      &:not(:first-child) {
+        border-top: 1px solid #FFFFFF55;
+      }
+      &:not(:last-child) {
+        border-bottom: 1px solid #FFFFFF55;
+      }
+    }
+  }
+}

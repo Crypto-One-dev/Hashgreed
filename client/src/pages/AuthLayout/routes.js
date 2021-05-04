@@ -1,7 +1,8 @@
 import React from 'react'
 import {Route, Switch, Redirect} from 'react-router-dom'
 
-const Overview = () => <div>Overview</div>
+import Overview from 'pages/Overview'
+
 const Send = () => <div>Send</div>
 const Receive = () => <div>Receive</div>
 const MassTransfer = () => <div>MassTransfer</div>
@@ -26,7 +27,7 @@ function AuthRoutes() {
       <Route path={'/certify/email'} exact component={EmailCertify} />
       <Route path={'/certify/mutual'} exact component={MutualCertify} />
       {/*Auction Tools*/}
-      <Route path={'/auction//explorer'} exact component={AuctionExplorer} />
+      <Route path={'/auction/explorer'} exact component={AuctionExplorer} />
       <Route path={'/auction/create'} exact component={AuctionCreate} />
       {/*Staking*/}
       <Route path={'/stake'} exact component={Stake} />
