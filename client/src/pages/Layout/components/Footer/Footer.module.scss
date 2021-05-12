@@ -3,6 +3,9 @@
 .footer {
   background: #000451;
   padding: 50px 100px;
+  @media (max-width: $drawOpenMaxWidth) {
+    padding: 10px 15px;
+  }
 
   .description {
     font-size: 16px;
@@ -10,6 +13,9 @@
     color: white;
     text-align: justify;
     margin-bottom: 80px;
+    @media (max-width: $drawOpenMaxWidth) {
+      margin-bottom: 10px;
+    }
 
     &>a {
       color: #FE006C;
@@ -22,6 +28,10 @@
     justify-content: space-between;
     margin-bottom: 30px;
 
+    @media (max-width: $drawOpenMaxWidth) {
+      display: none;
+    }
+    
     .links {
       display: flex;
       flex-direction: row;
@@ -37,6 +47,9 @@
   .border {
     border-top-width: 2px;
     margin-bottom: 50px;
+    @media (max-width: $drawOpenMaxWidth) {
+      margin-bottom: 10px;
+    }
   }
   .linkNinfo {
     font-size: 16px;
@@ -45,9 +58,14 @@
     flex-direction: row;
     justify-content: space-between;
 
+    
+    @media (max-width: $drawOpenMaxWidth) {
+      flex-direction: column;
+    }
+
     .links {
-      a {
-        margin: 0 15px;
+      a:not(:last-child) {
+        margin-right: 15px;
       }
     }
   }

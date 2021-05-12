@@ -24,7 +24,7 @@ function Step({index, title, image, content, isDisabled, walletActions}) {
   }
 
   return (
-    <div className={cx(styles.step, isDisabled ? null : styles.glow)}>
+    <div className={cx(styles.step, isDisabled ? styles.nonglow : styles.glow)}>
       <div className={styles.info}>
         <div className={styles.index}>STEP {index}:</div>
         <div className={isDisabled ? styles.disabled_title : styles.title}>{title}</div>

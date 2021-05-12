@@ -14,6 +14,18 @@
 
   .image {
     width: 350px;
+    .drawer {
+      margin-right: 15px;
+      cursor: pointer;
+      display: none;
+      @media (max-width: $drawOpenMaxWidth) {
+        display: block;
+      }
+    }
+    
+    @media (max-width: $drawOpenMaxWidth) {
+      width: initial;
+    }
   }
 
   .about {
@@ -23,6 +35,9 @@
     &>* {
       margin: 0 20px;
     }
+    @media (max-width: $drawOpenMaxWidth) {
+      display: none;
+    }
   }
 
   .menu {
@@ -31,6 +46,9 @@
     font-weight: 500;
     &>* {
       margin: 0 15px;
+    }
+    @media (max-width: 700px) {
+      display: none;
     }
     .explorer {
       color: #FE006C;

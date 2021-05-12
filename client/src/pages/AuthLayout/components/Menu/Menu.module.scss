@@ -6,6 +6,10 @@
   justify-content: center;
   padding-bottom: 50px;
 
+  @media (max-width: $drawOpenMaxWidth) {
+    display: none;
+  }
+
   .menuitem {
     background: #000451;
     font-size: 18px;

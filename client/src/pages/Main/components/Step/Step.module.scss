@@ -2,13 +2,16 @@
 
 .step {
   background: #FFFFFF;     
-  width: 329px;
-  // height: 692px;
+  max-width: 329px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   padding: 0 30px;
+
+  @media (max-width: $drawOpenMaxWidth) {
+    margin: 30px 0;
+  }
 
   .info {
     width: 100%;
@@ -36,6 +39,9 @@
     .image {
       width: 50%;
       margin-top: 47px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .content {
       font-size: 18px;
@@ -58,4 +64,9 @@
 .glow {
   box-shadow: 0px 20px 30px rgba(254, 0, 108, 0.2);
   border-radius: 46px; 
+}
+.nonglow {
+  @media (max-width: $drawOpenMaxWidth) {
+    display: none;
+  }
 }

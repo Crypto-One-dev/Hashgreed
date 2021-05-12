@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 100px;
+    padding: 0 10px;
 
   .overviewHeader{
       font-size: 58px;
@@ -15,7 +16,8 @@
   .overviewBody{
       font-size: 18px;
       font-weight: 500;
-      width: 630px;
+      max-width: 630px;
+      width: 100%;
       text-align: center;
       color: #15143966;
       justify-content: space-between;
@@ -25,12 +27,19 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 630px;
+    max-width: 630px;
+    width: 100%;
     margin-bottom: 50px;
+    @media (max-width: 630px) {
+      flex-direction: column;
+    }
     .button {
       margin-top: 20px;
       margin-left: 10px;
       width: 100%;
+      @media (max-width: 630px) {
+        margin: 5px 0;
+      }
     }
   }
 }

@@ -1,7 +1,10 @@
 import React, {useCallback} from 'react'
 import cx from 'classnames'
 import {useHistory} from 'react-router-dom'
+import {FaBars} from 'react-icons/all'
+import {useDisclosure} from "@chakra-ui/react"
 
+import Drawer from '../Drawer'
 import styles from './Header.module.scss'
 import Logo from 'assets/images/Header.svg'
 
@@ -9,12 +12,13 @@ import walletContainer from "redux/containers/wallet";
 
 function Header({walletState, walletActions}) {
   const history = useHistory()
+  const account = useCallback(() => history.push('/'), [history])
+  const { isOpen, onClose, onOpen } = useDisclosure()
   
-  // const account = useCallback(() => history.push('/certify/file'), [history])
-  const account = () => {}
   return (
     <div className={styles.header}>
       <div className={styles.image}>
+        <FaBars className={styles.drawer} onClick={() => onOpen()}/>
         <img src={Logo} alt="" />
       </div>
       <div className={styles.about}>
@@ -27,6 +31,7 @@ function Header({walletState, walletActions}) {
         <a className={cx(styles.account, styles.filled)} onClick={account}>Account</a>
         <a className={styles.lang}>EN</a>
       </div>
+      <Drawer isOpen={isOpen} onClose={onClose} />
     </div>
   )
 }

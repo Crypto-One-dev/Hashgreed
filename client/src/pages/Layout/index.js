@@ -1,4 +1,5 @@
 import React from 'react'
+import {BrowserRouter} from 'react-router-dom'
 
 import Header from './components/Header'
 import Content from './components/Content'
@@ -9,13 +10,15 @@ import walletContainer from "redux/containers/wallet"
 
 function Layout({walletState, walletActions}) {
   return (
-    <div className={styles.mainLayout}>
-      <Header />
-      <div className={styles.mainBody}>
-        <Content />
+    <BrowserRouter>
+      <div className={styles.mainLayout}>
+        <Header />
+        <div className={styles.mainBody}>
+          <Content />
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </BrowserRouter>
   )
 }
 
