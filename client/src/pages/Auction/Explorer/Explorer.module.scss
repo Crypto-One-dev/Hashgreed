@@ -1,0 +1,21 @@
+@import 'base.scss';
+
+.explorer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px;
+
+    .auctionarea{
+        display: flex;
+        flex-direction: row;
+    }
+    .expiredarea{
+        display: flex;
+        flex-direction: row;
+    }
+    .soldoutarea{
+        display: flex;
+        flex-direction: row;
+    }
+}

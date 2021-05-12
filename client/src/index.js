@@ -10,6 +10,9 @@ import Layout from 'pages/Layout';
 import reportWebVitals from './reportWebVitals';
 import configureStore from "redux/store"
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const reduxStore = configureStore(window.REDUX_INITIAL_DATA)
 
 const App = () => {

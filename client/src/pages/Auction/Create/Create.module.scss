@@ -1,0 +1,130 @@
+@import 'base.scss';
+
+.create{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px;
+
+    .container{
+        width: 1000px;
+
+        .certifyTitle{
+            color: #1E0E62;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .border{
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.8);
+        }
+        .dropzone{
+            border: 1px solid #BFBFBF;
+            box-sizing: border-box;
+            border-radius: 16.8116px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+            cursor: pointer;
+
+            .upload{
+                font-size: 25px;
+                font-weight: 500;
+                color: #262626;
+            }
+            .uploadComment{
+                font-size: 18px;
+                font-weight: 500;
+                color: rgba(21, 20, 57, 0.4);
+            }
+        }
+        .datasarea{
+            display: flex;
+            flex-direction: row;
+            margin-top: 20px;
+            justify-content: space-between;
+
+            .assetIds{
+                flex: 7;
+                display: flex;
+                flex-direction: column;
+                
+                .inputarea{
+                    width: 80%;
+                }
+            }
+            .auctionDatas{
+                flex: 3;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        .feearea{
+            display: flex;
+            flex-direction: row;
+            margin-top: 80px;
+
+            .certification{
+                flex:5;
+                display: flex;
+                flex-direction: row;
+                align-items: right;
+                place-content: flex-end;
+                margin-right: 50px;
+            }
+            .transaction{
+                flex:5;
+                display: flex;
+                flex-direction: row;
+            }
+        }
+        .confirmarea{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+
+            .button{
+                width: 350px;
+                margin-bottom: 10px;
+            }
+            .subcomment{
+                font-size: 18px;
+                font-weight: 500;
+                color: rgba(21, 20, 57, 0.4);
+            }
+        }
+    }
+    .inputarea{
+        display: flex;
+        flex-direction: column;
+        margin-top: 30px;
+
+        .inputTitle{
+            font-size: 18px;
+            font-weight: 500;
+            color: rgba(21, 20, 57, 0.4);
+            margin-bottom: 0;
+        }
+        .inputValue{
+            font-size: 18px;
+            font-weight: 500;
+            color: #151439;
+        }
+    }
+}
+.feeTitle{
+    font-size: 18px;
+    font-weight: 500;
+    color:#686868;
+}
+.fee{
+    font-size: 18px;
+    font-weight: 700;
+    color:#686868;
+    padding-left: 5px;
+}

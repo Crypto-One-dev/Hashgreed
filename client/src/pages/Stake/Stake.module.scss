@@ -1,0 +1,42 @@
+@import 'base.scss';
+
+.stake{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px;
+    
+    .container{
+        width: 1000px;
+
+        .header{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .depositTitle{
+                color: #1E0E62;
+                font-size: 30px;
+                font-weight: bold;
+                text-align: left;
+                margin-bottom: 5px;
+            }
+            .totalStaked{
+                display: flex;
+                flex-direction: row;
+                font-size: 18px;
+                font-weight: 500;
+                color: rgba(0, 4, 81, 0.7);
+                
+            }
+        }
+        .border{
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.8);
+        }
+        .stats{
+            margin-top: 90px;
+        }
+    }
+}

@@ -2,16 +2,15 @@ import React from 'react'
 import {Route, Switch, Redirect} from 'react-router-dom'
 
 import Overview from 'pages/Overview'
-
-const Send = () => <div>Send</div>
-const Receive = () => <div>Receive</div>
-const MassTransfer = () => <div>MassTransfer</div>
-const FileCertify = () => <div>FileCertify</div>
-const EmailCertify = () => <div>EmailCertify</div>
-const MutualCertify = () => <div>MutualCertify</div>
-const AuctionExplorer = () => <div>AuctionExplorer</div>
-const AuctionCreate = () => <div>AuctionCreate</div>
-const Stake = () => <div>Stake</div>
+import Receive from 'pages/Manage/Receive'
+import Send from 'pages/Manage/Send'
+import MassTransfer from 'pages/Manage/MassSend'
+import FileCertify from 'pages/Certification/File'
+import EmailCertify from 'pages/Certification/Email'
+import MutualCertify from 'pages/Certification/Mutual'
+import AuctionExplorer from 'pages/Auction/Explorer'
+import AuctionCreate from 'pages/Auction/Create'
+import Stake from 'pages/Stake';
 
 function AuthRoutes() {
   return (

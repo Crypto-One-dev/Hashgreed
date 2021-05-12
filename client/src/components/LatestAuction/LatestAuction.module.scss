@@ -1,0 +1,57 @@
+@import 'base.scss';
+
+.latestAuction{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 16.8116px;
+    width: 80%;
+    height: 220px;
+    margin-top: 50px;
+
+    .title{
+        font-size: 18px;
+        font-weight: 500;
+        color: #000451;
+        margin-top: 30px;
+        text-align: left;
+        margin-left: 40px;
+        margin-bottom: 20px;
+    }
+    .line{
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+    .dataarea{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-top: 30px;
+
+        .img{
+            flex: 1;
+            align-items: flex-start;
+            width: 30px;
+            height: 30px;
+        }
+        .data{
+            flex:8;
+            align-items: flex-start;
+            text-align: left;
+            margin-left: 30px;
+            color: #000451;
+            font-size: 15px;
+            font-weight: 500;
+
+        }
+        .price{
+            flex:1;
+            margin-right: 40px;
+            font-size: 17px;
+            font-weight: 500;
+            color: #000451;
+        }
+    }
+}

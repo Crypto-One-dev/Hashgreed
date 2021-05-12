@@ -1,0 +1,49 @@
+@import 'base.scss';
+
+.container{
+    width: 1000px;
+    margin-bottom: 30px;
+
+    .titlearea{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .explorerTitle{
+            color: #1E0E62;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .viewTitle{
+            font-size: 17px;
+            font-weight: 500;
+            color: rgba(0, 4, 81, 0.7);
+        }
+    }
+    .border{
+        margin-bottom: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.8);
+    }
+    .cellList{
+        display: flex;
+        flex-direction: row;
+        margin-top: 50px;
+    }
+
+}
+.leftIcon{
+    align-items: center;
+    margin-right: 20px;
+}
+.rightIcon{
+    align-items: center;
+    margin-left: 20px;
+}
+
+
+
+
+

@@ -1,0 +1,99 @@
+@import 'base.scss';
+
+.send{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px;
+    
+    .container{
+        width: 1000px;
+
+        .transfertitle{
+            color: #1E0E62;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .border{
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.8);
+        }
+        .recepient{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            &>*:not(:first-child) {
+                border-left: 1px solid #BFBFBF55;
+              }
+            .address{
+                flex: 7;
+                display: flex;
+                flex-direction: column;
+                
+                .inputValue{
+                    font-size: 30px;
+                    width: 90%;
+                }
+            }
+            .amount{
+                flex: 3;
+                display: flex;
+                flex-direction: column;
+                padding-left: 50px;
+
+                .inputValue{
+                    font-size: 30px;
+                }
+            }
+        }
+        .confirms{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            
+            .comment{
+                flex: 7;
+                display: flex;
+                flex-direction: column;
+
+                .inputValue{
+                    font-size: 30px;
+                    width: 90%;
+                }
+                
+                .subcomment{
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: rgba(21, 20, 57, 0.4);
+                    text-align: left;
+                }
+            }
+            .confirm{
+                flex: 3;
+                display: flex;
+                flex-direction: column;
+                .fee{
+                    display: flex;
+                    flex-direction: row;
+                    margin-top: 50px;
+                    .feetitle{
+                        font-size: 20px;
+                        font-weight: 500;
+                        color: #686868;
+                        margin-bottom: 30px;
+                        margin-right: 5px;
+                    }
+                    .feevalue{
+                        font-size: 20px;
+                        font-weight: 700;
+                        color: #686868;
+                    }
+                }
+            }
+        }
+    }
+    
+}

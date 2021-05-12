@@ -1,5 +1,36 @@
 @import 'base.scss';
 
 .overview {
-  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px;
+
+  .overviewHeader{
+      font-size: 58px;
+      font-weight: 700;
+      color: #1E0E62;
+      margin-bottom: 30px;
+  }
+  .overviewBody{
+      font-size: 18px;
+      font-weight: 500;
+      width: 630px;
+      text-align: center;
+      color: #15143966;
+      justify-content: space-between;
+      margin-bottom: 50px;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 630px;
+    margin-bottom: 50px;
+    .button {
+      margin-top: 20px;
+      margin-left: 10px;
+      width: 100%;
+    }
+  }
 }
