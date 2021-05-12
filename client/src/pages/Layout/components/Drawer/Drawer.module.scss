@@ -1,0 +1,31 @@
+@import 'base.scss';
+
+.routes {
+  .link {
+    cursor: pointer;
+    margin: 5px 0;
+    border-bottom: 1px solid gray;
+  }
+  .navs {
+    cursor: pointer;
+    margin: 5px 0;
+    &>div {
+      padding: 0 10px;
+    }
+    border-bottom: 1px solid gray;
+    .link {
+      border-bottom: 0px;
+    }
+  }
+  .activemenu {
+
+  }
+  .opennav {
+    display: flex;
+    flex-direction: column;
+  }
+  .closenav {
+    display: none;
+  }
+
+}
