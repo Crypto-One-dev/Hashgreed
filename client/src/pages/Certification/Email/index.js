@@ -13,15 +13,15 @@ import { v4 as uuidgen } from 'uuid'
 
 function Email({walletState}){
 
-    const certFee = 100;
-    const transactionFee = 0.001;
-    const [certifications, setCertifications] = useState([]);
+    const certFee = 100
+    const transactionFee = 0.001
+    const [certifications, setCertifications] = useState([])
     
     useEffect(() => {
         let interval = -1
         if(walletState.address) {
           const proc = () => {
-              ApiUtils.getCertifications('data_ec_([A-Za-z0-9]*)_' + walletState.address, setCertifications);
+              ApiUtils.getCertifications('data_ec_([A-Za-z0-9]*)_' + walletState.address, setCertifications)
           }
           proc()
           interval = setInterval(proc, 60000)
@@ -65,7 +65,7 @@ function Email({walletState}){
                 AlertUtils.SystemAlert('You sent a Hashgreed Certified Email')
             }
         }
-        acceptedFiles.splice(0, acceptedFiles.length);
+        acceptedFiles.splice(0, acceptedFiles.length)
         setSmtp('open')
         setServer('')
         setPort('')

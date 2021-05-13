@@ -4,27 +4,27 @@ import cx from 'classnames'
 import {Input, Checkbox, Textarea} from '@chakra-ui/react'
 import {BsPlusCircle} from 'react-icons/all'
 import {useDropzone} from 'react-dropzone'
-import { v5 as uuidgen } from 'uuid';
-import {sha256} from 'js-sha256';
+import { v5 as uuidgen } from 'uuid'
+import {sha256} from 'js-sha256'
 
 
 import styles from './Mutual.module.scss'
-import ApiUtils from 'utils/api';
-import WavesUtils from 'utils/waves';
-import WavesConfig from 'config/waves';
+import ApiUtils from 'utils/api'
+import WavesUtils from 'utils/waves'
+import WavesConfig from 'config/waves'
 import walletContainer from 'redux/containers/wallet'
 
 function Mutual({walletState}){
 
-    const [certifications, setCertifications] = useState([]);
-    const [certFee, setCertFee] = useState(100);
-    const transactionFee = 0.001;
+    const [certifications, setCertifications] = useState([])
+    const [certFee, setCertFee] = useState(100)
+    const transactionFee = 0.001
 
     useEffect(() => {
         let interval = -1
         if(walletState.address) {
           const proc = () => {
-              ApiUtils.getMutualCertifications(walletState.address, setCertifications);
+              ApiUtils.getMutualCertifications(walletState.address, setCertifications)
           }
           proc()
           interval = setInterval(proc, 60000)
@@ -37,9 +37,9 @@ function Mutual({walletState}){
         }
     }, [walletState.address])
 
-    const [hash, setHash] = useState('');
-    const [reference, setReference] = useState('');
-    const [uuid, setUUID] = useState('');
+    const [hash, setHash] = useState('')
+    const [reference, setReference] = useState('')
+    const [uuid, setUUID] = useState('')
     const [store, setStore] = useState(false)
     const [recipients, setRecipients] = useState('')
     const [uploading, setUploading] = useState(false)
@@ -76,7 +76,7 @@ function Mutual({walletState}){
                 await ApiUtils.fileUpload(acceptedFiles[0], tx.id)
             }
         }
-        acceptedFiles.splice(0, acceptedFiles.length);
+        acceptedFiles.splice(0, acceptedFiles.length)
         setHash('')
         setReference('')
         setUUID('')

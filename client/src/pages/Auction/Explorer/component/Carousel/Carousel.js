@@ -1,8 +1,8 @@
 import React, {forwardRef, useRef, useState, useImperativeHandle } from 'react'
 
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.green.css";
-import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.css"
+import "owl.carousel/dist/assets/owl.theme.green.css"
+import OwlCarousel from 'react-owl-carousel'
 import AuctionCell from '../AuctionCell/AuctionCell'
 
 function Carousel(props, ref){
@@ -16,7 +16,7 @@ function Carousel(props, ref){
             carousel.current.next()
         }
       }
-      ));
+      ))
 
     return(
         <>

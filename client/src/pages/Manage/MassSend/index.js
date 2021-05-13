@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 
 import {Input} from '@chakra-ui/react'
-import {FaMinusCircle, FaPlusCircle} from "react-icons/all"
+import {FaMinusCircle, FaPlusCircle} from 'react-icons/all'
 import walletContainer from 'redux/containers/wallet'
-import _ from "lodash"
+import _ from 'lodash'
 import WAValidator from 'multicoin-address-validator'
 import WavesConfig from 'config/waves'
 import WavesUtils from 'utils/waves'
@@ -15,16 +15,16 @@ import styles from './MassSend.module.scss'
 
 function MassSend({walletState, walletActions}){
 
-    const [transactions, setTransactions] = useState([]);
-    const emptyRecipient = {address: '', amount: ''};
-    const [recipients, setRecipients] = useState([_.cloneDeep(emptyRecipient)]);
-    const [comment, setComment] = useState('');
+    const [transactions, setTransactions] = useState([])
+    const emptyRecipient = {address: '', amount: ''}
+    const [recipients, setRecipients] = useState([_.cloneDeep(emptyRecipient)])
+    const [comment, setComment] = useState('')
 
     useEffect(() => {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-          ApiUtils.getMassTransactions(walletState.address, setTransactions);
+          ApiUtils.getMassTransactions(walletState.address, setTransactions)
         }
         proc()
         interval = setInterval(proc, 60000)
@@ -38,42 +38,42 @@ function MassSend({walletState, walletActions}){
     }, [walletState.address])
 
     const addNewRecipient = () => {
-        setRecipients([...recipients, _.cloneDeep(emptyRecipient)]);
+        setRecipients([...recipients, _.cloneDeep(emptyRecipient)])
     }
     const removeRecipient = (index) => {
-        const newRecipients = _.cloneDeep(recipients);
-        newRecipients.splice(index, 1);
-        setRecipients(newRecipients);
+        const newRecipients = _.cloneDeep(recipients)
+        newRecipients.splice(index, 1)
+        setRecipients(newRecipients)
     }
     const setRecipientAddress = (index, value) => {
-        const newRecipients = _.cloneDeep(recipients);
-        newRecipients[index].address = value;  
-        setRecipients(newRecipients);
+        const newRecipients = _.cloneDeep(recipients)
+        newRecipients[index].address = value
+        setRecipients(newRecipients)
     }
     const setRecipientAmount = (index, value) => {
-        const newRecipients = _.cloneDeep(recipients);
-        newRecipients[index].amount = value;  
-        setRecipients(newRecipients);
+        const newRecipients = _.cloneDeep(recipients)
+        newRecipients[index].amount = value
+        setRecipients(newRecipients)
     }
 
     const confirmTransfer = () => {
-        var total = 0;
+        var total = 0
         for (var i = 0; i < recipients.length; ++i) {
             if(!WAValidator.validate(recipients[i].address, 'waves', WavesConfig.WAVES_PLATFORM)) {
-                AlertUtils.SystemAlert('#' + (i + 1) + ' Recipient address is not valid');
-              return;
+                AlertUtils.SystemAlert('#' + (i + 1) + ' Recipient address is not valid')
+              return
             }
             if(isNaN(recipients[i].amount) || recipients[i].amount <= 0) {
-                AlertUtils.SystemAlert('#' + (i + 1) + ' Amount is not valid');
-                return;
+                AlertUtils.SystemAlert('#' + (i + 1) + ' Amount is not valid')
+                return
             }
-            total += recipients[i].amount;
+            total += recipients[i].amount
         }
         if(isNaN(total) || total <= 0 || total > walletState.rkmt_balance) {
-            AlertUtils.SystemAlert('Amount is not valid');
-            return;
+            AlertUtils.SystemAlert('Amount is not valid')
+            return
         }
-        WavesUtils.masssend(recipients, comment);
+        WavesUtils.masssend(recipients, comment)
     }
     return(
         <div className = {styles.masssend}>

@@ -481,4 +481,4 @@ const WavesUtils = {
   WithdrawAuction,
   BidAuction,
 }
-export default WavesUtils;
+export default WavesUtils

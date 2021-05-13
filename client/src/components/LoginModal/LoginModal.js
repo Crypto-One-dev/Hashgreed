@@ -5,7 +5,7 @@ import waveIcon from 'assets/images/wave.png'
 import seedIcon from 'assets/images/seed.png'
 import styles from './LoginModal.scss'
 
-function LoginModal(props, ref){
+function LoginModal({onSignMethods}, ref){
 
     const {isOpen, onOpen, onClose} = useDisclosure()
 
@@ -17,7 +17,7 @@ function LoginModal(props, ref){
             onClose()
         }
       }
-      ));
+      ))
  
     return(
              <Modal onClose={onClose} size={'xl'}  isOpen={isOpen} isCentered className={styles.Modal}>
@@ -28,12 +28,12 @@ function LoginModal(props, ref){
                             By connecting, I accept Hashgreed’s Term of use 
                     </ModalBody>
                     <ModalFooter style={{display: 'flex', flexDirection: 'column'}}>
-                        <a onClick={props.onSignMethods('CLOUD')}
+                        <a onClick={() => onSignMethods('CLOUD')}
                             style={{
                                 background: '#FE006C',
                                 color: 'white',
                                 borderRadius: '66.9173px',
-                                padding: '15px 100px',
+                                padding: '15px',
                                 fontSize: '20px',
                                 fontWeight: '800',
                                 display: 'flex',
@@ -41,7 +41,8 @@ function LoginModal(props, ref){
                                 cursor: 'pointer',
                                 position: 'relative',
                                 marginBottom: '30px',
-                                marginTop: '30px'
+                                marginTop: '30px',
+                                width: '100%'
                             }}
                         >
                             <span
@@ -56,22 +57,23 @@ function LoginModal(props, ref){
                             >
                                 RECOMMENDED
                             </span>
-                            <div style ={{width:'320px'}}>Login by Waves Exchange Email</div>   
-                            <img src={waveIcon} style={{width:'70px', position:'absolute',right:'10px', top:'-20px'}} alt=""/>
+                            <div style ={{width: '100%'}}>Login by Exchange Email</div>   
+                            <img src={waveIcon} style={{width:'70px', position:'absolute',right:'10px', top:'-30px'}} alt=""/>
                         </a>
-                        <a onClick={onClose}
+                        <a onClick={() => onSignMethods('SEED')}
                             style={{
                                 marginBottom: '30px',
                                 border: '2px solid #FE006C',
                                 color: '#FE006C',
                                 borderRadius: '66.9173px',
-                                padding: '15px 100px',
+                                padding: '15px',
                                 fontSize: '20px',
                                 fontWeight: '800',
                                 display: 'flex',
                                 textAlign: 'center',
                                 cursor: 'pointer',
-                                position: 'relative'
+                                position: 'relative',
+                                width: '100%'
                             }}
                         >
                             <span
@@ -86,8 +88,8 @@ function LoginModal(props, ref){
                             >
                                 
                             </span>
-                            <div style ={{width:'310px'}}>Login by Exchange Seed</div>   
-                            <img src={seedIcon} style={{width:'70px', position:'absolute',right:'10px', top:'-20px'}} alt=""/>
+                            <div style ={{width: '100%'}}>Login by Exchange Seed</div>   
+                            <img src={seedIcon} style={{width:'70px', position:'absolute',right:'10px', top:'-30px'}} alt=""/>
                         </a>
                         <div className = {styles.sign} style ={{
                             color : "rgba(21, 20, 57, 0.4)",

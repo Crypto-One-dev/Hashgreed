@@ -5,7 +5,7 @@ import {FaFacebookF, FaGooglePlusG, FaTwitter} from 'react-icons/all'
 import styles from './Footer.module.scss'
 import Logo from 'assets/images/Footer.svg'
 
-import walletContainer from "redux/containers/wallet";
+import walletContainer from 'redux/containers/wallet'
 
 function Footer({walletState, walletActions}) {
   return (

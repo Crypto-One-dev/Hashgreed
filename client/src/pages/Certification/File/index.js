@@ -5,26 +5,26 @@ import cx from 'classnames'
 import {Input, Checkbox} from '@chakra-ui/react'
 import {BsPlusCircle} from 'react-icons/all'
 import {useDropzone} from 'react-dropzone'
-import { v5 as uuidgen } from 'uuid';
-import {sha256} from 'js-sha256';
+import { v5 as uuidgen } from 'uuid'
+import {sha256} from 'js-sha256'
 
 import styles from './File.module.scss'
-import ApiUtils from 'utils/api';
-import WavesUtils from 'utils/waves';
-import WavesConfig from 'config/waves';
+import ApiUtils from 'utils/api'
+import WavesUtils from 'utils/waves'
+import WavesConfig from 'config/waves'
 
 function File({walletState}){
 
-    const [certifications, setCertifications] = useState([]);
+    const [certifications, setCertifications] = useState([])
 
-    const certFee = 100;
-    const transactionFee = 0.001;
+    const certFee = 100
+    const transactionFee = 0.001
 
     useEffect(() => {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-            ApiUtils.getCertifications('data_fc_([A-Za-z0-9]*)_' + walletState.address, setCertifications);
+            ApiUtils.getCertifications('data_fc_([A-Za-z0-9]*)_' + walletState.address, setCertifications)
         }
         proc()
         interval = setInterval(proc, 60000)
@@ -37,9 +37,9 @@ function File({walletState}){
       }
     }, [walletState.address])
 
-    const [hash, setHash] = useState('');
-    const [reference, setReference] = useState('');
-    const [uuid, setUUID] = useState('');
+    const [hash, setHash] = useState('')
+    const [reference, setReference] = useState('')
+    const [uuid, setUUID] = useState('')
     const [store, setStore] = useState(false)
     const [uploading, setUploading] = useState(false)
 
@@ -67,7 +67,7 @@ function File({walletState}){
                 await ApiUtils.fileUpload(acceptedFiles[0], tx.id)
             }
         }
-        acceptedFiles.splice(0, acceptedFiles.length);
+        acceptedFiles.splice(0, acceptedFiles.length)
         setHash('')
         setReference('')
         setUUID('')

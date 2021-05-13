@@ -5,7 +5,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from "@chakra-ui/react"
+} from '@chakra-ui/react'
 
 import styles from './Menu.module.scss'
 

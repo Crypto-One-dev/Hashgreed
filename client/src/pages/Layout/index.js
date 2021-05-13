@@ -4,9 +4,9 @@ import {BrowserRouter} from 'react-router-dom'
 import Header from './components/Header'
 import Content from './components/Content'
 import Footer from './components/Footer'
-import styles from './Layout.module.scss';
+import styles from './Layout.module.scss'
 
-import walletContainer from "redux/containers/wallet"
+import walletContainer from 'redux/containers/wallet'
 
 function Layout({walletState, walletActions}) {
   return (

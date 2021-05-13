@@ -11,7 +11,7 @@ function Overview({walletActions}) {
   const history = useHistory()
 
   const onSwitch = () => {
-    walletActions.lockWallet();
+    walletActions.lockWallet()
     WavesUtils.unlockWallet('CLOUD', walletActions.unlockWallet, walletActions.lockWallet)
   }
   const onCertify = useCallback(() => history.push('/certify/file'), [history])

@@ -7,18 +7,19 @@ import RKMT from 'assets/icons/RKMT.svg'
 import USDT from 'assets/icons/USDT.svg'
 import WAVES from 'assets/icons/WAVES.svg'
 import WALLET from 'assets/icons/WALLET.svg'
+import priceContainer from 'redux/containers/price'
 import walletContainer from 'redux/containers/wallet'
 
-function Balances({walletState}) {
+function Balances({walletState, priceState}) {
   return (
     <div className={styles.balances}>
-      <Balance title={'HASH Balance'} icon={HASH} value={0} price={23} />
-      <Balance title={'RKMT Balance'} icon={RKMT} value={0} price={0.0009} />
-      <Balance title={'USDT Balance'} icon={USDT} value={0} price={0.98} />
-      <Balance title={'WAVES Balance'} icon={WAVES} value={0} price={17.98} />
+      <Balance title={'HASH Balance'} icon={HASH} value={walletState.hash_balance} price={priceState.hash_price} />
+      <Balance title={'RKMT Balance'} icon={RKMT} value={walletState.rkmt_balance} price={priceState.rkmt_price} />
+      <Balance title={'USDT Balance'} icon={USDT} value={walletState.usdt_balance} price={priceState.usdt_price} />
+      <Balance title={'WAVES Balance'} icon={WAVES} value={walletState.waves_balance} price={priceState.waves_price} />
       <Balance title={'Your Address'} icon={WALLET} value={walletState.address} />
     </div>
   )
 }
 
-export default walletContainer(Balances)
+export default priceContainer(walletContainer(Balances))

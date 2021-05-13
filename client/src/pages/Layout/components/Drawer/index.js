@@ -7,12 +7,16 @@ import {
   DrawerContent,
   DrawerCloseButton,
   DrawerHeader,
-} from "@chakra-ui/react"
+} from '@chakra-ui/react'
 import cx from 'classnames'
 
+import HASH from 'assets/icons/HASH.svg'
+import RKMT from 'assets/icons/RKMT.svg'
+import USDT from 'assets/icons/USDT.svg'
+import WAVES from 'assets/icons/WAVES.svg'
 import styles from './Drawer.module.scss'
 
-import walletContainer from "redux/containers/wallet"
+import walletContainer from 'redux/containers/wallet'
 
 function HashgreedDrawer({isOpen, onClose, walletState}) {
   const location  = useLocation()
@@ -27,7 +31,7 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
     if(isOpen) { // onOpen
       setActiveMenu(path[1])
     }
-  }, [isOpen])
+  }, [isOpen, path])
 
   const openSubMenu = (active) => {
     if(active === activeMenu) {
@@ -69,6 +73,29 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
     )
   }
 
+  const Balance = ({title, icon, value}) => {
+    return (
+      <div className={styles.balance}>
+        <span>{title}</span>
+        <div className={styles.info}>
+          <img src={icon} alt="" />
+          <div className={styles.value}>{isNaN(value) ? value : parseFloat(value).toFixed(4)}</div>
+        </div>
+      </div>
+    )
+  }
+  const Balances = () => {
+    return (
+      <>
+        <Balance title={'HASH Balance'} icon={HASH} value={walletState.hash_balance} />
+        <Balance title={'RKMT Balance'} icon={RKMT} value={walletState.rkmt_balance} />
+        <Balance title={'USDT Balance'} icon={USDT} value={walletState.usdt_balance} />
+        <Balance title={'WAVES Balance'} icon={WAVES} value={walletState.waves_balance} />
+        <Balance title={'Your Address'} value={walletState.address} />
+      </>
+    )
+  }
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -82,6 +109,10 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
         <DrawerBody>
           <div className={styles.routes}>
             {walletState.address && <AuthRoutes />}
+            <div className={styles.link} onClick={() => gotoPage('/explorer')}>Verification Explorer</div>
+          </div>
+          <div className={styles.balances}>
+            {walletState.address && <Balances />}
           </div>
         </DrawerBody>
       </DrawerContent>

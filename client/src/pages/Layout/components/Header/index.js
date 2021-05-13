@@ -2,13 +2,13 @@ import React, {useCallback} from 'react'
 import cx from 'classnames'
 import {useHistory} from 'react-router-dom'
 import {FaBars} from 'react-icons/all'
-import {useDisclosure} from "@chakra-ui/react"
+import {useDisclosure} from '@chakra-ui/react'
 
 import Drawer from '../Drawer'
 import styles from './Header.module.scss'
 import Logo from 'assets/images/Header.svg'
 
-import walletContainer from "redux/containers/wallet";
+import walletContainer from 'redux/containers/wallet'
 
 function Header({walletState, walletActions}) {
   const history = useHistory()

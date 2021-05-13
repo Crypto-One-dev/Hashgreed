@@ -1,11 +1,13 @@
 
-import { connect } from "react-redux"
-import ACTIONS from "../actions/price"
+import { connect } from 'react-redux'
+import ACTIONS from '../actions/price'
 
 const mapStateToProps = state => ({
   priceState: {
     rkmt_price: state.priceReducer.rkmt_price,
     waves_price: state.priceReducer.waves_price,
+    usdt_price: state.priceReducer.usdt_price,
+    hash_price: state.priceReducer.hash_price
   }
 })
 

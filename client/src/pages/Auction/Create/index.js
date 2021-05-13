@@ -1,30 +1,30 @@
 import React, {useContext, useEffect, useState}from 'react'
 
-import {useDropzone} from 'react-dropzone';
+import {useDropzone} from 'react-dropzone'
 import {Input} from '@chakra-ui/react'
 import {BsPlusCircle} from 'react-icons/all'
 
 import cx from 'classnames'
 import styles from './Create.module.scss'
-import ApiUtils from 'utils/api';
-import WavesUtils from 'utils/waves';
+import ApiUtils from 'utils/api'
+import WavesUtils from 'utils/waves'
 import AlertUtils from 'utils/alert'
-import WavesConfig from 'config/waves';
-import walletContainer from "redux/containers/wallet"
+import WavesConfig from 'config/waves'
+import walletContainer from 'redux/containers/wallet'
 
 function Create({walletState}){
 
-    const [isTransferFormOpen, openTransferForm] = useState(false);
-    const [auctions, setAuctions] = useState([]);
-    const [height, setHeight] = useState(0);
-    const certFee = 100;
-    const transactionFee = 0.001;
+    const [isTransferFormOpen, openTransferForm] = useState(false)
+    const [auctions, setAuctions] = useState([])
+    const [height, setHeight] = useState(0)
+    const certFee = 100
+    const transactionFee = 0.001
 
     useEffect(() => {
       let interval = -1
       if(walletState.address) {
         const proc = () => {
-          ApiUtils.getAuctions(walletState.address, setAuctions, setHeight);
+          ApiUtils.getAuctions(walletState.address, setAuctions, setHeight)
         }
         proc()
         interval = setInterval(proc, 30000)
@@ -37,30 +37,30 @@ function Create({walletState}){
       }
     }, [walletState.address])
 
-    const [duration, setDuration] = useState('');
-    const [price, setPrice] = useState('');
-    const [priceID, setPriceID] = useState('');
-    const [nftID, setNFTID] = useState('');
-    const [nftAmount, setNFTAmount] = useState('');
+    const [duration, setDuration] = useState('')
+    const [price, setPrice] = useState('')
+    const [priceID, setPriceID] = useState('')
+    const [nftID, setNFTID] = useState('')
+    const [nftAmount, setNFTAmount] = useState('')
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({ accept: 'image/jpeg, image/png' })
     const [uploading, setUploading] = useState(false)
 
     const startAuction = async () => {
         if(isNaN(price) || price <= 0) {
-            AlertUtils.SystemAlert('Starting Price is not valid');
-            return;
+            AlertUtils.SystemAlert('Starting Price is not valid')
+            return
         }
         if(isNaN(nftAmount) || nftAmount <= 0) {
-            AlertUtils.SystemAlert('NFT Asset Amount is not valid');
-            return;
+            AlertUtils.SystemAlert('NFT Asset Amount is not valid')
+            return
         }
         if(isNaN(duration) || duration <= 0) {
-            AlertUtils.SystemAlert('Duration in blocks is not valid');
-            return;
+            AlertUtils.SystemAlert('Duration in blocks is not valid')
+            return
         }
         if(acceptedFiles.length !== 1) {
-            AlertUtils.SystemAlert('You must upload 1 image for NFT');
-            return;
+            AlertUtils.SystemAlert('You must upload 1 image for NFT')
+            return
         }
         const tx = await WavesUtils.StartAuction(parseInt(duration), parseFloat(price), priceID, nftID, parseFloat(nftAmount))
         if(tx) {
@@ -72,7 +72,7 @@ function Create({walletState}){
         setPriceID('')
         setNFTID('')
         setNFTAmount('')
-        acceptedFiles.splice(0, acceptedFiles.length);
+        acceptedFiles.splice(0, acceptedFiles.length)
         setUploading(false)
         AlertUtils.SystemAlert('Auction was successfully started')
     }

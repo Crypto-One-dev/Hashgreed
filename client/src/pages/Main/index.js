@@ -22,9 +22,8 @@ function Main({walletState, walletActions}) {
   }
 
   const onSignMethod = (str) => {
-    // loginMdl.current.closeModal()
-    // WavesUtils.unlockWallet(str, walletActions.unlockWallet, walletActions.lockWallet)
-    // alert('hello')
+    loginMdl.current.closeModal()
+    WavesUtils.unlockWallet(str, walletActions.unlockWallet, walletActions.lockWallet)
   }
 
   const gotoOverview = useCallback(() => history.push('/overview'), [history])
@@ -43,7 +42,7 @@ function Main({walletState, walletActions}) {
       <div className={styles.startnow}>
         <a className={cx(styles.start, styles.filled)} onClick={walletState.address ? gotoOverview : login}>Start now</a>
       </div>
-      <Steps />
+      <Steps login={login} />
     </div>
   )
 } 

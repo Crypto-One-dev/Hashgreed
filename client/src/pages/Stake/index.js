@@ -3,7 +3,7 @@ import Sliders from './component/Sliders/Sliders'
 
 import {Flex, Stat, StatLabel, StatNumber, StatHelpText} from '@chakra-ui/react'
 import walletContainer from 'redux/containers/wallet'
-import WavesUtils from 'utils/waves';
+import WavesUtils from 'utils/waves'
 import styles from './Stake.module.scss'
 
 function Stake({walletState}){

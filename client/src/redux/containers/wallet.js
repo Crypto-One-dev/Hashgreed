@@ -1,6 +1,6 @@
 
-import { connect } from "react-redux"
-import ACTIONS from "../actions/wallet"
+import { connect } from 'react-redux'
+import ACTIONS from '../actions/wallet'
 
 const mapStateToProps = state => ({
   walletState: {

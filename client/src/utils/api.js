@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from 'axios'
 
-import WavesConfig from 'config/waves';
+import WavesConfig from 'config/waves'
 import AlertUtils from 'utils/alert'
 
 const getPrice = (token, type, callback) => {
@@ -153,7 +153,7 @@ const searchCertification = async (transactionID, hashID, reference, callback) =
 
 const fileUpload = async (file, txid) => {
   try {
-    const formData = new FormData();
+    const formData = new FormData()
     formData.append('file', file)
     formData.append('txid', txid)
     const status = await axios.post('/api/upload/file', formData, {headers:{'content-type':'multipart/form-data'}})
@@ -167,7 +167,7 @@ const fileUpload = async (file, txid) => {
 
 const auctionUpload = async (file, txid) => {
   try {
-    const formData = new FormData();
+    const formData = new FormData()
     formData.append('avatar', file)
     formData.append('txid', txid)
     const status = await axios.post('/api/upload/auction', formData, {headers:{'content-type':'multipart/form-data'}})
@@ -181,7 +181,7 @@ const auctionUpload = async (file, txid) => {
 
 const emailUpload = async (file, smtp, server, port, login, password, first_name, last_name, email_sender, email_recipient, message, reference, messageid, txid) => {
   try {
-    const formData = new FormData();
+    const formData = new FormData()
     if(file)
       formData.append('attachment', file)
     formData.append('smtp', smtp)

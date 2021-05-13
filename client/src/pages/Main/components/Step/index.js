@@ -6,17 +6,13 @@ import styles from './Step.module.scss'
 
 import WavesConfig from 'config/waves'
 import walletContainer from 'redux/containers/wallet'
-import WavesUtils from 'utils/waves'
 
-function Step({index, title, image, content, isDisabled, walletActions}) {
+function Step({index, title, image, content, isDisabled, walletActions, login}) {
   const history = useHistory()
 
-  const onSign = () => {
-    WavesUtils.unlockWallet('CLOUD', walletActions.unlockWallet, walletActions.lockWallet)
-  }
   const onSwitch = () => {
-    walletActions.lockWallet();
-    onSign()
+    walletActions.lockWallet()
+    login()
   }
   const onCertify = useCallback(() => history.push('/certify/file'), [history])
   const onManageAccount = () => {
@@ -34,7 +30,7 @@ function Step({index, title, image, content, isDisabled, walletActions}) {
       <div className={styles.buttons}>
       {
         index === 1?
-          <a className={cx(styles.button, isDisabled ? styles.disabled : styles.filled)} onClick={isDisabled ? null : onSign}>Sign in</a>
+          <a className={cx(styles.button, isDisabled ? styles.disabled : styles.filled)} onClick={isDisabled ? null : login}>Sign in</a>
         : index === 2?
           <>
             <a className={cx(styles.button, isDisabled ? styles.disabled : styles.filled)} onClick={isDisabled ? null : onCertify}>Certify Now</a>

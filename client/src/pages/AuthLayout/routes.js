@@ -10,7 +10,7 @@ import EmailCertify from 'pages/Certification/Email'
 import MutualCertify from 'pages/Certification/Mutual'
 import AuctionExplorer from 'pages/Auction/Explorer'
 import AuctionCreate from 'pages/Auction/Create'
-import Stake from 'pages/Stake';
+import Stake from 'pages/Stake'
 
 function AuthRoutes() {
   return (

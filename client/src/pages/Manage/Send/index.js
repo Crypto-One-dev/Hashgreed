@@ -4,30 +4,30 @@ import cx from 'classnames'
 import WAValidator from 'multicoin-address-validator'
 import {
     Input
-} from "@chakra-ui/react"
+} from '@chakra-ui/react'
 
-import WavesConfig from 'config/waves';
-import walletContainer from 'redux/containers/wallet';
-import WavesUtils from 'utils/waves';
+import WavesConfig from 'config/waves'
+import walletContainer from 'redux/containers/wallet'
+import WavesUtils from 'utils/waves'
 import styles from './Send.module.scss'
-import AlertUtils from 'utils/alert';
+import AlertUtils from 'utils/alert'
 
 function Send(){
 
-    const [recipient, setRecipient] = useState('');
-    const [amount, setAmount] = useState();
-    const [comment, setComment] = useState('');
+    const [recipient, setRecipient] = useState('')
+    const [amount, setAmount] = useState()
+    const [comment, setComment] = useState('')
 
     const confirmTransfer = ({walletState}) => {
         if(!WAValidator.validate(recipient, 'waves', WavesConfig.WAVES_PLATFORM)) {
-            AlertUtils.SystemAlert('Recipient address is not valid');
-            return;
+            AlertUtils.SystemAlert('Recipient address is not valid')
+            return
         }
         if(isNaN(amount) || amount <= 0 || amount > walletState.rkmt_balance) {
-            AlertUtils.SystemAlert('Amount is not valid');
-            return;
+            AlertUtils.SystemAlert('Amount is not valid')
+            return
         }
-        WavesUtils.send(recipient, amount, comment);
+        WavesUtils.send(recipient, amount, comment)
     }
     return(
         <div className = {styles.send}>

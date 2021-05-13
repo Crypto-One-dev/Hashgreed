@@ -1,5 +1,5 @@
-import ACTIONS from "../actions/wallet"
-import _ from "lodash"
+import ACTIONS from '../actions/wallet'
+import _ from 'lodash'
 
 const defaultState = {
   address: '',

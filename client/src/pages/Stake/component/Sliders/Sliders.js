@@ -10,9 +10,9 @@ import {
     Slider, SliderTrack, SliderFilledTrack, SliderThumb
   } from '@chakra-ui/react'
   
-import WavesUtils from 'utils/waves';
+import WavesUtils from 'utils/waves'
 import styles from './Sliders.module.scss'
-import walletContainer from 'redux/containers/wallet';
+import walletContainer from 'redux/containers/wallet'
 
 const Sliders = ({index, staked, setStaked, isDisabled, walletState}) => {
     
