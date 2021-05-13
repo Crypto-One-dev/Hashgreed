@@ -12,13 +12,13 @@ import WavesUtils from 'utils/waves'
 import styles from './Send.module.scss'
 import AlertUtils from 'utils/alert'
 
-function Send(){
+function Send({walletState}){
 
     const [recipient, setRecipient] = useState('')
     const [amount, setAmount] = useState()
     const [comment, setComment] = useState('')
 
-    const confirmTransfer = ({walletState}) => {
+    const confirmTransfer = () => {
         if(!WAValidator.validate(recipient, 'waves', WavesConfig.WAVES_PLATFORM)) {
             AlertUtils.SystemAlert('Recipient address is not valid')
             return
