@@ -1,8 +1,12 @@
 @import 'base.scss';
 
 .container{
-    width: 1000px;
-    margin-bottom: 30px;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 15px;
+    @media (max-width: $drawOpenMaxWidth) {
+        max-width: 90%;
+    }
 
     .titlearea{
         display: flex;
@@ -37,10 +41,12 @@
 .leftIcon{
     align-items: center;
     margin-right: 20px;
+    cursor: pointer;
 }
 .rightIcon{
     align-items: center;
     margin-left: 20px;
+    cursor: pointer;
 }
 
 

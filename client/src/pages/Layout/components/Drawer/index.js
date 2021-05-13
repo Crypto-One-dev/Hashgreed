@@ -31,7 +31,7 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
     if(isOpen) { // onOpen
       setActiveMenu(path[1])
     }
-  }, [isOpen, path])
+  }, [isOpen])
 
   const openSubMenu = (active) => {
     if(active === activeMenu) {

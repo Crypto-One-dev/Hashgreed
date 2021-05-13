@@ -7,7 +7,13 @@
     margin-bottom: 100px;
     
     .container{
-        width: 1000px;
+        max-width: 1000px;
+        width: 100%;
+        margin: 0 15px;
+        @media (max-width: $drawOpenMaxWidth) {
+            max-width: 90%;
+            margin: 0 20px;
+        }
 
         .transfertitle{
             color: #1E0E62;
@@ -22,7 +28,7 @@
         }
         .massTransfer{
 
-            .recepient{
+            .recipient{
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
@@ -30,6 +36,12 @@
                 &>*:not(:first-child) {
                     border-left: 1px solid #BFBFBF55;
                   }
+                @media (max-width: 800px) {
+                    flex-direction: column;
+                    &>*:not(:first-child) {
+                        border-left: 0;
+                    }
+                }
                 .address{
                     flex: 7;
                     display: flex;
@@ -45,6 +57,10 @@
                     display: flex;
                     flex-direction: column;
                     padding-left: 50px;
+                    @media (max-width: 800px) {
+                        margin-top: 20px;
+                        padding-left: 0;
+                    }
 
                     .valueGroup{
                         display: flex;
@@ -67,6 +83,9 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            @media (max-width: 900px) {
+                flex-direction: column;
+            }
             
             .comment{
                 flex: 7;
@@ -77,6 +96,9 @@
                     font-size: 24px;
                     font-weight: 500;
                     width: 90%;
+                    @media (max-width: 750px) {
+                        width: 100%;
+                    }
                 }
                 .subcomment{
                     font-size: 18px;
@@ -89,19 +111,24 @@
                 flex: 3;
                 display: flex;
                 flex-direction: column;
+                @media (max-width: 900px) {
+                    align-items: center;
+                }
                 .fee{
                     display: flex;
                     flex-direction: row;
                     margin-top: 50px;
+                    @media (max-width: 1000px) {
+                        font-size: 16px;
+                    }
+
                     .feetitle{
-                        font-size: 20px;
                         font-weight: 500;
                         color: #686868;
                         margin-bottom: 30px;
                         margin-right: 5px;
                     }
                     .feevalue{
-                        font-size: 20px;
                         font-weight: 700;
                         color: #686868;
                     }

@@ -82,10 +82,10 @@ function MassSend({walletState, walletActions}){
                 <hr className = {styles.border}/>
                 <div className = {styles.massTransfer}>
                     {recipients.map((recipient, index) => (
-                        <div className={styles.recepient} key={index}>
+                        <div className={styles.recipient} key={index}>
                             <div className={styles.address}>
                                 <div className={styles.inputTitle}>
-                                    Recepient Address/Alias
+                                    Recipient Address/Alias
                                 </div>
                                 <Input
                                     className={styles.inputValue}

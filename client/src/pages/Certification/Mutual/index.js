@@ -117,7 +117,7 @@ function Mutual({walletState}){
                         </div>
                         <Input className = {styles.inputValue} variant="flushed" placeholder="" value={hash} onChange={e => setHash(e.target.value)} />
                         <Checkbox size="sm" className = {styles.checkbox}>
-                            Store file on IPFS (max 30MB)
+                            <div className = {styles.checkcomment}>Store file on IPFS (max 30MB)</div>
                         </Checkbox>
                     </div>
                 </div>
