@@ -5,7 +5,7 @@
     width: 100%;
     margin: 0 15px;
     @media (max-width: $drawOpenMaxWidth) {
-        max-width: 90%;
+        width: 90%;
     }
 
     .titlearea{
@@ -31,21 +31,17 @@
         margin-bottom: 20px;
         border: 1px solid rgba(0, 0, 0, 0.8);
     }
-    .cellList{
-        display: flex;
-        flex-direction: row;
-        margin-top: 50px;
-    }
 
 }
 .leftIcon{
     align-items: center;
-    margin-right: 20px;
+    justify-content: center;
+    margin: 0 20px;
     cursor: pointer;
 }
 .rightIcon{
     align-items: center;
-    margin-left: 20px;
+    padding: 0 20px;
     cursor: pointer;
 }
 

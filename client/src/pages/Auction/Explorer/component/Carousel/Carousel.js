@@ -20,34 +20,38 @@ function Carousel(props, ref){
 
     return(
         <>
-            <OwlCarousel className="owl-theme"  margin={0} items = {4} dots={false} ref={carousel} loop >
-            <div class="item">
-                <AuctionCell index = {1} />
-            </div>
-            <div class="item">
-                <AuctionCell index = {2} />
-            </div>
-            <div class="item">
-                <AuctionCell index = {3} />
-            </div>
-            <div class="item">
-                <AuctionCell index = {4} />
-            </div>
-            <div class="item">
-                <AuctionCell index = {5} />
-            </div>
-            <div class="item">
-                <AuctionCell index = {5} />
-            </div>
-            <div class="item">
-                <AuctionCell index = {5} />
-            </div>
-            <div class="item">
-                <AuctionCell index = {5} />
-            </div>
-            <div class="item">
-                <AuctionCell index = {5} />
-            </div>
+            <OwlCarousel autoWidth={true} className="owl-theme" responsiveClass={true} margin={0} items = {4} dots={false} ref={carousel} loop responsive={{
+                0:{
+                    items:1
+                },
+                350:{
+                    items:2
+                },
+                700:{
+                    items:3
+                },
+                1000:{
+                    items:4
+                }
+            }}>
+                <div class="item">
+                    <AuctionCell index = {1} />
+                </div>
+                <div class="item">
+                    <AuctionCell index = {2} />
+                </div>
+                <div class="item">
+                    <AuctionCell index = {3} />
+                </div>
+                <div class="item">
+                    <AuctionCell index = {4} />
+                </div>
+                <div class="item">
+                    <AuctionCell index = {5} />
+                </div>
+                <div class="item">
+                    <AuctionCell index = {5} />
+                </div>
             </OwlCarousel>
         </>
     )

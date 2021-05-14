@@ -38,8 +38,8 @@ const Sliders = ({index, staked, setStaked, isDisabled, walletState}) => {
 
     return (
         <div className = {styles.sliderarea}>
-            
-                <NumberInput  mr="2rem" ml="2rem"  value={value} onChange={handleChange} step={0.1} isDisabled = {isDisabled}>
+              <div className={styles.slider}>
+                <NumberInput className={styles.numInput}  mr="1rem" ml="1rem"  value={value} onChange={handleChange} step={0.1} isDisabled = {isDisabled}>
                     <div className = {styles.numberarea}>
                         <div className = {styles.title}>Amount</div>
                         <NumberInputField className = {styles.numberField} borderWidth="0" color = 'ActiveBorder: #f1eef0' borderInlineEndColor='#f1eef0' focusBorderColor="#f1eef0" />
@@ -50,20 +50,21 @@ const Sliders = ({index, staked, setStaked, isDisabled, walletState}) => {
                     </NumberInputStepper>
                 </NumberInput>
 
-                    <Slider flex="1"  focusThumbOnChange={false} value={value} onChange={handleChange} max={100} step={0.1} mr ='25' isDisabled = {isDisabled}>
-                        <SliderTrack bg="#C4C4C4" p={1.5} borderRadius="full" >
-                        <SliderFilledTrack bg='linear-gradient(268.98deg, #FE006C -0.67%, #000451 116.78%)'p={1.5} borderRadius="full"/>
-                        </SliderTrack>
-                        <SliderThumb fontSize='50px' boxSize='32px' boxShadow=''/>
-                    </Slider>
-                    {
-                        index === 1?
-                        <a className={cx(styles.button, isDisabled ? styles.disabled : styles.filled)} onClick={isDisabled ? null : Deposit}>Deposit</a>
-                        : index === 2?
-                        <a className={cx(styles.button, isDisabled ? styles.disabled : styles.filled)} onClick={isDisabled ? null : Withdraw}>Withdraw</a>
-                        :
-                        null
-                    }
+                <Slider flex="7"  focusThumbOnChange={false} value={value} onChange={handleChange} max={100} step={0.1} mr ='25' isDisabled = {isDisabled}>
+                    <SliderTrack bg="#C4C4C4" p={1.5} borderRadius="full" >
+                    <SliderFilledTrack bg='linear-gradient(268.98deg, #FE006C -0.67%, #000451 116.78%)'p={1.5} borderRadius="full"/>
+                    </SliderTrack>
+                    <SliderThumb fontSize='50px' boxSize='32px' boxShadow=''/>
+                </Slider>
+              </div>
+                {
+                    index === 1?
+                    <a className={cx(styles.button, isDisabled ? styles.disabled : styles.filled)} onClick={isDisabled ? null : Deposit}>Deposit</a>
+                    : index === 2?
+                    <a className={cx(styles.button, isDisabled ? styles.disabled : styles.filled)} onClick={isDisabled ? null : Withdraw}>Withdraw</a>
+                    :
+                    null
+                }
         </div>
     )
 }

@@ -10,13 +10,13 @@ function Explorer(){
             <div className = {styles.auctionarea}>
                 <Auction title={'Live Auction'} auction={'live'} />
             </div>
-            <div className = {styles.expiredarea}>
+            {/* <div className = {styles.expiredarea}>
                 <Auction title={'Expired Auction'} auction={'expired'} />
             </div>
             <div className = {styles.soldoutarea} >
                 <Auction title={'Soldout Auction'} auction={'soldout'} />
-            </div>
-            <LatestAuction/>
+            </div> */}
+            {/* <LatestAuction/> */}
         </div>
     )
 }

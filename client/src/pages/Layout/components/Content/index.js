@@ -3,8 +3,9 @@ import {Route, Switch} from 'react-router-dom'
 
 import AuthLayout from 'pages/AuthLayout'
 import Main from 'pages/Main'
+import Verification from 'pages/Verification/VerificationExplorer'
 
-const VerificationExplorer = () => <div>VerificationExplorer</div>
+const VerificationExplorer = () => <Verification/>
 
 function Content() {
   return (
