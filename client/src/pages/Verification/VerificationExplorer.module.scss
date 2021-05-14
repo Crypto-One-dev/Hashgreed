@@ -1,0 +1,266 @@
+@import 'base.scss';
+
+.verficationExplorer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    @media (max-width: $drawOpenMaxWidth) {
+        margin-top: 20px;
+    }
+
+    .container{
+        max-width: 1000px;
+        width: 100%;
+        margin: 0 15px;
+        @media (max-width: $drawOpenMaxWidth) {
+            max-width: 100%;
+            padding: 0 20px;
+        }
+
+        .verificationTitle{
+            color: #1E0E62;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .border{
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.8);
+        }
+        .uploadarea{
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 40px;
+            margin-top: 50px;
+            justify-content: space-between;
+            @media (max-width:700px){
+                flex-direction: column;
+                align-items: center;
+            }
+            
+
+            .certification{
+                border: 1px solid #BFBFBF;
+                box-sizing: border-box;
+                border-radius: 16.8116px;
+                height: 180px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 50px;
+                margin-right: 50px;
+                width: 50%;
+                cursor: pointer;
+                @media (max-width: 900px) {
+                    height: 200px;
+                }
+                @media (max-width:700px){
+                    justify-content: center;
+                    margin-right: 0;
+                    margin-bottom: 20px;
+                    width: 100%;
+                    margin-left: 20px;
+                    margin-right: 20px;
+                }
+
+                .upload{
+                    font-size: 25px;
+                    font-weight: 500;
+                    color: #262626;
+                    width: 100%;
+                    padding: 0 20px;
+                    @media (max-width: 600px) {
+                        font-size: 18px;
+                        padding: 0 10px;
+                    }
+                }
+                .uploadComment{
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: rgba(21, 20, 57, 0.4);
+                }
+            }
+            .hash{
+                border: 1px solid #BFBFBF;
+                box-sizing: border-box;
+                border-radius: 16.8116px;
+                height: 180px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 50px;
+                cursor: pointer;
+                width: 50%;
+                @media (max-width: 900px) {
+                    height: 200px;
+                }
+                @media (max-width:700px){
+                    justify-content: center;
+                    width: 100%;
+                    margin: 0 20px;
+                }
+
+                .upload{
+                    font-size: 25px;
+                    font-weight: 500;
+                    color: #262626;
+                    width: 100%;
+                    padding: 0 10px;
+                    @media (max-width: 600px) {
+                        font-size: 18px;
+                        padding: 0 10px;
+                    }
+                }
+                .uploadComment{
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: rgba(21, 20, 57, 0.4);
+                }
+            }
+        }
+        .transactionarea{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            @media (max-width:700px){
+                flex-direction: column;
+            }
+
+            .transactionId{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                @media (max-width:700px){
+                    width: 100%;
+                    margin-bottom: 40px;
+                }
+                .inputValue{
+                    width: 100%;
+                }
+            }
+            .fileHash{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                margin-left: 40px;
+                @media (max-width:700px){
+                    width: 100%;
+                    margin-left: 0;
+                }
+                .inputValue{
+                    width: 100%;
+                }
+            }
+        }
+        .reference{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: left;
+            margin-top: 30px;
+
+            .inputValue{
+                width: 100%;
+            }
+
+        }
+        .feearea{
+            display: flex;
+            flex-direction: row;
+            margin-top: 80px;
+            justify-content: center;
+            @media (max-width: 650px) {
+                flex-direction: column;
+                margin-top: 30px;
+            }
+
+            .certification{
+                display: flex;
+                flex-direction: row;
+                align-items: right;
+                place-content: flex-end;
+                margin-right: 50px;
+                @media (max-width: 650px) {
+                    margin-right: 0;
+                    justify-content: center;
+                }
+                @media (max-width: 300px) {
+                    justify-content: left;
+                }
+
+            }
+            .transaction{
+                display: flex;
+                flex-direction: row;
+                @media (max-width: 650px) {
+                    justify-content: center;
+                }
+                @media (max-width: 300px) {
+                    justify-content: left;
+                }
+            }
+        }
+        .confirmarea{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+            @media (max-width: 650px) {
+                margin-top: 20px;
+            }
+
+            .button{
+                width: 350px;
+                margin-bottom: 10px;
+                @media (max-width: 650px) {
+                    width: 200px;
+                }
+                @media (max-width: 250px) {
+                    width: 160px;
+                }
+            }
+            .subcomment{
+                font-size: 18px;
+                font-weight: 500;
+                color: rgba(21, 20, 57, 0.4);
+            }
+        }
+    }
+}
+
+.inputTitle{
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(21, 20, 57, 0.4);
+    justify-content: left;
+    margin: 0;
+}
+.inputValue{
+    font-size: 18px;
+    font-weight: 500;
+    color: #151439;
+    @media (max-width: 700px) {
+        font-size: 18px;
+
+    }
+}
+.feeTitle{
+    font-size: 18px;
+    font-weight: 500;
+    color:#686868;
+    @media (max-width: 300px) {
+        font-size: 14px;
+
+    }
+}
+.fee{
+    font-size: 18px;
+    font-weight: 700;
+    color:#686868;
+    padding-left: 5px;
+    @media (max-width: 300px) {
+        font-size: 14px;
+    }
+}
