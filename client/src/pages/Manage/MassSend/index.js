@@ -67,7 +67,7 @@ function MassSend({walletState, walletActions}){
                 AlertUtils.SystemAlert('#' + (i + 1) + ' Amount is not valid')
                 return
             }
-            total += recipients[i].amount
+            total += Number(recipients[i].amount)
         }
         if(isNaN(total) || total <= 0 || total > walletState.rkmt_balance) {
             AlertUtils.SystemAlert('Amount is not valid')

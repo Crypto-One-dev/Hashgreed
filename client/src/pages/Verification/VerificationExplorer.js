@@ -8,7 +8,9 @@ import AlertUtils from 'utils/alert'
 import {useDropzone} from 'react-dropzone'
 import {Input, Textarea} from '@chakra-ui/react'
 import {BsPlusCircle} from 'react-icons/all'
-import Balances from 'pages/AuthLayout/components/Balances'
+import QRCode from 'qrcode.react';
+import { Button } from '@chakra-ui/react';
+import certBG from 'assets/images/certificate_bg.jpg';
 
 import styles from './VerificationExplorer.module.scss'
 
@@ -19,8 +21,8 @@ function VerificationExplorer({query}){
     const [reference, setReference] = useState('');
     const searchButton = useRef(null);
     const [certification, setCertification] = useState();
-    const transactionFee = 0.01;
-    const certFee = 100;
+    const [isSearchOpen, openSearchForm] = useState(false);
+
 
 
     useEffect(() => {
@@ -39,7 +41,7 @@ function VerificationExplorer({query}){
                 const str = reader.result
                 const regex = /https:\/\/wavesexplorer.com\/tx\/[A-Za-z0-9]*/g;
                 const found = str.match(regex);
-                if(found.length === 1) {
+                if(found != null && found.length === 1) {
                     const txid = found[0].replace('https://wavesexplorer.com/tx/', '')
                     ApiUtils.searchCertification(txid, '', '', setCertification)
                 } else {
@@ -72,8 +74,6 @@ function VerificationExplorer({query}){
     }
 
     return(
-        <>
-        <Balances/>
         <div className={styles.verficationExplorer}>
             <div className={styles.container}>
                 <div className={styles.verificationTitle}>Certify a file</div>
@@ -120,25 +120,63 @@ function VerificationExplorer({query}){
                     <div className = {styles.inputTitle}>Reference</div>
                     <Input className = {styles.inputValue} value={reference} onChange={e => setReference(e.target.value)} variant="flushed" placeholder=""/>        
                 </div>
-                <div className = {styles.feearea}>
-                    <div className = {styles.certification}>
-                        <div className = {styles.feeTitle}>Certification fee:</div>
-                        <div className = {styles.fee}>{certFee} RKMT</div>
-                    </div>
-                    <div className = {styles.transaction}>
-                        <div className = {styles.feeTitle}>Transaction fee:</div>
-                        <div className = {styles.fee}>{transactionFee} Waves</div>
-                    </div>
-                </div>
                 <div className = {styles.confirmarea}>
-                    <a className={cx(styles.button, styles.filled)} onClick={Search}>Search</a>
-                    <div className = {styles.subcomment}>
-                        This transaction is secure and will open waves Signer
-                    </div>
+                    <a className={cx(styles.button, styles.filled)} onClick={() => Search}>Search</a>
                 </div>
+                <div className={styles.explorerListWrapper}>
+                    {
+                        certification ?
+                            <div className={styles.explorerList}>
+                                <div className={styles.item} style={{backgroundImage: `url(${certBG})`}}>
+                                    <span style={{fontSize: 20}}>
+                                        <b>PROOF OF CERTIFICATION</b>
+                                    </span>
+                                    <span style={{color: 'white', fontSize: 14, fontWeight: 'bold', padding: '5px 25px'}}>
+                                        THE FOLLOWING FILE WAS CERTIFIED ON
+                                        <br/>
+                                        THE WAVES BLOCKCHAIN
+                                    </span>
+                                    <span>
+                                        <i>BY {certification.address}</i>
+                                    </span>
+                                    <span>
+                                        <b>Reference:</b>
+                                        <br/>
+                                        {certification.title || certification.reference}
+                                    </span>
+                                    <span>
+                                        <b>Date:</b>
+                                        <br/>
+                                        {moment(certification.timestamp).toString()}
+                                    </span>
+                                    <span>
+                                        <b>{certification.hash ? 'File Hash' : 'Message ID'}:</b>
+                                        <br/>
+                                        {certification.hash || certification.messageid}
+                                    </span>
+                                    <a href={`${WavesConfig.EXPLORER_URL}/tx/${certification.txid}`} target="_blank" rel="noreferrer">
+                                        SEE ON WAVES EXPLORER
+                                    </a>
+                                    <QRCode value={WavesConfig.BASE_URL + '/explorer/' + certification.txid} includeMargin={true} size={72} className={styles.qr} />
+                                    {
+                                        certification.status?
+                                            <span className={styles.status}>
+                                                <a href={"http://wavesexplorer.com/tx/" + certification.status.replace('REVOKED_', '')} target="_blank" rel="noreferrer">
+                                                    REVOKED
+                                                </a>
+                                            </span>
+                                        :
+                                            null
+                                    }
+                                </div>
+                            </div>
+                        :
+                            null
+                    }
+            </div>
             </div>
         </div>
-        </>
+
     )
 }
 

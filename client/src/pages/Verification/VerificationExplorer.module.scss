@@ -166,47 +166,12 @@
             }
 
         }
-        .feearea{
-            display: flex;
-            flex-direction: row;
-            margin-top: 80px;
-            justify-content: center;
-            @media (max-width: 650px) {
-                flex-direction: column;
-                margin-top: 30px;
-            }
-
-            .certification{
-                display: flex;
-                flex-direction: row;
-                align-items: right;
-                place-content: flex-end;
-                margin-right: 50px;
-                @media (max-width: 650px) {
-                    margin-right: 0;
-                    justify-content: center;
-                }
-                @media (max-width: 300px) {
-                    justify-content: left;
-                }
-
-            }
-            .transaction{
-                display: flex;
-                flex-direction: row;
-                @media (max-width: 650px) {
-                    justify-content: center;
-                }
-                @media (max-width: 300px) {
-                    justify-content: left;
-                }
-            }
-        }
         .confirmarea{
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-top: 50px;
+            margin-bottom: 50px;
             @media (max-width: 650px) {
                 margin-top: 20px;
             }
@@ -227,6 +192,55 @@
                 color: rgba(21, 20, 57, 0.4);
             }
         }
+        .explorerListWrapper {
+            display: flex;
+            flex-direction: column;
+            .openSearchForm {
+              padding: 10px;
+              margin-bottom: 10px;
+              background-color: $primary;
+              color: white;
+              font-weight: bold;
+              font-size: 14px;
+            }
+            .explorerList {
+              .item {
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                width: 100%;
+                height: auto;
+                min-height: 600px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+        
+                margin-bottom: 25px;
+                padding: 80px 5px;
+                font-size: 18px;
+                word-break: break-all;
+        
+                position: relative;
+                .qr {
+                  position: absolute;
+                  right: 25px;
+                  bottom: 15px;
+                }
+                .status {
+                  background-color: red;
+                  color: white;
+                  font-size: 20px;
+                  margin-right: 10px;
+                  padding: 0 5px;
+        
+                  position: absolute;
+                  right: 35px;
+                  top: 25px;
+                }
+              }
+            }
+          }
     }
 }
 

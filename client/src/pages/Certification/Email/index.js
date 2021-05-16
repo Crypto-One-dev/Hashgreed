@@ -118,9 +118,16 @@ function Email({walletState}){
                 <div className = {styles.subDatas}>
                     <div className = {styles.message}>
                         <div className = {styles.inputTitle}>Message**</div>
-                        <div className = {styles.upload}>
-                            <div className = {styles.inputTitle}>Attachment: Max files size: 30MB</div>
-                            <BsPaperclip className = {styles.paperClip}/>
+                        <div  className = {styles.upload}>
+                            <div  className = {styles.inputTitle}>Attachment: {
+                                    acceptedFiles.length === 1 ?
+                                        acceptedFiles[0].path
+                                    :
+                                        "Max files size: 30MB"
+                                } </div>
+                            <BsPaperclip {...getRootProps()} className = {styles.paperClip}/>
+                            <input {...getInputProps()} />
+
                         </div>
                     </div>
                     <Textarea className = {styles.messagezone} value={message} onChange={e => setMessage(e.target.value)}/>

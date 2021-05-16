@@ -1,4 +1,5 @@
 import React, {useCallback} from 'react'
+import {Redirect} from 'react-router-dom'
 import cx from 'classnames'
 import {useHistory} from 'react-router-dom'
 import {FaBars} from 'react-icons/all'
@@ -15,6 +16,9 @@ function Header({walletState, walletActions}) {
   const account = useCallback(() => history.push('/'), [history])
   const { isOpen, onClose, onOpen } = useDisclosure()
   
+  const verification = useCallback(() => history.push('/explorer'), [history])
+  
+
   return (
     <div className={styles.header}>
       <div className={styles.image}>
@@ -26,8 +30,8 @@ function Header({walletState, walletActions}) {
         <a>F.A.Q.</a>
         <a>UseCase</a>
       </div>
-      <div className={styles.menu}>
-        <a className={styles.explorer}>Verification Explorer</a>
+      <div className={styles.menu} >
+        <a className={styles.explorer} onClick={walletState.address != null? verification : null}>Verification Explorer</a>
         <a className={cx(styles.account, styles.filled)} onClick={account}>Account</a>
         <a className={styles.lang}>EN</a>
       </div>
