@@ -44,7 +44,7 @@ const getBalance = async (callback, error_callback) => {
         }
       })
       if(callback) {
-        callback(100, hash_balance, usdt_balance, waves_balance)
+        callback(rkmt_balance, hash_balance, usdt_balance, waves_balance)
       }
     }
   } catch(e) {

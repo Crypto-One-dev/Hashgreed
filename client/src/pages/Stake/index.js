@@ -63,7 +63,7 @@ function Stake({walletState}){
                 {/* <Sliders index = {2} staked = {staked} setAmount = {setAmount} setStaked = {setStaked} isDisabled = {staked === 0}/> */}
                 <div className = {styles.sliderarea}>
                     <div className={styles.slider}>
-                        <NumberInput className={styles.numInput}  mr="1rem" ml="1rem"  value={sendAmount} onChange={(value) => setSendAmount(value)}  step={0.1} isDisabled = {walletState.rkmt_balance === 0}>
+                        <NumberInput className={styles.numInput} max={walletState.rkmt_balance} min={0} mr="1rem" ml="1rem"  value={sendAmount} onChange={(value) => setSendAmount(value)}  step={0.1} isDisabled = {walletState.rkmt_balance === 0}>
                             <div className = {styles.numberarea}>
                                 <div className = {styles.title}>Amount</div>
                                 <NumberInputField className = {styles.numberField} borderWidth="0" color = 'ActiveBorder: #f1eef0' borderInlineEndColor='#f1eef0' focusBorderColor="#f1eef0" />
@@ -74,7 +74,7 @@ function Stake({walletState}){
                             </NumberInputStepper>
                         </NumberInput>
 
-                        <Slider flex="7"  focusThumbOnChange={false} value={sendAmount} onChange={(value) => setSendAmount(value)}  max={100} step={0.1} mr ='25' isDisabled = {walletState.rkmt_balance === 0}>
+                        <Slider flex="7"  focusThumbOnChange={false} value={sendAmount} onChange={(value) => setSendAmount(value)}  max={walletState.rkmt_balance} step={0.1} mr ='25' isDisabled = {walletState.rkmt_balance === 0}>
                             <SliderTrack bg="#C4C4C4" p={1.5} borderRadius="full" >
                             <SliderFilledTrack bg='linear-gradient(268.98deg, #FE006C -0.67%, #000451 116.78%)'p={1.5} borderRadius="full"/>
                             </SliderTrack>
@@ -85,7 +85,7 @@ function Stake({walletState}){
                 </div>
                 <div className = {styles.sliderarea}>
                     <div className={styles.slider}>
-                        <NumberInput className={styles.numInput}  mr="1rem" ml="1rem"  value={receiveAmount} onChange={(value) => setReceiveAmount(value)}  step={0.1} isDisabled = {staked === 0}>
+                        <NumberInput className={styles.numInput} max={staked} min={0} mr="1rem" ml="1rem"  value={receiveAmount} onChange={(value) => setReceiveAmount(value)}  step={0.1} isDisabled = {staked === 0}>
                             <div className = {styles.numberarea}>
                                 <div className = {styles.title}>Amount</div>
                                 <NumberInputField className = {styles.numberField} borderWidth="0" color = 'ActiveBorder: #f1eef0' borderInlineEndColor='#f1eef0' focusBorderColor="#f1eef0" />
@@ -96,7 +96,7 @@ function Stake({walletState}){
                             </NumberInputStepper>
                         </NumberInput>
 
-                        <Slider flex="7"  focusThumbOnChange={false}  value={receiveAmount} onChange={(value) => setReceiveAmount(value)}  max={100} step={0.1} mr ='25' isDisabled = {staked === 0}>
+                        <Slider flex="7"  focusThumbOnChange={false}  value={receiveAmount} onChange={(value) => setReceiveAmount(value)}  max={staked} step={0.1} mr ='25' isDisabled = {staked === 0}>
                             <SliderTrack bg="#C4C4C4" p={1.5} borderRadius="full" >
                             <SliderFilledTrack bg='linear-gradient(268.98deg, #FE006C -0.67%, #000451 116.78%)'p={1.5} borderRadius="full"/>
                             </SliderTrack>

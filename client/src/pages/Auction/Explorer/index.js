@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './Explorer.module.scss'
 import Auction from './component/Auction/Auction'
-import LatestAuction from 'components/LatestAuction/LatestAuction'
+// import LatestAuction from 'components/Transaction/LatestAuction'
 
 function Explorer(){
     return (
