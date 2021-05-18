@@ -5,7 +5,7 @@ import "owl.carousel/dist/assets/owl.theme.green.css"
 import OwlCarousel from 'react-owl-carousel'
 import AuctionCell from '../AuctionCell/AuctionCell'
 
-function Carousel(props, ref){
+function Carousel({data, height}, ref){
     const carousel = useRef(null)
 
     useImperativeHandle(ref, () => ({
@@ -20,38 +20,25 @@ function Carousel(props, ref){
 
     return(
         <>
-            <OwlCarousel autoWidth={true} className="owl-theme" responsiveClass={true} margin={0} items = {4} dots={false} ref={carousel} loop responsive={{
+            <OwlCarousel className="owl-theme" responsiveClass={true} margin={0} dots={false} ref={carousel} responsive={{
                 0:{
-                    items:1
+                    items: 1
                 },
-                350:{
-                    items:2
+                600:{
+                    items: 2
                 },
-                700:{
-                    items:3
+                900:{
+                    items: 3
                 },
-                1000:{
-                    items:4
+                1200:{
+                    items: 4
                 }
             }}>
-                <div class="item">
-                    <AuctionCell index = {1} />
-                </div>
-                <div class="item">
-                    <AuctionCell index = {2} />
-                </div>
-                <div class="item">
-                    <AuctionCell index = {3} />
-                </div>
-                <div class="item">
-                    <AuctionCell index = {4} />
-                </div>
-                <div class="item">
-                    <AuctionCell index = {5} />
-                </div>
-                <div class="item">
-                    <AuctionCell index = {5} />
-                </div>
+                {
+                    data && data.map(auction =>
+                        <AuctionCell auction={auction} height={height} />
+                    )
+                }
             </OwlCarousel>
         </>
     )

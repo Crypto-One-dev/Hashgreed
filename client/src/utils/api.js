@@ -234,10 +234,29 @@ const getAuctions = async(address, auctionCallback, heightCallback) => {
     axios
       .post('/api/certifications/getAuctions', { address })
       .then(res => {
-        if(auctionCallback && res.data.result)
-          auctionCallback(res.data.result)
-        if(heightCallback && res.data.height)
-          heightCallback(res.data.height)
+        const height = res.data.height || 0
+        if(heightCallback) {
+          heightCallback(height)
+        }
+        var result = {
+          live: [],
+          soldout: [],
+          expired: []
+        }
+        if(auctionCallback && res.data.result) {
+          res.data.result.map((auction, index) => {
+            if(auction.operator) {
+              result.soldout.push(auction)
+            }
+            if(!auction.operator && auction.end_block <= height) {
+              result.expired.push(auction)
+            }
+            if(auction.end_block > height) {
+              result.live.push(auction)
+            }
+          })
+          auctionCallback(result)
+        }
       })
   } catch(e) {
     console.error(e)

@@ -9,13 +9,19 @@
     .auctionarea{
         display: flex;
         flex-direction: row;
+        width: calc(100vw - 20px);
+        justify-content: center;
     }
     .expiredarea{
         display: flex;
         flex-direction: row;
+        width: calc(100vw - 20px);
+        justify-content: center;
     }
     .soldoutarea{
         display: flex;
         flex-direction: row;
+        width: calc(100vw - 20px);
+        justify-content: center;
     }
 }

@@ -3,10 +3,10 @@ import React from 'react'
 import photo from 'assets/images/photo.png'
 import styles from './AuctionCell.module.scss'
 
-const AuctionCell = ({index}) =>{
+const AuctionCell = ({auction}) =>{
     return(
-        <div className = {styles.auctionCell}>
-            <div className = {styles.title}>Headphones {index}</div>
+        <div className = {styles.auctionCell} key={auction.id}>
+            <div className = {styles.title}>Headphones {auction.id}</div>
             <div className = {styles.clientName}>Philips SHB 9250/00</div>
             <div className = {styles.photo}>
                 <img src={photo} alt="" />
