@@ -12,6 +12,7 @@ import styles from './File.module.scss'
 import ApiUtils from 'utils/api'
 import WavesUtils from 'utils/waves'
 import WavesConfig from 'config/waves'
+import FileCertification from 'components/FileCertification/FileCertification'
 
 function File({walletState}){
 
@@ -128,6 +129,12 @@ function File({walletState}){
                     </div>
                 </div>
             </div>
+            {
+                certifications[0] != null ?
+                <FileCertification detail={certifications[0]} owner={walletState.address}/>
+                :
+                null
+            }
         </div>
     )
 }

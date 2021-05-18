@@ -13,6 +13,7 @@ import ApiUtils from 'utils/api'
 import WavesUtils from 'utils/waves'
 import WavesConfig from 'config/waves'
 import walletContainer from 'redux/containers/wallet'
+import MutualCertification from 'components/MutualCertification/MutualCertification'
 
 function Mutual({walletState}){
 
@@ -144,6 +145,12 @@ function Mutual({walletState}){
                     </div>
                 </div>
             </div>
+            {
+              certifications[0] != null ?
+              <MutualCertification detail={certifications[0]} owner={walletState.address}/>
+              :
+              null
+            }
         </div>
     )
 }

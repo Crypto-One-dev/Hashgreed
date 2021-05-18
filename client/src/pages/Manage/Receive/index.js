@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback,useState, useEffect} from 'react'
 
 import {FaCopy, FaShareAlt} from 'react-icons/all'
 import QRCode from 'qrcode.react'
@@ -7,10 +7,32 @@ import {useHistory} from 'react-router-dom'
 
 import styles from './Receive.module.scss'
 import walletContainer from 'redux/containers/wallet'
+import Transaction from 'components/Transaction/Transaction'
+import ApiUtils from 'utils/api';
 
 function Receive({walletState, walletActions}){
     const history = useHistory()
     const urlAddress = 'https://wavesexplorer.com/address/' + walletState.address
+    const [transactions, setTransactions] = useState([]);
+    const [transaction, setTransaction] = useState();
+
+    useEffect(() => {
+        let interval = -1
+        if(walletState.address) {
+          const proc = () => {
+            ApiUtils.getReceiveTransactions(walletState.address, setTransactions);
+            transactions.map((transfer) => {setTransaction(transfer)})
+          }
+          proc()
+          interval = setInterval(proc, 60000)
+        }
+      
+        return () => {
+          if(interval > -1) {
+            clearInterval(interval)
+          }
+        }
+      }, [walletState.address])
 
     const toExplorer = () => {window.open('https://wavesexplorer.com')}
     return(
@@ -41,6 +63,16 @@ function Receive({walletState, walletActions}){
                     </div>
                 </div>
             </div>
+            {/* {transactions.map((transfer) => (
+                <Transaction detail={transfer} owner={walletState.address} />
+            ))}  */}
+            {
+                transactions[0] != null ?
+                <Transaction detail={transactions[0]} owner={walletState.address}/>
+                :
+                null
+            }
+            {/* <Transaction detail={transactions[0]} owner={walletState.address}/> */}
         </div>
     )
 }

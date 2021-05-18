@@ -12,6 +12,7 @@ import AlertUtils from 'utils/alert'
 import cx from 'classnames'
 import ApiUtils from 'utils/api'
 import styles from './MassSend.module.scss'
+import Transaction from 'components/Transaction/Transaction'
 
 function MassSend({walletState, walletActions}){
 
@@ -134,8 +135,13 @@ function MassSend({walletState, walletActions}){
                         <a className={cx(styles.button, styles.filled)} onClick={confirmTransfer}>Confirm mass transfer</a>
                     </div>
                 </div>
-
             </div>
+            {
+                transactions[0] != null ?
+                <Transaction detail={transactions[0]} owner={walletState.address}/>
+                :
+                null
+            }
         </div>
     )
 }

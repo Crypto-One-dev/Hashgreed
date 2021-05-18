@@ -1,0 +1,114 @@
+@import 'base.scss';
+
+.fileCertification{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 16.8116px;
+    max-width: 1000px;
+    margin: 0 15px;
+    height: 220px;
+    margin-top: 50px;
+    @media (max-width:$drawOpenMaxWidth){
+        margin-top: 30px;
+    }
+    @media (max-width:850px){
+        height: 260px;
+    }
+    @media (max-width:600px){
+        height: 320px;
+    }
+    @media (max-width:420px){
+        height: 360px;
+    }
+
+    .title{
+        font-size: 18px;
+        font-weight: 500;
+        color: #000451;
+        margin-top: 30px;
+        text-align: left;
+        margin-left: 40px;
+        margin-bottom: 20px;
+        @media (max-width:600px){
+            margin-bottom: 15px;
+        }
+    }
+    .line{
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+    .main{
+        display: flex;
+        flex-direction: row;
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-top: 30px;
+        justify-content: space-between;
+        align-items: flex-start;
+        
+        .fileIcon{
+            color: #FE006C;
+            width: 40px;
+            height: 40px;
+        }
+        .dataArea{
+            flex: 8;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            
+            .info{
+                flex: 8;
+                align-items: flex-start;
+                text-align: left;
+                margin-left: 30px;
+                margin-right: 100px;
+                color: #000451;
+                font-size: 15px;
+                font-weight: 500;
+                @media (max-width:980px){
+                    margin-right: 0;
+                }
+                @media (max-width:900px){
+                    word-break: break-all;
+                }
+                @media (max-width:600px){
+                    flex:6;
+                    margin-left: 10px;
+                    word-break: break-all;
+                }
+            }
+            .actions{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                @media (max-width:600px){
+                    flex-direction: column;
+                }
+
+                .action{
+                    color: #FE006C;
+                    margin: 0 10px;
+                    @media (max-width:600px){
+                        margin-left: 10px;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                    }
+                }
+                .envelope{
+                    color: #FE006C;
+                    margin: 0 10px;
+                    @media (max-width:600px){
+                        margin-left: 10px;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                    }
+                }
+
+            }
+        }
+    }
+}

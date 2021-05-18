@@ -10,6 +10,7 @@ import AlertUtils from 'utils/alert'
 import ApiUtils from 'utils/api'
 import WavesUtils from 'utils/waves'
 import { v4 as uuidgen } from 'uuid'
+import EmailCertification from 'components/EmailCertification/EmailCertification'
 
 function Email({walletState}){
 
@@ -82,78 +83,83 @@ function Email({walletState}){
 
     return (
         <div className = {styles.email}>
-            <div className = {styles.container}>
-                <div className={styles.certifyTitle}>Certify email</div>
-                <hr className = {styles.border}/>
-                <div className = {styles.certifyContainer}>
-                    <div className = {styles.fromContainer}>
-                        <div className ={styles.from}>
-                            <div className = {styles.inputTitle}>From</div>
-                            <Input className = {styles.inputValue} value={email_sender} onChange={e => setEmailSender(e.target.value)} variant="flushed" placeholder=""/>
-                        </div>
-                        <div className ={styles.firstName}>
-                            <div className = {styles.inputTitle}>First Name</div>
-                            <Input className = {styles.inputValue} value={first_name} onChange={e => setFirstName(e.target.value)} variant="flushed" placeholder=""/>
-                        </div>
-                        <div className ={styles.lastName}>
-                            <div className = {styles.inputTitle}>Last Name</div>
-                            <Input className = {styles.inputValue} value={last_name} onChange={e => setLastName(e.target.value)} variant="flushed" placeholder=""/>
-                        </div>
+          <div className = {styles.container}>
+            <div className={styles.certifyTitle}>Certify email</div>
+            <hr className = {styles.border}/>
+            <div className = {styles.certifyContainer}>
+                <div className = {styles.fromContainer}>
+                    <div className ={styles.from}>
+                        <div className = {styles.inputTitle}>From</div>
+                        <Input className = {styles.inputValue} value={email_sender} onChange={e => setEmailSender(e.target.value)} variant="flushed" placeholder=""/>
                     </div>
-                    <div className = {styles.toContainer}>
-                    <div className ={styles.server}>
-                            <div className = {styles.inputTitle}>SMTP Server</div>
-                            <Input className = {styles.inputValue} value={server} onChange={e => setServer(e.target.value)} variant="flushed" placeholder=""/>
-                        </div>
-                        <div className ={styles.reference}>
-                            <div className = {styles.inputTitle}>Reference*</div>
-                            <Input className = {styles.inputValue} value={reference} onChange={e => setReference(e.target.value)} variant="flushed" placeholder=""/>
-                        </div>
-                        <div className ={styles.to}>
-                            <div className = {styles.inputTitle}>To</div>
-                            <Input className = {styles.inputValue} value={email_recipient} onChange={e => setEmailRecipient(e.target.value)} variant="flushed" placeholder=""/>
-                        </div>
+                    <div className ={styles.firstName}>
+                        <div className = {styles.inputTitle}>First Name</div>
+                        <Input className = {styles.inputValue} value={first_name} onChange={e => setFirstName(e.target.value)} variant="flushed" placeholder=""/>
+                    </div>
+                    <div className ={styles.lastName}>
+                        <div className = {styles.inputTitle}>Last Name</div>
+                        <Input className = {styles.inputValue} value={last_name} onChange={e => setLastName(e.target.value)} variant="flushed" placeholder=""/>
                     </div>
                 </div>
-                <div className = {styles.subDatas}>
-                    <div className = {styles.message}>
-                        <div className = {styles.inputTitle}>Message**</div>
-                        <div  className = {styles.upload}>
-                            <div  className = {styles.inputTitle}>Attachment: {
-                                    acceptedFiles.length === 1 ?
-                                        acceptedFiles[0].path
-                                    :
-                                        "Max files size: 30MB"
-                                } </div>
-                            <BsPaperclip {...getRootProps()} className = {styles.paperClip}/>
-                            <input {...getInputProps()} />
-
-                        </div>
+                <div className = {styles.toContainer}>
+                <div className ={styles.server}>
+                        <div className = {styles.inputTitle}>SMTP Server</div>
+                        <Input className = {styles.inputValue} value={server} onChange={e => setServer(e.target.value)} variant="flushed" placeholder=""/>
                     </div>
-                    <Textarea className = {styles.messagezone} value={message} onChange={e => setMessage(e.target.value)}/>
-                    <div className = {styles.messageComment}>
-                        <div className = {styles.subcomment}>* The reference has a maximum of 45 characters. This will be public on the blockchain and used as a reference in the webapp.</div>
-                        <div className = {styles.subcomment}>** You will recieve a copy of this message, this wont be public.</div>
+                    <div className ={styles.reference}>
+                        <div className = {styles.inputTitle}>Reference*</div>
+                        <Input className = {styles.inputValue} value={reference} onChange={e => setReference(e.target.value)} variant="flushed" placeholder=""/>
+                    </div>
+                    <div className ={styles.to}>
+                        <div className = {styles.inputTitle}>To</div>
+                        <Input className = {styles.inputValue} value={email_recipient} onChange={e => setEmailRecipient(e.target.value)} variant="flushed" placeholder=""/>
                     </div>
                 </div>
-                <div className = {styles.feearea}>
-                    <div className = {styles.certification}>
-                        <div className = {styles.feeTitle}>Certification fee:</div>
-                        <div className = {styles.fee}>{certFee} RKMT</div>
-                    </div>
-                    <div className = {styles.transaction}>
-                        <div className = {styles.feeTitle}>Transaction fee:</div>
-                        <div className = {styles.fee}>{transactionFee} Waves</div>
-                    </div>
-                </div>
-                <div className = {styles.confirmarea}>
-                    <a className={cx(styles.button, styles.filled)} onClick={certifyEmail}>Certify email</a>
-                    <div className = {styles.subcomment}>
-                        This transaction is secure and will open waves Signer
-                    </div>
-                </div>
-
             </div>
+            <div className = {styles.subDatas}>
+                <div className = {styles.message}>
+                    <div className = {styles.inputTitle}>Message**</div>
+                    <div  className = {styles.upload}>
+                        <div  className = {styles.inputTitle}>Attachment: {
+                                acceptedFiles.length === 1 ?
+                                    acceptedFiles[0].path
+                                :
+                                    "Max files size: 30MB"
+                            } </div>
+                        <BsPaperclip {...getRootProps()} className = {styles.paperClip}/>
+                        <input {...getInputProps()} />
+
+                    </div>
+                </div>
+                <Textarea className = {styles.messagezone} value={message} onChange={e => setMessage(e.target.value)}/>
+                <div className = {styles.messageComment}>
+                    <div className = {styles.subcomment}>* The reference has a maximum of 45 characters. This will be public on the blockchain and used as a reference in the webapp.</div>
+                    <div className = {styles.subcomment}>** You will recieve a copy of this message, this wont be public.</div>
+                </div>
+            </div>
+            <div className = {styles.feearea}>
+                <div className = {styles.certification}>
+                    <div className = {styles.feeTitle}>Certification fee:</div>
+                    <div className = {styles.fee}>{certFee} RKMT</div>
+                </div>
+                <div className = {styles.transaction}>
+                    <div className = {styles.feeTitle}>Transaction fee:</div>
+                    <div className = {styles.fee}>{transactionFee} Waves</div>
+                </div>
+            </div>
+            <div className = {styles.confirmarea}>
+              <a className={cx(styles.button, styles.filled)} onClick={certifyEmail}>Certify email</a>
+              <div className = {styles.subcomment}>
+                This transaction is secure and will open waves Signer
+              </div>
+            </div>
+          </div>
+          {
+            certifications[0] != null ?
+            <EmailCertification detail={certifications[0]} owner={walletState.address}/>
+            :
+            null
+          }
         </div>
     )
 }

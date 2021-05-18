@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import cx from 'classnames'
 import WAValidator from 'multicoin-address-validator'
@@ -11,12 +11,32 @@ import walletContainer from 'redux/containers/wallet'
 import WavesUtils from 'utils/waves'
 import styles from './Send.module.scss'
 import AlertUtils from 'utils/alert'
+import ApiUtils from 'utils/api'
+import Transaction from 'components/Transaction/Transaction'
 
 function Send({walletState}){
 
     const [recipient, setRecipient] = useState('')
     const [amount, setAmount] = useState()
     const [comment, setComment] = useState('')
+    const [transactions, setTransactions] = useState([]);
+
+    useEffect(() => {
+      let interval = -1
+      if(walletState.address) {
+        const proc = () => {
+          ApiUtils.getSendTransactions(walletState.address, setTransactions);
+        }
+        proc()
+        interval = setInterval(proc, 60000)
+      }
+    
+      return () => {
+        if(interval > -1) {
+          clearInterval(interval)
+        }
+      }
+    }, [walletState.address])
 
     const confirmTransfer = () => {
         if(!WAValidator.validate(recipient, 'waves', WavesConfig.WAVES_PLATFORM)) {
@@ -67,6 +87,12 @@ function Send({walletState}){
                     </div>
                 </div>
             </div>
+            {
+                transactions[0] != null ?
+                <Transaction detail={transactions[0]} owner={walletState.address}/>
+                :
+                null
+            }
         </div>
     )
 }

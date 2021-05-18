@@ -1,0 +1,103 @@
+@import 'base.scss';
+
+.emailCertification{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 16.8116px;
+    max-width: 1000px;
+    margin: 0 15px;
+    height: 220px;
+    margin-top: 50px;
+    @media (max-width:600px){
+        height: 260px;
+    }
+    @media (max-width:600px){
+        height: 260px;
+        margin: 0 15px;
+    }
+    @media (max-width:370px){
+        height: 300px;
+    }
+
+    .title{
+        font-size: 18px;
+        font-weight: 500;
+        color: #000451;
+        margin-top: 30px;
+        text-align: left;
+        margin-left: 40px;
+        margin-bottom: 20px;
+        @media (max-width:600px){
+            margin-bottom: 15px;
+        }
+    }
+    .line{
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+    .main{
+        display: flex;
+        flex-direction: row;
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-top: 30px;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        .fileIcon{
+            color: #FE006C;
+            width: 40px;
+            height: 40px;
+        }
+        .dataArea{
+            flex: 8;
+            max-width: 800;
+            display: flex;
+            flex-direction: row;
+            .info{
+                flex: 8;
+                align-items: flex-start;
+                text-align: left;
+                margin-left: 30px;
+                margin-right: 300px;
+                color: #000451;
+                font-size: 15px;
+                font-weight: 500;
+                @media (max-width:1000px){
+                    margin-right: 100px;
+                }
+                @media (max-width:900px){
+                    word-break: break-all;
+                    margin-right: 10px;
+                }
+                @media (max-width:600px){
+                    flex:6;
+                    word-break: break-all;
+                    margin-right: 0;
+                    margin-left: 10px;
+                }
+            }
+            .actions{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                @media (max-width:600px){
+                    flex-direction: column;
+                }
+
+                .action{
+                    color: #FE006C;
+                    margin: 0 10px;
+                    @media (max-width:600px){
+                        margin-left: 10px;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
