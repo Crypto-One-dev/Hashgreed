@@ -75,7 +75,7 @@ const masssend = async (recipients, comment) => {
       let massTransfer = {
         transfers: [],
         assetId: WavesConfig.RKMT_ID,
-        fee: 0.002 * (10 ** WavesConfig.WAVES_DECIMALS),
+        fee: 0.001 * recipients.length * (10 ** WavesConfig.WAVES_DECIMALS),
       }
       recipients.forEach(recipient => {
         massTransfer.transfers.push({

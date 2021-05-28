@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState, useContext} from 'react'
 import {useHistory, useLocation} from 'react-router-dom'
 import {
   Drawer,
@@ -15,6 +15,8 @@ import RKMT from 'assets/icons/RKMT.svg'
 import USDT from 'assets/icons/USDT.svg'
 import WAVES from 'assets/icons/WAVES.svg'
 import styles from './Drawer.module.scss'
+import {ThemeContext} from 'context/ThemeContext';
+import ColorModeSwitcher from 'components/ColorModeSwitcher/ColorModeSwitcher'
 
 import walletContainer from 'redux/containers/wallet'
 
@@ -26,6 +28,8 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
 
   const history = useHistory()
   const gotoPage = useCallback((link) => history.push(link), [history])
+
+  const {theme, setTheme} = useContext(ThemeContext);
 
   useEffect(() => {
     if(isOpen) { // onOpen
@@ -103,7 +107,7 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
       onClose={onClose}
     >
       <DrawerOverlay />
-      <DrawerContent>
+      <DrawerContent style={{backgroundColor: theme.itemBackground, color: theme.menuText}}>
         <DrawerCloseButton />
         <DrawerHeader>Hashgreed</DrawerHeader>
         <DrawerBody>
@@ -111,6 +115,7 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
             {walletState.address && <AuthRoutes />}
             <div className={styles.link} onClick={() => gotoPage('/explorer')}>Verification Explorer</div>
           </div>
+          <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />
           <div className={styles.balances}>
             {walletState.address && <Balances />}
           </div>

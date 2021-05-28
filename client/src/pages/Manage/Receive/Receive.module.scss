@@ -35,7 +35,6 @@
                 flex-direction: column;
             }
             .qrcode{
-                opacity: 40%;
                 margin-right: 20px;
                 @media (max-width: 600px) {
                     margin-right: 0;
@@ -122,5 +121,13 @@
                 }
             }
         }
+    }
+    .transactionList{
+        display: flex;
+        flex-direction: row;
+        width: calc(100vw - 20px);
+        max-width: 1200px;
+        justify-content: center;
+        margin-top: 50px;
     }
 }

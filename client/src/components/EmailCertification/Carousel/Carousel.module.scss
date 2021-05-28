@@ -1,0 +1,54 @@
+@import 'base.scss';
+.CarouselArea{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .header{
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    width: 100%;
+    .title{
+      font-size: 18px;
+      font-weight: 500;
+      color: #000451;
+      margin-top: 30px;
+      text-align: left;
+      margin-left: 40px;
+      margin-bottom: 20px;
+      @media (max-width:600px){
+          margin-bottom: 15px;
+        }
+    }
+    .line{
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-bottom: 20px;
+    }
+  }
+  .mainCarousel{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    .leftIcon{
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      @media (max-width:600px){
+          width: 30px;
+          height: 30px;
+      }
+    }
+    .rightIcon{
+      align-items: center;
+      cursor: pointer;
+      @media (max-width:600px){
+          width: 30px;
+          height: 30px;
+      }
+    }
+  }
+}

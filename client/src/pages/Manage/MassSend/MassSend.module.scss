@@ -136,4 +136,12 @@
             }
         }
     }
+    .transactionList{
+        display: flex;
+        flex-direction: row;
+        width: calc(100vw - 20px);
+        max-width: 1200px;
+        justify-content: center;
+        margin-top: 50px;
+    }
 }

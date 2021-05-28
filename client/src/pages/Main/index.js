@@ -1,4 +1,4 @@
-import React, {useCallback, useRef} from 'react'
+import React, {useCallback, useRef, useContext} from 'react'
 import cx from 'classnames'
 import {useHistory} from 'react-router-dom'
 
@@ -8,10 +8,12 @@ import styles from './Main.module.scss'
 import walletContainer from 'redux/containers/wallet'
 import WavesUtils from 'utils/waves'
 import LoginModal from 'components/LoginModal/LoginModal'
+import {ThemeContext} from "context/ThemeContext";
 
 function Main({walletState, walletActions}) {
   const history = useHistory()
   const loginMdl = useRef(null)
+  const {theme} = useContext(ThemeContext);
 
   const sign = () => {
     WavesUtils.unlockWallet('CLOUD', walletActions.unlockWallet, walletActions.lockWallet)
@@ -30,17 +32,17 @@ function Main({walletState, walletActions}) {
   return (
     <div className={styles.main}>
       <LoginModal ref={loginMdl} onSignMethods = {(str) => onSignMethod(str)}/>
-      <div className={styles.header}>
+      <div className={styles.header} style={{color: theme.primaryText}}>
         Do more with secured <br />
         contracts and signatures!
       </div>
-      <div className={styles.subheader}>
+      <div className={styles.subheader} style={{color: theme.commentText}}>
         Our application is using Waves Signer to connect your account <br />
         and sign all transactions. <br />
         To import an existing account, add it first in waves.exchange
       </div> 
       <div className={styles.startnow}>
-        <a className={cx(styles.start, styles.filled)} onClick={walletState.address ? gotoOverview : login}>Start now</a>
+        <a className={cx(styles.start, styles.filled)} onClick={walletState.address ? gotoOverview : login} style={{backgroundColor: theme.buttonBack}}>Start now</a>
       </div>
       <Steps login={login} />
     </div>

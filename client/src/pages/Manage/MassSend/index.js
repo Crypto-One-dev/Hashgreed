@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 
 import {Input} from '@chakra-ui/react'
 import {FaMinusCircle, FaPlusCircle} from 'react-icons/all'
@@ -13,6 +13,7 @@ import cx from 'classnames'
 import ApiUtils from 'utils/api'
 import styles from './MassSend.module.scss'
 import Transaction from 'components/Transaction/Transaction'
+import {ThemeContext} from 'context/ThemeContext'
 
 function MassSend({walletState, walletActions}){
 
@@ -20,6 +21,8 @@ function MassSend({walletState, walletActions}){
     const emptyRecipient = {address: '', amount: ''}
     const [recipients, setRecipients] = useState([_.cloneDeep(emptyRecipient)])
     const [comment, setComment] = useState('')
+    const [massSendFee, setMassSendFee] = useState(0.001)
+    const {theme} = useContext(ThemeContext)
 
     useEffect(() => {
       let interval = -1
@@ -39,12 +42,20 @@ function MassSend({walletState, walletActions}){
     }, [walletState.address])
 
     const addNewRecipient = () => {
+        let fee = Number(massSendFee);
         setRecipients([...recipients, _.cloneDeep(emptyRecipient)])
+        fee = fee + 0.001
+        setMassSendFee(fee)
     }
     const removeRecipient = (index) => {
+        let fee = Number(massSendFee);
         const newRecipients = _.cloneDeep(recipients)
         newRecipients.splice(index, 1)
         setRecipients(newRecipients)
+        
+        if(massSendFee > 0.001)
+            fee = fee - 0.001
+        setMassSendFee(fee.toFixed(2))
     }
     const setRecipientAddress = (index, value) => {
         const newRecipients = _.cloneDeep(recipients)
@@ -79,38 +90,40 @@ function MassSend({walletState, walletActions}){
     return(
         <div className = {styles.masssend}>
             <div className = {styles.container}>
-                <div className={styles.transfertitle}>Mass Transfer RKMT</div>
+                <div className={styles.transfertitle} style={{color: theme.primaryText}}>Mass Transfer RKMT</div>
                 <hr className = {styles.border}/>
                 <div className = {styles.massTransfer}>
                     {recipients.map((recipient, index) => (
                         <div className={styles.recipient} key={index}>
                             <div className={styles.address}>
-                                <div className={styles.inputTitle}>
+                                <div className={styles.inputTitle} style={{color: theme.commentText}}>
                                     Recipient Address/Alias
                                 </div>
                                 <Input
                                     className={styles.inputValue}
+                                    style={{color: theme.primaryText}}
                                     value={recipient.address}
                                     variant="flushed"
                                     onChange={(e) => setRecipientAddress(index, e.target.value)}
                                 />
                             </div>
                             <div className={styles.amount}>
-                                <div className={styles.inputTitle}>
+                                <div className={styles.inputTitle} style ={{color: theme.commentText}}>
                                 Amount
                                 </div>
                                 <div className = {styles.valueGroup}>
                                     <Input
                                         className={styles.value}
                                         value={recipient.amount}
+                                        style={{color: theme.primaryText}}
                                         variant="flushed"
                                         onChange={(e) => setRecipientAmount(index, e.target.value)}
                                     />
                                     {
                                         index === recipients.length - 1 ?
-                                            <FaPlusCircle className={styles.cursor} size={30} onClick={addNewRecipient}/>
+                                            <FaPlusCircle className={styles.cursor} size={30} onClick={addNewRecipient} style={{color: theme.plusCircle}}/>
                                         :
-                                            <FaMinusCircle className={styles.cursor} size={30} onClick={() => removeRecipient(index)}/>
+                                            <FaMinusCircle className={styles.cursor} size={30} onClick={() => removeRecipient(index)} style={{color: theme.plusCircle}}/>
                                     }
                                 </div>
                             </div>
@@ -119,29 +132,26 @@ function MassSend({walletState, walletActions}){
                 </div>
                 <div className={styles.confirms}>
                     <div className = {styles.comment}>
-                        <div className = {styles.inputTitle}>
+                        <div className = {styles.inputTitle} style={{color: theme.commentText}}>
                             Comment
                         </div>
-                        <Input className = {styles.inputValue} value={comment} onChange={(e) => setComment(e.target.value)} variant="flushed" placeholder="" />
-                        <div className = {styles.subcomment}>
+                        <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={comment} onChange={(e) => setComment(e.target.value)} variant="flushed" placeholder="" />
+                        <div className = {styles.subcomment} style={{color: theme.commentText}}>
                             This transaction is secure and will open waves Signer
                         </div>
                     </div>
                     <div className = {styles.confirm}>
                         <div className = {styles.fee}>
-                            <div className = {styles.feetitle}>Transaction fee:</div>
-                            <div className = {styles.feevalue}>{0.001}Waves</div>
+                            <div className = {styles.feetitle} style={{color: theme.feeText}}>Transaction fee:</div>
+                            <div className = {styles.feevalue} style={{color: theme.feeText}}>{massSendFee}Waves</div>
                         </div>
-                        <a className={cx(styles.button, styles.filled)} onClick={confirmTransfer}>Confirm mass transfer</a>
+                        <a className={cx(styles.button, styles.filled)} style={{backgroundColor: theme.buttonBack}} onClick={confirmTransfer}>Confirm mass transfer</a>
                     </div>
                 </div>
             </div>
-            {
-                transactions[0] != null ?
-                <Transaction detail={transactions[0]} owner={walletState.address}/>
-                :
-                null
-            }
+            <div className={styles.transactionList}>
+                <Transaction transactions={transactions} owner={walletState.address} />
+            </div>
         </div>
     )
 }

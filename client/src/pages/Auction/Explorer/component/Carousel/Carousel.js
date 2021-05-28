@@ -4,9 +4,16 @@ import "owl.carousel/dist/assets/owl.carousel.css"
 import "owl.carousel/dist/assets/owl.theme.green.css"
 import OwlCarousel from 'react-owl-carousel'
 import AuctionCell from '../AuctionCell/AuctionCell'
+import BidModal from 'components/BidModal/BidModal'
 
 function Carousel({data, height}, ref){
     const carousel = useRef(null)
+    const bidModal = useRef(null)
+    const [bidData, setBidData] = useState(''); 
+    const openBidModal = (str) => {
+        setBidData(str)
+        bidModal.current.openModal()
+    }
 
     useImperativeHandle(ref, () => ({
         prev() {
@@ -20,6 +27,7 @@ function Carousel({data, height}, ref){
 
     return(
         <>
+            <BidModal ref={bidModal} bidData={bidData}/>
             <OwlCarousel className="owl-theme" responsiveClass={true} margin={0} dots={false} ref={carousel} responsive={{
                 0:{
                     items: 1
@@ -36,7 +44,7 @@ function Carousel({data, height}, ref){
             }}>
                 {
                     data && data.map(auction =>
-                        <AuctionCell auction={auction} height={height} />
+                        <AuctionCell auction={auction} bidOpen = {(str) => openBidModal(str)} />
                     )
                 }
             </OwlCarousel>

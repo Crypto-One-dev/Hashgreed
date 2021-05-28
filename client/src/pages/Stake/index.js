@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 
 import {Flex, Stat, StatLabel, StatNumber, StatHelpText} from '@chakra-ui/react'
 import cx from 'classnames'
@@ -13,13 +13,15 @@ import {
 import walletContainer from 'redux/containers/wallet'
 import WavesUtils from 'utils/waves'
 import styles from './Stake.module.scss'
+import {ThemeContext} from 'context/ThemeContext'
 
 function Stake({walletState}){
 
     const [staked, setStaked] = useState(0.0)
     const [sendAmount, setSendAmount] = useState(0)
     const [receiveAmount, setReceiveAmount] = useState(0)
-
+    const {theme} = useContext(ThemeContext)    
+    
     useEffect(() => {
         let interval = -1
         if(walletState.address) {
@@ -55,8 +57,8 @@ function Stake({walletState}){
         <div className = {styles.stake}>
             <div className = {styles.container}>
                 <div className = {styles.header}>
-                    <div className={styles.depositTitle}>Deposit</div>
-                    <div className={styles.totalStaked}> TotalStaked: {staked} RKMT</div>
+                    <div className={styles.depositTitle} style={{color: theme.primaryText}}>Deposit</div>
+                    <div className={styles.totalStaked} style={{color: theme.primaryText}}> TotalStaked: {staked} RKMT</div>
                 </div>
                 <hr className = {styles.border}/>
                 {/* <Sliders index = {1} staked = {staked} setAmount = {setAmount} setStaked = {setStaked} isDisabled = {walletState.rkmt_balance === 0}/> */}
@@ -81,7 +83,7 @@ function Stake({walletState}){
                             <SliderThumb fontSize='50px' boxSize='32px' boxShadow=''/>
                         </Slider>
                     </div>
-                    <a className={cx(styles.button, walletState.rkmt_balance === 0 ? styles.disabled : styles.filled)} onClick={walletState.rkmt_balance === 0 ? null : Deposit}>Deposit</a>   
+                    <a className={cx(styles.button, walletState.rkmt_balance === 0 ? styles.disabled : styles.filled)} style={{backgroundColor: theme.buttonBack}} onClick={walletState.rkmt_balance === 0 ? null : Deposit}>Deposit</a>   
                 </div>
                 <div className = {styles.sliderarea}>
                     <div className={styles.slider}>
@@ -103,30 +105,30 @@ function Stake({walletState}){
                             <SliderThumb fontSize='50px' boxSize='32px' boxShadow=''/>
                         </Slider>
                     </div>
-                    <a className={cx(styles.button, staked === 0 ? styles.disabled : styles.filled)} onClick={staked === 0 ? null : Withdraw}>Withdraw</a>
+                    <a className={cx(styles.button, staked === 0 ? styles.disabled : styles.filled)} style={{backgroundColor: theme.buttonBack}} onClick={staked === 0 ? null : Withdraw}>Withdraw</a>
                 </div>
 
 
-                <Flex className={styles.stats}>
+                <Flex className={styles.stats} style={{color: theme.primaryText}}>
                     <Stat color = '#000451'>
-                        <StatLabel>Daily</StatLabel>
-                        <StatNumber>{(sendAmount * 0.04 / 100).toFixed(2)}</StatNumber>
-                        <StatHelpText>0.04%</StatHelpText>
+                        <StatLabel style={{color: theme.primaryText}}>Daily</StatLabel>
+                        <StatNumber style={{color: theme.primaryText}}>{(sendAmount * 0.04 / 100).toFixed(2)}</StatNumber>
+                        <StatHelpText style={{color: theme.primaryText}}>0.04%</StatHelpText>
                     </Stat>
                     <Stat color = '#000451'>
-                        <StatLabel>Weekly</StatLabel>
-                        <StatNumber>{(sendAmount * 0.28 / 100).toFixed(2)}</StatNumber>
-                        <StatHelpText>0.28%</StatHelpText>
+                        <StatLabel style={{color: theme.primaryText}}>Weekly</StatLabel>
+                        <StatNumber style={{color: theme.primaryText}}>{(sendAmount * 0.28 / 100).toFixed(2)}</StatNumber>
+                        <StatHelpText style={{color: theme.primaryText}}>0.28%</StatHelpText>
                     </Stat>
                     <Stat color = '#000451'>
-                        <StatLabel>Monthly</StatLabel>
-                        <StatNumber>{(sendAmount * 1.2 / 100).toFixed(2)}</StatNumber>
-                        <StatHelpText>1.2%</StatHelpText>
+                        <StatLabel style={{color: theme.primaryText}}>Monthly</StatLabel>
+                        <StatNumber style={{color: theme.primaryText}}>{(sendAmount * 1.2 / 100).toFixed(2)}</StatNumber>
+                        <StatHelpText style={{color: theme.primaryText}}>1.2%</StatHelpText>
                     </Stat>
                     <Stat color = '#000451'>
-                        <StatLabel>Yearly</StatLabel>
-                        <StatNumber>{(sendAmount * 14.6 / 100).toFixed(2)}</StatNumber>
-                        <StatHelpText>14.6%</StatHelpText>
+                        <StatLabel style={{color: theme.primaryText}}>Yearly</StatLabel>
+                        <StatNumber style={{color: theme.primaryText}}>{(sendAmount * 14.6 / 100).toFixed(2)}</StatNumber>
+                        <StatHelpText style={{color: theme.primaryText}}>14.6%</StatHelpText>
                     </Stat>
                 </Flex>
             </div>

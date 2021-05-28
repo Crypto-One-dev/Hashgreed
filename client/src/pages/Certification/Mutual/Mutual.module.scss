@@ -242,6 +242,16 @@
             }
         }
     }
+    .mutualCertificationList{
+        display: flex;
+        flex-direction: row;
+        width: calc(100vw - 20px);
+        justify-content: center;
+        margin-top: 50px;
+        @media (max-width:600px){
+            width: calc(100vw - 5px);
+        }
+    }
 }
 .feeTitle{
     font-size: 18px;

@@ -1,15 +1,18 @@
-import React from 'react'
+import React, {useContext} from 'react'
 
 import {FaFacebookF, FaGooglePlusG, FaTwitter} from 'react-icons/all'
 
 import styles from './Footer.module.scss'
 import Logo from 'assets/images/Footer.svg'
+import {ThemeContext} from "context/ThemeContext";
 
 import walletContainer from 'redux/containers/wallet'
 
 function Footer({walletState, walletActions}) {
+  const {theme} = useContext(ThemeContext);
+
   return (
-    <div className={styles.footer}>
+    <div className={styles.footer} style={{backgroundColor: theme.footerBackground}}>
       <div className={styles.description}>
         Our application is using Waves Signer to connect your account and sign all transactions. To import an existing account, add it first in <a href="https://waves.exchange">waves.exchange</a>. Our Web Application will never have any access to your private key or secret seed, all your accounts should be managed at <a href="https://waves.exchange">waves.exchange</a>. Never enter your private key or secret seed in any 3rd party application.
       </div>

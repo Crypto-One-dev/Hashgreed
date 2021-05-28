@@ -10,7 +10,8 @@ import {Input, Textarea} from '@chakra-ui/react'
 import {BsPlusCircle} from 'react-icons/all'
 import QRCode from 'qrcode.react';
 import { Button } from '@chakra-ui/react';
-import certBG from 'assets/images/certificate_bg.jpg';
+import certBG from 'assets/images/certificate_bg.jpg'
+import {ThemeContext} from 'context/ThemeContext'
 
 import styles from './VerificationExplorer.module.scss'
 
@@ -22,8 +23,7 @@ function VerificationExplorer({query}){
     const searchButton = useRef(null);
     const [certification, setCertification] = useState();
     const [isSearchOpen, openSearchForm] = useState(false);
-
-
+    const {theme} = useContext(ThemeContext)
 
     useEffect(() => {
         if(query) {
@@ -76,13 +76,13 @@ function VerificationExplorer({query}){
     return(
         <div className={styles.verficationExplorer}>
             <div className={styles.container}>
-                <div className={styles.verificationTitle}>Certify a file</div>
+                <div className={styles.verificationTitle} style={{color: theme.primaryText}}>Verification Explorer</div>
                 <hr className = {styles.border}/>
                 <div className={styles.uploadarea}>
                     <div {...poc.getRootProps()} className={styles.certification}>
-                        <BsPlusCircle size={40}/>
+                        <BsPlusCircle size={40} style={{color: theme.dropZone}}/>
                         <input {...poc.getInputProps()} />
-                        <p className={styles.upload}>
+                        <p className={styles.upload} style={{color: theme.dropZone}}>
                         {
                             poc.acceptedFiles.length === 1 ?
                             poc.acceptedFiles[0].path
@@ -90,12 +90,12 @@ function VerificationExplorer({query}){
                                 "Select or drop a proof of certification"
                         }
                         </p>
-                        <p className={styles.uploadComment}>Max files size: 10GB</p>
+                        <p className={styles.uploadComment} style={{color: theme.commentText}}>Max files size: 10GB</p>
                     </div>
                     <div {...fth.getRootProps()} className={styles.hash}>
-                        <BsPlusCircle size={40}/>
+                        <BsPlusCircle size={40} style={{color: theme.dropZone}}/>
                         <input {...fth.getInputProps()} />
-                        <p className={styles.upload}>
+                        <p className={styles.upload} style={{color: theme.dropZone}}>
                         {
                             fth.acceptedFiles.length === 1 ?
                             fth.acceptedFiles[0].path
@@ -103,25 +103,25 @@ function VerificationExplorer({query}){
                                 "Select or drop a file to hash"
                         }
                         </p>
-                        <p className={styles.uploadComment}>Max files size: 10GB</p>
+                        <p className={styles.uploadComment} style={{color: theme.commentText}}>Max files size: 10GB</p>
                     </div>
                 </div>
                 <div className={styles.transactionarea}>
                     <div className ={styles.transactionId}>
-                            <div className = {styles.inputTitle}>Transaction ID</div>
-                            <Input className = {styles.inputValue} value={transactionID} onChange={e => setTransactionID(e.target.value)} variant="flushed" placeholder=""/>
+                            <div className = {styles.inputTitle} style={{color: theme.commentText}}>Transaction ID</div>
+                            <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={transactionID} onChange={e => setTransactionID(e.target.value)} variant="flushed" placeholder=""/>
                     </div>
                     <div className ={styles.fileHash}>
-                        <div className = {styles.inputTitle}>File hash or message ID</div>
-                        <Input className = {styles.inputValue} value={hashID} onChange={e => setHashID(e.target.value)} variant="flushed" placeholder=""/>
+                        <div className = {styles.inputTitle} style={{color: theme.commentText}}>File hash or message ID</div>
+                        <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={hashID} onChange={e => setHashID(e.target.value)} variant="flushed" placeholder=""/>
                     </div>
                 </div>
                 <div className={styles.reference}>
-                    <div className = {styles.inputTitle}>Reference</div>
-                    <Input className = {styles.inputValue} value={reference} onChange={e => setReference(e.target.value)} variant="flushed" placeholder=""/>        
+                    <div className = {styles.inputTitle} style={{color: theme.commentText}}>Reference</div>
+                    <Input className = {styles.inputValue} style={{color: theme.primaryText}} maxLength={60} value={reference} onChange={e => setReference(e.target.value)} variant="flushed" placeholder=""/>        
                 </div>
                 <div className = {styles.confirmarea}>
-                    <a className={cx(styles.button, styles.filled)} onClick={() => Search}>Search</a>
+                    <a className={cx(styles.button, styles.filled)} onClick={() => Search} style={{backgroundColor: theme.buttonBack}}>Search</a>
                 </div>
                 <div className={styles.explorerListWrapper}>
                     {

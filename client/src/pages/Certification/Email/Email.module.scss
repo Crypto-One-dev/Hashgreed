@@ -85,6 +85,46 @@
                     flex-direction: column;
                     margin-bottom: 30px;
                 }
+            }   
+        }
+        .customContainer{
+            display: flex;
+            flex-direction: column;
+
+            .serverArea{
+                display:flex;
+                flex-direction: row;
+                margin-bottom: 30px;
+                .server{
+                    flex: 5;
+                    display: flex;
+                    flex-direction: column;
+                    margin-right: 50px;
+                }
+                .port{
+                    flex: 5;
+                    display: flex;
+                    flex-direction: column;
+                    margin-left: 50px;
+                }
+            }
+            .userArea{
+                display:flex;
+                flex-direction: row;
+                margin-bottom: 30px;
+
+                .userId{
+                    flex: 5;
+                    display: flex;
+                    flex-direction: column;
+                    margin-right: 50px;
+                }
+                .userPassword{
+                    flex: 5;
+                    display: flex;
+                    flex-direction: column;
+                    margin-left: 50px;
+                }
             }
         }
         .subDatas{
@@ -195,6 +235,42 @@
         font-size: 18px;
         width: 100%;
     }
+    .emailCerts{
+        display: flex;
+        flex-direction: row;
+        width: calc(100vw - 20px);
+        justify-content: center;
+        margin-top: 50px;
+        @media (max-width:600px){
+            width: calc(100vw - 5px);
+        }
+    }
+    .titlearea{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        max-width: 1000px;
+        width: 100%;
+        margin: 0 15px;
+        margin-top: 30px;
+        @media (max-width: $drawOpenMaxWidth) {
+            max-width: 100%;
+            padding: 0 20px;
+        }
+
+        .explorerTitle{
+            color: #1E0E62;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .border{
+            width: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.8);
+        }
+    }
+    
 }
 .feeTitle{
     font-size: 18px;

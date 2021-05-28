@@ -1,0 +1,32 @@
+@import 'base.scss';
+
+.main {
+  display: flex;
+  margin-top: 15px;
+  padding-right: 10px;
+  .themeIcon {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    transition: all .4s ease;
+    margin-left: 10px;
+    &.on {
+      border: solid 1px black;
+    }
+  }
+  .regularTheme {
+    background-color: #FE006C;
+    &:hover {
+      background-color: #ec447c;
+    }
+  }
+  .darkTheme {
+    background-color: #35364e;
+  }
+  .wavesTheme {
+    background-color: #7793cb;
+    &:hover {
+      background-color: #0055ff;
+    }
+  }
+}

@@ -1,0 +1,125 @@
+@import 'base.scss';
+
+.transaction{
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 16.8116px;
+    max-width: 1000px;
+    margin: 0 5px;
+    height: 150px;
+    margin-top: 0;
+    align-items: center;
+    
+    @media (max-width: 400px){
+      height: 200px;
+    }
+    .fileIcon{
+        color: #FE006C;
+        width: 30px;
+        height: 30px;
+        margin-left: 20px;
+        @media (max-width:1000px){
+            margin-left: 15px;
+        }
+        @media (max-width:600px){
+            margin-left: 10px;
+        }
+        @media (max-width:360px){
+            width: 25px;
+            height: 25px;
+        }
+    }
+    .dataArea{
+        flex:9;
+        width:auto;
+        display: flex;
+        flex-direction: column;
+        .timestampArea{
+            display: flex;
+            flex-direction: row;
+            @media (max-width:620px){
+              flex-direction: column;
+            }
+            .info{
+                flex: 8;
+                align-items: flex-start;
+                text-align: left;
+                margin-left: 30px;
+                margin-right: 300px;
+                color: #000451;
+                font-size: 15px;
+                font-weight: 500;
+                @media (max-width:1000px){
+                    margin-right: 100px;
+                }
+                @media (max-width:900px){
+                    word-break: break-all;
+                    margin-right: 10px;
+                }
+                @media (max-width:620px){
+                    flex:6;
+                    word-break: break-all;
+                    margin-right: 0;
+                    margin-left: 5px;
+                    font-size: 12px;
+                }
+                @media (max-width:360px){
+                    font-size: 11px;
+                }
+            }
+            .actions{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                
+                .amount{
+                    color: #FE006C;
+                    margin-right: 30px ;
+                    font-size: 15px;
+                    font-weight: 500;
+                    @media (max-width:620px){
+                        font-size: 12px;
+                        margin-right: 10px;
+                        margin-top: 0;
+                        margin-bottom: 5px;
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+        .references{
+            align-items: flex-start;
+            text-align: left;
+            margin-left: 30px;
+            margin-right: 300px;
+            color: #000451;
+            font-size: 15px;
+            font-weight: 500;
+            width: calc(100% - 20px);
+            @media (max-width:1000px){
+                margin-right: 100px;
+            }
+            @media (max-width:900px){
+                word-break: break-all;
+                margin-right: 50px;
+            }
+            @media (max-width:700px){
+                word-break: break-all;
+                padding-right: 10px;
+            }
+            @media (max-width:620px){
+                flex:6;
+                word-break: break-all;
+                margin-right: 0;
+                margin-left: 5px;
+                font-size: 12px;
+            }
+            @media (max-width:360px){
+                font-size: 11px;
+            }
+        }
+        
+    }
+}

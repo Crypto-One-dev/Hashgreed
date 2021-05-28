@@ -1,12 +1,27 @@
 @import 'base.scss';
 
 .overview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 0 10px;
+  
+  .prices {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 100px;
-    padding: 0 10px;
-
+    flex-direction: row;
+    width: 100%;
+    max-width: 1000px;
+    margin-bottom: 30px;
+    justify-content: space-between;
+    @media (max-width: $drawOpenMaxWidth) {
+      margin-top:50px;
+    }
+    @media (max-width: 600px) {
+      flex-direction: column;
+      margin: 0;
+    }
+  }
   .overviewHeader{
       font-size: 58px;
       font-weight: 700;
@@ -42,4 +57,12 @@
       }
     }
   }
+  .transactionList{
+    display: flex;
+    flex-direction: row;
+    width: calc(100vw - 10px);
+    max-width: 1200px;
+    justify-content: center;
+    margin-top: 50px;
+}
 }

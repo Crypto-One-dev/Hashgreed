@@ -1,0 +1,186 @@
+@import 'base.scss';
+
+.modalArea{
+  display: flex;
+  flex-direction: row;
+  border-radius: 14px;
+  .imageArea{
+    flex:5;
+    .image{
+      padding: 20px;
+      width: 100%;
+    }
+  }
+  .dataArea{
+    flex: 5;
+    width:100%;
+    background: #FFFFFF;
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 16.8116px;
+    display: flex;
+    flex-direction: column;
+    .closeButton{
+      position:absolute;
+      right: 10px;
+      top: 10px;
+      display: flex;
+      .icon{
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        color: #000451;
+      }
+    }
+    .assetArea{
+      display: flex;
+      flex-direction: row;
+      margin-top: 50px;
+      .assetDataArea{
+        flex:5;
+        display: flex;
+        flex-direction: column;
+        margin: 20px;
+        .nameArea{
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 30px;
+          .title{
+            margin-bottom: 0;
+          }
+        }
+        .aboutArea{
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 30px;
+          .about{
+            font-size: 12px;
+            font-weight: 500;
+            text-align: justify;
+            color: #000451;
+          }
+        }
+        .priceArea{
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          .minPriceArea{
+            display: flex;
+            flex-direction: column;
+            .title{
+              color:rgba(21, 20, 57, 0.4);
+              font-size: 12px;
+              font-weight: bold;
+            }
+          }
+        }
+        .typeArea{
+          display: flex;
+          flex-direction: row;
+          margin-top: 10px;
+          justify-content: space-between;
+          .enabledNFT{
+              text-align: center;
+              font-size: 12px;
+              font-weight: 500;
+              color: #000451;
+              border: 1px solid #FE006C;
+              border-radius: 10px;
+              padding: 2px;
+              margin: 0 5px;
+          }
+          .disabledNFT{
+              font-size: 12px;
+              font-weight: 500;
+              color: rgba(21, 20, 57, 0.4);
+              padding: 2px;
+              border: 1px solid rgba(0, 0, 0, 0);
+              margin: 0 5px;
+          }
+        }
+      }
+      .assetIdArea{
+        flex:5;
+        display: flex;
+        flex-direction: column;
+        margin:20px;
+        .idArea{
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 20px;
+          .idInput{
+            color:#151439;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: justify;
+          }
+        }
+      }
+    }
+    .buttonArea{
+      display: flex;
+      flex-direction: row;
+      align-items:center;
+      justify-content: center;
+      border-radius: 200px;
+      background-color: #000451;
+      margin: 10px 30px;
+      height: 50px;
+      .inputTitle{
+        flex:1;
+        text-align: center;
+        color: #FFFFFF;
+        font-size: 18px;
+        font-weight: bold;
+        margin-left: 30px;
+        justify-content: center;
+        align-items: center;
+        padding-top: 30px;
+        margin-right: 5px;
+      }
+      .inputBox{
+        flex:3;
+        height: 50px;
+        margin-right: 5px;
+        justify-content: flex-start;
+        color: #FFFFFF;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: left;
+      }
+      .button{
+        flex:4;
+        width: 100%;
+        height: 50px;
+        justify-content: flex-start;
+        color: #FFFFFF;
+        border-radius: 30px;
+        background-color: #e013cf;
+        font-size: 18px;
+        font-weight: bold;
+        padding-top: 10px;
+        text-align: center;
+        cursor: pointer;
+      }
+    }
+    .comment{
+      font-size: 9px;
+      font-weight: 500;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      color: rgba(21, 20, 57, 0.4);
+    }
+  }
+  
+}
+.title{
+  color:rgba(21, 20, 57, 0.4);
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.value{
+  color: #151439;
+  font-size: 18px;
+  font-weight: bold;
+}

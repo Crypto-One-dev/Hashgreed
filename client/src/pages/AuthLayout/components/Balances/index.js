@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 
 import Balance from '../Balance'
 import styles from './Balances.module.scss'
@@ -9,10 +9,11 @@ import WAVES from 'assets/icons/WAVES.svg'
 import WALLET from 'assets/icons/WALLET.svg'
 import priceContainer from 'redux/containers/price'
 import walletContainer from 'redux/containers/wallet'
-
+import {ThemeContext} from 'context/ThemeContext'
 function Balances({walletState, priceState}) {
+  const {theme} = useContext(ThemeContext)
   return (
-    <div className={styles.balances}>
+    <div className={styles.balances} >
       <Balance title={'HASH Balance'} icon={HASH} value={walletState.hash_balance} price={priceState.hash_price} />
       <Balance title={'RKMT Balance'} icon={RKMT} value={walletState.rkmt_balance} price={priceState.rkmt_price} />
       <Balance title={'USDT Balance'} icon={USDT} value={walletState.usdt_balance} price={priceState.usdt_price} />
