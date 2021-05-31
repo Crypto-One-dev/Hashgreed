@@ -116,7 +116,7 @@ const themes = {
     iconBack: '#0055ff',
     hamburger: '#000000',
     balancesBack: '#ffffff',
-    overviewPriceBack: '#0055ff',
+    overviewPriceBack: 'rgba(191, 191, 191, 0.2)',
     overviewPriceBorder: '#0055ff',
     overviewPrimaryText: '#ffffff',
     overviewSecondaryText: '#ffffff',
