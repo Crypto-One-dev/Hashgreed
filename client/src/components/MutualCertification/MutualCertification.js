@@ -27,7 +27,7 @@ function MutualCertification({certifications, owner}){
               </div>
               <div className={styles.mainCarousel}>
                 <img src = {Prev} className = {styles.leftIcon} style={{color: theme.primaryText}} onClick={()=>{carousel.current.prev()}} alt = ""/>
-                <OwlCarousel style={{width: 'calc(100% - 80px)'}} className="owl-theme" items={1} responsiveClass={true} margin={0} dots={false} ref={carousel} >
+                <OwlCarousel style={{width: 'calc(100% - 80px)'}} className="owl-theme" items={1} responsiveClass={true} margin={0} dots={false} ref={carousel} mouseDrag={false} touchDrag={false}>
                     {
                         certifications && certifications.map((cert) =>
                             <MutualCertificationCell detail={cert} owner={owner} />

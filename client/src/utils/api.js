@@ -193,6 +193,7 @@ const emailUpload = async (file, smtp, server, port, login, password, first_name
     formData.append('last_name', last_name)
     formData.append('email_sender', email_sender)
     formData.append('email_recipient', email_recipient)
+    message = message.replaceAll('\n', '<br>')
     formData.append('message', message)
     formData.append('reference', reference)
     formData.append('messageid', messageid)

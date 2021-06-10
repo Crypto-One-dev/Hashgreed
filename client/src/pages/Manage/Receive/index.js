@@ -1,4 +1,4 @@
-import React, {useCallback,useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 
 import {FaCopy, FaShareAlt} from 'react-icons/all'
 import QRCode from 'qrcode.react'
@@ -12,10 +12,9 @@ import ApiUtils from 'utils/api';
 import {ThemeContext} from 'context/ThemeContext'
 
 function Receive({walletState, walletActions}){
-    const history = useHistory()
     const urlAddress = 'https://wavesexplorer.com/address/' + walletState.address
-    const [transactions, setTransactions] = useState([]);
-    const [transaction, setTransaction] = useState();
+    const [transactions, setTransactions] = useState([])
+    const [transaction, setTransaction] = useState()
     const {theme} = useContext(ThemeContext)
 
     useEffect(() => {

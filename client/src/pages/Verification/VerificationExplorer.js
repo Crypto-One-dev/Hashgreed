@@ -6,10 +6,9 @@ import WavesConfig from 'config/waves'
 import ApiUtils from 'utils/api'
 import AlertUtils from 'utils/alert'
 import {useDropzone} from 'react-dropzone'
-import {Input, Textarea} from '@chakra-ui/react'
+import {Input} from '@chakra-ui/react'
 import {BsPlusCircle} from 'react-icons/all'
 import QRCode from 'qrcode.react';
-import { Button } from '@chakra-ui/react';
 import certBG from 'assets/images/certificate_bg.jpg'
 import {ThemeContext} from 'context/ThemeContext'
 
@@ -22,7 +21,6 @@ function VerificationExplorer({query}){
     const [reference, setReference] = useState('');
     const searchButton = useRef(null);
     const [certification, setCertification] = useState();
-    const [isSearchOpen, openSearchForm] = useState(false);
     const {theme} = useContext(ThemeContext)
 
     useEffect(() => {
