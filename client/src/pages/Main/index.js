@@ -15,10 +15,6 @@ function Main({walletState, walletActions}) {
   const loginMdl = useRef(null)
   const {theme} = useContext(ThemeContext);
 
-  const sign = () => {
-    WavesUtils.unlockWallet('CLOUD', walletActions.unlockWallet, walletActions.lockWallet)
-  }
-
   const login = () => {
     loginMdl.current.openModal()
   }

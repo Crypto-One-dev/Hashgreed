@@ -17,8 +17,19 @@
       border-bottom: 0px;
     }
   }
-  .activemenu {
-
+  .subnavs {
+    cursor: pointer;
+    margin: 5px 0;
+    &>div {
+      padding: 0 10px;
+    }
+    .link {
+      border-bottom: 0px;
+    }
+  }
+  .sublink {
+    cursor: pointer;
+    margin: 5px 0;
   }
   .opennav {
     display: flex;

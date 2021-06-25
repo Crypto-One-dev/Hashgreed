@@ -3,36 +3,15 @@
 .fileCertification{
   display: flex;
   flex-direction: row;
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
-  border-radius: 16.8116px;
-  max-width: 1000px;
-  margin: 0 10px;
-  height: 150px;
-  margin-top: 0;
-  align-items: center;
   padding: 0 10px;
-  @media (max-width:700px){
-    height: 180px
-  }
-  @media (max-width:600px){
-    height: 220px
-  }
-  @media (max-width:500px){
-    height: 250px
-  }
-  @media (max-width:420px){
-    height: 300px
-  }
+
   .fileIcon{
-      color: #FE006C;
-      width: 30px;
-      height: 30px;
-      margin-left: 10px;
-      @media (max-width:360px){
-          margin-left: 5px;
-          width: 25px;
-          height: 25px;
-      }
+    margin-top: 5px;
+    width: 22px;
+    height: 22px;
+    @media (max-width:600px){
+      margin-left: 5px;
+    }
   }
   .dataArea{
     flex: 9;
@@ -83,7 +62,7 @@
               margin-top: 5px;
               margin-bottom: 5px;
               justify-content: flex-start;
-          }
+            }
             .action{
               color: #FE006C;
               margin-left: 10px ;
@@ -120,6 +99,7 @@
         }
         @media (max-width:620px){
             flex:6;
+            font-size: 13px;
             word-break: break-all;
             margin-right: 0;
             margin-left: 5px;

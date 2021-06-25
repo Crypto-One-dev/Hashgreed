@@ -8,17 +8,28 @@
     flex-direction: column;
     max-width: 1000px;
     width: 100%;
-    .title{
-      font-size: 18px;
-      font-weight: 500;
-      color: #000451;
-      margin-top: 30px;
-      text-align: left;
-      margin-left: 40px;
-      margin-bottom: 20px;
-      @media (max-width:600px){
-          margin-bottom: 15px;
-        }
+    .titleBar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      .title{
+        font-size: 18px;
+        font-weight: 500;
+        color: #000451;
+        text-align: left;
+        margin-left: 40px;
+        margin-bottom: 10px;
+        @media (max-width:600px){
+            margin-bottom: 15px;
+          }
+      }
+      .view {
+        font-size: 17.2px;
+        font-weight: 500;
+        margin-right: 40px;
+        color: rgba(0, 4, 81, 0.7);
+      }
     }
     .line{
         border: 1px solid rgba(0, 0, 0, 0.8);
@@ -30,25 +41,18 @@
   .mainCarousel{
     display: flex;
     flex-direction: row;
-    width: 100%;
     align-items: center;
     justify-content: center;
     .leftIcon{
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      @media (max-width:600px){
-          width: 30px;
-          height: 30px;
-      }
+      margin-right: 10px;
     }
     .rightIcon{
       align-items: center;
       cursor: pointer;
-      @media (max-width:600px){
-          width: 30px;
-          height: 30px;
-      }
+      margin-left: 10px;
     }
   }
 }

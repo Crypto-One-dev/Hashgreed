@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import download from 'downloadjs'
 import moment from 'moment'
 import {CopyToClipboard} from 'react-copy-to-clipboard'
-import {FaEnvelope, FaPaste, FaRegFilePdf} from 'react-icons/all'
+import {FaPaste, FaRegFilePdf, FaEnvelopeOpenText} from 'react-icons/all'
 
 import WavesConfig from 'config/waves'
 import walletContainer from 'redux/containers/wallet'
@@ -37,7 +37,7 @@ function CertificationCell({cert, owner}){
 
     return (
       <div className={styles.emailCertification} key={cert.key} style={{backgroundColor: theme.stepBackground, boxShadow: theme.historyglow}} >
-        <FaEnvelope className={styles.fileIcon} style={{color: theme.iconBack}}/>
+        <FaEnvelopeOpenText className={styles.fileIcon} style={{color: theme.iconBack}}/>
         <div className={styles.dataArea}>
           <div className={styles.timestampArea}>  
             <div className={styles.info} style={{color: theme.primaryText}}>

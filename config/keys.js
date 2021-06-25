@@ -13,6 +13,9 @@ module.exports = {
   chainID: ChainIDs[platform],
   smartContract: '3P7JCNf1Z8uPWaNayLg2hTrhgLktDxgfXmm',
   nftContract: '3PJKkEKwuySZDAzFvNouVA5Ke2uLsyx5bAe',
+  stakeContract: '3P5fYAZWS8P7vKHgs4KD82RzhBTdt53c8Db',
+  loanContract: '3P32KGEZqhNghPFjTPztpJMMWLcpiZJPwdP',
+  sportContract: '3P9c6g3Gf9dukaBYfwecszX3Ctdwch467tk',
   baseUrl: process.env.REACT_APP_BASE_URL,
   mongoURI: process.env.MONGO_URI,
   sendBlue: {

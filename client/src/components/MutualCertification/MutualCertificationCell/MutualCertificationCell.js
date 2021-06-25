@@ -14,7 +14,7 @@ import {ThemeContext} from 'context/ThemeContext'
 
 import styles from './MutualCertificationCell.module.scss'
 
-function MutualCertificationCell({detail, owner, walletState}){
+function MutualCertificationCell({detail, owner, walletState, toggleDetail}){
   const {theme} = useContext(ThemeContext)
 
   const timestamp = moment(detail.timestamp).toString();
@@ -22,17 +22,9 @@ function MutualCertificationCell({detail, owner, walletState}){
   const txid = split[2]
   const creator = split[3]
   const isOwner = creator === owner ? true : false
-  const [details, ShowDetails] = useState(false)
-  const [showmodal, setshowModal] = useState(false)
-  const [counterparts, setCounterparts] = useState([])
-
-  useEffect(() => {
-    ApiUtils.getCounterparts(txid, setCounterparts)
-  }, [txid])
 
   const toggleDetails = () => {
-    ShowDetails(!details);
-    setshowModal(!showmodal);
+    toggleDetail(detail)
   }
 
   const DownloadCertificate = () => {
@@ -57,20 +49,13 @@ function MutualCertificationCell({detail, owner, walletState}){
     window.open('https://ipfs.io/ipfs/' + detail.link)
   }
 
-  const sign = async () => {
-    const tx = await WavesUtils.SignMutual(detail.hash, txid, walletState.publicKey)
-    if(tx) {
-      AlertUtils.SystemAlert('You signed the contract successfully, Transaction ID: ' + tx.id)
-    }
-  }
   return (
-    <div>
-      <div className={styles.mutualCertification} key={detail.key} style={{backgroundColor: theme.stepBackground, boxShadow: theme.historyglow}}>
+    <div className={styles.mutualCertification} key={detail.key} style={{backgroundColor: theme.stepBackground, boxShadow: theme.historyglow}}>
         {
           isOwner ? <FaFileContract className={styles.fileIcon} style={{color: theme.iconBack}}/>
                   : <FaSignature className={styles.fileIcon} style={{color: theme.iconBack}}/>
         }
-        <div className={styles.dataArea}>
+      <div className={styles.dataArea}>
         <div className={styles.timestampArea}>
           <div className ={styles.info} style={{color: theme.primaryText}}>
             {timestamp}
@@ -82,13 +67,13 @@ function MutualCertificationCell({detail, owner, walletState}){
               :
                 null
             }
-            <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + txid}>
-              <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
-            </CopyToClipboard>
             {
               isOwner ? <FaRegPlusSquare className={styles.action} onClick={toggleDetails} style={{color: theme.iconBack}}/>
                       : <FaPencilAlt className={styles.action} onClick={toggleDetails} style={{color: theme.iconBack}}/>
             }
+            <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + txid}>
+              <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+            </CopyToClipboard>
             <FaRegFilePdf className={styles.action} onClick={DownloadCertificate} style={{color: theme.iconBack}}/>
           </div>
         </div>
@@ -101,53 +86,8 @@ function MutualCertificationCell({detail, owner, walletState}){
             Hash: <span>{detail.hash}</span>
             <br/>
             TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
-          </div>
         </div>
       </div>
-      <Modal isCentered isOpen={showmodal} size='xl' onClose={() => setshowModal(false)}>
-        <ModalOverlay />
-        <ModalContent style={{backgroundColor: theme.itemBackground, margin: '0 5px'}}>
-          <ModalBody style={{display: 'flex', flexDirection: 'column', color: 'white', padding: 20, textAlign: 'center'}}>
-            <div className={styles.message} style={{color: theme.primaryText}}>
-              <div>Agreement creator: {creator}</div>
-              <div>Agreement ID: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer" className={styles.signLink} >{txid}</a></div>
-              <div className={styles.counterparts_title}>Counterparts</div>
-              <div className={styles.counterparts}>
-                {
-                  counterparts.map((each, index) => {
-                    return <div key={index}>
-                      {
-                        each.status === 'PENDING' ?
-                          <>
-                            <div className={styles.signLink}>{each.address}</div>
-                            <span
-                              className={cx(styles.signStatus, each.address === owner ? styles.sign : styles.pending, each.address === owner ? styles.clickable : null)}
-                              onClick={each.address === owner ? sign : null}
-                            >
-                              {
-                                each.address === owner ? 'Click to sign' : 'PENDING'
-                              }
-                            </span>
-                          </>
-                        :
-                          <>
-                            <div className={styles.signLink}>
-                              <a href={`${WavesConfig.EXPLORER_URL}/tx/${each.status}`} target="_blank" rel="noreferrer">{each.address}</a>
-                            </div>
-                            <span className={cx(styles.signStatus, styles.signed)}>SIGNED</span>
-                          </>
-                      }
-                    </div>
-                  })
-                }
-              </div>
-            </div>
-            <Button onClick={toggleDetails} style={{backgroundColor: theme.buttonBack}} className={styles.clickable}>
-              close
-            </Button>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
     </div>
   )
 }

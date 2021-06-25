@@ -203,43 +203,206 @@
               font-weight: bold;
               font-size: 14px;
             }
-            .explorerList {
-              .item {
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: cover;
-                width: 100%;
-                height: auto;
-                min-height: 600px;
+            .proofArea{
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
+                box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
+                border-radius: 16.8116px;
+                margin: 0 5px;
+                margin-bottom: 50px;
+                padding-bottom: 30px;
                 align-items: center;
-        
-                margin-bottom: 25px;
-                padding: 80px 5px;
-                font-size: 18px;
-                word-break: break-all;
-        
-                position: relative;
-                .qr {
-                  position: absolute;
-                  right: 25px;
-                  bottom: 15px;
+                width: 100%;
+                max-width: 1000px;
+                @media (max-width: 1000px){
+                    width: calc(100% - 100px);
                 }
-                .status {
-                  background-color: red;
-                  color: white;
-                  font-size: 20px;
-                  margin-right: 10px;
-                  padding: 0 5px;
-        
-                  position: absolute;
-                  right: 35px;
-                  top: 25px;
+                @media (max-width: 800px){
+                    width: calc(100% - 100px);
                 }
-              }
+                @media (max-width: 600px){
+                    width: calc(100% - 30px);
+                    height: 250px;
+                }
+                @media (max-width: 450px) {
+                    height: 300px;
+                }
+                @media (max-width: 350px) {
+                    height: 320px;
+                }
+                .mainArea{
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    max-width: 1000px;
+                    width: 100%;
+                    padding: 0 40px;
+                    margin-bottom: 40px;
+                    .titleBar {
+                      display: flex;
+                      flex-direction: row;
+                      align-items: center;
+                      justify-content: space-between;
+                      .title{
+                        font-size: 25px;
+                        font-weight: 500;
+                        color: #141414;
+                        text-align: left;
+                        margin-bottom: 10px;
+                        @media (max-width:600px){
+                            margin-bottom: 10px;
+                            font-size: 14px;
+                          }
+                      }
+                      .view {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: flex-end;
+                        align-items: center;
+                        font-size: 17.2px;
+                        font-weight: 500;
+                        color: rgba(0, 4, 81, 0.7);
+                        @media (max-width:600px){
+                        font-size: 13px;
+                        }
+                        .icon{
+                          width: 26px;
+                          height: 26px;
+                          margin-left: 20px;
+                        }
+                      }
+                    }
+                    .line{
+                        border: 1px solid rgba(0, 0, 0, 0.8);
+                        margin-bottom: 20px;
+                    }
+                    .certification{
+                      display: flex;
+                      flex-direction: row;
+
+                      .fileIcon{
+                        margin-top: 5px;
+                        width: 22px;
+                        height: 22px;
+                        @media (max-width:600px){
+                          margin-left: 5px;
+                        }
+                      }
+                      .main{
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;;
+                        .timeArea{
+                          display: flex;
+                          flex-direction: row;
+                          justify-content: space-between;
+                          align-items: center;
+                          margin-bottom: 10px;
+                          width: 100%;
+                          .time{
+                            margin-left: 50px;
+                            font-size: 15px;
+                            font-weight: 500;
+                          }
+                          .iconArea{
+                              display: flex;
+                              flex-direction: row;
+                              justify-content: space-between;
+                              align-items: flex-end;
+                              @media (max-width:630px){
+                                margin-top: 5px;
+                                margin-bottom: 5px;
+                                justify-content: flex-start;
+                              }
+                              .action{
+                                color: #FE006C;
+                                margin-left: 30px;
+                                @media (max-width:600px){
+                                    margin-left: 10px;
+                                    margin-top: 10px;
+                                    margin-bottom: 10px;
+                                }
+                                @media (max-width:400px){
+                                    margin-left: 5px;
+                                    margin-top: 0px;
+                                    width: 20px;
+                                    height: 20px;
+                                }
+                              }
+                            }
+                        }
+                        .dataArea{
+                          display: flex;
+                          flex-direction: row;
+                          justify-content: space-between;
+                          margin-left: 50px;
+                          .certData{
+                            font-size: 15px;
+                            text-align: left;
+                            word-wrap: break-word;
+                            word-break: break-all;
+                          }
+                        }
+                        .qrArea{
+                          display: flex;
+                          flex-direction: column;
+                          justify-content: flex-end;
+                          font-size: 17px;
+                          font-weight: 500;
+                          text-align: right;
+                          .qr{
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: flex-end;
+                            align-items: flex-end;
+                            opacity: 0.6;
+                            width: 100%;
+                          }
+                        }
+                      }
+                    }
+                }
+                .explorerList {
+                  width: 100%;
+                  padding: 5px 50px;
+                    .item {
+                      background-repeat: no-repeat;
+                      background-position: center;
+                      background-size: cover;
+                      width: auto;
+                      height: auto;
+                      min-height: 600px;
+                      display: flex;
+                      flex-direction: column;
+                      justify-content: space-between;
+                      align-items: center;
+              
+                      margin-bottom: 25px;
+                      padding: 80px 5px;
+                      font-size: 18px;
+                      word-break: break-all;
+              
+                      position: relative;
+                      .qr {
+                        position: absolute;
+                        right: 25px;
+                        bottom: 15px;
+                      }
+                      .status {
+                        background-color: red;
+                        color: white;
+                        font-size: 20px;
+                        margin-right: 10px;
+                        padding: 0 5px;
+              
+                        position: absolute;
+                        right: 35px;
+                        top: 25px;
+                      }
+                    }
+                }
             }
+            
           }
     }
 }

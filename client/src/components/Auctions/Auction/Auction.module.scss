@@ -1,0 +1,78 @@
+@import 'base.scss';
+
+.container{
+    margin: 0 15px;
+    flex: 1;
+    width: calc(100% - 190px);
+    max-width: 1200px;
+    margin-top: 30px;
+    @media (max-width: 600px){
+        margin-bottom: 20px;
+    }
+
+    .titlearea{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .explorerTitle{
+            color: #1E0E62;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 5px;
+            @media (max-width: 600px){
+                font-size: 20px;
+            }
+        }
+        .searchArea {
+            width: 330px;
+            height: 40px;
+            border: 1px solid #BFBFBF;
+            box-sizing: border-box;
+            border-radius: 66.1194px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            .searchIcon{
+                margin-left: 20px;
+                color: #000451;
+            }
+            .search{
+                text-align: left;
+                padding-left: 10px;
+                font-size: 15px;
+                font-weight: 500;
+                color: #000451;
+            }
+        }
+        .viewTitle{
+            font-size: 17px;
+            font-weight: 500;
+            color: rgba(0, 4, 81, 0.7);
+        }
+    }
+    .border{
+        margin-bottom: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.8);
+    }
+
+}
+.leftIcon{
+    align-items: center;
+    justify-content: center;
+    margin: 60px 20px 0 20px;
+    cursor: pointer;
+}
+.rightIcon{
+    align-items: center;
+    margin: 60px 20px 0 20px;
+    cursor: pointer;
+}
+
+
+
+
+

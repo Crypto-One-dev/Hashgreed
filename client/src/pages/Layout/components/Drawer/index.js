@@ -25,6 +25,7 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
   const path = location.pathname.split('/')
   
   const [activeMenu, setActiveMenu] = useState('')
+  const [activeSubMenu, setActiveSubMenu] = useState('')
 
   const history = useHistory()
   const gotoPage = useCallback((link) => history.push(link), [history])
@@ -42,6 +43,14 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
       setActiveMenu('')
     } else {
       setActiveMenu(active)
+    }
+  }
+
+  const openAuctionSubMenu = (active) => {
+    if(active === activeSubMenu) {
+      setActiveSubMenu('')
+    } else {
+      setActiveSubMenu(active)
     }
   }
 
@@ -68,11 +77,45 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
         <div className={cx(styles.navs, activeMenu === 'auction' ? styles.activemenu: null)}>
           <span onClick={() => openSubMenu('auction')}>NFT Auctions</span>
           <div className={cx(styles.link, activeMenu === 'auction' ? styles.opennav : styles.closenav)}>
-            <div className={styles.link} onClick={() => gotoPage('/auction/explorer')}>Explorer</div>
-            <div className={styles.link} onClick={() => gotoPage('/auction/create')}>Create</div>
+            <span onClick={() => openAuctionSubMenu('ArtNFTs')}>Art NFTs</span>
+            <div className={cx(styles.subnavs, activeSubMenu === 'ArtNFTs' ? styles.opennav : styles.closenav)}>
+              <div className={styles.sublink} onClick={() => gotoPage('/auction/artnfts/create')}>Create</div>
+              <div className={styles.sublink} onClick={() => gotoPage('/auction/artnfts/explorer')}>Explore</div>
+            </div>
+            <span onClick={() => openAuctionSubMenu('HashDealz')}>HashDealz</span>
+            <div className={cx(styles.subnavs, activeSubMenu === 'HashDealz' ? styles.opennav : styles.closenav)}>
+              <div className={styles.sublink} onClick={() => gotoPage('/auction/hashdealz/create')}>Create</div>
+              <div className={styles.sublink} onClick={() => gotoPage('/auction/hashdealz/explorer')}>Explore</div>
+            </div>
+            <span onClick={() => openAuctionSubMenu('SportNFTs')}>Sport NFTs</span>
+            <div className={cx(styles.subnavs, activeSubMenu === 'SportNFTs' ? styles.opennav : styles.closenav)}>
+              <div className={styles.sublink} onClick={() => gotoPage('/auction/artnfts/create')}>Create</div>
+              <div className={styles.sublink} onClick={() => gotoPage('/auction/artnfts/explorer')}>Explore</div>
+            </div>
+            <span onClick={() => openAuctionSubMenu('MusicEventsNFTs')}>Music/Events NFTs</span>
+            <div className={cx(styles.subnavs, activeSubMenu === 'MusicEventsNFTs' ? styles.opennav : styles.closenav)}>
+              <div className={styles.sublink} onClick={() => gotoPage('/auction/musiceventsnfts/create')}>Create</div>
+              <div className={styles.sublink} onClick={() => gotoPage('/auction/musiceventsnfts/explorer')}>Explore</div>
+            </div>
+            <span onClick={() => openAuctionSubMenu('GameNFTs')}>Game NFTs</span>
+            <div className={cx(styles.subnavs, activeSubMenu === 'GameNFTs' ? styles.opennav : styles.closenav)}>
+              <div className={styles.sublink} onClick={() => gotoPage('/auction/gamenfts/create')}>Create</div>
+              <div className={styles.sublink} onClick={() => gotoPage('/auction/gamenfts/explorer')}>Explore</div>
+            </div>
+            <span onClick={() => openAuctionSubMenu('ForexNFTs')}>Forex NFTs</span>
+            <div className={cx(styles.subnavs, activeSubMenu === 'ForexNFTs' ? styles.opennav : styles.closenav)}>
+              <div className={styles.sublink} onClick={() => gotoPage('/auction/forexnfts/create')}>Create</div>
+              <div className={styles.sublink} onClick={() => gotoPage('/auction/forexnfts/explorer')}>Explore</div>
+            </div>
           </div>
         </div>
-        <div className={styles.link} onClick={() => gotoPage('/stake')}>Stake</div>
+        <div className={cx(styles.navs, activeMenu === 'defi' ? styles.activemenu: null)}>
+          <span onClick={() => openSubMenu('defi')}>DeFi</span>
+          <div className={cx(styles.link, activeMenu === 'defi' ? styles.opennav : styles.closenav)}>
+            <div className={styles.link} onClick={() => gotoPage('/defi/stake')}>Stake</div>
+            <div className={styles.link} onClick={() => gotoPage('/defi/loan')}>Loans</div>
+          </div>
+        </div>
       </>
     )
   }
@@ -113,7 +156,7 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
         <DrawerBody>
           <div className={styles.routes}>
             {walletState.address && <AuthRoutes />}
-            <div className={styles.link} onClick={() => gotoPage('/explorer')}>Verification Explorer</div>
+            <div className={styles.link} onClick={() => gotoPage('/explorer')}>Cerification Explorer</div>
           </div>
           <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />
           <div className={styles.balances}>

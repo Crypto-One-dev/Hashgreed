@@ -7,7 +7,6 @@ import styles from './Step.module.scss'
 import WavesConfig from 'config/waves'
 import walletContainer from 'redux/containers/wallet'
 import {ThemeContext} from "context/ThemeContext";
-import { shadow } from '@chakra-ui/styled-system'
 
 function Step({index, title, image, content, isDisabled, walletActions, login}) {
   const history = useHistory()

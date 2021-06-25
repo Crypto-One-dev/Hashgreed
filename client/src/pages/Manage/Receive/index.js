@@ -3,7 +3,6 @@ import React, {useState, useEffect, useContext} from 'react'
 import {FaCopy, FaShareAlt} from 'react-icons/all'
 import QRCode from 'qrcode.react'
 import {CopyToClipboard} from 'react-copy-to-clipboard'
-import {useHistory} from 'react-router-dom'
 
 import styles from './Receive.module.scss'
 import walletContainer from 'redux/containers/wallet'
@@ -33,7 +32,7 @@ function Receive({walletState, walletActions}){
             clearInterval(interval)
           }
         }
-      }, [walletState.address])
+      }, [walletState.address, transactions])
 
     const toExplorer = () => {window.open('https://wavesexplorer.com')}
     return(

@@ -14,6 +14,7 @@ import WavesUtils from 'utils/waves'
 import WavesConfig from 'config/waves'
 import walletContainer from 'redux/containers/wallet'
 import MutualCertification from 'components/MutualCertification/MutualCertification'
+import AlertUtils from 'utils/alert'
 import {ThemeContext} from 'context/ThemeContext'
 
 function Mutual({walletState}){
@@ -30,7 +31,7 @@ function Mutual({walletState}){
               ApiUtils.getMutualCertifications(walletState.address, setCertifications)
           }
           proc()
-          interval = setInterval(proc, 60000)
+          interval = setTimeout(proc, 60000)
         }
       
         return () => {
@@ -46,6 +47,29 @@ function Mutual({walletState}){
     const [store, setStore] = useState(false)
     const [recipients, setRecipients] = useState('')
     const [uploading, setUploading] = useState(false)
+    const [txid, setTxid] = useState(null);
+    const [creator, setCreator] = useState(null);
+    const [toggle, settoggle] = useState(false);
+    const [counterparts, setCounterparts] = useState([])
+    const [detail0, setDetail] = useState(null)
+  
+    const toggleDetail = (detail) => {
+      console.log(detail)
+      let split = detail.key.split('_')
+      setTxid(split[2])
+      setCreator(split[3])
+      ApiUtils.getCounterparts(split[2], setCounterparts)
+      console.log(counterparts)
+      settoggle(true)
+      setDetail(detail)
+    }
+
+    let sign = async () => {
+        const tx = await WavesUtils.SignMutual(detail0.hash, txid, walletState.publicKey)
+        if(tx) {
+            AlertUtils.SystemAlert('You signed the contract successfully, Transaction ID: ' + tx.id)
+        }
+    }
 
     useEffect(() => {
         let lines = recipients.trim().split('\n').length
@@ -148,8 +172,58 @@ function Mutual({walletState}){
                 </div>
             </div>
             <div className={styles.mutualCertificationList}>
-                <MutualCertification certifications={certifications} owner={walletState.address} />
+                <MutualCertification certifications={certifications} owner={walletState.address} toggleDetails = {toggleDetail} />
             </div>
+            <div className={toggle? styles.message: styles.messageHide} style={{color: theme.primaryText}}>
+              <div className={styles.aggrement}>
+                <div className={styles.subData}>
+                  <div className={styles.title}>
+                    Agreement creator: 
+                  </div>
+                  <div className={styles.value}>
+                    {creator}
+                  </div>
+                </div>
+                <div className={styles.subData}>
+                  <div className={styles.title}>
+                    Agreement ID: 
+                  </div>
+                  <div className={styles.value}>
+                    <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer" className={styles.signLink} >{txid}</a>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.counterparts_title}>Counterparts</div>
+              <div className={styles.counterparts}>
+                {
+                  counterparts.map((each, index) => {
+                    return <div key={index}>
+                      {
+                        each.status === 'PENDING' ?
+                          <>
+                            <div className={styles.signLink}>{each.address}</div>
+                            <span
+                              className={cx(styles.signStatus, each.address === walletState.address ? styles.sign : styles.pending, each.address === walletState.address ? styles.clickable : null)}
+                              onClick={each.address === walletState.address ? sign : null}
+                            >
+                              {
+                                each.address === walletState.address ? 'Click to sign' : 'PENDING'
+                              }
+                            </span>
+                          </>
+                        :
+                          <>
+                            <div className={styles.signLink}>
+                              <a href={`${WavesConfig.EXPLORER_URL}/tx/${each.status}`} target="_blank" rel="noreferrer">{each.address}</a>
+                            </div>
+                            <span className={cx(styles.signStatus, styles.signed)}>SIGNED</span>
+                          </>
+                      }
+                    </div>
+                  })
+                }
+              </div>
+            </div> 
         </div>
     )
 }

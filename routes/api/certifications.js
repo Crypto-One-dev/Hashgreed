@@ -6,7 +6,7 @@ const moment = require('moment')
 const puppeteer = require('puppeteer')
 const QRCode = require('qrcode')
 
-const {nodeUrl, smartContract, nftContract, baseUrl} = require('../../config/keys')
+const {nodeUrl, smartContract, nftContract, stakeContract, loanContract, baseUrl, sportContract} = require('../../config/keys')
 const File = require('../../models/File')
 
 router.post('/filterCertifications', async (req, res) => {
@@ -145,6 +145,44 @@ const updateAuction = (auction, key, pool, id, suffix) => {
   }
 }
 
+router.post('/getSportAuctions', async(req, res) => {
+  try {
+    let sportAuctions = await nodeInteraction.accountData({
+      address: sportContract
+    }, nodeUrl)
+    let priceAssetId = sportAuctions['priceAssetId'].value
+    let nftIds=[]
+    for(key in sportAuctions){
+      if(key.includes('_id')){
+        let nftId = key.substring(0, key.indexOf('_id'))
+        nftIds.push(nftId)
+      }
+    }
+    let result=[]
+    let sportAuction = {}
+    for(let i=0; i<nftIds.length; i++){
+      if(sportAuctions[nftIds[i]+'_id'])
+        sportAuction.id = nftIds[i]
+      if(sportAuctions[nftIds[i]+'_value'])
+        sportAuction.startValue = sportAuctions[nftIds[i]+'_value'].value
+      if(sportAuctions[nftIds[i]+'_name'])
+        sportAuction.name = sportAuctions[nftIds[i]+'_name'].value
+      if(sportAuctions[nftIds[i]+'_winner'])
+        sportAuction.winner = sportAuctions[nftIds[i]+'_winner'].value
+      if(sportAuctions[nftIds[i]+'_winAmount'])
+        sportAuction.winAmount = sportAuctions[nftIds[i]+'_winAmount'].value
+      
+      result.push(sportAuction)
+      sportAuction={}
+    }
+    return res.status(200).json({  priceAssetId, result })
+  }
+  catch(e) {
+    console.error(e)
+    return res.status(500).json(e)
+  }
+})
+
 router.post('/getAuctions', async (req, res) => {
   try {
     const { address } = req.body
@@ -166,9 +204,22 @@ router.post('/getAuctions', async (req, res) => {
         updateAuction(auction, 'winner', auctions, key, '_winner')
         updateAuction(auction, 'operator', auctions, key, '_lot_passed')
         const owner = auction.operator ? auction.operator : auction.winner ? auction.winner : auction.organizer
-        const found = await File.find({ txid: owner === address ? key + '_original' : key }).limit(1).exec()
+        // const found = await File.find({ txid: owner === address ? key + '_original' : key }).limit(1).exec()
+        const found = await File.find({ txid: key + '_original'}).limit(1).exec()
         if(found.length > 0)
+        {
           auction.avatar = found[0].link
+          auction.assetType = found[0].assetType
+          auction.assetName = found[0].assetName
+          auction.assetComment = found[0].assetComment
+        }
+        else
+        {
+          auction.avatar = null
+          auction.assetType = null
+          auction.assetName = null
+          auction.assetComment = null
+        }
         result.push(auction)
       }
     }
@@ -186,6 +237,46 @@ router.post('/getAuctions', async (req, res) => {
       return 0
     })
     return res.status(200).json({ height, result })
+  } catch(e) {
+    console.error(e)
+    return res.status(500).json(e)
+  }
+})
+
+router.post('/getLoanStatus', async(req, res) => {
+  const { address } = req.body
+  try {
+    let status = await nodeInteraction.accountData({
+      address: loanContract
+    }, nodeUrl)
+    let result = []
+    let loanStatus = {id: address}
+    
+    if(status['Borrow_height_of_' + address])
+      loanStatus.borrow_height = status['Borrow_height_of_' + address].value
+      else
+      loanStatus.borrow_height = 0
+    if(status['Collateral_Amount_Of_' + address])
+      loanStatus.collateral_amount = status['Collateral_Amount_Of_' + address].value
+      else
+      loanStatus.collateral_amount = 0
+    if(status['Loan_Amount_Of_' + address])
+      loanStatus.loan_amount = status['Loan_Amount_Of_' + address].value
+      else
+      loanStatus.loan_amount = 0
+    if(status['Loan_Interest_Of_' + address])
+      loanStatus.loan_interest = status['Loan_Interest_Of_' + address].value
+      else
+      loanStatus.loan_interest = 0
+    if(status['Total_Loan_Blocks_Of_' + address])
+      loanStatus.total_loan_block = status['Total_Loan_Blocks_Of_' + address].value
+      else
+      total_loan_block = 0
+    if(status['Total_Loan_Paid:'])
+      loanStatus.total_loan_paid = status['Total_Loan_Paid:'].value
+
+    result.push(loanStatus)
+    return res.status(200).json({ result })
   } catch(e) {
     console.error(e)
     return res.status(500).json(e)

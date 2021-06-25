@@ -113,8 +113,10 @@ router.post('/email', async (req, res) => {
 
 router.post('/auction', upload.single('avatar'), async (req, res) => {
   try {
+    console.log(req.file.path)
     await sharp(req.file.path).resize(32, 32).toFile(req.file.path + '_resize')
     const resize_result = await pinata.pinFromFS(req.file.path + '_resize')
+    // const resize_result = await pinata.pinFromFS(req.file.path)
     const resize_link = resize_result.IpfsHash
     fs.unlink(req.file.path + '_resize', function (err) {
       if(err)
@@ -124,8 +126,11 @@ router.post('/auction', upload.single('avatar'), async (req, res) => {
     if(resize_link === null) {
       return res.status(500).json('Upload on IPFS failed!')
     }
+    const assetType = req.body.assetType
+    const assetName = req.body.assetName
+    const assetComment = req.body.assetComment
     console.log('https://ipfs.io/ipfs/' + resize_link)
-    await new File({link: resize_link, txid: req.body.txid}).save()
+    await new File({assetType: assetType, assetName: assetName, assetComment: assetComment, link: resize_link, txid: req.body.txid}).save()
 
     const result = await pinata.pinFromFS(req.file.path)
     const link = result.IpfsHash
@@ -138,7 +143,8 @@ router.post('/auction', upload.single('avatar'), async (req, res) => {
       return res.status(500).json('Upload on IPFS failed!')
     }
     console.log('https://ipfs.io/ipfs/' + link)
-    await new File({link, txid: req.body.txid+'_original'}).save()
+    
+    await new File({assetType: assetType, assetName: assetName, assetComment: assetComment, link, txid: req.body.txid+'_original'}).save()
 
     return res.status(200).json('Success')
   } catch(e) {

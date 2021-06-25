@@ -7,6 +7,7 @@ import {base58Decode, bytesToString} from '@waves/ts-lib-crypto';
 import WavesConfig from 'config/waves';
 import styles from './TransactionCell.module.scss'
 import {ThemeContext} from 'context/ThemeContext'
+import fileIcon from 'assets/icons/RKMT.png'
 
 function TransactionCell ({transaction, owner}){
 
@@ -29,29 +30,14 @@ function TransactionCell ({transaction, owner}){
 
     return(
         <div className = {styles.transaction} key={transaction.key} style={{backgroundColor: theme.stepBackground, boxShadow: theme.historyglow}}>
-          {
-            type === 'to' ?
-              <FaLongArrowAltUp className={styles.fileIcon} style={{color: theme.buttonBack}} />
-            : type === 'from' ?
-              <FaLongArrowAltDown className={styles.fileIcon} style={{color: theme.buttonBack}} />
-            : type === 'fc' ?
-              <FaCertificate className={styles.fileIcon} style={{color: theme.buttonBack}} />
-            : type === 'ec' ?
-              <FaEnvelope className={styles.fileIcon} style={{color: theme.buttonBack}} />
-            : type === 'MA' && publisher === owner ?
-              <FaFileContract className={styles.fileIcon} style={{color: theme.buttonBack}} />
-            : type === 'MA' && publisher !== owner ?
-              <FaSignature className={styles.fileIcon} style={{color: theme.buttonBack}} />
-            :
-              <FaQuestion className={styles.fileIcon} style={{color: theme.buttonBack}} />
-          }
+            <img src = {fileIcon} className = {styles.fileIcon} alt = ""/>
             <div className = {styles.dataArea}>
               <div className={styles.timestampArea}>
                 <div className={styles.info} style={{color: theme.primaryText}}>
                   {timestamp}
                 </div>
                 <div className = {styles.actions}>
-                  <div className = {styles.amount} style={{color: theme.buttonBack}}>
+                  <div className = {styles.amount} style={{color: theme.primaryText}}>
                     {
                       type === 'fc' ? 100 :
                       type === 'ec' ? 100 :

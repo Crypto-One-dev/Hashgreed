@@ -1,0 +1,24 @@
+@import 'base.scss';
+
+.main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .title{
+    font-size: 58px;
+    font-weight: 700;
+  }
+  .comment{
+    color: rgba(21, 20, 57, 0.4);
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 30px;
+  }
+  .stakeButton{
+    margin-top: 110px;
+    width: 268px;
+    margin-bottom: 50px;
+  }
+}

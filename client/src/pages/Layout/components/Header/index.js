@@ -1,5 +1,4 @@
 import React, {useCallback, useContext} from 'react'
-import {Redirect} from 'react-router-dom'
 import cx from 'classnames'
 import {useHistory} from 'react-router-dom'
 import {FaBars} from 'react-icons/all'
@@ -35,7 +34,7 @@ function Header({walletState, walletActions}) {
       </div>
       <div className={styles.menu} >
         <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />
-        <a className={styles.explorer} onClick={walletState.address != null? verification : null} style={{color: theme.verificationColor}}>Verification Explorer</a>
+        <a className={styles.explorer} onClick={walletState.address != null? verification : null} style={{color: theme.verificationColor}}>Cerification Explorer</a>
         <a className={cx(styles.account, styles.filled)} onClick={account} style={{backgroundColor: theme.buttonBack}}>Account</a>
         <a className={styles.lang} style={{color: theme.commentText}}>EN</a>
       </div>

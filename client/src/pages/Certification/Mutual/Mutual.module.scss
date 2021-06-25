@@ -252,6 +252,76 @@
             width: calc(100vw - 5px);
         }
     }
+    .message {
+        position: relative;
+        top: -20px;
+        margin-bottom: 20px;
+        padding: 50px 15px;
+        text-align: left;
+        font-size: 14px;
+        box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.15);
+        border-radius: 16.8116px;
+        display: flex;
+        flex-direction: column;
+        max-width: 1000px;
+        width: calc(100% - 100px);
+        &>div {
+          text-align: center;
+          margin: 5px 0;
+        }
+    
+        .aggrement{
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          margin: 0 30px;
+          .title {
+            color: rgba(21, 20, 57, 0.4);
+            font-size: 18px;
+            font-weight: 500;
+          }
+          .value{
+            color: #000451;
+            font-size: 18px;
+            font-weight: 700;
+          }
+        }
+    
+        .signLink {
+          margin-bottom: 10px;
+        }
+        .counterparts_title {
+          font-size: 16px;
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+        .counterparts {
+          &>div {
+            width: 50%;
+            display: inline-block;
+            margin: 5px 0;
+          }
+          .signStatus {
+            border-radius: 5px;
+            padding: 5px 10px;
+          }
+          .signed {
+            background-color: #3ead1a;
+            color: white;
+          }
+          .sign {
+            background-color: #D359A6;
+            color: white;
+            font-weight: bold;
+          }
+          .pending {
+            background-color: #ccc;
+          }
+        }
+      }
+      .messageHide {
+        display: none;
+      }
 }
 .feeTitle{
     font-size: 18px;

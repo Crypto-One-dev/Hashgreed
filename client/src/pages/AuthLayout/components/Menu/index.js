@@ -1,20 +1,36 @@
-import React, {useCallback} from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import cx from 'classnames'
 import {useHistory, useLocation} from 'react-router-dom'
 import {
   Popover,
   PopoverTrigger,
-  PopoverContent,
+  PopoverContent
 } from '@chakra-ui/react'
 
 import styles from './Menu.module.scss'
 
 function Menu() {
+  const [isOpen, setIsOpen] = useState(false)
+  const open = () => setIsOpen(!isOpen)
+  const close = () => setIsOpen(false)
   const location  = useLocation()
   const path = location.pathname.split('/')
 
   const history = useHistory()
-  const gotoPage = useCallback((link) => history.push(link), [history])
+  const gotoPage = useCallback((link) => {
+    return history.push(link)
+  }, [history])
+
+  
+  let stakePopup = null
+  useEffect(() => {
+    if(location.pathname === '/defi') {
+      setTimeout(function() {
+        if(stakePopup)
+          stakePopup.click();
+      }, 300)
+    }
+  }, [location, stakePopup])
 
   const Overview = () => {
     return (
@@ -47,11 +63,11 @@ function Menu() {
     return (
       <Popover>
         <PopoverTrigger>
-          <div className={cx(styles.menuitem, path[1] === 'certify' ? styles.activeitem : null)}>
+          <div className={cx(styles.menuitem, path[1] === 'certify' ? styles.activeitem : null)} >
             Certification Tools
           </div>
         </PopoverTrigger>
-        <PopoverContent bg='rgba(0, 4, 81, 0.4)'>
+        <PopoverContent bg='rgba(0, 4, 81, 0.4)' className={styles.certificationContent}>
           <div className={styles.submenu}>
             <div className={styles.subitem} onClick={() => gotoPage('/certify/file')}>File Certification</div>
             <div className={styles.subitem} onClick={() => gotoPage('/certify/email')}>Email Certification</div>
@@ -72,9 +88,103 @@ function Menu() {
         </PopoverTrigger>
         <PopoverContent bg='rgba(0, 4, 81, 0.4)'>
           <div className={styles.submenu}>
-            <div className={styles.subitem} onClick={() => gotoPage('/auction/explorer')}>Explorer</div>
-            <div className={styles.subitem} onClick={() => gotoPage('/auction/create')}>Create</div>
-                     </div>
+          <Popover
+            returnFocusOnClose={false}
+            placement="right"
+            closeOnBlur={true}
+            trigger="click"
+          >
+            <PopoverTrigger>
+              <div className={styles.subitem}>Art NFTs</div>
+            </PopoverTrigger>
+            <PopoverContent bg='rgba(0, 4, 81, 0.4)'  className={styles.auctionContent}> 
+              <div className={styles.nftsubmenu}>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/artnfts/create')}>Create</div>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/artnfts/explorer')}>Explore</div>
+              </div>
+            </PopoverContent>
+          </Popover>
+          <Popover
+            returnFocusOnClose={false}
+            placement="right"
+            closeOnBlur={true}
+            trigger="click"
+          >
+            <PopoverTrigger>
+              <div className={styles.subitem}>HashDeals</div>
+            </PopoverTrigger>
+            <PopoverContent bg='rgba(0, 4, 81, 0.4)'  className={styles.auctionContent}> 
+              <div className={styles.nftsubmenu}>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/hashdealz/create')}>Create</div>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/hashdealz/explorer')}>Explore</div>
+              </div>
+            </PopoverContent>
+          </Popover>
+          <Popover
+            returnFocusOnClose={false}
+            placement="right"
+            closeOnBlur={true}
+            trigger="click"
+          >
+            <PopoverTrigger>
+              <div className={styles.subitem}>Sport NFTs</div>
+            </PopoverTrigger>
+            <PopoverContent bg='rgba(0, 4, 81, 0.4)'  className={styles.auctionContent}> 
+              <div className={styles.nftsubmenu}>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/sportnfts/create')}>Create</div>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/sportnfts/explorer')}>Explore</div>
+              </div>
+            </PopoverContent>
+          </Popover>
+          <Popover
+            returnFocusOnClose={false}
+            placement="right"
+            closeOnBlur={true}
+            trigger="click"
+          >
+            <PopoverTrigger>
+              <div className={styles.subitem}>Music/Events NFTs</div>
+            </PopoverTrigger>
+            <PopoverContent bg='rgba(0, 4, 81, 0.4)'  className={styles.auctionContent}> 
+              <div className={styles.nftsubmenu}>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/musiceventsnfts/create')}>Create</div>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/musiceventsnfts/explorer')}>Explore</div>
+              </div>
+            </PopoverContent>
+          </Popover>
+          <Popover
+            returnFocusOnClose={false}
+            placement="right"
+            closeOnBlur={true}
+            trigger="click"
+          >
+            <PopoverTrigger>
+              <div className={styles.subitem}>Game NFTs</div>
+            </PopoverTrigger>
+            <PopoverContent bg='rgba(0, 4, 81, 0.4)'  className={styles.auctionContent}> 
+              <div className={styles.nftsubmenu}>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/gamenfts/create')}>Create</div>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/gamenfts/explorer')}>Explore</div>
+              </div>
+            </PopoverContent>
+          </Popover>
+          <Popover
+            returnFocusOnClose={false}
+            placement="right"
+            closeOnBlur={true}
+            trigger="click"
+          >
+            <PopoverTrigger>
+              <div className={styles.subitem} style={{borderBottom:'none'}}>Forex NFTs</div>
+            </PopoverTrigger>
+            <PopoverContent bg='rgba(0, 4, 81, 0.4)'  className={styles.auctionContent}> 
+              <div className={styles.nftsubmenu}>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/forexnfts/create')}>Create</div>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/forexnfts/explorer')}>Explore</div>
+              </div>
+            </PopoverContent>
+          </Popover>
+          </div>
         </PopoverContent>
       </Popover>
     )
@@ -82,9 +192,35 @@ function Menu() {
 
   const Stake = () => {
     return (
-      <div className={cx(styles.menuitem, path[1] === 'stake' ? styles.activeitem : null)} onClick={() => gotoPage('/stake')}>
-        Stake
-      </div>
+      <>
+        <div className={cx(styles.menuitem, path[1] === 'defi' ? styles.activeitem : null)} onClick={() => { gotoPage('/defi')}}>
+          {/* <div className={cx(styles.menuitem, path[1] === 'defi' ? styles.activeitem : null)}> */}
+            DeFi
+        </div>
+        <Popover>
+          <PopoverTrigger>
+            <div ref={pop => {stakePopup = pop}}></div>
+          </PopoverTrigger>
+          <PopoverContent bg='rgba(0, 4, 81, 0.4)'>
+            <div className={styles.submenu}>
+              <div className={styles.subitem} onClick={() => gotoPage('/defi/stake')}>Stake</div>
+              <div className={styles.subitem} onClick={() => gotoPage('/defi/loan')}>Loans</div>
+              <div className={styles.subitem} onClick={() => gotoPage('/auction/create')}>
+                <div>Forex</div>
+                <div className={styles.subcomment}>Coming soon</div>
+                </div>
+              <div className={styles.subitem}>
+                <div>Freelance</div>
+                <div className={styles.subcomment}>Coming soon</div>
+              </div>
+              <div className={styles.subitem}>
+                <div>Escrow</div>
+                <div className={styles.subcomment}>Coming soon</div>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </>
     )
   }
 

@@ -1,8 +1,8 @@
-import {Signer} from '@waves/signer'
-import {ProviderCloud} from '@waves.exchange/provider-cloud'
-import {ProviderWeb} from '@waves.exchange/provider-web'
-import {base58Encode, stringToBytes} from '@waves/ts-lib-crypto'
-import {nodeInteraction} from '@waves/waves-transactions'
+import { Signer } from '@waves/signer'
+import { ProviderCloud } from '@waves.exchange/provider-cloud'
+import { ProviderWeb } from '@waves.exchange/provider-web'
+import { base58Encode, stringToBytes } from '@waves/ts-lib-crypto'
+import { nodeInteraction } from '@waves/waves-transactions'
 
 import WavesConfig from 'config/waves'
 import AlertUtils from 'utils/alert'
@@ -10,15 +10,15 @@ import ApiUtils from 'utils/api'
 
 const unlockWallet = async (link, callback, error_callback) => {
   try {
-    window.waves = new Signer({NODE_URL: WavesConfig.NODE_URL})
+    window.waves = new Signer({ NODE_URL: WavesConfig.NODE_URL })
     const provider = link === 'SEED' ? new ProviderWeb() : new ProviderCloud()
     window.waves.setProvider(provider)
     const user = await window.waves.login()
-    if(callback) {
+    if (callback) {
       callback(user.address, user.publicKey)
     }
-  } catch(e) {
-    if(error_callback) {
+  } catch (e) {
+    if (error_callback) {
       error_callback()
     }
     console.error(e)
@@ -26,52 +26,52 @@ const unlockWallet = async (link, callback, error_callback) => {
 }
 const getBalance = async (callback, error_callback) => {
   try {
-    if(window.waves) {
+    if (window.waves) {
       const balances = await window.waves.getBalance()
       var rkmt_balance = 0, hash_balance = 0, usdt_balance = 0, waves_balance = 0
       balances.forEach(item => {
-        if(item.assetId === WavesConfig.RKMT_ID) {
+        if (item.assetId === WavesConfig.RKMT_ID) {
           rkmt_balance = item.amount / (10 ** WavesConfig.RKMT_DECIMALS)
         }
-        if(item.assetId === WavesConfig.HASH_ID) {
+        if (item.assetId === WavesConfig.HASH_ID) {
           hash_balance = item.amount / (10 ** WavesConfig.HASH_DECIMALS)
         }
-        if(item.assetId === WavesConfig.USDT_ID) {
+        if (item.assetId === WavesConfig.USDT_ID) {
           usdt_balance = item.amount / (10 ** WavesConfig.USDT_DECIMALS)
         }
-        if(item.assetId === WavesConfig.WAVES_ID) {
+        if (item.assetId === WavesConfig.WAVES_ID) {
           waves_balance = item.amount / (10 ** WavesConfig.WAVES_DECIMALS)
         }
       })
-      if(callback) {
+      if (callback) {
         callback(rkmt_balance, hash_balance, usdt_balance, waves_balance)
       }
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e)
   }
 }
 const send = async (recipient, amount, comment) => {
   try {
-    if(window.waves) {
+    if (window.waves) {
       let transfer = {
         recipient: recipient,
         amount: amount * (10 ** WavesConfig.RKMT_DECIMALS),
         assetId: WavesConfig.RKMT_ID,
       }
-      if(comment) {
+      if (comment) {
         transfer.attachment = base58Encode(stringToBytes(comment))
       }
       await window.waves.transfer(transfer).broadcast()
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
 }
 const masssend = async (recipients, comment) => {
   try {
-    if(window.waves) {
+    if (window.waves) {
       let massTransfer = {
         transfers: [],
         assetId: WavesConfig.RKMT_ID,
@@ -81,14 +81,14 @@ const masssend = async (recipients, comment) => {
         massTransfer.transfers.push({
           recipient: recipient.address,
           amount: recipient.amount * (10 ** WavesConfig.RKMT_DECIMALS),
-       })
+        })
       })
-      if(comment) {
+      if (comment) {
         massTransfer.attachment = base58Encode(stringToBytes(comment))
       }
       await window.waves.massTransfer(massTransfer).broadcast()
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
@@ -96,7 +96,7 @@ const masssend = async (recipients, comment) => {
 
 const CertifyFile = async (reference, hash, uuid, timestamp, publicKey, certFee, transactionFee) => {
   try {
-    if(window.waves) {
+    if (window.waves) {
       const tx = await window.waves.invoke({
         dApp: WavesConfig.SMART_CONTRACT,
         payment: [{
@@ -104,7 +104,7 @@ const CertifyFile = async (reference, hash, uuid, timestamp, publicKey, certFee,
           amount: certFee * (10 ** WavesConfig.RKMT_DECIMALS)
         }],
         fee: transactionFee * (10 ** WavesConfig.WAVES_DECIMALS),
-        call:{
+        call: {
           function: 'fileCertification',
           args: [
             {
@@ -137,7 +137,7 @@ const CertifyFile = async (reference, hash, uuid, timestamp, publicKey, certFee,
       }).broadcast()
       return tx
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
@@ -146,7 +146,7 @@ const CertifyFile = async (reference, hash, uuid, timestamp, publicKey, certFee,
 
 const RevokeCertificate = async (txid, publicKey, certFee, transactionFee) => {
   try {
-    if(window.waves) {
+    if (window.waves) {
       await window.waves.invoke({
         dApp: WavesConfig.SMART_CONTRACT,
         payment: [{
@@ -154,7 +154,7 @@ const RevokeCertificate = async (txid, publicKey, certFee, transactionFee) => {
           amount: certFee * (10 ** WavesConfig.RKMT_DECIMALS)
         }],
         fee: transactionFee * (10 ** WavesConfig.WAVES_DECIMALS),
-        call:{
+        call: {
           function: 'revokeCertification',
           args: [
             {
@@ -170,15 +170,15 @@ const RevokeCertificate = async (txid, publicKey, certFee, transactionFee) => {
         chainId: WavesConfig.CHAIN_ID
       }).broadcast()
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
 }
 
-const CertifyEmail = async(reference, uuid, domain, timestamp, publicKey, certFee, transactionFee) => {
+const CertifyEmail = async (reference, uuid, domain, timestamp, publicKey, certFee, transactionFee) => {
   try {
-    if(window.waves) {
+    if (window.waves) {
       let json = {
         messageid: uuid + '@' + domain,
         timestamp: timestamp,
@@ -220,7 +220,7 @@ const CertifyEmail = async(reference, uuid, domain, timestamp, publicKey, certFe
       }).broadcast()
       return tx
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
@@ -229,7 +229,7 @@ const CertifyEmail = async(reference, uuid, domain, timestamp, publicKey, certFe
 
 const CertifyMutual = async (reference, hash, recp, uuid, timestamp, publicKey, certFee, transactionFee) => {
   try {
-    if(window.waves) {
+    if (window.waves) {
       let json = {
         title: reference,
         timestamp: timestamp,
@@ -246,7 +246,7 @@ const CertifyMutual = async (reference, hash, recp, uuid, timestamp, publicKey, 
           amount: certFee * (10 ** WavesConfig.RKMT_DECIMALS)
         }],
         fee: Math.round(transactionFee * (10 ** WavesConfig.WAVES_DECIMALS)),
-        call:{
+        call: {
           function: 'createAgreement',
           args: [
             {
@@ -279,7 +279,7 @@ const CertifyMutual = async (reference, hash, recp, uuid, timestamp, publicKey, 
       }).broadcast()
       return tx
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
@@ -288,10 +288,10 @@ const CertifyMutual = async (reference, hash, recp, uuid, timestamp, publicKey, 
 
 const SignMutual = async (hash, agreementId, publicKey) => {
   try {
-    if(window.waves) {
+    if (window.waves) {
       const tx = await window.waves.invoke({
         dApp: WavesConfig.SMART_CONTRACT,
-        call:{
+        call: {
           function: 'signAgreement',
           args: [
             {
@@ -312,7 +312,7 @@ const SignMutual = async (hash, agreementId, publicKey) => {
       }).broadcast()
       return tx
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
@@ -321,21 +321,21 @@ const SignMutual = async (hash, agreementId, publicKey) => {
 
 const DepositRKMT = async (amount) => {
   try {
-    if(window.waves) {
+    if (window.waves) {
       await window.waves.invoke({
         dApp: WavesConfig.STAKE_SCRIPT,
         payment: [{
           assetId: WavesConfig.RKMT_ID,
           amount: amount * (10 ** WavesConfig.RKMT_DECIMALS)
         }],
-        call:{
+        call: {
           function: 'depositRKMT',
           args: []
         },
         chainId: WavesConfig.CHAIN_ID
       }).broadcast()
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
@@ -343,10 +343,10 @@ const DepositRKMT = async (amount) => {
 
 const WithdrawRKMT = async (amount) => {
   try {
-    if(window.waves) {
+    if (window.waves) {
       await window.waves.invoke({
         dApp: WavesConfig.STAKE_SCRIPT,
-        call:{
+        call: {
           function: 'withdrawRKMT',
           args: [
             {
@@ -358,7 +358,7 @@ const WithdrawRKMT = async (amount) => {
         chainId: WavesConfig.CHAIN_ID
       }).broadcast()
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
@@ -367,16 +367,17 @@ const WithdrawRKMT = async (amount) => {
 const StakedRKMT = async (address, callback) => {
   try {
     var data = await nodeInteraction.accountData(WavesConfig.STAKE_SCRIPT, WavesConfig.NODE_URL)
-    if(address in data && callback)
+    if (address in data && callback)
       callback(data[address].value / (10 ** WavesConfig.RKMT_DECIMALS))
-  } catch(e) {
+    console.log(data)
+  } catch (e) {
     console.error(e)
   }
 }
 
 const StartAuction = async (duration, startingPrice, priceAssetID, nftAssetID, nftAssetAmount) => {
   try {
-    if(window.waves) {
+    if (window.waves) {
       const price_decimals = await ApiUtils.getAssetDecimals(priceAssetID)
       const nft_decimals = await ApiUtils.getAssetDecimals(nftAssetID)
       const tx = await window.waves.invoke({
@@ -406,7 +407,7 @@ const StartAuction = async (duration, startingPrice, priceAssetID, nftAssetID, n
       }).broadcast()
       return tx
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
@@ -415,7 +416,7 @@ const StartAuction = async (duration, startingPrice, priceAssetID, nftAssetID, n
 
 const WithdrawAuction = async (auctionID) => {
   try {
-    if(window.waves) {
+    if (window.waves) {
       await window.waves.invoke({
         dApp: WavesConfig.NFT_SCRIPT,
         call: {
@@ -430,7 +431,7 @@ const WithdrawAuction = async (auctionID) => {
         chainId: WavesConfig.CHAIN_ID
       }).broadcast()
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
@@ -438,7 +439,7 @@ const WithdrawAuction = async (auctionID) => {
 
 const BidAuction = async (auctionID, bidAmount, bidAssetID) => {
   try {
-    if(window.waves) {
+    if (window.waves) {
       const bid_decimals = await ApiUtils.getAssetDecimals(bidAssetID)
       await window.waves.invoke({
         dApp: WavesConfig.NFT_SCRIPT,
@@ -458,10 +459,64 @@ const BidAuction = async (auctionID, bidAmount, bidAssetID) => {
         chainId: WavesConfig.CHAIN_ID
       }).broadcast()
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
+}
+
+const CreateLoan = async (days,amount) => {
+  try {
+    if (window.waves) {
+      const tx = await window.waves.invoke({
+        dApp: WavesConfig.LOAN_SCRIPT,
+        payment: [{
+          assetId: WavesConfig.WAVES_ID,
+          amount: amount * (10 ** WavesConfig.WAVES_DECIMALS)
+        }],
+        call: {
+          function: 'RequestLoan',
+          args: [
+            {
+              "type": "integer",
+              "value": days
+            }
+          ]
+        },
+        chainId: WavesConfig.CHAIN_ID
+      }).broadcast()
+      return tx
+    }
+  } catch (e) {
+    console.error(e)
+    AlertUtils.SystemAlert(e)
+  }
+  return null
+}
+
+const RepayLoan = async (assetId, amount) => {
+  const decimals = await ApiUtils.getAssetDecimals(assetId)
+  try {
+    if (window.waves) {
+      const tx = await window.waves.invoke({
+        dApp: WavesConfig.LOAN_SCRIPT,
+        payment: [{
+          assetId: assetId,
+          amount: amount * (10 ** decimals)
+        }],
+        call: {
+          function: 'RepayLoan',
+          args: []
+        },
+        chainId: WavesConfig.CHAIN_ID
+      }).broadcast()
+      return tx
+    }
+  } catch (e) {
+    console.error(e)
+    AlertUtils.SystemAlert(e)
+  }
+  return null
 }
 
 const WavesUtils = {
@@ -480,5 +535,7 @@ const WavesUtils = {
   StartAuction,
   WithdrawAuction,
   BidAuction,
+  CreateLoan,
+  RepayLoan,
 }
 export default WavesUtils

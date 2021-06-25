@@ -112,34 +112,34 @@ function Email({walletState}){
                         </Select>
                     </div>
                     <div className ={styles.reference}>
-                        <div className = {styles.inputTitle} style={{color: theme.commentText}}>Reference*</div>
-                        <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={reference} onChange={e => setReference(e.target.value)} variant="flushed" placeholder="" maxLength={60}/>
+                        <div className = {styles.inputTitle} style={{color: theme.commentText}}>Server</div>
+                        <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={server} onChange={e => setServer(e.target.value)} variant="flushed" placeholder=""/>
                     </div>
                     <div className ={styles.to}>
-                        <div className = {styles.inputTitle} style={{color: theme.commentText}}>To</div>
-                        <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={email_recipient} onChange={e => setEmailRecipient(e.target.value)} variant="flushed" placeholder=""/>
+                        <div className = {styles.inputTitle} style={{color: theme.commentText}}>Port</div>
+                        <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={port} onChange={e => setPort(e.target.value)} variant="flushed" placeholder=""/>
                     </div>
                 </div>
             </div>
             <div className = {styles.customContainer} style={{display: smtp === 'open' ? 'none' : 'block'}}>
                 <div className = {styles.serverArea}>
                     <div className ={styles.server}>
-                        <div className = {styles.inputTitle} style={{color: theme.commentText}}>Custom SMTP Server</div>
-                        <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={server} onChange={e => setServer(e.target.value)} variant="flushed" placeholder="" maxLength={60}/>
+                        <div className = {styles.inputTitle} style={{color: theme.commentText}}>Reference*</div>
+                        <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={reference} onChange={e => setReference(e.target.value)} variant="flushed" placeholder=""/>
                     </div>
                     <div className ={styles.port}>
-                        <div className = {styles.inputTitle} style={{color: theme.commentText}}>Port</div>
-                        <Input className = {styles.inputValue} style={{color: theme.primary}} value={port} onChange={e => setPort(e.target.value)} variant="flushed" placeholder=""/>
+                        <div className = {styles.inputTitle} style={{color: theme.commentText}}>Login</div>
+                        <Input className = {styles.inputValue} style={{color: theme.primary}} value={login} onChange={e => setLogin(e.target.value)} variant="flushed" placeholder=""/>
                     </div>
                 </div>
                 <div className = {styles.userArea}>
                     <div className ={styles.userId}>
-                        <div className = {styles.inputTitle} style={{color: theme.commentText}}>User ID</div>
-                        <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={login} onChange={e => setLogin(e.target.value)} variant="flushed" placeholder="" maxLength={60}/>
+                        <div className = {styles.inputTitle} style={{color: theme.commentText}}>To</div>
+                        <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={email_recipient} onChange={e => setEmailRecipient(e.target.value)} variant="flushed" placeholder="" maxLength={60}/>
                     </div>
                     <div className ={styles.userPassword}>
                         <div className = {styles.inputTitle} style={{color: theme.commentText}}>Password</div>
-                        <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={password} onChange={e => setPassword(e.target.value)} variant="flushed" placeholder=""/>
+                        <Input type='password' className = {styles.inputValue} style={{color: theme.primaryText}} value={password} onChange={e => setPassword(e.target.value)} variant="flushed" placeholder=""/>
                     </div>
                 </div>
             </div>

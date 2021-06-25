@@ -8,20 +8,39 @@ const getPrice = (token, type, callback) => {
     .get('https://marketdata.wavesplatform.com/api/candles/' + token + '/' + WavesConfig.USDN_ID + '/1440/1')
     .then(res => {
       try {
-        if(callback)
+        if (callback)
           callback(type, parseFloat(res.data[0].vwap))
-      } catch(err) {
+      } catch (err) {
         console.error(err)
       }
     })
+}
+
+const getBalance = async (tokenAddress, callback) => {
+  let retval
+  await axios
+    .get('https://nodes.wavesnodes.com/addresses/balance/' + tokenAddress)
+    .then(res => {
+      try{
+        retval = res.data.balance/(10 ** WavesConfig.WAVES_DECIMALS)
+      } catch(err){
+        console.error(err)
+      }
+    })
+  return retval
+}
+
+const getLoanStatus = async (address) => {
+  const status = await axios.post('/api/certifications/getLoanStatus', {address: address})
+  return status
 }
 
 const getTransactions = async (address, callback) => {
   try {
     const send = await axios.get(WavesConfig.API_URL + '/v0/transactions/transfer?limit=100&sender=' + address + '&assetId=' + WavesConfig.RKMT_ID)
     const receive = await axios.get(WavesConfig.API_URL + '/v0/transactions/transfer?limit=100&recipient=' + address + '&assetId=' + WavesConfig.RKMT_ID)
-    const files = await axios.post('/api/certifications/getCertifications', {filter: 'data_fc_([A-Za-z0-9]*)_' + address})
-    const emails = await axios.post('/api/certifications/getCertifications', {filter: 'data_ec_([A-Za-z0-9]*)_' + address})
+    const files = await axios.post('/api/certifications/getCertifications', { filter: 'data_fc_([A-Za-z0-9]*)_' + address })
+    const emails = await axios.post('/api/certifications/getCertifications', { filter: 'data_ec_([A-Za-z0-9]*)_' + address })
     const mutuals = await getMutualCertifications(address)
     let certTmp = [...files.data, ...emails.data, ...mutuals], certArray = []
     certTmp.forEach(cert => {
@@ -38,40 +57,40 @@ const getTransactions = async (address, callback) => {
 
     let transfers = [...send.data.data, ...receive.data.data, ...certArray]
     transfers = transfers.sort((l, r) => {
-      if(l.data.timestamp > r.data.timestamp)
+      if (l.data.timestamp > r.data.timestamp)
         return -1
-      if(l.data.timestamp > r.data.timestamp)
+      if (l.data.timestamp > r.data.timestamp)
         return 1
       return 0
     })
-    if(callback)
+    if (callback)
       callback(transfers)
-  } catch(e) {
+  } catch (e) {
     console.error(e)
   }
 }
 
 const getMutualCertifications = async (address, callback) => {
   try {
-    const inactive = await axios.post('/api/certifications/filterCertifications', {filter: address + '_MA_([A-Za-z0-9]*)'})
+    const inactive = await axios.post('/api/certifications/filterCertifications', { filter: address + '_MA_([A-Za-z0-9]*)' })
     let mutuals = []
-    for(const key in inactive.data) {
+    for (const key in inactive.data) {
       const split = key.split('_')
-      const origin = await axios.post('/api/certifications/getCertifications', {filter: 'data_MA_' + split[2] + '_([A-Za-z0-9]*)'})
+      const origin = await axios.post('/api/certifications/getCertifications', { filter: 'data_MA_' + split[2] + '_([A-Za-z0-9]*)' })
       mutuals = mutuals.concat(origin.data)
     }
     mutuals = mutuals.sort((l, r) => {
-      if(l.timestamp > r.timestamp)
+      if (l.timestamp > r.timestamp)
         return -1
-      if(l.timestamp > r.timestamp)
+      if (l.timestamp > r.timestamp)
         return 1
       return 0
     })
-    if(callback) {
+    if (callback) {
       callback(mutuals)
     }
     return mutuals
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     return []
   }
@@ -79,18 +98,18 @@ const getMutualCertifications = async (address, callback) => {
 
 const getCounterparts = async (txid, callback) => {
   try {
-    const counterparts = await axios.post('/api/certifications/filterCertifications', {filter: '([A-Za-z0-9]*)_MA_' + txid})
+    const counterparts = await axios.post('/api/certifications/filterCertifications', { filter: '([A-Za-z0-9]*)_MA_' + txid })
     let result = []
-    for(const key in counterparts.data) {
+    for (const key in counterparts.data) {
       let tmp = counterparts.data[key]
       const split = key.split('_')
       tmp.address = split[0]
       tmp.status = tmp.value.replace('SIGNED_', '')
       result.push(tmp)
     }
-    if(callback)
+    if (callback)
       callback(result)
-  } catch(e) {
+  } catch (e) {
     console.error(e)
   }
 }
@@ -98,9 +117,9 @@ const getCounterparts = async (txid, callback) => {
 const getReceiveTransactions = async (address, callback) => {
   try {
     const receive = await axios.get(WavesConfig.API_URL + '/v0/transactions/transfer?limit=100&recipient=' + address + '&assetId=' + WavesConfig.RKMT_ID)
-    if(callback)
+    if (callback)
       callback(receive.data.data)
-  } catch(e) {
+  } catch (e) {
     console.error(e)
   }
 }
@@ -108,9 +127,9 @@ const getReceiveTransactions = async (address, callback) => {
 const getSendTransactions = async (address, callback) => {
   try {
     const send = await axios.get(WavesConfig.API_URL + '/v0/transactions/transfer?limit=100&sender=' + address + '&assetId=' + WavesConfig.RKMT_ID)
-    if(callback)
+    if (callback)
       callback(send.data.data)
-  } catch(e) {
+  } catch (e) {
     console.error(e)
   }
 }
@@ -118,9 +137,9 @@ const getSendTransactions = async (address, callback) => {
 const getMassTransactions = async (address, callback) => {
   try {
     const mass = await axios.get(WavesConfig.API_URL + '/v0/transactions/mass-transfer?limit=100&sender=' + address + '&assetId=' + WavesConfig.RKMT_ID)
-    if(callback)
+    if (callback)
       callback(mass.data.data)
-  } catch(e) {
+  } catch (e) {
     console.error(e)
   }
 }
@@ -128,12 +147,12 @@ const getMassTransactions = async (address, callback) => {
 const getCertifications = async (filter, callback) => {
   try {
     axios
-      .post('/api/certifications/getCertifications', {filter})
+      .post('/api/certifications/getCertifications', { filter })
       .then(res => {
-        if(callback)
+        if (callback)
           callback(res.data)
       })
-  } catch(e) {
+  } catch (e) {
     console.error(e)
   }
 }
@@ -141,12 +160,12 @@ const getCertifications = async (filter, callback) => {
 const searchCertification = async (transactionID, hashID, reference, callback) => {
   try {
     axios
-      .post('/api/certifications/searchCertification', {transactionID, hashID, reference})
+      .post('/api/certifications/searchCertification', { transactionID, hashID, reference })
       .then(res => {
-        if(callback)
+        if (callback)
           callback(res.data)
       })
-  } catch(e) {
+  } catch (e) {
     console.error(e)
   }
 }
@@ -156,24 +175,28 @@ const fileUpload = async (file, txid) => {
     const formData = new FormData()
     formData.append('file', file)
     formData.append('txid', txid)
-    const status = await axios.post('/api/upload/file', formData, {headers:{'content-type':'multipart/form-data'}})
-    if(status !== 'Success')
+    const status = await axios.post('/api/upload/file', formData, { headers: { 'content-type': 'multipart/form-data' } })
+    if (status !== 'Success')
       AlertUtils.SystemAlert(status)
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
 }
 
-const auctionUpload = async (file, txid) => {
+const auctionUpload = async (file, txid, assetType, assetName, assetComment) => {
   try {
+    console.log(file)
     const formData = new FormData()
     formData.append('avatar', file)
     formData.append('txid', txid)
-    const status = await axios.post('/api/upload/auction', formData, {headers:{'content-type':'multipart/form-data'}})
-    if(status !== 'Success')
+    formData.append('assetType', assetType)
+    formData.append('assetName', assetName)
+    formData.append('assetComment', assetComment)
+    const status = await axios.post('/api/upload/auction', formData, { headers: { 'content-type': 'multipart/form-data' } })
+    if (status !== 'Success')
       AlertUtils.SystemAlert(status)
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
@@ -182,7 +205,7 @@ const auctionUpload = async (file, txid) => {
 const emailUpload = async (file, smtp, server, port, login, password, first_name, last_name, email_sender, email_recipient, message, reference, messageid, txid) => {
   try {
     const formData = new FormData()
-    if(file)
+    if (file)
       formData.append('attachment', file)
     formData.append('smtp', smtp)
     formData.append('server', server)
@@ -198,45 +221,45 @@ const emailUpload = async (file, smtp, server, port, login, password, first_name
     formData.append('reference', reference)
     formData.append('messageid', messageid)
     formData.append('txid', txid)
-    const status = await axios.post('/api/upload/email', formData, {headers:{'content-type':'multipart/form-data'}})
-    if(status !== 'Success')
+    const status = await axios.post('/api/upload/email', formData, { headers: { 'content-type': 'multipart/form-data' } })
+    if (status !== 'Success')
       AlertUtils.SystemAlert(status)
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     AlertUtils.SystemAlert(e)
   }
 }
 
-const getAssetInfo = async(assetID, callback) => {
+const getAssetInfo = async (assetID, callback) => {
   try {
     const asset = await axios.get(WavesConfig.API_URL + '/v0/assets/' + assetID)
-    if(callback) {
+    if (callback) {
       callback({
         name: asset.data.data.name,
         decimals: asset.data.data.precision,
         description: asset.data.data.description,
       })
     }
-  } catch(e) {
+  } catch (e) {
   }
 }
 
-const getAssetDecimals = async(assetID) => {
+const getAssetDecimals = async (assetID) => {
   try {
     const asset = await axios.get(WavesConfig.API_URL + '/v0/assets/' + assetID)
     return asset.data.data.precision
-  } catch(e) {
+  } catch (e) {
     return 0
   }
 }
 
-const getAuctions = async(address, auctionCallback, heightCallback) => {
+const getAuctions = async (address, auctionType, auctionCallback, heightCallback) => {
   try {
     axios
       .post('/api/certifications/getAuctions', { address })
       .then(res => {
         const height = res.data.height || 0
-        if(heightCallback) {
+        if (heightCallback) {
           heightCallback(height)
         }
         var result = {
@@ -244,22 +267,43 @@ const getAuctions = async(address, auctionCallback, heightCallback) => {
           soldout: [],
           expired: []
         }
-        if(auctionCallback && res.data.result) {
+        if (auctionCallback && res.data.result) {
           res.data.result.map((auction, index) => {
-            if(auction.operator) {
-              result.soldout.push(auction)
-            }
-            if(!auction.operator && auction.end_block <= height) {
-              result.expired.push(auction)
-            }
-            if(auction.end_block > height) {
-              result.live.push(auction)
+            if(auction.assetType === auctionType){
+              if (auction.operator) {
+                result.soldout.push(auction)
+              }
+              if (!auction.operator && auction.end_block <= height) {
+                result.expired.push(auction)
+              }
+              if (auction.end_block > height) {
+                result.live.push(auction)
+              }
             }
           })
           auctionCallback(result)
         }
       })
-  } catch(e) {
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+const getSportAuctions = async (auctionCallback, priceAssetIdCallback) => {
+  try {
+    axios
+      .post('/api/certifications/getSportAuctions')
+      .then(res => {
+        const priceAssetId = res.data.priceAssetId || 'WAVES'
+        if(priceAssetIdCallback){
+          priceAssetIdCallback(priceAssetId)
+        }
+        if(auctionCallback && res.data.result){
+          auctionCallback(res.data.result)
+        }
+      })
+  }
+  catch(e){
     console.error(e)
   }
 }
@@ -279,7 +323,10 @@ const ApiUtils = {
   getAssetInfo,
   getAssetDecimals,
   getAuctions,
+  getSportAuctions,
   auctionUpload,
+  getBalance,
+  getLoanStatus,
 }
 
 export default ApiUtils

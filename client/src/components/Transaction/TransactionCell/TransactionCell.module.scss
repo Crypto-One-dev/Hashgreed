@@ -3,24 +3,15 @@
 .transaction{
     display: flex;
     flex-direction: row;
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
-    border-radius: 16.8116px;
     max-width: 1000px;
     margin: 0 5px;
-    height: 150px;
-    margin-top: 0;
-    align-items: center;
-    
-    @media (max-width: 400px){
-      height: 200px;
-    }
     .fileIcon{
-        color: #FE006C;
-        width: 30px;
-        height: 30px;
-        margin-left: 20px;
+        margin-top: 5px;
+        width: 24px !important;
+        height: 21px;
+        margin-right: 15px;
         @media (max-width:1000px){
-            margin-left: 15px;
+          margin-left: 10px;
         }
         @media (max-width:600px){
             margin-left: 10px;
@@ -76,7 +67,6 @@
                 
                 .amount{
                     color: #FE006C;
-                    margin-right: 30px ;
                     font-size: 15px;
                     font-weight: 500;
                     @media (max-width:620px){
