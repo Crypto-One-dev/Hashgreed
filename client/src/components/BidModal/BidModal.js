@@ -59,7 +59,6 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
     auctionTypeText = 'Forex NFTs'
   }
 
-  console.log(auctionData)
   const [nft, setNFT] = useState({
       name: '',
       decimals: 0,
@@ -87,8 +86,10 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
   }
 
   useEffect(() => {
-    ApiUtils.getAssetInfo(auctionData.nft_id, setNFT)
-    ApiUtils.getAssetInfo(auctionData.price_id, setPrice)
+    if(auctionData.nft_id && auctionData.nft_id !== '')
+      ApiUtils.getAssetInfo(auctionData.nft_id, setNFT)
+    if(auctionData.price_id && auctionData.price_id !== '')
+      ApiUtils.getAssetInfo(auctionData.price_id, setPrice)
   }, [auctionData.nft_id, auctionData.price_id])
 
   useImperativeHandle(ref, () => ({

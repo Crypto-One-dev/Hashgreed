@@ -12,30 +12,42 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import QRCode from 'qrcode.react';
 import certBG from 'assets/images/certificate_bg.jpg'
 import {ThemeContext} from 'context/ThemeContext'
-import {FaCertificate, FaDownload, FaPaste, FaRegFilePdf, FaTimes} from 'react-icons/all';
+import {FaCertificate, FaPaste, FaRegFilePdf} from 'react-icons/all';
 import {AiOutlineClose} from 'react-icons/all'
-
+import Logo from 'assets/images/Header.svg'
+import { Button } from '@chakra-ui/react'
 import styles from './VerificationExplorer.module.scss'
 
-function VerificationExplorer({query}){
+function VerificationExplorer({match}){
 
-    const [transactionID, setTransactionID] = useState('');
+    const [transactionID, setTransactionID] = useState('')
     const [hashID, setHashID] = useState('');
-    const [reference, setReference] = useState('');
-    const searchButton = useRef(null);
-    const [certification, setCertification] = useState({});
+    const [reference, setReference] = useState('')
+    const [certification, setCertification] = useState({})
     const {theme} = useContext(ThemeContext)
     const [searchFlag, setSearchFlag] = useState(false)
-    const timestamp = moment(certification.timestamp).toString();
+    const searchButton = useRef(null)
+
+    const Search = async () => {
+        if(!transactionID && !hashID && !reference) {
+            return
+        }
+        await ApiUtils.searchCertification(transactionID, hashID, reference, setCertification)
+        setSearchFlag(true)
+        console.log(certification)
+        if(Object.keys(certification).length>0){
+        }
+    }
 
     useEffect(() => {
-        if(query) {
-            setTransactionID(query)
-            setTimeout(() => {
-                searchButton.current.click();
-            }, 1000)
+        if(match.path === '/explorer/:txid') {
+            ApiUtils.searchCertification(match.params.txid, '', '', setCertification)
+            setSearchFlag(true)
+            setTransactionID(match.params.txid)
+            setReference(certification.title || certification.reference)
+            setHashID(certification.hash)
         }
-    }, [query, setTransactionID])
+    }, [match, setTransactionID, transactionID, searchButton,setSearchFlag, certification])
 
     const onCertDrop = useCallback(acceptedFiles => {
         if(acceptedFiles.length === 1) {
@@ -53,7 +65,6 @@ function VerificationExplorer({query}){
             }
             reader.readAsText(acceptedFiles[0])
             setSearchFlag(true)
-            console.log(certification)
         }
     }, [])
     const poc = useDropzone({onDrop: onCertDrop})
@@ -71,12 +82,6 @@ function VerificationExplorer({query}){
     }, [])
     const fth = useDropzone({onDrop: onFileDrop})
 
-    const Search = () => {
-        if(!transactionID && !hashID && !reference) {
-            return
-        }
-        ApiUtils.searchCertification(transactionID, hashID, reference, setCertification)
-    }
     return(
         <div className={styles.verficationExplorer}>
             <div className={styles.container}>
@@ -128,7 +133,7 @@ function VerificationExplorer({query}){
                             <Input className = {styles.inputValue} style={{color: theme.primaryText}} maxLength={60} value={reference} onChange={e => setReference(e.target.value)} variant="flushed" placeholder=""/>        
                         </div>
                         <div className = {styles.confirmarea}>
-                            <a className={cx(styles.button, styles.filled)} onClick={() => Search} style={{backgroundColor: theme.buttonBack}}>Search</a>
+                            <a className={cx(styles.button, styles.filled)} onClick={Search} style={{backgroundColor: theme.buttonBack}} ref={searchButton}>Search</a>
                         </div>
                     </>
                     :
@@ -136,7 +141,7 @@ function VerificationExplorer({query}){
                 }
                 <div className={styles.explorerListWrapper}>
                     {
-                        searchFlag ?
+                        searchFlag && certification && certification !== null ?
                             <div className={styles.proofArea} style={{backgroundColor: theme.stepBackground, boxShadow: theme.historyglow}}>
                               <div className={styles.mainArea}>
                                 <div className={styles.titleBar}>
@@ -156,7 +161,12 @@ function VerificationExplorer({query}){
                                   <div className={styles.main}>
                                     <div className={styles.timeArea}>
                                       <div className={styles.time} style={{color: theme.primaryText}}>
-                                        {timestamp}
+                                        {
+                                          certification && certification !== null ?
+                                          moment(certification.timestamp).toString()
+                                          :
+                                          null
+                                        }
                                       </div>
                                       <div className={styles.iconArea}>
                                         <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + certification.txid}>
@@ -185,36 +195,44 @@ function VerificationExplorer({query}){
                               </div>
                               <div className={styles.explorerList}>
                                   <div className={styles.item} style={{backgroundImage: `url(${certBG})`}}>
-                                      <span style={{fontSize: 20}}>
-                                          <b>PROOF OF CERTIFICATION</b>
-                                      </span>
-                                      <span style={{color: 'white', fontSize: 14, fontWeight: 'bold', padding: '5px 25px'}}>
-                                          THE FOLLOWING FILE WAS CERTIFIED ON
-                                          <br/>
-                                          THE WAVES BLOCKCHAIN
-                                      </span>
-                                      <span>
-                                          <i>BY {certification.address}</i>
-                                      </span>
-                                      <span>
-                                          <b>Reference:</b>
-                                          <br/>
-                                          {certification.title || certification.reference}
-                                      </span>
-                                      <span>
-                                          <b>Date:</b>
-                                          <br/>
-                                          {moment(certification.timestamp).toString()}
-                                      </span>
-                                      <span>
-                                          <b>{certification.hash ? 'File Hash' : 'Message ID'}:</b>
-                                          <br/>
-                                          {certification.hash || certification.messageid}
-                                      </span>
+                                    <div className={styles.header}>
+                                      <img src={Logo} className={styles.logo} alt=""/>
+                                      <QRCode value={WavesConfig.BASE_URL + '/explorer/' + certification.txid} includeMargin={true} size={140} className={styles.qr} />
+                                    </div>
+                                    <div className={styles.titleArea}>
+                                      <div style={{fontSize: '72px', color: theme.primaryText}}>
+                                          <b>Proof</b>
+                                      </div>
+                                      <div style={{color: '#000000', fontSize: '24px'}}>
+                                        <b>OF CERTIFICATION</b>
+                                      </div>
+                                      <div style={{color: theme.primaryText, fontSize: '14px'}}>
+                                        <b>You certified the following file on waves blockchain</b>
+                                      </div>
+                                    </div>
+                                    <div className={styles.dataArea} style={{color: theme.commentText}}>
+                                      Reference:<br/>
+                                      <div style={{color: theme.buttonBack, fontSize: '28px', fontWeight: '700'}}>
+                                        {certification.title || certification.reference}
+                                      </div>
+                                      <br/>{certification.hash ? 'File Hash' : 'Message ID'}: <br/>
+                                      <div style={{color: theme.primaryText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
+                                        {certification.hash || certification.messageid}
+                                      </div>
+                                      <br/>Date: <br/>
+                                      <div style={{color: theme.primaryText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
+                                        {moment(certification.timestamp).toString()}
+                                      </div>
+                                    </div>
+                                    <div className={styles.footer} style={{color: theme.commentText}}>
                                       <a href={`${WavesConfig.EXPLORER_URL}/tx/${certification.txid}`} target="_blank" rel="noreferrer">
-                                          SEE ON WAVES EXPLORER
+                                        See on Waves
                                       </a>
-                                      <QRCode value={WavesConfig.BASE_URL + '/explorer/' + certification.txid} includeMargin={true} size={72} className={styles.qr} />
+                                      <a href={`${WavesConfig.BASE_URL}`} target="_blank" rel="noreferrer">
+                                        New Certification
+                                      </a>
+                                    </div>
+                                      
                                       {
                                           certification.status?
                                               <span className={styles.status}>

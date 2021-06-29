@@ -17,8 +17,6 @@ import { ThemeContext } from 'context/ThemeContext'
 
 function Create({ walletState }) {
 
-    const [auctions, setAuctions] = useState([])
-    const [height, setHeight] = useState(0)
     const certFee = 100
     const transactionFee = 0.005
     const { theme } = useContext(ThemeContext)
@@ -27,7 +25,7 @@ function Create({ walletState }) {
     const [assetName, setAssetName] = useState('')
     const [assetComment, setAssetComment] = useState('')
     const [priceID, setPriceID] = useState('')
-    const [nftID, setNFTID] = useState('')
+    const [nftID, setNFTID] = useState()
     const [nftAmount, setNFTAmount] = useState('')
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({ accept: 'image/jpeg, image/png' })
     const [uploading, setUploading] = useState(false)
@@ -41,24 +39,14 @@ function Create({ walletState }) {
     })
 
     useEffect(() => {
-        let interval = -1
         if (walletState.address) {
             const proc = () => {
-                ApiUtils.getAuctions(walletState.address, setAuctions, setHeight)
-                console.log(nftID)
-                ApiUtils.getAssetInfo(nftID, setNFT)
-                console.log(nft.description)
+                if(nftID && nftID !== '')
+                    ApiUtils.getAssetInfo(nftID, setNFT)
             }
             proc()
-            interval = setInterval(proc, 3000)
         }
-
-        return () => {
-            if (interval > -1) {
-                clearInterval(interval)
-            }
-        }
-    }, [walletState.address])
+    }, [walletState.address, nftID])
 
     const setNFTIDs = (id) => {
       setNFTID(id)

@@ -245,7 +245,7 @@
     .mutualCertificationList{
         display: flex;
         flex-direction: row;
-        width: calc(100vw - 20px);
+        width: calc(100vw - 100px);
         justify-content: center;
         margin-top: 50px;
         @media (max-width:600px){

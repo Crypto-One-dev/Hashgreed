@@ -12,10 +12,10 @@ const AuctionCell = ({auction, priceAssetId, bidOpen}) => {
         decimals: 0,
         description: ''
     })
-    ApiUtils.getAssetInfo(priceAssetId, setPrice)
 
-    // useEffect(() => {
-    //   }, [priceAssetId])
+    useEffect(() => {
+        ApiUtils.getAssetInfo(priceAssetId, setPrice)
+      }, [priceAssetId])
 
     return(
         <div className = {styles.auctionCell} key={auction.id} style={{backgroundColor: theme.stepBackground}}>

@@ -29,7 +29,6 @@ function Overview({walletState, walletActions, priceState, priceActions}) {
   const onCertify = useCallback(() => history.push('/certify/file'), [history])
 
   useEffect(() => {
-    let interval = -1
     if(walletState.address) {
       const proc = () => {
         priceActions.setPrice('RKMT', 0);
@@ -38,13 +37,6 @@ function Overview({walletState, walletActions, priceState, priceActions}) {
         ApiUtils.getTransactions(walletState.address, setTransactions);
       }
       proc()
-      interval = setInterval(proc, 60000)
-    }
-  
-    return () => {
-      if(interval > -1) {
-        clearInterval(interval)
-      }
     }
   }, [walletState.address, priceActions])
 

@@ -24,19 +24,11 @@ function File({walletState}){
     const {theme} = useContext(ThemeContext)
 
     useEffect(() => {
-      let interval = -1
       if(walletState.address) {
         const proc = () => {
             ApiUtils.getCertifications('data_fc_([A-Za-z0-9]*)_' + walletState.address, setCertifications)
         }
         proc()
-        interval = setInterval(proc, 60000)
-      }
-    
-      return () => {
-        if(interval > -1) {
-          clearInterval(interval)
-        }
       }
     }, [walletState.address])
 

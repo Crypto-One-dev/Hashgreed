@@ -13,24 +13,14 @@ import {ThemeContext} from 'context/ThemeContext'
 function Receive({walletState, walletActions}){
     const urlAddress = 'https://wavesexplorer.com/address/' + walletState.address
     const [transactions, setTransactions] = useState([])
-    const [transaction, setTransaction] = useState()
     const {theme} = useContext(ThemeContext)
 
     useEffect(() => {
-        let interval = -1
         if(walletState.address) {
           const proc = () => {
             ApiUtils.getReceiveTransactions(walletState.address, setTransactions);
-            transactions.map((transfer) => {setTransaction(transfer)})
           }
           proc()
-          interval = setInterval(proc, 60000)
-        }
-      
-        return () => {
-          if(interval > -1) {
-            clearInterval(interval)
-          }
         }
       }, [walletState.address, transactions])
 

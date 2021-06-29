@@ -4,86 +4,127 @@
         <mate charest="utf-8" />
         <title>{{title}}</title>
         <style>
-					body
-					{
-						margin: 0;
-					}
+			body
+			{
+				margin: 0;
+			}
         	#body
         	{
-						background-image: url("{{bgImg}}");
-        		background-repeat: no-repeat;
-		        background-position: center;
-		        background-size: cover;
-	        	width: 841px;
-		        height: 595px;
+			  background-image: url('../assets/certificate_bg.jpg');
+    		  background-repeat: no-repeat;
+              background-position: center;
+              background-size: cover;
+              display: flex;
+              flex-direction: column;
+      
+              font-size: 18px;
+              word-break: break-all;
+              width: 915px;
+              height: 652px;
         	}
-        	#content
-        	{
-        		padding: 100px 0;
-        		width: 100%;
-        		height: calc(100% - 200px);
-
-		        display: flex;
-		        flex-direction: column;
-		        justify-content: space-between;
-		        align-items: center;
-		        word-break: break-all;
-		        text-align: center;
-		        position: relative;
-        	}
+            #data{
+            }
+            #header{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            #qr
+            {
+                width: 140px;
+                height: 140px;
+                opacity: 0.6;
+            }
+            #titleArea{
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                line-height: 25px;
+            }
         	#title
         	{
-        		font-size: 48px;
+        		font-size: 72px;
+                font-weight: 700;
+                color: #000451;
         	}
         	#subtitle
         	{
-        		font-size: 22px;
+        		font-size: 24px;
+                font-weight: 700;
+                color: #000000;
         	}
-        	#info
-        	{
-        		font-size: 18px;
-        	}
-        	#links
-        	{
-        		width: 50%;
-        		display: flex;
-        		flex-direction: row;
-        		justify-content: space-between;
-        		font-size: 16px;
-        		color: black;
-        	}
-        	a {
-						color: black;
-						text-decoration: none;
-					}
-					a:hover 
-					{
-						color: black; 
-						text-decoration:none; 
-						cursor: pointer;  
-					}
-        	#qr
-        	{
-        		position: absolute;
-        		right: 10px;
-        		bottom: 10px;
-        		width: 100px;
-        		height: 100px;
-        	}
+            #comment{
+                font-size: 16px;
+                color: #000451;
+            }
+            #dataArea{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                color: rgba(21, 20, 57, 0.4);
+                font-size: 16px;
+                font-weight: 700;
+            }
+            #reference{
+                font-size: 30px;
+                font-weight: 700;
+                color: #FE006C;
+            }
+            #hash{
+                color:#000451;
+                font-weight: 500;
+            }
+            #date{
+                color:#000451;
+                font-weight: 500;
+            }
+            #footer{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                font-size: 18px;
+                font-weight: 700;
+                color: rgba(21, 20, 57, 0.4);
+            }
+        	a 
+            {
+                color: rgba(21, 20, 57, 0.4);
+				text-decoration: none;
+			}
+			a:hover 
+			{
+                color: rgba(21, 20, 57, 0.4);
+				text-decoration:none; 
+				cursor: pointer;  
+			}
         </style>
     </head>
     <body>
-    	<div id="body"><div id="content">
-    		<div id="title">PROOF OF CERTIFICATION</div>
-    		<div id="subtitle">YOU CERTIFIED THE FOLLOWING FILE ON THE<br><b>WAVES BLOCKCHAIN</b></div>
-    		<div id="info"><b>Reference:</b><br><i>{{reference}}</i></div>
-    		<div id="info"><b>Date:</b><br><i>{{date}}</i></div>
-    		<div id="info"><b>{{label}}:</b><br><i>{{hash}}</i></div>
-    		<div id="links">
-    			<a href="https://wavesexplorer.com/tx/{{txid}}" target="_blank">SEE ON WAVES</a>
-    			<a href="{{baseUrl}}" target="_blank">NEW CERTIFICATION</a>
-    		</div>
-    		<img src="{{qr}}" id="qr">
-    	</div></div>
+    	<div id="body">
+            <div id="data">
+                <div id='header'>
+                    <img src="{{logo}}" id="logo">
+                    <img src="{{qr}}" id="qr">                
+                </div>
+                <div id="titleArea">
+                    <div id="title">Proof</div><br>
+                    <div id="subtitle">OF CERTIFICATION</div><br>
+                    <div id="comment">You certified the following file on the waves blockchain</div>
+                </div>
+                <div id="dataArea">
+                    Reference:<br>
+                    <div id="reference">{{reference}}</div>
+                    File hash: <br>
+                    <div id="hash">{{hash}}</div>
+                    Date: <br>
+                    <div id="date">{{date}}</div>
+                </div>
+                <div id="footer">
+                    <a href="https://wavesexplorer.com/tx/{{txid}}" target="_blank">See on Waves</a>
+                    <a href="{{baseUrl}}" target="_blank">New Certification</a>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

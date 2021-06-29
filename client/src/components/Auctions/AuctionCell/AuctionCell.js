@@ -12,8 +12,6 @@ import walletContainer from 'redux/containers/wallet';
 const AuctionCell = ({category, auction, height, bidOpen, walletState}) => {
     const {theme} = useContext(ThemeContext)
     const owner = walletState.address
-    console.log(auction)
-    console.log(height)
     const isOwner = auction.winner ? owner === auction.winner : owner === auction.organizer
     
     const [price, setPrice] = useState({
@@ -22,19 +20,20 @@ const AuctionCell = ({category, auction, height, bidOpen, walletState}) => {
         description: ''
     })
     
-    ApiUtils.getAssetInfo(auction.price_id, setPrice)
+    // ApiUtils.getAssetInfo(auction.price_id, setPrice)
 
-    // useEffect(() => {
-    //     ApiUtils.getAssetInfo(auction.nft_id, setNFT)
-    //     ApiUtils.getAssetInfo(auction.price_id, setPrice)
-    //   }, [auction.nft_id, auction.price_id])
+    useEffect(() => {
+        if(auction.price_id){
+            ApiUtils.getAssetInfo(auction.price_id, setPrice)
+        }
+      }, [auction.price_id])
 
     return(
         <div className = {styles.auctionCell} key={auction.id} style={{backgroundColor: theme.stepBackground}}>
             <div className = {styles.title} style={{color: theme.commentText}}>{auction.assetName}</div>
             <div className = {styles.clientName} style={{color: theme.primaryText}}>{auction.assetName}</div>
             <div className = {styles.photo}>
-                <img src={`https://ipfs.io/ipfs/${auction.avatar}`} alt="" />
+                <img src={`https://ipfs.io/ipfs/${auction.avatar}`} alt="" className={styles.img} />
             </div>
             <div className = {styles.bidarea}>
                 <div className={styles.startPrice}>

@@ -23,19 +23,11 @@ function Stake({walletState}){
     const {theme} = useContext(ThemeContext)    
     
     useEffect(() => {
-        let interval = -1
         if(walletState.address) {
           const proc = () => {
             WavesUtils.StakedRKMT(walletState.address, setStaked)
           }
           proc()
-          interval = setInterval(proc, 60000)
-        }
-      
-        return () => {
-          if(interval > -1) {
-            clearInterval(interval)
-          }
         }
       }, [walletState.address])
 

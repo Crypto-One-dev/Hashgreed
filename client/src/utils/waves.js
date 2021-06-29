@@ -369,7 +369,6 @@ const StakedRKMT = async (address, callback) => {
     var data = await nodeInteraction.accountData(WavesConfig.STAKE_SCRIPT, WavesConfig.NODE_URL)
     if (address in data && callback)
       callback(data[address].value / (10 ** WavesConfig.RKMT_DECIMALS))
-    console.log(data)
   } catch (e) {
     console.error(e)
   }

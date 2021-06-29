@@ -25,19 +25,11 @@ function MassSend({walletState, walletActions}){
     const {theme} = useContext(ThemeContext)
 
     useEffect(() => {
-      let interval = -1
       if(walletState.address) {
         const proc = () => {
           ApiUtils.getMassTransactions(walletState.address, setTransactions)
         }
         proc()
-        interval = setInterval(proc, 60000)
-      }
-    
-      return () => {
-        if(interval > -1) {
-          clearInterval(interval)
-        }
       }
     }, [walletState.address])
 

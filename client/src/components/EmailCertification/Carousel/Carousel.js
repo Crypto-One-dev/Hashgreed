@@ -17,19 +17,11 @@ function Carousel({owner}, ref){
   const {theme} = useContext(ThemeContext)
 
   useEffect(() => {
-      let interval = -1
       if(owner) {
       const proc = () => {
           ApiUtils.getCertifications('data_ec_([A-Za-z0-9]*)_' + owner, setCertifications)
       }
       proc()
-      interval = setInterval(proc, 60000)
-    }
-
-    return () => {
-      if(interval > -1) {
-        clearInterval(interval)
-      }
     }
   }, [owner])
 
@@ -52,7 +44,7 @@ function Carousel({owner}, ref){
                 <div className={styles.title} style={{color: theme.primaryText}}>
                   Latest Email
                 </div>
-                <a className={styles.view} href={`${WavesConfig.EXPLORER_URL}/tx/`} target="_blank" rel="noreferrer">View more</a>
+                {/* <a className={styles.view} href={`${WavesConfig.EXPLORER_URL}/tx/`} target="_blank" rel="noreferrer">View more</a> */}
               </div>
             <hr className = {styles.line}/>
           </div>

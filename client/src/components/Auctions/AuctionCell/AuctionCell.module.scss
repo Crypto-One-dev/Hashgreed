@@ -25,8 +25,10 @@
         margin-left: 30px;
     }
     .photo{
-        width: 100%;
         padding: 5px;
+        .img{
+          height: 300px;
+        }
     }
     .bidarea{
         display: flex;

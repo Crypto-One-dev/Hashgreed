@@ -22,9 +22,11 @@ function MutualCertificationCell({detail, owner, walletState, toggleDetail}){
   const txid = split[2]
   const creator = split[3]
   const isOwner = creator === owner ? true : false
+  const [flag, setFlag] = useState(false)
 
   const toggleDetails = () => {
-    toggleDetail(detail)
+    setFlag( !flag )
+    toggleDetail(detail, !flag)
   }
 
   const DownloadCertificate = () => {

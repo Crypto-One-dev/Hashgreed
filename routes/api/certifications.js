@@ -99,7 +99,6 @@ router.post('/searchCertification', async (req, res) => {
 router.post('/downloadCertificate', async (req, res) => {
   try {
     const {hash, hash_title, timestamp, title, txid} = req.body
-
     const browser = await puppeteer.launch({
       headless: true,
       args: ['--no-sandbox'],
@@ -108,6 +107,7 @@ router.post('/downloadCertificate', async (req, res) => {
     var html = fs.readFileSync('assets/certificate.html', 'utf8')
     const qr = await QRCode.toDataURL(baseUrl + '/explorer/' + txid)
     var bgImg = fs.readFileSync('assets/certificate_bg.jpg', 'base64')
+    var logo = fs.readFileSync('assets/Header.svg', 'base64')
     const data = {
       title: title,
       reference: title,
@@ -116,6 +116,7 @@ router.post('/downloadCertificate', async (req, res) => {
       label: hash_title,
       txid: txid,
       qr: qr,
+      logo: logo,
       bgImg: 'data:image/jpg;base64,' + bgImg,
       baseUrl: baseUrl,
     }
@@ -126,8 +127,8 @@ router.post('/downloadCertificate', async (req, res) => {
       waitUntil: 'domcontentloaded'
     })
     await page.pdf({
-      width: "841px",
-      height: "595px",
+      width: "915px",
+      height: "652px",
       printBackground: true,
       path: 'assets/certificate.pdf'
     })

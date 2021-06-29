@@ -45,9 +45,7 @@ function Create({ walletState }) {
         if (walletState.address) {
             const proc = () => {
                 ApiUtils.getAuctions(walletState.address, setAuctions, setHeight)
-                console.log(nftID)
                 ApiUtils.getAssetInfo(nftID, setNFT)
-                console.log(nft.description)
             }
             proc()
             interval = setInterval(proc, 3000)

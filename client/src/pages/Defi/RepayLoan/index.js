@@ -25,7 +25,6 @@ function RepayLoan({walletState}) {
         setCurrentAmount(curamount)
       }
       proc()
-      setInterval(proc, 30000)
     }
   }, [walletState.address])
 
@@ -34,8 +33,6 @@ function RepayLoan({walletState}) {
       AlertUtils.SystemAlert('AssetId is not valid')
       return
     }
-    console.log(amount)
-    console.log(currentAmount)
     if (parseFloat(currentAmount) !== parseFloat(amount)) {
       AlertUtils.SystemAlert('Current Amount value is ' + currentAmount + '!')
       return

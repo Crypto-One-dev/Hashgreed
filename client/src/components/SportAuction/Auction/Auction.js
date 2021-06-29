@@ -13,8 +13,6 @@ function Auction({data, priceAssetId, customer}){
   const {theme} = useContext(ThemeContext)
   const [dataList, setDataList] = useState()
 
-  console.log(data.length)
-
   // useEffect(() => {
   //   setDataList(data)
   // }, [data])

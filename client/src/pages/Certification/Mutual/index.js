@@ -25,19 +25,11 @@ function Mutual({walletState}){
     const {theme} = useContext(ThemeContext)
 
     useEffect(() => {
-        let interval = -1
         if(walletState.address) {
           const proc = () => {
               ApiUtils.getMutualCertifications(walletState.address, setCertifications)
           }
           proc()
-          interval = setTimeout(proc, 60000)
-        }
-      
-        return () => {
-          if(interval > -1) {
-            clearInterval(interval)
-          }
         }
     }, [walletState.address])
 
@@ -53,15 +45,18 @@ function Mutual({walletState}){
     const [counterparts, setCounterparts] = useState([])
     const [detail0, setDetail] = useState(null)
   
-    const toggleDetail = (detail) => {
-      console.log(detail)
-      let split = detail.key.split('_')
-      setTxid(split[2])
-      setCreator(split[3])
-      ApiUtils.getCounterparts(split[2], setCounterparts)
-      console.log(counterparts)
-      settoggle(true)
-      setDetail(detail)
+    const toggleDetail = (detail,flag) => {
+      if(detail !== '' && detail){
+        let split = detail.key.split('_')
+        setTxid(split[2])
+        setCreator(split[3])
+        ApiUtils.getCounterparts(split[2], setCounterparts)
+        setDetail(detail)
+        settoggle(flag)
+      }
+      else{
+        settoggle(flag)
+      }
     }
 
     let sign = async () => {
@@ -111,7 +106,6 @@ function Mutual({walletState}){
         setUploading(false)
         setRecipients('')
     }
-
     return(
         <div className = {styles.mutual}>
            <div className = {styles.container}>

@@ -11,8 +11,8 @@ function Content() {
   return (
     <Switch>
       <Route path={'/'} exact component={Main} />
-      <Route path={'/explorer'} exact component={VerificationExplorer} />
-      <Route path={'/explorer/:txid'} component={VerificationExplorer} />
+      <Route path={'/explorer'} exact component={Verification} />
+      <Route path={'/explorer/:txid'} component={Verification} />
       <Route component={AuthLayout} />
     </Switch>
   )

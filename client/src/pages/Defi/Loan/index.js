@@ -38,7 +38,6 @@ function Loan({ walletState }) {
         setCollateralAssetBalance(balance)
       }
       proc()
-      setInterval(proc, 30000)
     }
   }, [walletState.address])
 

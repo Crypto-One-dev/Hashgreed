@@ -317,6 +317,7 @@
                               .action{
                                 color: #FE006C;
                                 margin-left: 30px;
+                                cursor: pointer;
                                 @media (max-width:600px){
                                     margin-left: 10px;
                                     margin-top: 10px;
@@ -374,19 +375,49 @@
                       min-height: 600px;
                       display: flex;
                       flex-direction: column;
-                      justify-content: space-between;
-                      align-items: center;
               
                       margin-bottom: 25px;
-                      padding: 80px 5px;
+                      padding: 20px 5px;
                       font-size: 18px;
                       word-break: break-all;
               
                       position: relative;
-                      .qr {
-                        position: absolute;
-                        right: 25px;
-                        bottom: 15px;
+                      padding-left: 17rem;
+
+                      .header{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        width: 100%;
+                        padding-right: 1rem;
+                        .qr {
+                          opacity: 0.6;
+                        }
+                      }
+                      .titleArea{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        align-items: flex-start;
+                        line-height: 45px;
+                      }
+                      .dataArea{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        font-size: 16px;
+                        font-weight: 700;
+                        margin-top: 10px;
+                        margin-bottom: 30px;
+                        line-height: 25px;
+                      }
+                      .footer{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        padding-right: 120px;
+                        font-size: 14px;
+                        font-weight: 700;
                       }
                       .status {
                         background-color: red;

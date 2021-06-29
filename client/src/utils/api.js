@@ -186,7 +186,6 @@ const fileUpload = async (file, txid) => {
 
 const auctionUpload = async (file, txid, assetType, assetName, assetComment) => {
   try {
-    console.log(file)
     const formData = new FormData()
     formData.append('avatar', file)
     formData.append('txid', txid)

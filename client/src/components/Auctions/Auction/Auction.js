@@ -23,15 +23,16 @@ function Auction({title, auctionType, auction, data, height, customer}){
         newData.push(data[i])
       }
     }
-    console.log(newData)
-    if(searchVal !== ''){
+    if(searchVal !== '' && searchVal){
       setDataList(newData)
+    } else {
+      setDataList(data)
     }
   }
-  console.log(data)
 
   return(
-    <>
+      dataList && dataList.length>0 ?
+      <>
       <img src = {Prev} className = {styles.leftIcon} onClick={()=>{carousel.current.prev()}} alt = ""/>
       <div className = {styles.container}>
         <div className = {styles.titlearea}>
@@ -46,10 +47,12 @@ function Auction({title, auctionType, auction, data, height, customer}){
           <div className = {styles.viewTitle}> </div>
         </div>
         <hr className = {styles.border}></hr>
-        <Carousel  ref={carousel} category={auction} auctionType={auctionType} data={data} height={height} customer={customer}/>
+        <Carousel  ref={carousel} category={auction} auctionType={auctionType} data={dataList} height={height} customer={customer}/>
       </div>
       <img src = {Next} className = {styles.rightIcon} onClick={()=>{carousel.current.next()}} alt = ""/>
-    </>
+      </>
+      :
+      null
   )
 }
 export default Auction

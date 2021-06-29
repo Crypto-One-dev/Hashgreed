@@ -23,7 +23,6 @@ function Explorer({walletState}){
         proc()
         interval = setInterval(proc, 30000)
       }
-      console.log(auctions)
   
       return () => {
         if(interval > -1) {
