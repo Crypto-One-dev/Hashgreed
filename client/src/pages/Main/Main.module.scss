@@ -2,18 +2,33 @@
 
 .main {
   padding: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
   .header {
     font-size: 58px;
     font-weight: 700;
     color: #1E0E62;
     line-height: 58px;
     margin-bottom: 30px;
+    @media(max-width: 400px){
+      font-size: 30px;
+      line-height: 40px;
+    }
   }
   .subheader {
     font-size: 18px;
     font-weight: 500;
-    color: #15143966;
     margin-bottom: 60px;
+    // max-width: 600px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    @media(max-width: 400px){
+      font-size: 12px;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
   }
   .startnow {
     .start {

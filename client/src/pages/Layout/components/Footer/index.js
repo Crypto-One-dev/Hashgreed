@@ -17,7 +17,7 @@ function Footer({walletState, walletActions}) {
         Our application is using Waves Signer to connect your account and sign all transactions. To import an existing account, add it first in <a href="https://waves.exchange">waves.exchange</a>. Our Web Application will never have any access to your private key or secret seed, all your accounts should be managed at <a href="https://waves.exchange">waves.exchange</a>. Never enter your private key or secret seed in any 3rd party application.
       </div>
       <div className={styles.logoNlink}>
-        <div>
+        <div className={styles.logo}>
           <img src={Logo} alt="" />
         </div>
         <div className={styles.links}>

@@ -131,7 +131,7 @@ function Loan({ walletState }) {
         </div>
         <div className={styles.buttonArea}>
           <a className={cx(styles.button, collateralAmount === 0 ? styles.disabled : styles.filled, styles.loanButton)} style={{ backgroundColor: collateralAmount === 0 ? theme.disabledButtonBack : theme.buttonBack }}  onClick={collateralAmount === 0 ? null : () => requestLoan()} >Request Loan</a>
-          <a className={cx(styles.button, curLoanAmount === 0 ? styles.disabled: styles.filled, styles.loanButton)} style={{ backgroundColor: curLoanAmount === 0 ? theme.disabledButtonBack : theme.buttonBack }} onClick={() => gotoRepay()}>Repay Loan</a>
+          <a className={cx(styles.button, curLoanAmount === 0 ? styles.disabled: styles.filled, styles.loanButton)} style={{ backgroundColor: curLoanAmount === 0 ? theme.disabledButtonBack : theme.buttonBack }} onClick={() => curLoanAmount !== 0?gotoRepay() : null}>Repay Loan</a>
         </div>
       </div>
     </div>

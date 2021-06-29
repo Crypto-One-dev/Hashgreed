@@ -38,6 +38,7 @@ function Header({walletState, walletActions}) {
         <a className={cx(styles.account, styles.filled)} onClick={account} style={{backgroundColor: theme.buttonBack}}>Account</a>
         <a className={styles.lang} style={{color: theme.commentText}}>EN</a>
       </div>
+      <FaBars className={styles.drawer} onClick={() => onOpen()}/>
       <Drawer isOpen={isOpen} onClose={onClose} />
     </div>
   )

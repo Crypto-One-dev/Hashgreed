@@ -33,8 +33,7 @@ function Main({walletState, walletActions}) {
         contracts and signatures!
       </div>
       <div className={styles.subheader} style={{color: theme.commentText}}>
-        Our application is using Waves Signer to connect your account <br />
-        and sign all transactions. <br />
+        Our application is using Waves Signer to connect your account and sign all transactions.<br/>
         To import an existing account, add it first in waves.exchange
       </div> 
       <div className={styles.startnow}>

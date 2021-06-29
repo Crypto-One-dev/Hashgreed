@@ -148,15 +148,16 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
       isOpen={isOpen}
       placement="left"
       onClose={onClose}
+      style={{width: '100%'}}
     >
       <DrawerOverlay />
-      <DrawerContent style={{backgroundColor: theme.itemBackground, color: theme.menuText}}>
+      <DrawerContent style={{backgroundColor: theme.menuBackground, color:'white', opacity:'0.8', width: '100%', maxWidth: '600px'}}>
         <DrawerCloseButton />
-        <DrawerHeader>Hashgreed</DrawerHeader>
         <DrawerBody>
           <div className={styles.routes}>
             {walletState.address && <AuthRoutes />}
             <div className={styles.link} onClick={() => gotoPage('/explorer')}>Cerification Explorer</div>
+            <hr className={styles.hr}/>
           </div>
           <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />
           <div className={styles.balances}>

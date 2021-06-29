@@ -1,6 +1,7 @@
 const themes = {
   regular: {
     itemBackground: '#ffffff',
+    menuBackground: '#000451',
     grayText: '#707070',
     textColor: '#000000',
     imgWrapper: '#ffffff',
@@ -44,6 +45,7 @@ const themes = {
   },
   dark: {
     itemBackground: 'rgb(75 78 88)',
+    menuBackground: '#000451',
     grayText: '#aa91d8',
     textColor: '#ffffff',
     imgWrapper: '#7a7298',
@@ -88,6 +90,7 @@ const themes = {
   },
   waves: {
     itemBackground: '#ffffff',
+    menuBackground: '#000451',
     grayText: '#707070',
     textColor: '#ffffff',
     imgWrapper: '#ffffff',
