@@ -23,7 +23,7 @@
       @media (max-width: $drawOpenMaxWidth) {
         display: block;
       }
-      @media (max-width: 400px) {
+      @media (max-width: 600px) {
         display: none;
         margin-right: 0;
       }
@@ -37,7 +37,7 @@
     margin-right: 15px;
     cursor: pointer;
     display: none;
-    @media (max-width: 400px) {
+    @media (max-width: 600px) {
       display: block;
       margin-right: 0;
     }

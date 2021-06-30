@@ -6,7 +6,11 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  DrawerHeader,
+} from '@chakra-ui/react'
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent
 } from '@chakra-ui/react'
 import cx from 'classnames'
 
@@ -58,64 +62,133 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
     return (
       <>
         <div className={styles.link} onClick={() => gotoPage('/overview')}>Overview</div>
-        <div className={cx(styles.navs, activeMenu === 'manage' ? styles.activemenu: null)}>
-          <span onClick={() => openSubMenu('manage')}>Manage Token</span>
-          <div className={cx(styles.link, activeMenu === 'manage' ? styles.opennav : styles.closenav)}>
-            <div className={styles.link} onClick={() => gotoPage('/manage/receive')}>Receive</div>
-            <div className={styles.link} onClick={() => gotoPage('/manage/send')}>Send</div>
-            <div className={styles.link} onClick={() => gotoPage('/manage/mass')}>Mass Send</div>
-          </div>
-        </div>
-        <div className={cx(styles.navs, activeMenu === 'certify' ? styles.activemenu: null)}>
-          <span onClick={() => openSubMenu('certify')}>Certification Tools</span>
-          <div className={cx(styles.link, activeMenu === 'certify' ? styles.opennav : styles.closenav)}>
-            <div className={styles.link} onClick={() => gotoPage('/certify/file')}>File Certification</div>
-            <div className={styles.link} onClick={() => gotoPage('/certify/email')}>Email Certification</div>
-            <div className={styles.link} onClick={() => gotoPage('/certify/mutual')}>Mutual Certification</div>
-          </div>
-        </div>
-        <div className={cx(styles.navs, activeMenu === 'auction' ? styles.activemenu: null)}>
-          <span onClick={() => openSubMenu('auction')}>NFT Auctions</span>
-          <div className={cx(styles.link, activeMenu === 'auction' ? styles.opennav : styles.closenav)}>
-            <span onClick={() => openAuctionSubMenu('ArtNFTs')}>Art NFTs</span>
-            <div className={cx(styles.subnavs, activeSubMenu === 'ArtNFTs' ? styles.opennav : styles.closenav)}>
-              <div className={styles.sublink} onClick={() => gotoPage('/auction/artnfts/create')}>Create</div>
-              <div className={styles.sublink} onClick={() => gotoPage('/auction/artnfts/explorer')}>Explore</div>
+        <hr className={styles.hr}/>
+        <Popover>
+          <PopoverTrigger>
+            <div className={styles.link}>Manage Token</div>
+          </PopoverTrigger>
+          <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='90%' marginLeft='7%'>
+            <div className={styles.submenu}>
+              <div className={styles.subitem} onClick={() => gotoPage('/manage/receive')}>Receive</div>
+              <div className={styles.subitem} onClick={() => gotoPage('/manage/send')}>Send</div>
+              <div className={styles.subitem} onClick={() => gotoPage('/manage/mass')}>Mass Send</div>
             </div>
-            <span onClick={() => openAuctionSubMenu('HashDealz')}>HashDealz</span>
-            <div className={cx(styles.subnavs, activeSubMenu === 'HashDealz' ? styles.opennav : styles.closenav)}>
-              <div className={styles.sublink} onClick={() => gotoPage('/auction/hashdealz/create')}>Create</div>
-              <div className={styles.sublink} onClick={() => gotoPage('/auction/hashdealz/explorer')}>Explore</div>
+          </PopoverContent>
+        </Popover>
+        <hr className={styles.hr}/>
+        <Popover>
+          <PopoverTrigger>
+            <div className={styles.link}>Certification Tools</div>
+          </PopoverTrigger>
+          <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='90%' marginLeft='7%'>
+            <div className={styles.submenu}>
+              <div className={styles.subitem} onClick={() => gotoPage('/certify/file')}>File Certification</div>
+              <div className={styles.subitem} onClick={() => gotoPage('/certify/email')}>Email Certification</div>
+              <div className={styles.subitem} onClick={() => gotoPage('/certify/mutual')}>Mutual Certification</div>
             </div>
-            <span onClick={() => openAuctionSubMenu('SportNFTs')}>Sport NFTs</span>
-            <div className={cx(styles.subnavs, activeSubMenu === 'SportNFTs' ? styles.opennav : styles.closenav)}>
-              <div className={styles.sublink} onClick={() => gotoPage('/auction/artnfts/create')}>Create</div>
-              <div className={styles.sublink} onClick={() => gotoPage('/auction/artnfts/explorer')}>Explore</div>
+          </PopoverContent>
+        </Popover>
+        <hr className={styles.hr}/>
+        <Popover>
+          <PopoverTrigger>
+            <div className={styles.link}>NFT Auctions</div>
+          </PopoverTrigger>
+          <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='90%' marginLeft='7%'>
+            <div className={styles.submenu}>
+            <Popover>
+              <PopoverTrigger>
+                <div className={styles.subitem}>Art NFTs</div>
+              </PopoverTrigger>
+              <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
+                <div className={styles.submenu}>
+                  <div className={styles.subitem} onClick={() => gotoPage('/auction/artnfts/create')}>Create</div>
+                  <div className={styles.subitem} onClick={() => gotoPage('/auction/artnfts/explorer')}>Explore</div>
+                </div>
+              </PopoverContent>
+            </Popover>
+            <Popover>
+              <PopoverTrigger>
+                <div className={styles.subitem}>HashDeals</div>
+              </PopoverTrigger>
+              <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
+                <div className={styles.submenu}>
+                  <div className={styles.subitem} onClick={() => gotoPage('/auction/hashdealz/create')}>Create</div>
+                  <div className={styles.subitem} onClick={() => gotoPage('/auction/hashdealz/explorer')}>Explore</div>
+                </div>
+              </PopoverContent>
+            </Popover>
+            <Popover>
+              <PopoverTrigger>
+                <div className={styles.subitem}>Sport NFTs</div>
+              </PopoverTrigger>
+              <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
+                <div className={styles.submenu}>
+                  <div className={styles.subitem} onClick={() => gotoPage('/auction/sportnfts/create')}>Create</div>
+                  <div className={styles.subitem} onClick={() => gotoPage('/auction/sportnfts/explorer')}>Explore</div>
+                </div>
+              </PopoverContent>
+            </Popover>
+            <Popover>
+              <PopoverTrigger>
+                <div className={styles.subitem}>Music/Events NFTs</div>
+              </PopoverTrigger>
+              <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
+                <div className={styles.submenu}>
+                  <div className={styles.subitem} onClick={() => gotoPage('/auction/musiceventsnfts/create')}>Create</div>
+                  <div className={styles.subitem} onClick={() => gotoPage('/auction/musiceventsnfts/explorer')}>Explore</div>
+                </div>
+              </PopoverContent>
+            </Popover>
+            <Popover>
+              <PopoverTrigger>
+                <div className={styles.subitem}>Game NFTs</div>
+              </PopoverTrigger>
+              <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
+                <div className={styles.submenu}>
+                  <div className={styles.subitem} onClick={() => gotoPage('/auction/gamenfts/create')}>Create</div>
+                  <div className={styles.subitem} onClick={() => gotoPage('/auction/gamenfts/explorer')}>Explore</div>
+                </div>
+              </PopoverContent>
+            </Popover>
+            <Popover>
+              <PopoverTrigger>
+                <div className={styles.subitem}>Forex NFTs</div>
+              </PopoverTrigger>
+              <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
+                <div className={styles.submenu}>
+                  <div className={styles.subitem} onClick={() => gotoPage('/auction/forexnfts/create')}>Create</div>
+                  <div className={styles.subitem} onClick={() => gotoPage('/auction/forexnfts/explorer')}>Explore</div>
+                </div>
+              </PopoverContent>
+            </Popover>
             </div>
-            <span onClick={() => openAuctionSubMenu('MusicEventsNFTs')}>Music/Events NFTs</span>
-            <div className={cx(styles.subnavs, activeSubMenu === 'MusicEventsNFTs' ? styles.opennav : styles.closenav)}>
-              <div className={styles.sublink} onClick={() => gotoPage('/auction/musiceventsnfts/create')}>Create</div>
-              <div className={styles.sublink} onClick={() => gotoPage('/auction/musiceventsnfts/explorer')}>Explore</div>
+          </PopoverContent>
+        </Popover>
+        <hr className={styles.hr}/>
+        <Popover>
+          <PopoverTrigger>
+            <div className={styles.link}>DeFi</div>
+          </PopoverTrigger>
+          <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='90%' marginLeft='7%'>
+            <div className={styles.submenu}>
+              <div className={styles.subitem} onClick={() => gotoPage('/defi/stake')}>Stake</div>
+              <div className={styles.subitem} onClick={() => gotoPage('/defi/loan')}>Loans</div>
+              <div className={styles.subitem} onClick={() => gotoPage('/auction/create')}>
+                <div>Forex</div>
+                <div className={styles.subcomment}>Coming soon</div>
+                </div>
+              <div className={styles.subitem}>
+                <div>Freelance</div>
+                <div className={styles.subcomment}>Coming soon</div>
+              </div>
+              <div className={styles.subitem}>
+                <div>Escrow</div>
+                <div className={styles.subcomment}>Coming soon</div>
+              </div>
             </div>
-            <span onClick={() => openAuctionSubMenu('GameNFTs')}>Game NFTs</span>
-            <div className={cx(styles.subnavs, activeSubMenu === 'GameNFTs' ? styles.opennav : styles.closenav)}>
-              <div className={styles.sublink} onClick={() => gotoPage('/auction/gamenfts/create')}>Create</div>
-              <div className={styles.sublink} onClick={() => gotoPage('/auction/gamenfts/explorer')}>Explore</div>
-            </div>
-            <span onClick={() => openAuctionSubMenu('ForexNFTs')}>Forex NFTs</span>
-            <div className={cx(styles.subnavs, activeSubMenu === 'ForexNFTs' ? styles.opennav : styles.closenav)}>
-              <div className={styles.sublink} onClick={() => gotoPage('/auction/forexnfts/create')}>Create</div>
-              <div className={styles.sublink} onClick={() => gotoPage('/auction/forexnfts/explorer')}>Explore</div>
-            </div>
-          </div>
-        </div>
-        <div className={cx(styles.navs, activeMenu === 'defi' ? styles.activemenu: null)}>
-          <span onClick={() => openSubMenu('defi')}>DeFi</span>
-          <div className={cx(styles.link, activeMenu === 'defi' ? styles.opennav : styles.closenav)}>
-            <div className={styles.link} onClick={() => gotoPage('/defi/stake')}>Stake</div>
-            <div className={styles.link} onClick={() => gotoPage('/defi/loan')}>Loans</div>
-          </div>
-        </div>
+          </PopoverContent>
+        </Popover>
+        <hr className={styles.hr}/>
       </>
     )
   }
@@ -151,12 +224,20 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
       style={{width: '100%'}}
     >
       <DrawerOverlay />
-      <DrawerContent style={{backgroundColor: theme.menuBackground, color:'white', opacity:'0.8', width: '100%', maxWidth: '600px'}}>
-        <DrawerCloseButton />
+      <DrawerContent style={{backgroundColor: theme.menuBackground, color:'white', opacity:'0.9', width: '100%', maxWidth: '500px'}}>
+        <DrawerCloseButton marginRight="15px"/>
         <DrawerBody>
           <div className={styles.routes}>
-            {walletState.address && <AuthRoutes />}
+            <div className={styles.link} onClick={() => gotoPage('/')}>Account</div>
+            <hr className={styles.hr}/>
             <div className={styles.link} onClick={() => gotoPage('/explorer')}>Cerification Explorer</div>
+            <hr className={styles.hr}/>
+            {walletState.address && <AuthRoutes />}
+            <div className={styles.link} onClick={() => gotoPage('/explorer')}>About</div>
+            <hr className={styles.hr}/>
+            <div className={styles.link} onClick={() => gotoPage('/explorer')}>F.A.Q.</div>
+            <hr className={styles.hr}/>
+            <div className={styles.link} onClick={() => gotoPage('/explorer')}>Use Case</div>
             <hr className={styles.hr}/>
           </div>
           <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />
