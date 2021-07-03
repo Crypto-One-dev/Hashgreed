@@ -6,7 +6,6 @@
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
     border-radius: 16.8116px;
     margin: 0 5px;
-    height: 220px;
     margin-top: 0;
     margin-bottom: 10px;
     align-items: center;
@@ -14,22 +13,13 @@
     max-width: 1000px;
     @media (max-width: 1000px){
         width: calc(100% - 100px);
-        margin: 0;
     }
     @media (max-width: 800px){
         width: calc(100% - 100px);
-        margin: 0;
     }
     @media (max-width: 600px){
         width: calc(100% - 30px);
-        margin: 0;
-        height: 250px;
-    }
-    @media (max-width: 450px) {
-        height: 300px;
-    }
-    @media (max-width: 350px) {
-        height: 320px;
+        margin-top: 20px;
     }
     .CarouselArea{
       display: flex;
@@ -40,6 +30,7 @@
           flex-direction: column;
           max-width: 1000px;
           width: 100%;
+          margin-top: 20px;
           .titleBar {
             display: flex;
             flex-direction: row;
@@ -85,11 +76,17 @@
             justify-content: center;
             cursor: pointer;
             padding-right: 0.7rem;
+            @media(max-width: $mobileWidth) {
+              margin-bottom: 40px;
+            }
           }
           .rightIcon{
             align-items: center;
             cursor: pointer;
             margin-left: 0.7rem;
+            @media(max-width: $mobileWidth) {
+              margin-bottom: 40px;
+            }
           }
       }
     }

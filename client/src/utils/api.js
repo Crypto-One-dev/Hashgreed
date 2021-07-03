@@ -157,6 +157,18 @@ const getCertifications = async (filter, callback) => {
   }
 }
 
+const getStakeDatas = async (address) => {
+  try {
+    axios
+      .post('/api/certifications/getStakeDatas', {address: address})
+      .then(res => {
+        console.log(res.data)
+      })
+  } catch(e) {
+    console.error(e)
+  }
+}
+
 const searchCertification = async (transactionID, hashID, reference, callback) => {
   try {
     axios
@@ -316,6 +328,7 @@ const ApiUtils = {
   getMutualCertifications,
   getCounterparts,
   getCertifications,
+  getStakeDatas,
   searchCertification,
   fileUpload,
   emailUpload,

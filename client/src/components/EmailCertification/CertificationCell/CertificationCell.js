@@ -54,7 +54,13 @@ function CertificationCell({cert, owner}){
             Reference: <b>{cert.reference}</b>
             <br/>
             TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
-          </div>   
+          </div>
+          <div className={styles.mobActions}>
+              <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + txid}>
+                <FaPaste className={styles.action} style={{color: theme.iconBack}} />
+              </CopyToClipboard>
+              <FaRegFilePdf className={styles.action} onClick={DownloadCertificate} style={{color: theme.iconBack}}/>
+            </div>   
         </div>
       </div>
     )

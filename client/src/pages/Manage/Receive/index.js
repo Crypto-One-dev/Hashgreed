@@ -47,6 +47,17 @@ function Receive({walletState, walletActions}){
                                 <div className = {styles.copyaddress2}><FaShareAlt className = {styles.fasharealt} size='16px' />Copy Address</div>
                             </CopyToClipboard>
                         </div>
+                        <div className = {styles.mobileCopy}>
+                            <CopyToClipboard text = {walletState.address} style ={{opacity: '0.8'}}>
+                                <QRCode className={styles.qrcodemobile} value={walletState.address} size={24} />
+                            </CopyToClipboard >
+                            <CopyToClipboard text = {walletState.address} style ={{color: theme.primaryText}}>
+                                <FaCopy className = {styles.facopy} size='24px' />
+                            </CopyToClipboard >
+                            <CopyToClipboard text = {urlAddress} style ={{color: theme.primaryText}}>
+                                <FaShareAlt className = {styles.fasharealt} size='24px' />
+                            </CopyToClipboard>
+                        </div>
                         <div className={styles.subcontent}style ={{color: theme.commentText}}>
                             Do not send any other cryptocurrencies or assets than RKMT to this wallet address. All other coins will be lost. <br/>Your account will automatically update after the cryptocurrency network confirms your transaction. The confirmation takes only few minutes. You can track all the transactions directly on the <a className={styles.explorer} onClick ={toExplorer} style ={{color: theme.primaryText}}>Explorer</a>.
                         </div>
@@ -54,7 +65,7 @@ function Receive({walletState, walletActions}){
                 </div>
             </div>
             <div className={styles.transactionList}>
-                <Transaction transactions={transactions} owner={walletState.address} />
+                <Transaction transactions={transactions} title="Latest Transaction" owner={walletState.address} />
             </div>
         </div>
     )

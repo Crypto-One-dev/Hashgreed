@@ -47,10 +47,10 @@ function Loan({ walletState }) {
       return
     }
     if (isNaN(collateralAmount) || collateralAmount <= 0) {
-      AlertUtils.SystemAlert('NFT Asset Amount is not valid')
+      AlertUtils.SystemAlert('Amount is not valid')
       return
     }
-    const tx = await WavesUtils.CreateLoan(parseInt(period), collateralAmount)
+    await WavesUtils.CreateLoan(parseInt(period), collateralAmount)
     AlertUtils.SystemAlert('Request successed')
   }
 
@@ -61,7 +61,7 @@ function Loan({ walletState }) {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.depositTitle} style={{ color: theme.primaryText }}>Loan</div>
-          <div className={styles.totalStaked} style={{ color: theme.buttonBack }}> TotalBorrowed: <div style={{ color: theme.primaryText, marginLeft: '10px' }}>{curLoanAmount} USDT</div> </div>
+          <div className={styles.totalBorrowed} style={{ color: theme.buttonBack }}> TotalBorrowed: <div style={{ color: theme.primaryText, marginLeft: '10px' }}>{curLoanAmount} USDT</div> </div>
         </div>
         <hr className={styles.border} />
         <div className={styles.description} style={{ color: theme.primaryText }}>
@@ -78,56 +78,56 @@ function Loan({ walletState }) {
 
           Loan offered will be up to 60% of the value of your WAVES collateral. Liquidation is only based on expiry of loan period not price of WAVES asset
         </div>
-        <div className={styles.period}>
-          <div className={styles.title} style={{ color: theme.primaryText }}>
+        <div className={styles.slide}>
+          <div className={styles.slidetitle} style={{ color: theme.primaryText }}>
             Enter Loan Period (1-90)
           </div>
-          <div className={styles.slider}>
+          <div className={styles.sliderarea}>
             <NumberInput className={styles.numInput} max={90} min={1} mr="1rem" ml="1rem" value={period} onChange={(value) => setPeriod(value)} step={1} >
               <div className={styles.numberarea}>
                 <div className={styles.title}>Day</div>
                 <NumberInputField className={styles.numberField} borderWidth="0" color='ActiveBorder: #f1eef0' borderInlineEndColor='#f1eef0' focusBorderColor="#f1eef0" />
               </div>
               <NumberInputStepper>
-                <NumberIncrementStepper color=' rgba(0, 4, 81, 0.5)' fontSize='18px' />
-                <NumberDecrementStepper color=' rgba(0, 4, 81, 0.5)' fontSize='18px' />
+                <NumberIncrementStepper color=' rgba(0, 4, 81, 0.5)' fontSize='24px' />
+                <NumberDecrementStepper color=' rgba(0, 4, 81, 0.5)' fontSize='24px' />
               </NumberInputStepper>
             </NumberInput>
 
-            <Slider flex="6" focusThumbOnChange={false} value={period} onChange={(value) => setPeriod(value)} max={90} min={1} step={1} mr='50' >
+            <Slider flex="6" focusThumbOnChange={false} value={period} onChange={(value) => setPeriod(value)} max={90} min={1} step={1}  ml="1.2rem" mr ='1rem' >
               <SliderTrack bg="#C4C4C4" p={1.5} borderRadius="full" >
                 <SliderFilledTrack bg='linear-gradient(268.98deg, #FE006C -0.67%, #000451 116.78%)' p={1.5} borderRadius="full" />
               </SliderTrack>
-              <SliderThumb fontSize='50px' boxSize='32px' boxShadow='' />
+              <SliderThumb fontSize='26px' boxSize='28px' boxShadow='' />
             </Slider>
           </div>
         </div>
-        <div className={styles.period}>
-          <div className={styles.title} style={{ color: theme.primaryText }}>
+        <div className={styles.slide}>
+          <div className={styles.slidetitle} style={{ color: theme.primaryText }}>
             Enter Amount of Waves as collateral
           </div>
-          <div className={styles.slider}>
+          <div className={styles.sliderarea}>
             <NumberInput className={styles.numInput} max={collateralAssetBalance} min={0} mr="1rem" ml="1rem" value={collateralAmount} onChange={(value) => setCollateralAmount(value)} step={0.0001} >
               <div className={styles.numberarea}>
                 <div className={styles.title}>Waves</div>
                 <NumberInputField className={styles.numberField} borderWidth="0" color='ActiveBorder: #f1eef0' borderInlineEndColor='#f1eef0' focusBorderColor="#f1eef0" />
               </div>
               <NumberInputStepper>
-                <NumberIncrementStepper color=' rgba(0, 4, 81, 0.5)' fontSize='18px' />
-                <NumberDecrementStepper color=' rgba(0, 4, 81, 0.5)' fontSize='18px' />
+                <NumberIncrementStepper color=' rgba(0, 4, 81, 0.5)' fontSize='24px' />
+                <NumberDecrementStepper color=' rgba(0, 4, 81, 0.5)' fontSize='24px' />
               </NumberInputStepper>
             </NumberInput>
 
-            <Slider flex="6" focusThumbOnChange={false} value={collateralAmount} onChange={(value) => setCollateralAmount(value)} max={collateralAssetBalance} step={0.0001} mr='50' >
+            <Slider flex="6" focusThumbOnChange={false} value={collateralAmount} onChange={(value) => setCollateralAmount(value)} max={collateralAssetBalance} step={0.0001} ml="1.2rem" mr ='1rem' >
               <SliderTrack bg="#C4C4C4" p={1.5} borderRadius="full" >
                 <SliderFilledTrack bg='linear-gradient(268.98deg, #FE006C -0.67%, #000451 116.78%)' p={1.5} borderRadius="full" />
               </SliderTrack>
-              <SliderThumb fontSize='50px' boxSize='32px' boxShadow='' />
+              <SliderThumb fontSize='26px' boxSize='28px' boxShadow='' />
             </Slider>
           </div>
         </div>
         <div className={styles.interest} style={{ color: styles.commentText }}>
-          Total interest (WAVES):  {parseFloat(totalInterest).toFixed(5)}
+          Total interest (WAVES):  {parseFloat(totalInterest/(10 ** WavesConfig.WAVES_DECIMALS)).toFixed(5)}
         </div>
         <div className={styles.buttonArea}>
           <a className={cx(styles.button, collateralAmount === 0 ? styles.disabled : styles.filled, styles.loanButton)} style={{ backgroundColor: collateralAmount === 0 ? theme.disabledButtonBack : theme.buttonBack }}  onClick={collateralAmount === 0 ? null : () => requestLoan()} >Request Loan</a>

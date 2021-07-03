@@ -61,7 +61,7 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
   const AuthRoutes = () => {
     return (
       <>
-        <div className={styles.link} onClick={() => gotoPage('/overview')}>Overview</div>
+        <div className={styles.link} onClick={() => { onClose(); gotoPage('/overview');}}>Overview</div>
         <hr className={styles.hr}/>
         <Popover>
           <PopoverTrigger>
@@ -69,9 +69,9 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
           </PopoverTrigger>
           <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='90%' marginLeft='7%'>
             <div className={styles.submenu}>
-              <div className={styles.subitem} onClick={() => gotoPage('/manage/receive')}>Receive</div>
-              <div className={styles.subitem} onClick={() => gotoPage('/manage/send')}>Send</div>
-              <div className={styles.subitem} onClick={() => gotoPage('/manage/mass')}>Mass Send</div>
+              <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/manage/receive');}}>Receive</div>
+              <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/manage/send');}}>Send</div>
+              <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/manage/mass');}}>Mass Send</div>
             </div>
           </PopoverContent>
         </Popover>
@@ -82,9 +82,9 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
           </PopoverTrigger>
           <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='90%' marginLeft='7%'>
             <div className={styles.submenu}>
-              <div className={styles.subitem} onClick={() => gotoPage('/certify/file')}>File Certification</div>
-              <div className={styles.subitem} onClick={() => gotoPage('/certify/email')}>Email Certification</div>
-              <div className={styles.subitem} onClick={() => gotoPage('/certify/mutual')}>Mutual Certification</div>
+              <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/certify/file');}}>File Certification</div>
+              <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/certify/email');}}>Email Certification</div>
+              <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/certify/mutual');}}>Mutual Certification</div>
             </div>
           </PopoverContent>
         </Popover>
@@ -101,8 +101,8 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
               </PopoverTrigger>
               <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
                 <div className={styles.submenu}>
-                  <div className={styles.subitem} onClick={() => gotoPage('/auction/artnfts/create')}>Create</div>
-                  <div className={styles.subitem} onClick={() => gotoPage('/auction/artnfts/explorer')}>Explore</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/artnfts/create');}}>Create</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/artnfts/explorer');}}>Explore</div>
                 </div>
               </PopoverContent>
             </Popover>
@@ -112,8 +112,8 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
               </PopoverTrigger>
               <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
                 <div className={styles.submenu}>
-                  <div className={styles.subitem} onClick={() => gotoPage('/auction/hashdealz/create')}>Create</div>
-                  <div className={styles.subitem} onClick={() => gotoPage('/auction/hashdealz/explorer')}>Explore</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/hashdealz/create');}}>Create</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/hashdealz/explorer');}}>Explore</div>
                 </div>
               </PopoverContent>
             </Popover>
@@ -123,8 +123,8 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
               </PopoverTrigger>
               <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
                 <div className={styles.submenu}>
-                  <div className={styles.subitem} onClick={() => gotoPage('/auction/sportnfts/create')}>Create</div>
-                  <div className={styles.subitem} onClick={() => gotoPage('/auction/sportnfts/explorer')}>Explore</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/sportnfts/create');}}>Create</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/sportnfts/explorer');}}>Explore</div>
                 </div>
               </PopoverContent>
             </Popover>
@@ -134,8 +134,8 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
               </PopoverTrigger>
               <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
                 <div className={styles.submenu}>
-                  <div className={styles.subitem} onClick={() => gotoPage('/auction/musiceventsnfts/create')}>Create</div>
-                  <div className={styles.subitem} onClick={() => gotoPage('/auction/musiceventsnfts/explorer')}>Explore</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/musiceventsnfts/create');}}>Create</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/musiceventsnfts/explorer');}}>Explore</div>
                 </div>
               </PopoverContent>
             </Popover>
@@ -145,8 +145,8 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
               </PopoverTrigger>
               <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
                 <div className={styles.submenu}>
-                  <div className={styles.subitem} onClick={() => gotoPage('/auction/gamenfts/create')}>Create</div>
-                  <div className={styles.subitem} onClick={() => gotoPage('/auction/gamenfts/explorer')}>Explore</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/gamenfts/create');}}>Create</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/gamenfts/explorer');}}>Explore</div>
                 </div>
               </PopoverContent>
             </Popover>
@@ -156,8 +156,8 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
               </PopoverTrigger>
               <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
                 <div className={styles.submenu}>
-                  <div className={styles.subitem} onClick={() => gotoPage('/auction/forexnfts/create')}>Create</div>
-                  <div className={styles.subitem} onClick={() => gotoPage('/auction/forexnfts/explorer')}>Explore</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/forexnfts/create');}}>Create</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/forexnfts/explorer');}}>Explore</div>
                 </div>
               </PopoverContent>
             </Popover>
@@ -171,9 +171,9 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
           </PopoverTrigger>
           <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='90%' marginLeft='7%'>
             <div className={styles.submenu}>
-              <div className={styles.subitem} onClick={() => gotoPage('/defi/stake')}>Stake</div>
-              <div className={styles.subitem} onClick={() => gotoPage('/defi/loan')}>Loans</div>
-              <div className={styles.subitem} onClick={() => gotoPage('/auction/create')}>
+              <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/defi/stake');}}>Stake</div>
+              <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/defi/loan');}}>Loans</div>
+              <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/create');}}>
                 <div>Forex</div>
                 <div className={styles.subcomment}>Coming soon</div>
                 </div>
@@ -228,16 +228,16 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
         <DrawerCloseButton marginRight="15px"/>
         <DrawerBody>
           <div className={styles.routes}>
-            <div className={styles.link} onClick={() => gotoPage('/')}>Account</div>
+            <div className={styles.link} onClick={() => { onClose(); gotoPage('/');}}>Account</div>
             <hr className={styles.hr}/>
-            <div className={styles.link} onClick={() => gotoPage('/explorer')}>Cerification Explorer</div>
+            <div className={styles.link} onClick={() => { onClose(); gotoPage('/explorer');}}>Cerification Explorer</div>
             <hr className={styles.hr}/>
             {walletState.address && <AuthRoutes />}
-            <div className={styles.link} onClick={() => gotoPage('/explorer')}>About</div>
+            <div className={styles.link} onClick={() => { onClose(); gotoPage('/explorer');}}>About</div>
             <hr className={styles.hr}/>
-            <div className={styles.link} onClick={() => gotoPage('/explorer')}>F.A.Q.</div>
+            <div className={styles.link} onClick={() => { onClose(); gotoPage('/explorer');}}>F.A.Q.</div>
             <hr className={styles.hr}/>
-            <div className={styles.link} onClick={() => gotoPage('/explorer')}>Use Case</div>
+            <div className={styles.link} onClick={() => { onClose(); gotoPage('/explorer');}}>Use Case</div>
             <hr className={styles.hr}/>
           </div>
           <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />

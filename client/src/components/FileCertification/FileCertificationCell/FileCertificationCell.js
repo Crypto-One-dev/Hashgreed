@@ -10,6 +10,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {FaCertificate, FaDownload, FaPaste, FaRegFilePdf, FaTimes} from 'react-icons/all';
 import styles from './FileCertificationCell.module.scss'
 import {ThemeContext} from 'context/ThemeContext'
+import fileIcon from 'assets/icons/RKMT.png'
 
 function FileCertificationCell({detail, owner, walletState}){
     const {theme} = useContext(ThemeContext)
@@ -51,34 +52,36 @@ function FileCertificationCell({detail, owner, walletState}){
 
     return (
         <div className={styles.fileCertification} key={detail.key} style={{backgroundColor: theme.stepBackground, boxShadow: theme.historyglow}}>
-            <FaCertificate className={styles.fileIcon} style={{color: theme.iconBack}}/>
+            <div className={styles.iconArea}>
+              <img src = {fileIcon} className = {styles.RKMTIcon} alt = ""/>
+            </div>
             <div className={styles.dataArea}>
               <div className={styles.timestampArea}>
                 <div className={styles.info} style={{color: theme.primaryText}}>
                     {timestamp}
                 </div>
                 <div className={styles.actions}>
-                {
-                  detail.link?
-                    <FaDownload className={styles.action} onClick={ShowIPFS} style={{color: theme.iconBack}} />
-                  :
-                    null
-                }
-                {
-                  revoked?
-                    <span className={styles.status}>
-                      <a href={"http://wavesexplorer.com/tx/" + revoked} target="_blank" rel="noreferrer">
-                        REVOKED
-                      </a>
-                    </span>
-                  :
-                    <FaTimes className={styles.action} onClick={() => ShowModal(true)} style={{color: theme.iconBack}} />
-                }
-                <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + txid}>
-                  <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
-                </CopyToClipboard>
-                <FaRegFilePdf className={styles.action} onClick={DownloadCertificate} style={{color: theme.iconBack}}/>
-              </div>
+                  {
+                    detail.link?
+                      <FaDownload className={styles.action} onClick={ShowIPFS} style={{color: theme.iconBack}} />
+                    :
+                      null
+                  }
+                  {
+                    revoked?
+                      <span className={styles.status}>
+                        <a href={"http://wavesexplorer.com/tx/" + revoked} target="_blank" rel="noreferrer">
+                          REVOKED
+                        </a>
+                      </span>
+                    :
+                      <FaTimes className={styles.action} onClick={() => ShowModal(true)} style={{color: theme.iconBack}} />
+                  }
+                  <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + txid}>
+                    <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                  </CopyToClipboard>
+                  <FaRegFilePdf className={styles.action} onClick={DownloadCertificate} style={{color: theme.iconBack}}/>
+                </div>
               </div>
               <div className ={styles.references} style={{color: theme.primaryText}}>
                     Reference: <b>{detail.title}</b>
@@ -86,7 +89,36 @@ function FileCertificationCell({detail, owner, walletState}){
                     Hash: <span>{detail.hash}</span>
                     <br/>
                     TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
-              </div>          
+              </div>
+              <div className ={styles.mobReferences} style={{color: theme.primaryText}}>
+                    Reference: <b>{detail.title.length>25 ? detail.title.slice(0,25)+ "...": detail.title}</b>
+                    <br/>
+                    Hash: <span>{detail.hash.length>25 ? detail.hash.slice(0,25)+"...": detail.hash}</span>
+                    <br/>
+                    TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid.length>25 ? txid.slice(0,25)+"...": txid}</a>
+              </div>
+              <div className={styles.mobActions}>
+                  {
+                    detail.link?
+                      <FaDownload className={styles.action} onClick={ShowIPFS} style={{color: theme.iconBack}} />
+                    :
+                      null
+                  }
+                  {
+                    revoked?
+                      <span className={styles.status}>
+                        <a href={"http://wavesexplorer.com/tx/" + revoked} target="_blank" rel="noreferrer">
+                          REVOKED
+                        </a>
+                      </span>
+                    :
+                      <FaTimes className={styles.action} onClick={() => ShowModal(true)} style={{color: theme.iconBack}} />
+                  }
+                  <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + txid}>
+                    <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                  </CopyToClipboard>
+                  <FaRegFilePdf className={styles.action} onClick={DownloadCertificate} style={{color: theme.iconBack}}/>
+                </div>        
             </div>
             <Modal isCentered isOpen={modalShow} size='xl' onClose={() => ShowModal(false)} >
               <ModalOverlay />

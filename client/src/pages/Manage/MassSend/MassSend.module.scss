@@ -21,6 +21,9 @@
             font-weight: bold;
             text-align: left;
             margin-bottom: 5px;
+            @media(max-width: $mobileWidth){
+                font-size: 18px;
+            }
         }
         .border{
             margin-bottom: 20px;
@@ -42,6 +45,12 @@
                         border-left: 0;
                     }
                 }
+                @media(max-width: $mobileWidth){
+                  background: #FFFFFF;
+                  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                  border-radius: 10px;
+                  padding: 20px;
+                }
                 .address{
                     flex: 7;
                     display: flex;
@@ -50,6 +59,9 @@
                     .inputValue{
                         font-size: 30px;
                         width: 90%;
+                        @media(max-width: $mobileWidth){
+                            font-size: 15px;
+                        }
                     }
                 }
                 .amount{
@@ -70,6 +82,9 @@
                             font-size: 26px;
                             font-weight: 700;
                             color: #262626;
+                            @media(max-width: $mobileWidth){
+                                font-size: 15px;
+                            }
                         }
                         .cursor{
                             cursor: pointer;
@@ -99,12 +114,20 @@
                     @media (max-width: 750px) {
                         width: 100%;
                     }
+                    @media(max-width: $mobileWidth){
+                        font-size: 15px;
+                    }
                 }
                 .subcomment{
                     font-size: 18px;
                     font-weight: 500;
                     color: rgba(21, 20, 57, 0.4);
                     text-align: left;
+                    @media(max-width: $mobileWidth){
+                        font-size: 12px;
+                        margin-top: 50px;
+                        text-align: center;
+                    }
                 }
             }
             .confirm{
@@ -121,6 +144,10 @@
                     @media (max-width: 1000px) {
                         font-size: 16px;
                     }
+                    @media (max-width: $mobileWidth) {
+                        font-size: 12px;
+                        margin-top: 10px;
+                    }
 
                     .feetitle{
                         font-weight: 500;
@@ -131,6 +158,12 @@
                     .feevalue{
                         font-weight: 700;
                         color: #686868;
+                    }
+                }
+                .button{
+                    @media(max-width: $mobileWidth){
+                        font-size: 13.2px;
+                        width: 200px;
                     }
                 }
             }

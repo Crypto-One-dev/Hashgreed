@@ -47,7 +47,7 @@ function MassSend({walletState, walletActions}){
         
         if(massSendFee > 0.001)
             fee = fee - 0.001
-        setMassSendFee(fee.toFixed(2))
+        setMassSendFee(fee.toFixed(3))
     }
     const setRecipientAddress = (index, value) => {
         const newRecipients = _.cloneDeep(recipients)
@@ -142,7 +142,7 @@ function MassSend({walletState, walletActions}){
                 </div>
             </div>
             <div className={styles.transactionList}>
-                <Transaction transactions={transactions} owner={walletState.address} />
+                <Transaction transactions={transactions} title="Latest Transaction" owner={walletState.address} />
             </div>
         </div>
     )
