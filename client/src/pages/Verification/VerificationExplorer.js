@@ -15,8 +15,8 @@ import {ThemeContext} from 'context/ThemeContext'
 import {FaCertificate, FaPaste, FaRegFilePdf, FaFileContract} from 'react-icons/all';
 import {AiOutlineClose} from 'react-icons/all'
 import Logo from 'assets/images/Header.svg'
-import { Button } from '@chakra-ui/react'
 import styles from './VerificationExplorer.module.scss'
+import download from 'downloadjs';
 
 function VerificationExplorer({match}){
 
@@ -36,7 +36,7 @@ function VerificationExplorer({match}){
         setSearchFlag(true)
         if(Object.keys(certification).length>0){
           setReference(certification.title || certification.reference)
-          setHashID(certification.hash)
+          setHashID(certification.hash || certification.messageid)
         }
     }
 
@@ -82,6 +82,25 @@ function VerificationExplorer({match}){
         }
     }, [])
     const fth = useDropzone({onDrop: onFileDrop})
+
+    const DownloadCertificate = () => {
+      let hashTitle = certification.hash ? 'File hash' : certification.messageid ? 'Messge ID' : null
+      fetch('/api/certifications/downloadCertificate', {
+        method: 'POST',
+        body: JSON.stringify({
+          txid: certification.txid,
+          hash_title: hashTitle,
+          ...certification
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }).then(function(resp) {
+        return resp.blob();
+      }).then(function(blob) {
+        return download(blob, certification.title + '.pdf');
+      });
+    }
 
     return(
         <div className={styles.verficationExplorer}>
@@ -153,7 +172,7 @@ function VerificationExplorer({match}){
                                     <AiOutlineClose className={styles.icon_1} onClick={() => setSearchFlag(false)}/>
                                   </div>
                                   <a className={styles.view}>
-                                    The following file was cretified on the waves blockchain
+                                    The following data was cretified on the waves blockchain
                                     <AiOutlineClose className={styles.icon_2} onClick={() => setSearchFlag(false)}/>
                                   </a>
                                 </div>
@@ -182,14 +201,14 @@ function VerificationExplorer({match}){
                                         <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + certification.txid}>
                                           <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
                                         </CopyToClipboard>
-                                        <FaRegFilePdf className={styles.action} style={{color: theme.iconBack}}/>
+                                        <FaRegFilePdf className={styles.action} style={{color: theme.iconBack}} onClick={DownloadCertificate}/>
                                       </div>
                                     </div>
                                     <div className={styles.dataArea}>
                                       <div className={styles.certData} style={{color: theme.primaryText}}>
                                         By: <b>{certification.address}</b> <br/>
                                         Reference: <b>{certification.title || certification.reference}</b> <br/>
-                                        File hash: <b>{certification.hash}</b> <br/>
+                                        {certification.hash ? 'File hash':'Message ID' }: <b>{certification.hash || certification.messageid}</b> <br/>
                                         TxID: <b>{certification.txid}</b> 
                                       </div>
                                       <div className={styles.certDataMob} style={{color: theme.primaryText}}>
@@ -224,7 +243,7 @@ function VerificationExplorer({match}){
                                         <b>OF CERTIFICATION</b>
                                       </div>
                                       <div className={styles.comment} style={{color: theme.primaryText}}>
-                                        <b>You certified the following file on waves blockchain</b>
+                                        <b>You certified the following data on waves blockchain</b>
                                       </div>
                                     </div>
                                     <div className={styles.dataArea} style={{color: theme.commentText}}>

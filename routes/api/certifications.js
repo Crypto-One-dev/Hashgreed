@@ -108,7 +108,7 @@ router.post('/downloadCertificate', async (req, res) => {
     var html = fs.readFileSync('assets/certificate.html', 'utf8')
     const qr = await QRCode.toDataURL(baseUrl + '/explorer/' + txid)
     var bgImg = fs.readFileSync('assets/certificate_bg.jpg', 'base64')
-    var logo = fs.readFileSync('assets/Header.svg', 'base64')
+    var logo = fs.readFileSync('assets/logo.jpg', 'base64')
     const data = {
       title: title,
       reference: title,
@@ -117,7 +117,7 @@ router.post('/downloadCertificate', async (req, res) => {
       label: hash_title,
       txid: txid,
       qr: qr,
-      logo: logo,
+      logo: 'data:image/jpg;base64,' + logo,
       bgImg: 'data:image/jpg;base64,' + bgImg,
       baseUrl: baseUrl,
     }
