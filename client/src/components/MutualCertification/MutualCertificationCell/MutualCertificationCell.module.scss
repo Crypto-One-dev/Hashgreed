@@ -5,7 +5,21 @@
   flex-direction: row;
   padding: 0 10px;
   width: 100%;
-
+  @media (max-width:600px){
+    flex-direction: column;
+    padding: 0;
+    width: 100%;
+  }
+  .infomob{
+    @media (min-width:600px){
+      display: none;
+    }
+    margin-top: 20px;
+    font-weight: 500;
+    margin-left: 5px;
+    font-size: 12px;
+    text-align: left;
+  }
   .fileIcon{
     margin-top: 5px;
     width: 22px;
@@ -15,10 +29,14 @@
     flex: 9;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    @media (max-width:600px){
+      flex-direction: column-reverse;
+    }
     .timestampArea{
         display: flex;
         flex-direction: row;
-        @media (max-width:620px){
+        @media (max-width:600px){
           flex-direction: column;
         }
         .info{
@@ -39,12 +57,7 @@
                 margin-left: 10px;
             }
             @media (max-width:600px){
-                flex:6;
-                word-break: break-all;
-                margin-right: 0;
-                margin-left: 5px;
-                font-size: 12px;
-                margin-right: 10px;
+              display: none;
             }
             @media (max-width:360px){
                 font-size: 11px;
@@ -55,24 +68,18 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: flex-start;
-            @media (max-width:630px){
-              margin-top: 5px;
-              margin-bottom: 5px;
+            @media (max-width:600px){
+              margin-top: 20px;
               justify-content: flex-start;
-          }
+              margin-left: 5px;
+            }
             .action{
               color: #FE006C;
-              margin-left: 10px ;
+              margin-left: 20px;
               @media (max-width:600px){
-                  margin-left: 10px;
-                  margin-top: 10px;
-                  margin-bottom: 10px;
-              }
-              @media (max-width:400px){
-                  margin-left: 5px;
-                  margin-top: 0px;
-                  width: 20px;
-                  height: 20px;
+                font-size: 17px;
+                margin-left: 0px;
+                margin-right: 20px;
               }
           }
         }
@@ -85,7 +92,7 @@
         color: #000451;
         font-size: 15px;
         font-weight: 500;
-        width: calc(100% - 20px);
+        width: 100%;
         @media (max-width:1000px){
             margin-right: 100px;
         }
@@ -94,17 +101,30 @@
             margin-right: 10px;
             margin-left: 10px;
         }
-        @media (max-width:620px){
-            flex:6;
-            word-break: break-all;
-            margin-right: 0;
-            margin-left: 5px;
-            font-size: 12px;
+        @media (max-width:600px){
+            display: none;
         }
         @media (max-width:360px){
             font-size: 11px;
         }
-    }  
+    }
+    .referencesmob{
+      align-items: flex-start;
+      text-align: left;
+      color: #000451;
+      margin-left: 5px;
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      width: 100%;
+      .tmob{
+        margin-top: 10px;
+      }
+      @media (min-width:600px){
+          display: none;  
+         
+      }
+  }   
   }
 }
 .message {

@@ -15,7 +15,7 @@ import Transaction from 'components/Transaction/Transaction'
 import rkmt from 'assets/icons/RKMT.svg'
 import waves from 'assets/icons/WAVES.svg'
 import usdt from 'assets/icons/USDT.svg'
-
+import Balances from '../AuthLayout/components/Balances'
 
 function Overview({walletState, walletActions, priceState, priceActions}) {
   const history = useHistory()
@@ -53,6 +53,7 @@ function Overview({walletState, walletActions, priceState, priceActions}) {
       <div className={styles.overviewBody} style={{color: theme.commentText}}>
       You're now connected and able to use the application. We recommend going to step 3 to make a backup for your account if you just created one.
       </div>
+      <Balances/>
       <div className={styles.buttons}>
         <a className={cx(styles.button, styles.filled)} onClick={onCertify} style={{backgroundColor: theme.buttonBack}}>Certify Now</a>
         <a className={cx(styles.button, styles.outline)} onClick={onSwitch} style={{borderColor: theme.buttonBack}}>Switch Account</a>

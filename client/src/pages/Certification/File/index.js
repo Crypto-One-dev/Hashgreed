@@ -101,7 +101,7 @@ function File({walletState}){
                             File hash <div className = {styles.inputTitleSm}>(No file is sent or stored online unless you choose IPFS option)</div>
                         </div>
                         <Input className = {styles.inputValue} variant="flushed" placeholder="" value={hash} onChange={e => setHash(e.target.value)} style={{color: theme.primaryText}}/>
-                        <Checkbox size="sm" className = {styles.checkbox} isChecked={store} onChange={e => setStore(e.target.checked)}>
+                        <Checkbox  className = {styles.checkbox} isChecked={store} onChange={e => setStore(e.target.checked)}>
                             <div className = {styles.checkcomment} style={{color: theme.commentText}}>Store file on IPFS (max 30MB)</div>
                         </Checkbox>
                     </div>

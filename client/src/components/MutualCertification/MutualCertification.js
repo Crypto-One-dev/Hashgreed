@@ -17,6 +17,7 @@ function MutualCertification({certifications, owner, toggleDetails}){
   const toggleDetail = () => {
     toggleDetails('', false)
   }
+  var num = 0;
   return (
         (certifications && certifications.length>0) ?
         (
@@ -25,7 +26,7 @@ function MutualCertification({certifications, owner, toggleDetails}){
               <div className={styles.header}>
                 <div className={styles.titleBar}>
                   <div className={styles.title} style={{color: theme.primaryText}}>
-                    Transactions
+                    Latest Mutual Agreement
                   </div>
                   <a className={styles.view} href={`${WavesConfig.EXPLORER_URL}/tx/`} target="_blank" rel="noreferrer">View more</a>
                 </div>
@@ -39,11 +40,14 @@ function MutualCertification({certifications, owner, toggleDetails}){
                   toggleDetail();
                 }} alt = ""/>
                 {/* <OwlCarousel style={{width: 'calc(100% - 80px)'}} className="owl-theme" items={1} responsiveClass={true} margin={0} dots={false} ref={carousel} mouseDrag={false} touchDrag={false}> */}
-                <AliceCarousel ref={carousel} disableDotsControls={true} disableButtonsControls={true} playButtonEnabled={false} autoPlayActionDisabled={true}>
+                <AliceCarousel ref={carousel} autoWidth={true} disableDotsControls={true} disableButtonsControls={true} playButtonEnabled={false} autoPlayActionDisabled={true}>
                     {
-                        certifications && certifications.map((cert) =>
-                            <MutualCertificationCell detail={cert} owner={owner} toggleDetail= {toggleDetails}/>
-                        )
+
+                        certifications && certifications.map((cert) =>{
+                          num++;
+                          return (<MutualCertificationCell key={num} detail={cert} owner={owner} toggleDetail= {toggleDetails}/>)
+                        }
+                      )
                     }
                 </AliceCarousel>
                 <img src = {Next} className = {styles.rightIcon} onClick={()=>{

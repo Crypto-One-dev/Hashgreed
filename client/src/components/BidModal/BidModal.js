@@ -3,7 +3,7 @@ import React, {useImperativeHandle,forwardRef, useContext, useState, useEffect} 
 import{Modal, ModalOverlay, ModalContent,useDisclosure, Input} from '@chakra-ui/react'
 import styles from './BidModal.module.scss'
 import {ThemeContext} from "context/ThemeContext"
-import {AiOutlineClose} from 'react-icons/all'
+import {AiOutlineClose, IoIosCloseCircle} from 'react-icons/all'
 import ApiUtils from 'utils/api'
 import WavesUtils from 'utils/waves'
 import AlertUtils from 'utils/alert'
@@ -105,7 +105,7 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
   return(
     <Modal onClose={onClose} size={'5xl'}  isOpen={isOpen} isCentered >
       <ModalOverlay />
-      <ModalContent style ={{ borderRadius: '16px', boxShadow:' 0px 20px 20px rgba(0, 0, 0, 0.15)', backgroundColor: '#F7F9FA'}}>
+      <ModalContent style ={{ borderRadius: '16px', boxShadow:' 0px 20px 20px rgba(0, 0, 0, 0.15)', backgroundColor: '#F7F9FA'}} className={styles.modalContent}>
           <div className={styles.modalArea} style={{backgroundColor:theme.bidModalBackground}}>
             <div className ={styles.imageArea}>
               <img src={`https://ipfs.io/ipfs/${auctionData.avatar}`} className={styles.image}/>
@@ -113,6 +113,7 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
             <div className={styles.dataArea} style={{backgroundColor:theme.stepBackground}}>
               <div className={styles.closeButton}>
                   <AiOutlineClose className={styles.icon} onClick={() => onClose()}/>
+                  <IoIosCloseCircle className={styles.iconMob} onClick={() => onClose()}/>
               </div>
               {
                 category === 'live' && customer === auctionData.winner ?
@@ -187,7 +188,7 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
                     <div className={styles.idInput} style={{color: theme.primaryText}}>{auctionData.winner? auctionData.winner : ''}</div>
                   </div>
                   <div className={styles.idArea}>
-                    <div className={styles.title} style={{color:theme.commentText}}>Duration in block</div>
+                    <div className={styles.title} style={{color:theme.commentText}}>Duration in minutes</div>
                     <div className={styles.value} style={{color: theme.primaryText}}>{duration}</div>
                   </div>
                 </div>
@@ -198,7 +199,7 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
                   <div className={styles.buttonArea} >
                     <div className={styles.inputTitle}>{price.name} </div>
                     <Input variant="unstyled" className={styles.inputBox} value={bid} onChange={(e) => setBid(e.target.value)}/>
-                    <a className={styles.button} style={{backgroundColor:theme.buttonBack}} onClick={Bid}>Place Bid</a>
+                    <a className={styles.button} style={{backgroundColor:theme.buttonBack}} onClick={Bid}>Place a bid</a>
                   </div>
                   <div className={styles.comment}><div style={{color:theme.commentText}}>A 10% royalty goes to the creator for future resale</div></div>
                 </>
@@ -208,7 +209,7 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
                   <div className={styles.buttonArea} style={{backgroundColor: '#C8C6C7'}} >
                     <div className={styles.inputTitle}>{price.name} </div>
                     <Input variant="unstyled" className={styles.inputBox}/>
-                    <a className={styles.button} style={{backgroundColor:theme.disabledButtonBack}}>Place Bid</a>
+                    <a className={styles.button} style={{backgroundColor:theme.disabledButtonBack}}>Place a bid</a>
                   </div>
                   <div className={styles.comment}><div style={{color:theme.commentText}}>A 10% royalty goes to the creator for future resale</div></div>
                 </>

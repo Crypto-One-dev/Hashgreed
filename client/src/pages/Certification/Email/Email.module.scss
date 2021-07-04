@@ -5,14 +5,14 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 100px;
-    @media (max-width: 600px) {
-        margin-bottom: 30px;
+    @media(max-width: 600px){
+        margin-bottom: 50px;
+        margin-top:25px;
     }
 
     .container{
         max-width: 1000px;
         width: 100%;
-        margin: 0 15px;
         @media (max-width: $drawOpenMaxWidth) {
             max-width: 100%;
             padding: 0 20px;
@@ -24,6 +24,10 @@
             font-weight: bold;
             text-align: left;
             margin-bottom: 5px;
+            @media (max-width: 600px){
+                font-size: 18px;
+                letter-spacing: -1px;
+            }
         }
         .border{
             margin-bottom: 20px;
@@ -48,17 +52,26 @@
                     display: flex;
                     flex-direction: column;
                     margin-bottom: 30px;
+                    @media (max-width: 600px){
+                        margin-bottom: 15px;
+                    }
                     
                 }
                 .firstName{
                     display: flex;
                     flex-direction: column;
                     margin-bottom: 30px;
+                    @media (max-width: 600px){
+                        margin-bottom: 15px;
+                    }
                 }
                 .lastName{
                     display: flex;
                     flex-direction: column;
                     margin-bottom: 30px;
+                    @media (max-width: 600px){
+                        margin-bottom: 15px;
+                    }
                 }
             }
             .toContainer{
@@ -74,16 +87,25 @@
                     display: flex;
                     flex-direction: column;
                     margin-bottom: 30px;
+                    @media (max-width: 600px){
+                        margin-bottom: 15px;
+                    }
                 }
                 .reference{
                     display: flex;
                     flex-direction: column;
                     margin-bottom: 30px;
+                    @media (max-width: 600px){
+                        margin-bottom: 15px;
+                    }
                 }
                 .to{
                     display: flex;
                     flex-direction: column;
                     margin-bottom: 30px;
+                    @media (max-width: 600px){
+                        margin-bottom: 15px;
+                    }
                 }
             }   
         }
@@ -95,35 +117,57 @@
                 display:flex;
                 flex-direction: row;
                 margin-bottom: 30px;
+                @media (max-width: 600px){
+                    margin-bottom: 15px;
+                    flex-direction: column;
+                }
                 .server{
                     flex: 5;
                     display: flex;
                     flex-direction: column;
                     margin-right: 50px;
+                    @media (max-width: 600px){
+                        margin-right: 0px;
+                    }
                 }
                 .port{
                     flex: 5;
                     display: flex;
                     flex-direction: column;
                     margin-left: 50px;
+                    @media (max-width: 600px){
+                        margin-left: 0px;
+                        margin-top: 15px;
+                    }
                 }
             }
             .userArea{
                 display:flex;
                 flex-direction: row;
                 margin-bottom: 30px;
+                @media (max-width: 600px){
+                    margin-bottom: 15px;
+                    flex-direction: column;
+                }
 
                 .userId{
                     flex: 5;
                     display: flex;
                     flex-direction: column;
                     margin-right: 50px;
+                    @media (max-width: 600px){
+                        margin-right: 0px;
+                    }
                 }
                 .userPassword{
                     flex: 5;
                     display: flex;
                     flex-direction: column;
                     margin-left: 50px;
+                    @media (max-width: 600px){
+                        margin-left: 0px;
+                        margin-top: 15px;
+                    }
                 }
             }
         }
@@ -132,7 +176,7 @@
             flex-direction: column;
 
             .inputTitle{
-                @media (max-width: 450px) {
+                @media (max-width: 600px) {
                     font-size: 12px;
                 }
             }
@@ -140,7 +184,9 @@
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                
+                @media (max-width: 600px) {
+                    margin-top: 20px;
+                }
                
                 .upload{
                     display: flex;
@@ -148,6 +194,9 @@
                     align-items: center;
                     .paperClip{
                         cursor: pointer;
+                        @media (max-width:600px){
+                            font-size: 14px;
+                        }
                     }
                 }
             }
@@ -160,19 +209,7 @@
                 height: 150px;
                 margin-top: 5px;
             }
-            .messageComment{
-                display: flex;
-                flex-direction: column;
-                align-items:flex-start;
-                margin-top: 10px;
-
-                .subcomment{
-                    font-size: 16px;
-                    font-weight: 500;
-                    text-align: justify;
-                    color: rgba(21, 20, 57, 0.4);
-                }
-            }
+            
         }
         .feearea{
             display: flex;
@@ -181,8 +218,8 @@
             justify-content: center;
             @media (max-width: 600px) {
                 flex-direction: column;
-                margin-top: 30px;
-
+                flex-direction: column-reverse;
+                margin-top: 70px;
             }
 
             .certification{
@@ -209,31 +246,44 @@
             flex-direction: column;
             align-items: center;
             margin-top: 50px;
-            @media (max-width: 800px) {
-                margin-top: 20px;
-             }
+            @media (max-width: 600px) {
+                margin-top: 0px;
+                flex-direction: column-reverse;
+            }
 
             .button{
                 width: 350px;
                 margin-bottom: 10px;
-                @media (max-width: 500px) {
-                    width: 200px;
+                @media (max-width: 600px) {
+                    width: 250px;
+                    font-size: 14px;
+                    padding: 8px;
                 }
             }
             .subcomment{
                 font-size: 18px;
                 font-weight: 500;
                 color: rgba(21, 20, 57, 0.4);
+                @media (max-width:600px){
+                    font-size: 14px;
+                    margin-bottom: 30px;
+                }
             }
         }
     }
     .inputTitle{
         margin-bottom: 0;
         font-size: 18px;
+        @media (max-width: 600px) {
+            font-size: 12px;
+        }
     }
     .inputValue{
         font-size: 18px;
         width: 100%;
+        @media (max-width: 600px) {
+            font-size: 15px;
+        }
     }
     .emailCerts{
         display: flex;
@@ -276,9 +326,9 @@
     font-size: 18px;
     font-weight: 500;
     color:#686868;
-    @media (max-width: 300px) {
-        font-size: 14px;
-
+    @media (max-width: 600px){
+        color: rgba(21, 20, 57, 0.4);
+        font-size: 12px;
     }
 }
 .fee{
@@ -286,7 +336,35 @@
     font-weight: 700;
     color:#686868;
     padding-left: 5px;
-    @media (max-width: 300px) {
-        font-size: 14px;
+    @media (max-width: 600px){
+        color: rgba(21, 20, 57, 0.4);
+        font-size: 12px;
+    }
+}
+ .mobContainer{
+     @media (max-width: 600px){
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        padding: 20px;
+     }
+ }
+ .messageComment{
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    margin-top: 10px;
+    @media(max-width: 600px){
+        margin-top: 50px;
+        margin-bottom: 20px;
+    }
+
+    .subcomment{
+        font-size: 16px;
+        font-weight: 500;
+        text-align: justify;
+        color: rgba(21, 20, 57, 0.4);
+        @media(max-width: 600px){
+            font-size: 12px;
+        }
     }
 }

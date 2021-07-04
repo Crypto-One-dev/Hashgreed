@@ -9,6 +9,10 @@
     font-weight: 700;
     color: #000451;
     margin-bottom: 40px;
+    @media(max-width: $drawOpenMaxWidth){
+      font-size: 15px;
+      line-height: 2;
+    }
   }
   .body {
     display: flex;

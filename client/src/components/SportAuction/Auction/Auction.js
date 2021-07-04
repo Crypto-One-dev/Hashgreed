@@ -12,6 +12,8 @@ function Auction({data, priceAssetId, customer}){
   const carousel = useRef(null)
   const {theme} = useContext(ThemeContext)
   const [dataList, setDataList] = useState()
+  const [visibleMobSearch, setVisibleMobSearch] = useState(false)
+  const [searchVal, setSearchVal]=useState('')
 
   // useEffect(() => {
   //   setDataList(data)
@@ -22,9 +24,10 @@ function Auction({data, priceAssetId, customer}){
   // }
 
   const searchAuction= (searchVal) => {
+    setSearchVal(searchVal)
     let newData = []
     for(let i = 0; i<data.length; i++){
-      if(data[i].name.includes(searchVal) || data[i].id.includes(searchVal)){
+      if(data[i].name.toLowerCase().includes(searchVal.toLowerCase()) || data[i].id.toLowerCase().includes(searchVal.toLowerCase())){
         newData.push(data[i])
       }
     }
@@ -45,8 +48,21 @@ function Auction({data, priceAssetId, customer}){
               </div>
               <Input variant="unstyled" placeholder="Search" className={styles.search} _placeholder={{ color: '#000451', paddingLeft:'90px' }} onChange={(e) => searchAuction(e.target.value)}/>
           </div>
+          {
+              visibleMobSearch?
+              <div className = {styles.searchAreaMob}>
+                  <div className={styles.searchIcon} onClick={()=>{setVisibleMobSearch(false)}}>
+                    <FaSearch/>
+                  </div>
+                  <Input value={searchVal} variant="unstyled" placeholder="Search" className={styles.search} _placeholder={{ color: '#000451', paddingLeft:'30px' }} onChange={(e) => searchAuction(e.target.value)}/>
+              </div>
+              :
+              <div className={styles.searchIconMob} onClick={()=>{setVisibleMobSearch(true)}}>
+                  <FaSearch/>
+              </div>
+            }
           {/* <div className = {styles.viewTitle}>View all</div> */}
-          <div className = {styles.viewTitle}> </div>
+          {/* <div className = {styles.viewTitle}> </div> */}
         </div>
         <hr className = {styles.border}></hr>
         <Carousel ref={carousel} data={data} priceAssetId={priceAssetId} customer={customer}/>

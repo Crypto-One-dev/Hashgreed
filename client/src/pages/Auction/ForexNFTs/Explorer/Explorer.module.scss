@@ -5,7 +5,9 @@
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 100px;
-    
+    @media(max-width: 600px){
+        align-items: center;
+    }
     .nftType{
         display: flex;
         flex-direction: row;
@@ -13,11 +15,14 @@
         margin-bottom: 10px;
         justify-content: flex-start;
         align-items: center;
+        width: 80%;
         height: 60px;
-        width: 100%;
-        margin-left: 100px;
-        @media(max-width: 1200px){
-            margin-left: 100px;
+        margin-left: 120px;
+        @media(max-width: 600px){
+            background-color: #FE006C;
+            margin-left: 0;
+            display: flex;
+            width: 100%;
         }
         .enabledNFT{
             text-align: center;
@@ -29,6 +34,11 @@
             padding: 10px 30px;
             margin: 0 5px;
             cursor: pointer;
+            @media(max-width: 600px){
+                color: white!important;
+                margin: 0;
+                padding: 10px 30px;
+            }
         }
     }
     .auctionarea{
@@ -36,17 +46,26 @@
         flex-direction: row;
         width: calc(100vw - 20px);
         justify-content: center;
+        @media(max-width: 600px){
+            width: calc(100vw - 1px);
+        }
     }
     .expiredarea{
         display: flex;
         flex-direction: row;
         width: calc(100vw - 20px);
         justify-content: center;
+        @media(max-width: 600px){
+            width: calc(100vw - 1px);
+        }
     }
     .soldoutarea{
         display: flex;
         flex-direction: row;
         width: calc(100vw - 20px);
         justify-content: center;
+        @media(max-width: 600px){
+            width: calc(100vw - 1px);
+        }
     }
 }

@@ -25,7 +25,7 @@ function Step({index, title, image, content, isDisabled, walletActions, login}) 
     <div className={cx(styles.step, isDisabled ? styles.nonglow : styles.glow)} style={{backgroundColor: theme.stepBackground,  boxShadow: isDisabled ? theme.nonglow: theme.glow}}>
       <div className={styles.info}>
         <div className={styles.index} style={{color: theme.commentText}} >STEP {index}:</div>
-        <div className={isDisabled ? styles.disabled_title : styles.title} style={{color: isDisabled ? 'rgba(21, 20, 57, 0.4)' : theme.primaryText}}>{title}</div>
+        <div className={isDisabled ? styles.disabled_title : styles.title} style={{color: theme.primaryText}}>{title}</div>
         <div className={styles.image}><img src={image} alt="" /></div>
         <div className={styles.content} style={{color: theme.commentText}}>{content}</div>
       </div>

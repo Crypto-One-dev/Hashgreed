@@ -3,7 +3,7 @@ import cx from 'classnames';
 import download from 'downloadjs';
 import moment from 'moment';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import {FaDownload, FaFileContract, FaPaste, FaPencilAlt, FaRegFilePdf, FaRegPlusSquare, FaSignature} from 'react-icons/all';
+import {FaDownload, FaFileContract, FaPaste, FaPencilAlt, FaRegFilePdf, FaRegPlusSquare, RiAddCircleFill} from 'react-icons/all';
 import {Button, Modal, ModalOverlay, ModalContent, ModalBody} from '@chakra-ui/react';
 
 import WavesConfig from 'config/waves';
@@ -11,7 +11,7 @@ import WavesUtils from 'utils/waves';
 import ApiUtils from 'utils/api';
 import AlertUtils from 'utils/alert';
 import {ThemeContext} from 'context/ThemeContext'
-
+import sign from 'assets/images/sign.png'
 import styles from './MutualCertificationCell.module.scss'
 
 function MutualCertificationCell({detail, owner, walletState, toggleDetail}){
@@ -55,8 +55,13 @@ function MutualCertificationCell({detail, owner, walletState, toggleDetail}){
     <div className={styles.mutualCertification} key={detail.key} style={{backgroundColor: theme.stepBackground, boxShadow: theme.historyglow}}>
         {
           isOwner ? <FaFileContract className={styles.fileIcon} style={{color: theme.iconBack}}/>
-                  : <FaSignature className={styles.fileIcon} style={{color: theme.iconBack}}/>
+                    :
+                    <img src={sign} className={styles.fileIcon} alt=''/>
+                  // : <FaSignature className={styles.fileIcon} style={{color: theme.iconBack}}/>
         }
+      <div className ={styles.infomob} style={{color: theme.primaryText}}>
+            {timestamp}
+      </div>
       <div className={styles.dataArea}>
         <div className={styles.timestampArea}>
           <div className ={styles.info} style={{color: theme.primaryText}}>
@@ -70,7 +75,7 @@ function MutualCertificationCell({detail, owner, walletState, toggleDetail}){
                 null
             }
             {
-              isOwner ? <FaRegPlusSquare className={styles.action} onClick={toggleDetails} style={{color: theme.iconBack}}/>
+              isOwner ? <RiAddCircleFill className={styles.action} onClick={toggleDetails} style={{color: theme.iconBack}}/>
                       : <FaPencilAlt className={styles.action} onClick={toggleDetails} style={{color: theme.iconBack}}/>
             }
             <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + txid}>
@@ -88,6 +93,14 @@ function MutualCertificationCell({detail, owner, walletState, toggleDetail}){
             Hash: <span>{detail.hash}</span>
             <br/>
             TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
+        </div>
+        <div className={styles.referencesmob} style={{color: theme.primaryText}}>
+            {
+              isOwner ? <>You created an agreement request: <b>{detail.title}</b></>
+                      : <>Your signature is requested: <b>{detail.title}</b></>
+            }
+            <div className={styles.tmob}>Hash: <span>{(detail.hash).slice(0,25)+'...'}</span></div>
+            <div className={styles.tmob}>TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid.slice(0,25)+'...'}</a></div>
         </div>
       </div>
     </div>

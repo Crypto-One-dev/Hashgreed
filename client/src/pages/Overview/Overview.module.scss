@@ -6,7 +6,9 @@
   align-items: center;
   margin-bottom: 30px;
   padding: 0 10px;
-  
+  @media (max-width: 600px) {
+    padding-top: 30px;
+  }
   .prices {
     display: flex;
     flex-direction: row;
@@ -14,12 +16,8 @@
     max-width: 1000px;
     margin-bottom: 30px;
     justify-content: space-between;
-    @media (max-width: $drawOpenMaxWidth) {
-      margin-top:50px;
-    }
     @media (max-width: 600px) {
-      flex-direction: column;
-      margin: 0;
+      display: none;
     }
   }
   .overviewHeader{
@@ -27,33 +25,44 @@
       font-weight: 700;
       color: #1E0E62;
       margin-bottom: 30px;
+      @media (max-width: 600px) {
+        font-size: 30px;
+        letter-spacing: -1px
+      }
   }
   .overviewBody{
       font-size: 18px;
       font-weight: 500;
-      max-width: 630px;
+      max-width: 600px;
       width: 100%;
       text-align: center;
       color: #15143966;
       justify-content: space-between;
       margin-bottom: 50px;
+      @media (max-width: 600px) {
+        font-size: 12px;
+        padding: 0 20px 0 20px;
+      }
   }
   .buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    max-width: 630px;
+    max-width: 600px;
     width: 100%;
     margin-bottom: 50px;
-    @media (max-width: 630px) {
+    @media (max-width: 600px) {
       flex-direction: column;
+      align-items: center;
     }
     .button {
       margin-top: 20px;
       margin-left: 10px;
       width: 100%;
-      @media (max-width: 630px) {
-        margin: 5px 0;
+      @media (max-width: 600px) {
+        width: 70%;
+        margin: 9px 0;
+        font-size:14px;
       }
     }
   }

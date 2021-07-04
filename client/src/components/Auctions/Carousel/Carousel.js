@@ -16,6 +16,7 @@ function Carousel({category, auctionType, data, height, customer}, ref){
         bidModal.current.openModal()
         // ApiUtils.getAuctions(walletState.address, auctionType, setAuctions, setHeight);
     }
+    var id = 0;
     useImperativeHandle(ref, () => ({
         prev() {
             carousel.current.prev()
@@ -31,21 +32,23 @@ function Carousel({category, auctionType, data, height, customer}, ref){
             <BidModal ref={bidModal} auctionData={auctionData} auctionType={auctionType} category={category} height={height} customer={customer} />
             <OwlCarousel className="owl-theme" responsiveClass={true} margin={0} dots={false} ref={carousel} responsive={{
                 0:{
-                    items: 1
+                    items: 2.5
                 },
                 600:{
-                    items: 2
+                    items: 3
                 },
                 900:{
-                    items: 3
+                    items: 4
                 },
                 1200:{
                     items: 4
                 }
             }}>
                 {
-                    data && data.map(auction =>
-                        <AuctionCell category={category} auction={auction} height={height} bidOpen = {(val) => openBidModal(val)} />
+                    data && data.map(auction =>{
+                        id++;
+                        return <AuctionCell key={id} category={category} auction={auction} height={height} bidOpen = {(val) => openBidModal(val)} />
+                    }
                     )
                 }
             </OwlCarousel>

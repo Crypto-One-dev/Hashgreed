@@ -168,57 +168,67 @@ function Mutual({walletState}){
             <div className={styles.mutualCertificationList}>
                 <MutualCertification certifications={certifications} owner={walletState.address} toggleDetails = {toggleDetail} />
             </div>
-            <div className={toggle? styles.message: styles.messageHide} style={{color: theme.primaryText}}>
-              <div className={styles.aggrement}>
-                <div className={styles.subData}>
-                  <div className={styles.title}>
-                    Agreement creator: 
-                  </div>
-                  <div className={styles.value}>
-                    {creator}
-                  </div>
-                </div>
-                <div className={styles.subData}>
-                  <div className={styles.title}>
-                    Agreement ID: 
-                  </div>
-                  <div className={styles.value}>
-                    <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer" className={styles.signLink} >{txid}</a>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.counterparts_title}>Counterparts</div>
-              <div className={styles.counterparts}>
-                {
-                  counterparts.map((each, index) => {
-                    return <div key={index}>
-                      {
-                        each.status === 'PENDING' ?
-                          <>
-                            <div className={styles.signLink}>{each.address}</div>
-                            <span
-                              className={cx(styles.signStatus, each.address === walletState.address ? styles.sign : styles.pending, each.address === walletState.address ? styles.clickable : null)}
-                              onClick={each.address === walletState.address ? sign : null}
-                            >
-                              {
-                                each.address === walletState.address ? 'Click to sign' : 'PENDING'
-                              }
-                            </span>
-                          </>
-                        :
-                          <>
-                            <div className={styles.signLink}>
-                              <a href={`${WavesConfig.EXPLORER_URL}/tx/${each.status}`} target="_blank" rel="noreferrer">{each.address}</a>
-                            </div>
-                            <span className={cx(styles.signStatus, styles.signed)}>SIGNED</span>
-                          </>
-                      }
+            <div className={styles.messageContainer}>
+              <div className={toggle? styles.message: styles.messageHide} style={{color: theme.primaryText}}>
+                <div className={styles.aggrement}>
+                  <div className={styles.subData}>
+                    <div className={styles.title}>
+                      Agreement creator: 
                     </div>
-                  })
-                }
-              </div>
-            </div> 
-        </div>
+                    <div className={styles.value}>
+                      {creator}
+                    </div>
+                    <div className={styles.valuemob}>
+                      {creator && creator.slice(0,25)+'...'}
+                    </div>
+                  </div>
+                  <div className={styles.subData}>
+                    <div className={styles.title}>
+                      Agreement ID: 
+                    </div>
+                    <div className={styles.value}>
+                      <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer" className={styles.signLink} >{txid}</a>
+                    </div>
+                    <div className={styles.valuemob}>
+                      <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer" className={styles.signLink} >{txid && txid.slice(0,25)+'...'}</a>
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.counterparts_title}>Counterparts</div>
+                <hr className = {styles.line}/>
+                <div className={styles.counterparts}>
+                  {
+                    counterparts.map((each, index) => {
+                      return <div key={index} className={styles.counterList}>
+                        {
+                          each.status === 'PENDING' ?
+                            <>
+                              <div className={styles.signTxt}>{each.address}</div>
+                              <span
+                                className={cx(styles.signStatus, each.address === walletState.address ? styles.sign : styles.pending, each.address === walletState.address ? styles.clickable : null)}
+                                onClick={each.address === walletState.address ? sign : null}
+                              >
+                                {
+                                  each.address === walletState.address ? 'Click to sign' : 'Pending'
+                                }
+                              </span>
+                            </>
+                          :
+                            < >
+                              <div className={styles.signLink}>
+                                <a href={`${WavesConfig.EXPLORER_URL}/tx/${each.status}`} target="_blank" rel="noreferrer">{each.address}</a>
+                              </div>
+                              <span className={cx(styles.signStatus, styles.signed)}>Signed</span>
+                            </>
+                        }
+                      </div>
+                    })
+                  }
+                </div>
+              </div> 
+        
+            </div>
+          </div>
     )
 }
 

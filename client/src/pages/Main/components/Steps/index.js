@@ -18,7 +18,7 @@ function Steps({walletState, login}) {
 
   return (
     <div className={styles.steps}>
-      <div className={styles.header} style={{color: theme.primaryText}}>FOLLOW THE STEPS TO USE OUR APPLICATION</div>
+      <div className={styles.header} style={{color: theme.primaryText}}>FOLLOW THE STEPS TO USE <br/> OUR APPLICATION</div>
       <div className={styles.body}>
         <Step index={1} title={'Connection'} image={Step1Logo} content={Step1Content} isDisabled={walletState.address} login={login} />
         <Step index={2} title={'You are ready!'} image={Step2Logo} content={Step2Content} isDisabled={!walletState.address}  login={login}/>

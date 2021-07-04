@@ -11,9 +11,11 @@
     color: #1E0E62;
     line-height: 58px;
     margin-bottom: 30px;
-    @media(max-width: 400px){
+    @media(max-width: $drawOpenMaxWidth){
       font-size: 30px;
       line-height: 40px;
+      letter-spacing: -1px;
+      margin-top: 50px;
     }
   }
   .subheader {
@@ -35,6 +37,10 @@
       font-size: 20px;
       font-weight: 500;
       padding: 7px 60px;
+      @media(max-width: $drawOpenMaxWidth){
+        font-size: 14px;
+        padding: 10px 120px;
+      }
     }
     margin-bottom: 100px;
   }

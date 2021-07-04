@@ -10,12 +10,11 @@
   margin-bottom: 10px;
   padding-left: 40px;
   padding-right: 40px;
+  padding-bottom: 20px;
   align-items: center;
   max-width: 1000px;
-  width: calc(100% - 100px);
-  width: 1000px;
+  width: 100%;
   @media (max-width: 600px){
-      width: calc(100% - 30px);
       margin: 0;
       height: 250px;
   }
@@ -48,7 +47,7 @@
             margin-top: 10px;
             @media (max-width:600px){
                 margin-bottom: 10px;
-                font-size: 14px;
+                font-size: 12px;
               }
           }
           .view {
@@ -56,7 +55,7 @@
             font-weight: 500;
             color: rgba(0, 4, 81, 0.7);
             @media (max-width:600px){
-              font-size: 13px;
+              font-size: 12px;
             }
           }
       }
@@ -71,9 +70,6 @@
         width: 100%;
         align-items: center;
         justify-content: center;
-        .alice-carousel__stage-item.__active.__target{
-          width: 100% !important;
-        }
         .leftIcon{
         align-items: center;
         justify-content: center;
