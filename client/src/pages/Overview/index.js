@@ -59,7 +59,7 @@ function Overview({walletState, walletActions, priceState, priceActions}) {
         <a className={cx(styles.button, styles.outline)} onClick={onSwitch} style={{borderColor: theme.buttonBack}}>Switch Account</a>
       </div>
       <div className={styles.transactionList}>
-        <Transaction transactions={transactions} owner={walletState.address} />
+        <Transaction transactions={transactions} title="History" owner={walletState.address} />
       </div>
     </div>
   )

@@ -5,8 +5,13 @@
     border-radius: 90.782px;
     border-radius: 30px;
     overflow: hidden;
-    @media(max-width: 400px){
+    @media(max-width: 600px){
         margin: 0 20px;
+    }
+}
+.modalHeader{
+    @media(max-width: 600px){
+        font-size: 24px;
     }
 }
 .modal-dialog{

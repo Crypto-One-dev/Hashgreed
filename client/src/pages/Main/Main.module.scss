@@ -11,7 +11,7 @@
     color: #1E0E62;
     line-height: 58px;
     margin-bottom: 30px;
-    @media(max-width: $drawOpenMaxWidth){
+    @media(max-width: 600px){
       font-size: 30px;
       line-height: 40px;
       letter-spacing: -1px;
@@ -26,7 +26,7 @@
     text-align: center;
     justify-content: center;
     align-items: center;
-    @media(max-width: 400px){
+    @media(max-width: 600px){
       font-size: 12px;
       margin-left: 20px;
       margin-right: 20px;

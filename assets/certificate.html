@@ -10,24 +10,38 @@
 			}
         	#body
         	{
-			  background-image: url('../assets/certificate_bg.jpg');
-    		  background-repeat: no-repeat;
-              background-position: center;
-              background-size: cover;
-              display: flex;
-              flex-direction: column;
-      
-              font-size: 18px;
-              word-break: break-all;
-              width: 915px;
-              height: 652px;
+  		      background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+    
+            font-size: 18px;
+            word-break: break-all;
+            width: 915px;
+            height: 652px;
         	}
+            #bgImg{
+              position:relative;
+              z-index: 1;
+            }
             #data{
+              position:relative;
+              top:-640px;
+              padding-left: 17.5rem;
+              z-index: 2;
             }
             #header{
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
+                padding-right: 20px;
+                margin-bottom: 30px;
+            }
+            #logo{
+              width: 170px;
+              height: 45px;
+              margin-top: 50px;
             }
             #qr
             {
@@ -41,19 +55,21 @@
                 justify-content: flex-start;
                 align-items: flex-start;
                 line-height: 25px;
+                margin-bottom: 40px;
             }
-        	#title
-        	{
-        		font-size: 72px;
-                font-weight: 700;
-                color: #000451;
-        	}
-        	#subtitle
-        	{
-        		font-size: 24px;
-                font-weight: 700;
-                color: #000000;
-        	}
+          	#title
+          	{
+          		font-size: 72px;
+              font-weight: 700;
+              color: #000451;
+          	}
+          	#subtitle
+          	{
+          		font-size: 24px;
+              font-weight: 700;
+              color: #000000;
+              opacity: 0.8;
+          	}
             #comment{
                 font-size: 16px;
                 color: #000451;
@@ -65,57 +81,64 @@
                 color: rgba(21, 20, 57, 0.4);
                 font-size: 16px;
                 font-weight: 700;
+                word-break: break-all;
             }
             #reference{
                 font-size: 30px;
                 font-weight: 700;
                 color: #FE006C;
+                margin: 20px 0;
             }
             #hash{
                 color:#000451;
                 font-weight: 500;
+                margin-bottom: 30px;
+                padding-right: 6rem;
             }
             #date{
                 color:#000451;
                 font-weight: 500;
+                margin-bottom: 60px
             }
             #footer{
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                font-size: 18px;
+                font-size: 14px;
                 font-weight: 700;
                 color: rgba(21, 20, 57, 0.4);
+                padding-right: 10rem;
             }
         	a 
             {
-                color: rgba(21, 20, 57, 0.4);
-				text-decoration: none;
-			}
-			a:hover 
-			{
-                color: rgba(21, 20, 57, 0.4);
-				text-decoration:none; 
-				cursor: pointer;  
-			}
+              color: rgba(21, 20, 57, 0.4);
+      				text-decoration: none;
+      			}
+      			a:hover 
+      			{
+              color: rgba(21, 20, 57, 0.4);
+      				text-decoration:none; 
+      				cursor: pointer;  
+      			}
         </style>
     </head>
     <body>
     	<div id="body">
+            <img src={{bgImg}} id='bgImg' alt=""/>
             <div id="data">
                 <div id='header'>
-                    <img src="{{logo}}" id="logo">
+                    <img src={{logo}} id="logo">
                     <img src="{{qr}}" id="qr">                
                 </div>
                 <div id="titleArea">
                     <div id="title">Proof</div><br>
                     <div id="subtitle">OF CERTIFICATION</div><br>
-                    <div id="comment">You certified the following file on the waves blockchain</div>
+                    <div id="comment">You certified the following data on the waves blockchain</div>
                 </div>
                 <div id="dataArea">
                     Reference:<br>
                     <div id="reference">{{reference}}</div>
-                    File hash: <br>
+                    {{label}}: <br>
                     <div id="hash">{{hash}}</div>
                     Date: <br>
                     <div id="date">{{date}}</div>

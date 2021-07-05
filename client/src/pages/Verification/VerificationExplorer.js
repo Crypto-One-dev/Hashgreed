@@ -12,11 +12,11 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import QRCode from 'qrcode.react';
 import certBG from 'assets/images/certificate_bg.jpg'
 import {ThemeContext} from 'context/ThemeContext'
-import {FaCertificate, FaPaste, FaRegFilePdf} from 'react-icons/all';
+import {FaCertificate, FaPaste, FaRegFilePdf, FaFileContract} from 'react-icons/all';
 import {AiOutlineClose} from 'react-icons/all'
 import Logo from 'assets/images/Header.svg'
-import { Button } from '@chakra-ui/react'
 import styles from './VerificationExplorer.module.scss'
+import download from 'downloadjs';
 
 function VerificationExplorer({match}){
 
@@ -34,8 +34,9 @@ function VerificationExplorer({match}){
         }
         await ApiUtils.searchCertification(transactionID, hashID, reference, setCertification)
         setSearchFlag(true)
-        console.log(certification)
         if(Object.keys(certification).length>0){
+          setReference(certification.title || certification.reference)
+          setHashID(certification.hash || certification.messageid)
         }
     }
 
@@ -82,6 +83,25 @@ function VerificationExplorer({match}){
     }, [])
     const fth = useDropzone({onDrop: onFileDrop})
 
+    const DownloadCertificate = () => {
+      let hashTitle = certification.hash ? 'File hash' : certification.messageid ? 'Messge ID' : null
+      fetch('/api/certifications/downloadCertificate', {
+        method: 'POST',
+        body: JSON.stringify({
+          txid: certification.txid,
+          hash_title: hashTitle,
+          ...certification
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }).then(function(resp) {
+        return resp.blob();
+      }).then(function(blob) {
+        return download(blob, certification.title + '.pdf');
+      });
+    }
+
     return(
         <div className={styles.verficationExplorer}>
             <div className={styles.container}>
@@ -118,19 +138,21 @@ function VerificationExplorer({match}){
                                 <p className={styles.uploadComment} style={{color: theme.commentText}}>Max files size: 10GB</p>
                             </div>
                         </div>
-                        <div className={styles.transactionarea}>
-                            <div className ={styles.transactionId}>
-                                    <div className = {styles.inputTitle} style={{color: theme.commentText}}>Transaction ID</div>
-                                    <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={transactionID} onChange={e => setTransactionID(e.target.value)} variant="flushed" placeholder=""/>
-                            </div>
-                            <div className ={styles.fileHash}>
-                                <div className = {styles.inputTitle} style={{color: theme.commentText}}>File hash or message ID</div>
-                                <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={hashID} onChange={e => setHashID(e.target.value)} variant="flushed" placeholder=""/>
-                            </div>
-                        </div>
-                        <div className={styles.reference}>
-                            <div className = {styles.inputTitle} style={{color: theme.commentText}}>Reference</div>
-                            <Input className = {styles.inputValue} style={{color: theme.primaryText}} maxLength={60} value={reference} onChange={e => setReference(e.target.value)} variant="flushed" placeholder=""/>        
+                        <div className={styles.searchInputs}>
+                          <div className={styles.transactionarea}>
+                              <div className ={styles.transactionId}>
+                                      <div className = {styles.inputTitle} style={{color: theme.commentText}}>Transaction ID</div>
+                                      <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={transactionID} onChange={e => setTransactionID(e.target.value)} variant="flushed" placeholder=""/>
+                              </div>
+                              <div className ={styles.fileHash}>
+                                  <div className = {styles.inputTitle} style={{color: theme.commentText}}>File hash or message ID</div>
+                                  <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={hashID} onChange={e => setHashID(e.target.value)} variant="flushed" placeholder=""/>
+                              </div>
+                          </div>
+                          <div className={styles.reference}>
+                              <div className = {styles.inputTitle} style={{color: theme.commentText}}>Reference</div>
+                              <Input className = {styles.inputValue} style={{color: theme.primaryText}} maxLength={60} value={reference} onChange={e => setReference(e.target.value)} variant="flushed" placeholder=""/>        
+                          </div>
                         </div>
                         <div className = {styles.confirmarea}>
                             <a className={cx(styles.button, styles.filled)} onClick={Search} style={{backgroundColor: theme.buttonBack}} ref={searchButton}>Search</a>
@@ -147,17 +169,24 @@ function VerificationExplorer({match}){
                                 <div className={styles.titleBar}>
                                   <div className={styles.title}>
                                     Proof of Certification
+                                    <AiOutlineClose className={styles.icon_1} onClick={() => setSearchFlag(false)}/>
                                   </div>
                                   <a className={styles.view}>
-                                    The following file was cretified on the waves blockchain
-                                    <div className={styles.closeTag}>
-                                      <AiOutlineClose className={styles.icon} onClick={() => setSearchFlag(false)}/>
-                                    </div>
+                                    The following data was cretified on the waves blockchain
+                                    <AiOutlineClose className={styles.icon_2} onClick={() => setSearchFlag(false)}/>
                                   </a>
                                 </div>
                                 <hr className = {styles.line}/>
                                 <div className ={styles.certification}>
-                                  <FaCertificate className={styles.fileIcon} style={{color: theme.iconBack}}/>
+                                  <div className={styles.iconGroup}>
+                                    <FaFileContract className={styles.fileIcon} style={{color: theme.iconBack}}/>
+                                    <div className={styles.mobIconArea}>
+                                      <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + certification.txid}>
+                                        <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                      </CopyToClipboard>
+                                      <FaRegFilePdf className={styles.action} style={{color: theme.iconBack}}/>
+                                    </div>
+                                  </div>
                                   <div className={styles.main}>
                                     <div className={styles.timeArea}>
                                       <div className={styles.time} style={{color: theme.primaryText}}>
@@ -172,15 +201,21 @@ function VerificationExplorer({match}){
                                         <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + certification.txid}>
                                           <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
                                         </CopyToClipboard>
-                                        <FaRegFilePdf className={styles.action} style={{color: theme.iconBack}}/>
+                                        <FaRegFilePdf className={styles.action} style={{color: theme.iconBack}} onClick={DownloadCertificate}/>
                                       </div>
                                     </div>
                                     <div className={styles.dataArea}>
                                       <div className={styles.certData} style={{color: theme.primaryText}}>
                                         By: <b>{certification.address}</b> <br/>
                                         Reference: <b>{certification.title || certification.reference}</b> <br/>
-                                        File hash: <b>{certification.hash}</b> <br/>
+                                        {certification.hash ? 'File hash':'Message ID' }: <b>{certification.hash || certification.messageid}</b> <br/>
                                         TxID: <b>{certification.txid}</b> 
+                                      </div>
+                                      <div className={styles.certDataMob} style={{color: theme.primaryText}}>
+                                        By: <b>{certification.address ? certification.address.length>20 ? certification.address.slice(0,20)+'...' : certification.address : ''}</b> <br/>
+                                        Reference: <b>{certification.title || certification.reference}</b> <br/>
+                                        File hash: <b>{certification.hash ? certification.hash.length > 20 ? certification.hash.slice(0,20) + '...' : certification.hash : ''}</b> <br/>
+                                        TxID: <b>{certification.txid ? certification.txid.length > 20 ? certification.txid.slice(0,20) + '...' : certification.txid : ''}</b> 
                                       </div>
                                       <div className={styles.qrArea}>
                                         <div className={styles.qr}>
@@ -194,30 +229,33 @@ function VerificationExplorer({match}){
 
                               </div>
                               <div className={styles.explorerList}>
-                                  <div className={styles.item} style={{backgroundImage: `url(${certBG})`}}>
+                                  <div className={styles.item}>
                                     <div className={styles.header}>
                                       <img src={Logo} className={styles.logo} alt=""/>
-                                      <QRCode value={WavesConfig.BASE_URL + '/explorer/' + certification.txid} includeMargin={true} size={140} className={styles.qr} />
+                                      <QRCode value={WavesConfig.BASE_URL + '/explorer/' + certification.txid} includeMargin={true} className={styles.qrpdf} />
                                     </div>
                                     <div className={styles.titleArea}>
-                                      <div style={{fontSize: '72px', color: theme.primaryText}}>
+                                      <div className={styles.proof} style={{color: theme.primaryText}}>
                                           <b>Proof</b>
                                       </div>
-                                      <div style={{color: '#000000', fontSize: '24px'}}>
+                                      <div className={styles.prfCertifcation}>
                                         <b>OF CERTIFICATION</b>
                                       </div>
-                                      <div style={{color: theme.primaryText, fontSize: '14px'}}>
-                                        <b>You certified the following file on waves blockchain</b>
+                                      <div className={styles.comment} style={{color: theme.primaryText}}>
+                                        <b>You certified the following data on waves blockchain</b>
                                       </div>
                                     </div>
                                     <div className={styles.dataArea} style={{color: theme.commentText}}>
                                       Reference:<br/>
                                       <div style={{color: theme.buttonBack, fontSize: '28px', fontWeight: '700'}}>
                                         {certification.title || certification.reference}
-                                      </div>
+                                      </div>                        
                                       <br/>{certification.hash ? 'File Hash' : 'Message ID'}: <br/>
-                                      <div style={{color: theme.primaryText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
+                                      <div className={styles.imgHash} style={{color: theme.primaryText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
                                         {certification.hash || certification.messageid}
+                                      </div>
+                                      <div className={styles.mobHash} style={{color: theme.primaryText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
+                                        {certification.hash ? certification.hash.length > 20 ? certification.hash.slice(0,20) + '...' : certification.hash : ''}
                                       </div>
                                       <br/>Date: <br/>
                                       <div style={{color: theme.primaryText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>

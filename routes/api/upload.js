@@ -18,6 +18,7 @@ const upload = multer({ storage })
 const attachment = upload.single('attachment')
 
 const File = require('../../models/File')
+const Auction = require('../../models/Auction')
 const keys = require('../../config/keys')
 
 const pinataSDK = require('@pinata/sdk')
@@ -130,7 +131,7 @@ router.post('/auction', upload.single('avatar'), async (req, res) => {
     const assetName = req.body.assetName
     const assetComment = req.body.assetComment
     console.log('https://ipfs.io/ipfs/' + resize_link)
-    await new File({assetType: assetType, assetName: assetName, assetComment: assetComment, link: resize_link, txid: req.body.txid}).save()
+    await new Auction({assetType: assetType, assetName: assetName, assetComment: assetComment, link: resize_link, txid: req.body.txid}).save()
 
     const result = await pinata.pinFromFS(req.file.path)
     const link = result.IpfsHash
@@ -144,7 +145,7 @@ router.post('/auction', upload.single('avatar'), async (req, res) => {
     }
     console.log('https://ipfs.io/ipfs/' + link)
     
-    await new File({assetType: assetType, assetName: assetName, assetComment: assetComment, link, txid: req.body.txid+'_original'}).save()
+    await new Auction({assetType: assetType, assetName: assetName, assetComment: assetComment, link, txid: req.body.txid+'_original'}).save()
 
     return res.status(200).json('Success')
   } catch(e) {

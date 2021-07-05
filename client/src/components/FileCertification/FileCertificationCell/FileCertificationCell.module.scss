@@ -5,23 +5,31 @@
   flex-direction: row;
   padding: 0 10px;
 
-  .fileIcon{
-    margin-top: 5px;
-    width: 22px;
-    height: 22px;
-    @media (max-width:600px){
-      margin-left: 5px;
+  .iconArea{
+    @media (max-width:$mobileWidth){
+      display: none;
+    }
+    .RKMTIcon{
+      margin-top: 5px;
+      width: 24px !important;
+      height: 21px;
+      margin-right: 15px;
+      @media (max-width:1000px){
+        margin-left: 10px;
+      }
     }
   }
+  
   .dataArea{
     flex: 9;
     max-width: 800;
     display: flex;
     flex-direction: column;
+    line-height: 30px;
     .timestampArea{
         display: flex;
         flex-direction: row;
-        @media (max-width:620px){
+        @media (max-width:$mobileWidth){
           flex-direction: column;
         }
         .info{
@@ -58,14 +66,23 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: flex-start;
-            @media (max-width:600px){
+            @media (max-width:$mobileWidth){
+              display: none;
               margin-top: 5px;
               margin-bottom: 5px;
               justify-content: flex-start;
             }
+            .status {
+              background: #FE006C;
+              color: white;
+              font-size: 12px;
+              border-radius: 20px;
+              cursor: pointer;
+            }
             .action{
               color: #FE006C;
               margin-left: 10px ;
+              cursor: pointer;
               @media (max-width:600px){
                   margin-left: 10px;
                   margin-top: 10px;
@@ -97,13 +114,64 @@
             margin-right: 10px;
             margin-left: 10px;
         }
-        @media (max-width:620px){
-            flex:6;
-            font-size: 13px;
-            word-break: break-all;
-            margin-right: 0;
-            margin-left: 5px;
+        @media (max-width:$mobileWidth){
+          width: 100%;  
+          font-size: 13px;
+          word-break: break-all;
+          margin-right: 0;
+          margin-left: 5px;
+          display: none;
         }
+    }
+    .mobReferences{
+      align-items: flex-start;
+      text-align: left;
+      margin-left: 30px;
+      margin-right: 300px;
+      color: #000451;
+      font-size: 15px;
+      font-weight: 500;
+      display: none;
+      width: calc(100% - 20px);
+      @media (max-width:1000px){
+          margin-right: 100px;
+      }
+      @media (max-width:900px){
+          word-break: break-all;
+          margin-right: 10px;
+          margin-left: 10px;
+      }
+      @media (max-width:$mobileWidth){
+        display: block;
+        width: 100%;  
+        font-size: 13px;
+        word-break: break-all;
+        margin-right: 0;
+        margin-left: 5px;
+      }
+  }
+    .mobActions{
+      display: none;
+      @media (max-width:$mobileWidth){
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        justify-content: flex-start;
+      }
+      .action{
+        color: #FE006C;
+        margin-left: 10px ;
+        cursor: pointer;
+        @media (max-width:600px){
+          margin-left: 0;
+            margin-right: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+      }
     }
     
   }

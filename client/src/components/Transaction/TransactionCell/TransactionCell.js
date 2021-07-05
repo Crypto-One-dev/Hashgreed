@@ -30,7 +30,17 @@ function TransactionCell ({transaction, owner}){
 
     return(
         <div className = {styles.transaction} key={transaction.key} style={{backgroundColor: theme.stepBackground, boxShadow: theme.historyglow}}>
-            <img src = {fileIcon} className = {styles.fileIcon} alt = ""/>
+            <div className={styles.imageArea}>
+              <img src = {fileIcon} className = {styles.fileIcon} alt = ""/>
+              <div className = {styles.amount} style={{color: theme.primaryText}}>
+                {
+                  type === 'fc' ? 100.0000 :
+                  type === 'ec' ? 100.0000 :
+                  type === 'MA' ? 300.0000 :
+                  parseFloat(transaction.data.amount).toFixed(4) 
+                }
+              </div>
+            </div>
             <div className = {styles.dataArea}>
               <div className={styles.timestampArea}>
                 <div className={styles.info} style={{color: theme.primaryText}}>
@@ -42,7 +52,7 @@ function TransactionCell ({transaction, owner}){
                       type === 'fc' ? 100 :
                       type === 'ec' ? 100 :
                       type === 'MA' ? 300 :
-                      transaction.data.amount 
+                      parseFloat(transaction.data.amount).toFixed(4) 
                     }
                   </div>
                 </div>

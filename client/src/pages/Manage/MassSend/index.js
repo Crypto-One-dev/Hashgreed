@@ -29,6 +29,7 @@ function MassSend({walletState, walletActions}){
         const proc = () => {
           ApiUtils.getMassTransactions(walletState.address, setTransactions)
         }
+        console.log(transactions)
         proc()
       }
     }, [walletState.address])
@@ -47,7 +48,7 @@ function MassSend({walletState, walletActions}){
         
         if(massSendFee > 0.001)
             fee = fee - 0.001
-        setMassSendFee(fee.toFixed(2))
+        setMassSendFee(fee.toFixed(3))
     }
     const setRecipientAddress = (index, value) => {
         const newRecipients = _.cloneDeep(recipients)
@@ -77,6 +78,7 @@ function MassSend({walletState, walletActions}){
             AlertUtils.SystemAlert('Amount is not valid')
             return
         }
+        console.log(recipients, comment)
         WavesUtils.masssend(recipients, comment)
     }
     return(
@@ -142,7 +144,7 @@ function MassSend({walletState, walletActions}){
                 </div>
             </div>
             <div className={styles.transactionList}>
-                <Transaction transactions={transactions} owner={walletState.address} />
+                <Transaction transactions={transactions} title="Latest Transaction" owner={walletState.address} />
             </div>
         </div>
     )

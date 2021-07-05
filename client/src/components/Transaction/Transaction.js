@@ -10,10 +10,9 @@ import WavesConfig from 'config/waves'
 import Prev from 'assets/images/left.png'
 import Next from 'assets/images/right.png'
 
-function Transaction ({transactions, owner}){
+function Transaction ({transactions, title, owner}){
   const carousel = useRef(null)
   const {theme} = useContext(ThemeContext)
-
     return(
       (transactions && transactions.length>0) ?
         (<div className={styles.transactions} style={{backgroundColor: theme.stepBackground}}>
@@ -21,7 +20,7 @@ function Transaction ({transactions, owner}){
             <div className={styles.header}>
               <div className={styles.titleBar}>
                 <div className={styles.title} style={{color: theme.primaryText}}>
-                  Transactions
+                  {title}
                 </div>
                 <a className={styles.view} href={`${WavesConfig.EXPLORER_URL}/tx/`} target="_blank" rel="noreferrer">View more</a>
               </div>

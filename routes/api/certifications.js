@@ -8,6 +8,7 @@ const QRCode = require('qrcode')
 
 const {nodeUrl, smartContract, nftContract, stakeContract, loanContract, baseUrl, sportContract} = require('../../config/keys')
 const File = require('../../models/File')
+const Auction = require('../../models/Auction')
 
 router.post('/filterCertifications', async (req, res) => {
   try {
@@ -107,7 +108,7 @@ router.post('/downloadCertificate', async (req, res) => {
     var html = fs.readFileSync('assets/certificate.html', 'utf8')
     const qr = await QRCode.toDataURL(baseUrl + '/explorer/' + txid)
     var bgImg = fs.readFileSync('assets/certificate_bg.jpg', 'base64')
-    var logo = fs.readFileSync('assets/Header.svg', 'base64')
+    var logo = fs.readFileSync('assets/logo.jpg', 'base64')
     const data = {
       title: title,
       reference: title,
@@ -116,7 +117,7 @@ router.post('/downloadCertificate', async (req, res) => {
       label: hash_title,
       txid: txid,
       qr: qr,
-      logo: logo,
+      logo: 'data:image/jpg;base64,' + logo,
       bgImg: 'data:image/jpg;base64,' + bgImg,
       baseUrl: baseUrl,
     }
@@ -173,12 +174,35 @@ router.post('/getSportAuctions', async(req, res) => {
       if(sportAuctions[nftIds[i]+'_winAmount'])
         sportAuction.winAmount = sportAuctions[nftIds[i]+'_winAmount'].value
       
+      const found = await Auction.find({ txid: nftIds[i] + '_original'}).limit(1).exec()
+      if(found.length > 0)
+      {
+        sportAuction.avatar = found[0].link
+      }
+      else
+      {
+        sportAuction.avatar = null
+      }
+      
       result.push(sportAuction)
       sportAuction={}
     }
     return res.status(200).json({  priceAssetId, result })
   }
   catch(e) {
+    console.error(e)
+    return res.status(500).json(e)
+  }
+})
+
+router.post('/getStakeDatas', async (req, res) => {
+  try {
+    const {address} = req.body
+    let stakeDatas = await nodeInteraction.accountData({
+      address: stakeContract
+    }, nodeUrl)
+    return res.status(200).json({ stakeDatas })
+  } catch(e) {
     console.error(e)
     return res.status(500).json(e)
   }
@@ -206,7 +230,7 @@ router.post('/getAuctions', async (req, res) => {
         updateAuction(auction, 'operator', auctions, key, '_lot_passed')
         const owner = auction.operator ? auction.operator : auction.winner ? auction.winner : auction.organizer
         // const found = await File.find({ txid: owner === address ? key + '_original' : key }).limit(1).exec()
-        const found = await File.find({ txid: key + '_original'}).limit(1).exec()
+        const found = await Auction.find({ txid: key + '_original'}).limit(1).exec()
         if(found.length > 0)
         {
           auction.avatar = found[0].link

@@ -308,6 +308,7 @@
         margin-right: 5px;
         @media(max-width: 600px){
           font-size: 11px;
+          padding-top: 6px;
         }
       }
       .inputBox{
@@ -319,6 +320,9 @@
         font-size: 18px;
         font-weight: bold;
         text-align: left;
+        @media(max-width: 600px){
+          font-size: 11px;
+        }
       }
       .button{
         flex:4;

@@ -45,7 +45,7 @@ function RepayLoan({walletState}) {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.depositTitle} style={{ color: theme.primaryText }}>Repay Loan</div>
-          <div className={styles.totalStaked} style={{ color: theme.buttonBack }}> TotalBorrowed: <div style={{ color: theme.primaryText, marginLeft: '10px' }}>{currentAmount} USDT</div> </div>
+          <div className={styles.totalBorrowed} style={{ color: theme.buttonBack }}> TotalBorrowed: <div style={{ color: theme.primaryText, marginLeft: '10px' }}>{currentAmount} USDT</div> </div>
         </div>
         <hr className={styles.border} />
         <div className={styles.repayLoan}>

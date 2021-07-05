@@ -83,7 +83,7 @@ function Send({walletState}){
                 </div>
             </div>
             <div className={styles.transactionList}>
-                <Transaction transactions={transactions} owner={walletState.address} />
+                <Transaction transactions={transactions} title="Latest Transaction" owner={walletState.address} />
             </div>
         </div>
     )

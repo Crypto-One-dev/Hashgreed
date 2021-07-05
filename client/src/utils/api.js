@@ -137,6 +137,7 @@ const getSendTransactions = async (address, callback) => {
 const getMassTransactions = async (address, callback) => {
   try {
     const mass = await axios.get(WavesConfig.API_URL + '/v0/transactions/mass-transfer?limit=100&sender=' + address + '&assetId=' + WavesConfig.RKMT_ID)
+    console.log(mass)
     if (callback)
       callback(mass.data.data)
   } catch (e) {
@@ -153,6 +154,18 @@ const getCertifications = async (filter, callback) => {
           callback(res.data)
       })
   } catch (e) {
+    console.error(e)
+  }
+}
+
+const getStakeDatas = async (address) => {
+  try {
+    axios
+      .post('/api/certifications/getStakeDatas', {address: address})
+      .then(res => {
+        console.log(res.data)
+      })
+  } catch(e) {
     console.error(e)
   }
 }
@@ -316,6 +329,7 @@ const ApiUtils = {
   getMutualCertifications,
   getCounterparts,
   getCertifications,
+  getStakeDatas,
   searchCertification,
   fileUpload,
   emailUpload,
