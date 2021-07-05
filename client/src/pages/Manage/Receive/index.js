@@ -18,11 +18,11 @@ function Receive({walletState, walletActions}){
     useEffect(() => {
         if(walletState.address) {
           const proc = () => {
-            ApiUtils.getReceiveTransactions(walletState.address, setTransactions);
+            ApiUtils.getReceiveTransactions(walletState.address, setTransactions)
           }
           proc()
         }
-      }, [walletState.address, transactions])
+      }, [walletState.address])
 
     const toExplorer = () => {window.open('https://wavesexplorer.com')}
     return(

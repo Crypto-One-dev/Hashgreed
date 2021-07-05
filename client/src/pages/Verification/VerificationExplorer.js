@@ -229,7 +229,6 @@ function VerificationExplorer({match}){
 
                               </div>
                               <div className={styles.explorerList}>
-                                  <img src={certBG} alt="" className= { styles.backgroundImg}/>
                                   <div className={styles.item}>
                                     <div className={styles.header}>
                                       <img src={Logo} className={styles.logo} alt=""/>

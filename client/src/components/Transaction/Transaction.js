@@ -13,7 +13,6 @@ import Next from 'assets/images/right.png'
 function Transaction ({transactions, title, owner}){
   const carousel = useRef(null)
   const {theme} = useContext(ThemeContext)
-
     return(
       (transactions && transactions.length>0) ?
         (<div className={styles.transactions} style={{backgroundColor: theme.stepBackground}}>

@@ -29,6 +29,7 @@ function MassSend({walletState, walletActions}){
         const proc = () => {
           ApiUtils.getMassTransactions(walletState.address, setTransactions)
         }
+        console.log(transactions)
         proc()
       }
     }, [walletState.address])
@@ -77,6 +78,7 @@ function MassSend({walletState, walletActions}){
             AlertUtils.SystemAlert('Amount is not valid')
             return
         }
+        console.log(recipients, comment)
         WavesUtils.masssend(recipients, comment)
     }
     return(

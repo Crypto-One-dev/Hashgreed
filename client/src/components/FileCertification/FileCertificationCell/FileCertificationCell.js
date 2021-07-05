@@ -7,7 +7,7 @@ import WavesConfig from 'config/waves';
 import walletContainer from 'redux/containers/wallet';
 import WavesUtils from 'utils/waves';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import {FaCertificate, FaDownload, FaPaste, FaRegFilePdf, FaTimes} from 'react-icons/all';
+import {FaDownload, FaPaste, FaRegFilePdf, FaTimes, FaBan} from 'react-icons/all';
 import styles from './FileCertificationCell.module.scss'
 import {ThemeContext} from 'context/ThemeContext'
 import fileIcon from 'assets/icons/RKMT.png'
@@ -19,7 +19,7 @@ function FileCertificationCell({detail, owner, walletState}){
     const txid = detail.key.replace('data_fc_', '').replace('_' + owner, '');
     const revoked = detail.status ? detail.status.replace('REVOKED_', '') : '';
     const certFee = 100;
-    const transactionFee = 0.001;
+    const transactionFee = 0.005;
     const [modalShow, ShowModal] = useState(false);
 
     const RevokeCertificate = () => {
@@ -27,22 +27,22 @@ function FileCertificationCell({detail, owner, walletState}){
         ShowModal(false);
     };
     const DownloadCertificate = () => {
-        fetch('/api/certifications/downloadCertificate', {
-          method: 'POST',
-          body: JSON.stringify({
-            txid,
-            hash_title: 'File hash',
-            ...detail
-          }),
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        }).then(function(resp) {
-          return resp.blob();
-        }).then(function(blob) {
-          return download(blob, detail.title + '.pdf');
-        });
-      }
+      fetch('/api/certifications/downloadCertificate', {
+        method: 'POST',
+        body: JSON.stringify({
+          txid,
+          hash_title: 'File hash',
+          ...detail
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }).then(function(resp) {
+        return resp.blob();
+      }).then(function(blob) {
+        return download(blob, detail.title + '.pdf');
+      });
+    }
 
       const ShowIPFS = () => {
         window.open('https://ipfs.io/ipfs/' + detail.link)
@@ -69,11 +69,13 @@ function FileCertificationCell({detail, owner, walletState}){
                   }
                   {
                     revoked?
-                      <span className={styles.status}>
+                      // <span className={styles.status}>
+                      <FaBan className={styles.action}>
                         <a href={"http://wavesexplorer.com/tx/" + revoked} target="_blank" rel="noreferrer">
                           REVOKED
                         </a>
-                      </span>
+                      {/* </span> */}
+                      </FaBan>
                     :
                       <FaTimes className={styles.action} onClick={() => ShowModal(true)} style={{color: theme.iconBack}} />
                   }

@@ -137,6 +137,7 @@ const getSendTransactions = async (address, callback) => {
 const getMassTransactions = async (address, callback) => {
   try {
     const mass = await axios.get(WavesConfig.API_URL + '/v0/transactions/mass-transfer?limit=100&sender=' + address + '&assetId=' + WavesConfig.RKMT_ID)
+    console.log(mass)
     if (callback)
       callback(mass.data.data)
   } catch (e) {
