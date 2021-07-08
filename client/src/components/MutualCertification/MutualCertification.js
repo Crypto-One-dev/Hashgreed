@@ -14,6 +14,8 @@ function MutualCertification({certifications, owner, toggleDetails}){
 
   const carousel = useRef(null)
   const {theme} = useContext(ThemeContext)
+  const viewMore = useRef(null);
+
   const toggleDetail = () => {
     toggleDetails('', false)
   }
@@ -28,7 +30,7 @@ function MutualCertification({certifications, owner, toggleDetails}){
                   <div className={styles.title} style={{color: theme.primaryText}}>
                     Latest Mutual Agreement
                   </div>
-                  <a className={styles.view} href={`${WavesConfig.EXPLORER_URL}/tx/`} target="_blank" rel="noreferrer">View more</a>
+                  <a ref={viewMore} className={styles.view} href={`${WavesConfig.EXPLORER_URL}/tx/${certifications && certifications.length > 0 ? certifications[0].key.replace('data_MA_', '').replace('_' + owner, '') : '#'}`} target="_blank" rel="noreferrer">View more</a>
                 </div>
                 <hr className = {styles.line}/>
               </div>
@@ -40,7 +42,13 @@ function MutualCertification({certifications, owner, toggleDetails}){
                   toggleDetail();
                 }} alt = ""/>
                 {/* <OwlCarousel style={{width: 'calc(100% - 80px)'}} className="owl-theme" items={1} responsiveClass={true} margin={0} dots={false} ref={carousel} mouseDrag={false} touchDrag={false}> */}
-                <AliceCarousel ref={carousel} autoWidth={true} disableDotsControls={true} disableButtonsControls={true} playButtonEnabled={false} autoPlayActionDisabled={true}>
+                <AliceCarousel
+                  onSlideChanged  = {(e) => {
+                    if(e.item !== null && e.item) {
+                      viewMore.current.href = `${WavesConfig.EXPLORER_URL}/tx/${certifications[e.item].key.replace('data_MA_', '').replace('_' + owner, '')}`
+                    }
+                  }}
+                  ref={carousel} autoWidth={true} disableDotsControls={true} disableButtonsControls={true} playButtonEnabled={false} autoPlayActionDisabled={true}>
                     {
 
                         certifications && certifications.map((cert) =>{

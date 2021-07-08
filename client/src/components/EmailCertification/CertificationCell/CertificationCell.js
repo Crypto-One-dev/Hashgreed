@@ -5,7 +5,6 @@ import {CopyToClipboard} from 'react-copy-to-clipboard'
 import {FaPaste, FaRegFilePdf, FaEnvelopeOpenText} from 'react-icons/all'
 
 import WavesConfig from 'config/waves'
-import walletContainer from 'redux/containers/wallet'
 import styles from './CertificationCell.module.scss'
 import {ThemeContext} from 'context/ThemeContext'
 
@@ -66,4 +65,4 @@ function CertificationCell({cert, owner}){
     )
 }
 
-export default walletContainer(CertificationCell)
+export default CertificationCell

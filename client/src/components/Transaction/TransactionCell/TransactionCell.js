@@ -49,9 +49,9 @@ function TransactionCell ({transaction, owner}){
                 <div className = {styles.actions}>
                   <div className = {styles.amount} style={{color: theme.primaryText}}>
                     {
-                      type === 'fc' ? 100 :
-                      type === 'ec' ? 100 :
-                      type === 'MA' ? 300 :
+                      type === 'fc' ? 100.0000 :
+                      type === 'ec' ? 100.0000 :
+                      type === 'MA' ? 300.0000 :
                       parseFloat(transaction.data.amount).toFixed(4) 
                     }
                   </div>

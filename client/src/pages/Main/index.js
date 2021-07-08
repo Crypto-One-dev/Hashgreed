@@ -29,12 +29,12 @@ function Main({walletState, walletActions}) {
     <div className={styles.main}>
       <LoginModal ref={loginMdl} onSignMethods = {(str) => onSignMethod(str)}/>
       <div className={styles.header} style={{color: theme.primaryText}}>
-        Do more with secured <br />
+        Do more with smart<br />
         contracts and signatures!
       </div>
       <div className={styles.subheader} style={{color: theme.commentText}}>
-        Our application is using Waves Signer to connect your account and sign all transactions.<br/>
-        To import an existing account, add it first in waves.exchange
+        Our application uses Waves Signer tool to connect your account and sign all transactions.<br/>
+        To import an existing acount, do it first at <a href="https://waves.exchange/" style={{color: theme.buttonBack}}>waves.exchange</a>
       </div> 
       <div className={styles.startnow}>
         <a className={cx(styles.start, styles.filled)} onClick={walletState.address ? gotoOverview : login} style={{backgroundColor: theme.buttonBack}}>Start now</a>

@@ -9,6 +9,7 @@ import walletContainer from 'redux/containers/wallet'
 import Transaction from 'components/Transaction/Transaction'
 import ApiUtils from 'utils/api';
 import {ThemeContext} from 'context/ThemeContext'
+import WavesConfig from 'config/waves'
 
 function Receive({walletState, walletActions}){
     const urlAddress = 'https://wavesexplorer.com/address/' + walletState.address
@@ -24,6 +25,19 @@ function Receive({walletState, walletActions}){
         }
       }, [walletState.address])
 
+    const downloadQR = () => {
+    const canvas = document.getElementById("ADDRESS");
+    const pngUrl = canvas
+        .toDataURL("image/png")
+        .replace("image/png", "image/octet-stream");
+    let downloadLink = document.createElement("a");
+    downloadLink.href = pngUrl;
+    downloadLink.download = "yourQrcode.png";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+    }
+
     const toExplorer = () => {window.open('https://wavesexplorer.com')}
     return(
         <div className={styles.receive}>
@@ -33,7 +47,7 @@ function Receive({walletState, walletActions}){
                 </div>
                 <hr className={styles.border}/>
                 <div className={styles.body}>
-                    <QRCode className={styles.qrcode} value={walletState.address} size={180} />
+                    <QRCode className={styles.qrcode} value={walletState.address} size={180} onClick={() => downloadQR()} id="ADDRESS"/>
                     <div className={styles.subbody}>
                         <div className = {styles.subheader} style ={{color: theme.commentText}}>
                             Deposit Address
@@ -44,18 +58,18 @@ function Receive({walletState, walletActions}){
                                 <div className = {styles.copyaddress1}><FaCopy className = {styles.facopy} size='16px' />Copy Address</div>
                             </CopyToClipboard >
                             <CopyToClipboard text = {urlAddress} style ={{color: theme.primaryText}}>
-                                <div className = {styles.copyaddress2}><FaShareAlt className = {styles.fasharealt} size='16px' />Copy Address</div>
+                                <a className = {styles.copyaddress2} href={urlAddress}><FaShareAlt className = {styles.fasharealt} size='16px' />Copy Address</a>
                             </CopyToClipboard>
                         </div>
                         <div className = {styles.mobileCopy}>
                             <CopyToClipboard text = {walletState.address} style ={{opacity: '0.8'}}>
-                                <QRCode className={styles.qrcodemobile} value={walletState.address} size={24} />
+                                <QRCode className={styles.qrcodemobile} value={walletState.address} size={24}  onClick={() => downloadQR()} id="ADDRESS"/>
                             </CopyToClipboard >
                             <CopyToClipboard text = {walletState.address} style ={{color: theme.primaryText}}>
                                 <FaCopy className = {styles.facopy} size='24px' />
                             </CopyToClipboard >
                             <CopyToClipboard text = {urlAddress} style ={{color: theme.primaryText}}>
-                                <FaShareAlt className = {styles.fasharealt} size='24px' />
+                            <a href={urlAddress}><FaShareAlt className = {styles.fasharealt} size='24px'></FaShareAlt></a>
                             </CopyToClipboard>
                         </div>
                         <div className={styles.subcontent}style ={{color: theme.commentText}}>

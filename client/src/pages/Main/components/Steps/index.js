@@ -10,8 +10,8 @@ import walletContainer from 'redux/containers/wallet'
 import {ThemeContext} from "context/ThemeContext";
 
 const Step1Content = "Click on the SIGN IN buttonbelow and enter your password or create a new account if you don't have an account or multiple accounts they will be listed in the next screen. Select one to connect."
-const Step2Content = "You're now connected and able to use the application. We recommend going to step 3 to make a backup for your account if you just created one."
-const Step3Content = 'For every newly created account we recommend you to follow these steps. Click on "Manage accounts" below to access waves.exchange and get your account recovery seed. Write it down and keep it safe.'
+const Step2Content = "Congratulations! You are connected and ready to Hashgreed. We recommend going to step 3 to confirm backup of your account if it’s a new one."
+const Step3Content = 'If you just created a new account, kindly click on \"Manage Accounts\" below to access your waves.exchange account and retrieve your seed words. Write it and keep it safe.'
 
 function Steps({walletState, login}) {
   const {theme} = useContext(ThemeContext);

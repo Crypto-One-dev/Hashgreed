@@ -43,16 +43,16 @@ const AuctionCell = ({category, auction, height, bidOpen, walletState}) => {
                 
                 <a className = {styles.button} style={{color: theme.primaryText}} onClick={() => bidOpen(auction)}>
                 {
-                    (category === 'live' && !isOwner)?
+                    (category === 'live')?
                     'Bid Now'
                     :
-                    (category === 'live' && isOwner)?
+                    (category === 'expired' && isOwner)?
                     'Withdraw'
                     :
-                    (category === 'solout' && auction.organizer === auction.winner)?
+                    (category === 'soldout' && auction.organizer === auction.operator)?
                     'WithDrawn'
                     :
-                    (category === 'solout' && auction.organizer !== auction.winner)?
+                    (category === 'soldout' && auction.organizer !== auction.operator)?
                     'SoldOut'
                     :
                     'view'

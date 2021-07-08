@@ -33,10 +33,14 @@ function VerificationExplorer({match}){
             return
         }
         await ApiUtils.searchCertification(transactionID, hashID, reference, setCertification)
-        setSearchFlag(true)
-        if(Object.keys(certification).length>0){
-          setReference(certification.title || certification.reference)
-          setHashID(certification.hash || certification.messageid)
+        if(certification && certification !== null){
+          if(Object.keys(certification).length>0){
+            setSearchFlag(true)
+            setReference(certification.title || certification.reference)
+            setHashID(certification.hash || certification.messageid)
+          }
+        } else {
+          AlertUtils.SystemAlert('We can\'t find matched certification' )
         }
     }
 
@@ -108,7 +112,7 @@ function VerificationExplorer({match}){
                 <div className={styles.verificationTitle} style={{color: theme.primaryText}}>Cerification Explorer</div>
                 <hr className = {styles.border}/>
                 {
-                    certification ?
+                    !searchFlag || !certification || certification === null ?
                     <>
                         <div className={styles.uploadarea}>
                             <div {...poc.getRootProps()} className={styles.certification}>
@@ -167,7 +171,7 @@ function VerificationExplorer({match}){
                             <div className={styles.proofArea} style={{backgroundColor: theme.stepBackground, boxShadow: theme.historyglow}}>
                               <div className={styles.mainArea}>
                                 <div className={styles.titleBar}>
-                                  <div className={styles.title}>
+                                  <div className={styles.title} style={{color: theme.primaryText}}>
                                     Proof of Certification
                                     <AiOutlineClose className={styles.icon_1} onClick={() => setSearchFlag(false)}/>
                                   </div>

@@ -22,7 +22,6 @@ function Auction({data, priceAssetId, customer}){
   // if(!data){
   //   data={}
   // }
-
   const searchAuction= (searchVal) => {
     setSearchVal(searchVal)
     let newData = []

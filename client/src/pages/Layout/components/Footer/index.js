@@ -14,7 +14,7 @@ function Footer({walletState, walletActions}) {
   return (
     <div className={styles.footer} style={{backgroundColor: theme.footerBackground}}>
       <div className={styles.description}>
-        Our application is using Waves Signer to connect your account and sign all transactions. To import an existing account, add it first in <a href="https://waves.exchange">waves.exchange</a>. Our Web Application will never have any access to your private key or secret seed, all your accounts should be managed at <a href="https://waves.exchange">waves.exchange</a>. Never enter your private key or secret seed in any 3rd party application.
+        Our application is using Waves Signer to connect your account and sign all transactions. To import an existing account, add it first in <a href="https://waves.exchange/investments/staking/USDN">waves.exchange</a>. Our Web Application will never have any access to your private key or secret seed, all your accounts should be managed at <a href="https://waves.exchange/investments/staking/USDN">waves.exchange</a>. Never enter your private key or secret seed in any 3rd party application.
       </div>
       <div className={styles.logoNlink}>
         <div className={styles.logo}>
@@ -37,7 +37,7 @@ function Footer({walletState, walletActions}) {
           <a>Contacts</a>
         </div>
         <div>
-          © 2021 Hsahgreed. Powered by krosscoin | All rights reserved.
+          © 2021 Hashgreed. Powered by krosscoin | All rights reserved.
         </div>
       </div>
     </div>

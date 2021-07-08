@@ -39,6 +39,7 @@
             }
             .qrcode{
                 margin-right: 20px;
+                cursor: pointer;
                 @media (max-width: 600px) {
                     margin-right: 0;
                     display: none;
@@ -130,12 +131,15 @@
                     }
                     .qrcodemobile{
                       margin-right: 20px;
+                      cursor: pointer;
                     }
                     .facopy{
                         margin-right: 20px;
+                        cursor: pointer;
                     }
                     .fasharealt{
                         margin-right: 20px;
+                        cursor: pointer;
                     }
                 }
                 .subcontent{

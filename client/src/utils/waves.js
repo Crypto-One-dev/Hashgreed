@@ -86,7 +86,6 @@ const masssend = async (recipients, comment) => {
       if (comment) {
         massTransfer.attachment = base58Encode(stringToBytes(comment))
       }
-      console.log(massTransfer)
       await window.waves.massTransfer(massTransfer).broadcast()
     }
   } catch (e) {

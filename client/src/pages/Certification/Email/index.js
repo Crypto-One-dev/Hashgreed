@@ -104,13 +104,25 @@ function Email({walletState}){
                                 <option value="custom" style={{color: theme.selectboxText}}>Use your custom SMTP(For privacy)</option>
                             </Select>
                         </div>
-                        <div className ={styles.reference}>
-                            <div className = {styles.inputTitle} style={{color: theme.commentText}}>Server</div>
-                            <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={server} onChange={e => setServer(e.target.value)} variant="flushed" placeholder=""/>
+                        <div style={{display: smtp === 'open' ? 'block' : 'none'}}>
+                            <div className ={styles.reference}>
+                              <div className = {styles.inputTitle} style={{color: theme.commentText}}>Reference*</div>
+                              <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={reference} onChange={e => setReference(e.target.value)} variant="flushed" placeholder=""/>
+                            </div>
+                            <div className ={styles.to}>
+                              <div className = {styles.inputTitle} style={{color: theme.commentText}}>To</div>
+                              <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={email_recipient} onChange={e => setEmailRecipient(e.target.value)} variant="flushed" placeholder="" maxLength={60}/>
+                            </div>
                         </div>
-                        <div className ={styles.to}>
-                            <div className = {styles.inputTitle} style={{color: theme.commentText}}>Port</div>
-                            <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={port} onChange={e => setPort(e.target.value)} variant="flushed" placeholder=""/>
+                        <div style={{display: smtp === 'open' ? 'none' : 'block'}}>
+                            <div className ={styles.reference}>
+                                <div className = {styles.inputTitle} style={{color: theme.commentText}}>Server</div>
+                                <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={server} onChange={e => setServer(e.target.value)} variant="flushed" placeholder=""/>
+                            </div>
+                            <div className ={styles.to}>
+                              <div className = {styles.inputTitle} style={{color: theme.commentText}}>Port</div>
+                              <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={port} onChange={e => setPort(e.target.value)} variant="flushed" placeholder="" maxLength={60}/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -176,12 +188,6 @@ function Email({walletState}){
               </div>
             </div>
           </div>
-          {/* {
-            certifications[0] != null ?
-            <EmailCertification detail={certifications[0]} owner={walletState.address}/>
-            :
-            null
-          } */}
           <div className={styles.emailCerts}>
             <EmailCertification owner={walletState.address} />
           </div> 

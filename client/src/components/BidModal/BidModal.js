@@ -1,13 +1,15 @@
-import React, {useImperativeHandle,forwardRef, useContext, useState, useEffect} from 'react'
+import React, {useImperativeHandle,forwardRef, useContext, useState, useEffect, useRef} from 'react'
 
-import{Modal, ModalOverlay, ModalContent,useDisclosure, Input} from '@chakra-ui/react'
+import{Modal, ModalOverlay, ModalContent,useDisclosure, Input, Tooltip} from '@chakra-ui/react'
 import styles from './BidModal.module.scss'
 import {ThemeContext} from "context/ThemeContext"
 import {AiOutlineClose, IoIosCloseCircle} from 'react-icons/all'
 import ApiUtils from 'utils/api'
 import WavesUtils from 'utils/waves'
 import AlertUtils from 'utils/alert'
+import WavesConfig from 'config/waves'
 import cx from 'classnames'
+import {CopyToClipboard} from 'react-copy-to-clipboard'
 
 
 const BidModal = ({auctionData, auctionType, category, height, customer}, ref) => {
@@ -33,6 +35,7 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
   const {theme} = useContext(ThemeContext);
   const {isOpen, onOpen, onClose} = useDisclosure()
   const [bid, setBid] = useState('')
+  const clipboard = useRef(null)
   
   let duration = auctionData.end_block - height
   if(duration < 0){
@@ -90,7 +93,7 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
       ApiUtils.getAssetInfo(auctionData.nft_id, setNFT)
     if(auctionData.price_id && auctionData.price_id !== '')
       ApiUtils.getAssetInfo(auctionData.price_id, setPrice)
-  }, [auctionData.nft_id, auctionData.price_id])
+  }, [auctionData.nft_id, auctionData.price_id, setNFT, setPrice])
 
   useImperativeHandle(ref, () => ({
     openModal() {
@@ -105,10 +108,10 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
   return(
     <Modal onClose={onClose} size={'5xl'}  isOpen={isOpen} isCentered >
       <ModalOverlay />
-      <ModalContent style ={{ borderRadius: '16px', boxShadow:' 0px 20px 20px rgba(0, 0, 0, 0.15)', backgroundColor: '#F7F9FA'}} className={styles.modalContent}>
+      <ModalContent style ={{ borderRadius: '16px', boxShadow:' 0px 20px 20px rgba(0, 0, 0, 0.15)', backgroundColor: '#F7F9FA', marginBottom: '20px'}} className={styles.modalContent}>
           <div className={styles.modalArea} style={{backgroundColor:theme.bidModalBackground}}>
             <div className ={styles.imageArea}>
-              <img src={`https://ipfs.io/ipfs/${auctionData.avatar}`} className={styles.image}/>
+              <img src={`https://ipfs.io/ipfs/${auctionData.avatar}`} className={styles.image} alt=""/>
             </div>
             <div className={styles.dataArea} style={{backgroundColor:theme.stepBackground}}>
               <div className={styles.closeButton}>
@@ -118,28 +121,28 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
               {
                 category === 'live' && customer === auctionData.winner ?
                 <div className={styles.live}>
-                  <a className={cx(styles.button, styles.filled, styles.button)} style={{backgroundColor: theme.runningButtonBack}} >Running</a>
+                  <a className={cx(styles.button, styles.filled, styles.button)} style={{backgroundColor: theme.runningButtonBack, marginRight: '20px'}} >Running</a>
                   <a className={cx(styles.button, styles.disabled, styles.button)} style={{backgroundColor:theme.disabledButtonBack}}>Withdraw</a>
                 </div>
                 :
-                category === 'expired' && customer === auctionData.winner ?
+                category === 'expired' && ((customer === auctionData.winner) ||((auctionData.winner === '' || !auctionData.winner ) && customer === auctionData.organizer)) ?
                 <div className={styles.expired}>
-                  <a className={cx(styles.button, styles.disabled, styles.button)} style={{backgroundColor: theme.disabledButtonBack}} >Running</a>
+                  <a className={cx(styles.button, styles.disabled, styles.button)} style={{backgroundColor: theme.disabledButtonBack , marginRight: '20px'}} >Expired Auction</a>
                   <a className={cx(styles.button, styles.filled, styles.button)} style={{backgroundColor:theme.buttonBack}} onClick={Withdraw}>Withdraw</a>
                 </div>
                 :
-                category === 'expired' && customer !== auctionData.winner && customer === auctionData.organizer ?
+                category === 'expired' && (customer !== auctionData.winner || customer !== auctionData.organizer) ?
                 <div className={styles.expired}>
-                  <a className={cx(styles.button, styles.disabled, styles.button)} style={{backgroundColor: theme.disabledButtonBack}} >Running</a>
+                  <a className={cx(styles.button, styles.disabled, styles.button)} style={{backgroundColor: theme.disabledButtonBack , marginRight: '20px'}} >Expired Auction</a>
                   <a className={cx(styles.button, styles.filled, styles.button)} style={{backgroundColor:theme.disabledButtonBack}}>Withdraw</a>
                 </div>
                 :
-                category === 'expired' && customer !== auctionData.winner && customer !== auctionData.organizer ?
+                category === 'soldout' && customer === auctionData.operator ?
                 <div className={styles.expired} style = {{justifyContent:'flex-end'}}>
                   <a className={cx(styles.button, styles.filled, styles.button)} style={{backgroundColor:theme.disabledButtonBack }}>Withdrawn</a>
                 </div>
                 :
-                category === 'soldout'?
+                category === 'soldout' && customer !== auctionData.operator?
                 <div className={styles.soldout}>
                   <a className={cx(styles.button, styles.disabled, styles.button)} style={{backgroundColor: theme.disabledButtonBack}} >Soldout or Withdrawn</a>
                 </div>
@@ -149,7 +152,17 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
               <div className={styles.assetArea}>
                 <div className={styles.assetDataArea}>
                   <div className ={styles.nameArea}>
-                    <div className={styles.title} style={{color:theme.commentText}}>Name of Asset</div>
+                    <div className={styles.title} style={{color:theme.commentText}}>
+                      Name of Asset
+                      <Tooltip placement="right" label={nft.description}>
+                        <span className={styles.question} style={{backgroundColor: theme.buttonBack}} onClick={() => clipboard.current.click()}>
+                        ?
+                        </span>
+                      </Tooltip>
+                      <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + auctionData.assetName}>
+                        <span ref={clipboard}></span>
+                      </CopyToClipboard>
+                    </div>
                     <div className={styles.value} style={{color: theme.primaryText}}>{auctionData.assetName}</div>
                   </div>
                   <div className ={styles.aboutArea}>

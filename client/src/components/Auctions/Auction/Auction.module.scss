@@ -90,6 +90,9 @@
             font-size: 17px;
             font-weight: 500;
             color: rgba(0, 4, 81, 0.7);
+            @media(max-width: $mobileWidth){
+                display: none;
+             }
         }
     }
     .border{

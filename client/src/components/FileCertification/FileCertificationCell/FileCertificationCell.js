@@ -108,11 +108,11 @@ function FileCertificationCell({detail, owner, walletState}){
                   }
                   {
                     revoked?
-                      <span className={styles.status}>
+                      <FaBan className={styles.action}>
                         <a href={"http://wavesexplorer.com/tx/" + revoked} target="_blank" rel="noreferrer">
                           REVOKED
                         </a>
-                      </span>
+                      </FaBan>
                     :
                       <FaTimes className={styles.action} onClick={() => ShowModal(true)} style={{color: theme.iconBack}} />
                   }

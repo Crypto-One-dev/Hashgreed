@@ -27,7 +27,14 @@ function Step({index, title, image, content, isDisabled, walletActions, login}) 
         <div className={styles.index} style={{color: theme.commentText}} >STEP {index}:</div>
         <div className={isDisabled ? styles.disabled_title : styles.title} style={{color: theme.primaryText}}>{title}</div>
         <div className={styles.image}><img src={image} alt="" /></div>
-        <div className={styles.content} style={{color: theme.commentText}}>{content}</div>
+        {
+          index !== 3 ?
+          <div className={styles.content} style={{color: theme.commentText}}>{content}</div>
+          :
+          <div className={styles.content} style={{color: theme.commentText}}>
+            If you just created a new account, kindly click on "Manage Accounts" below to access your <a href="https://waves.exchange/" style={{color: isDisabled ? theme.commentText : theme.buttonBack}}>waves.exchange</a> account and retrieve your seed words. Write it and keep it safe.
+          </div>
+        }
       </div>
       <div className={styles.buttons}>
       {

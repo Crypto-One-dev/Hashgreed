@@ -37,7 +37,7 @@ function Create({walletState}){
       }
     }, [walletState.address])
 
-    const [duration, setDuration] = useState('')
+    const [baseValue, setBaseValue] = useState('')
     const [price, setPrice] = useState('')
     const [assetName, setAssetName] = useState('')
     const [assetComment, setAssetComment] = useState('')
@@ -56,20 +56,20 @@ function Create({walletState}){
             AlertUtils.SystemAlert('NFT Asset Amount is not valid')
             return
         }
-        if(isNaN(duration) || duration <= 0) {
-            AlertUtils.SystemAlert('Duration in blocks is not valid')
+        if(isNaN(baseValue) || baseValue <= 0) {
+            AlertUtils.SystemAlert('BaseValue is not valid')
             return
         }
         if(acceptedFiles.length !== 1) {
             AlertUtils.SystemAlert('You must upload 1 image for NFT')
             return
         }
-        const tx = await WavesUtils.StartAuction(parseInt(duration), parseFloat(price), priceID, nftID, parseFloat(nftAmount))
+        const tx = await WavesUtils.StartAuction(parseInt(baseValue), parseFloat(price), priceID, nftID, parseFloat(nftAmount))
         if(tx) {
             setUploading(true)
             await ApiUtils.auctionUpload(acceptedFiles[0], tx.id)
         }
-        setDuration('')
+        setBaseValue('')
         setPrice('')
         setPriceID('')
         setNFTID('')
@@ -127,12 +127,12 @@ function Create({walletState}){
                             <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={price} onChange={(e) => setPrice(e.target.value)} variant= 'flushed' placeholder = ''/>
                         </div>
                         <div className = {styles.inputarea}>
-                            <div className = {styles.inputTitle} style={{color: theme.commentText}}>NFT asset amount</div>
-                            <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={nftAmount} onChange={(e) => setNFTAmount(e.target.value)} variant= 'flushed' placeholder = ''/>
+                            <div className = {styles.inputTitle} style={{color: theme.commentText}}>Base Value</div>
+                            <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={baseValue} onChange={(e) => setBaseValue(e.target.value)} variant= 'flushed' placeholder = ''/>
                         </div>
                         <div className = {styles.inputarea}>
-                            <div className = {styles.inputTitle} style={{color: theme.commentText}}>Duration in block</div>
-                            <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={duration} onChange={(e) => setDuration(e.target.value)} variant= 'flushed' placeholder = ''/>
+                            <div className = {styles.inputTitle} style={{color: theme.commentText}}>NFT asset amount</div>
+                            <Input className = {styles.inputValue} style={{color: theme.primaryText}} value={nftAmount} onChange={(e) => setNFTAmount(e.target.value)} variant= 'flushed' placeholder = ''/>
                         </div>
                     </div>
                 </div>
