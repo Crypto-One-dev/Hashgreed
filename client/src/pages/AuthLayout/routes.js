@@ -13,7 +13,6 @@ import HashDealzCreate from 'pages/Auction/HashDealz/Create'
 import ArtNFTsExplorer from 'pages/Auction/ArtNFTs/Explorer'
 import ArtNFTsCreate from 'pages/Auction/ArtNFTs/Create'
 import SportNFTsExplorer from 'pages/Auction/SportNFTs/Explorer'
-import SportNFTsCreate from 'pages/Auction/SportNFTs/Create'
 import MusicEventsNFTsExplorer from 'pages/Auction/MusicEventsNFTs/Explorer'
 import MusicEventsNFTsCreate from 'pages/Auction/MusicEventsNFTs/Create'
 import GameNFTsExplorer from 'pages/Auction/GameNFTs/Explorer'
@@ -47,7 +46,6 @@ function AuthRoutes() {
       <Route path={'/auction/hashdealz/create'} exact component={HashDealzCreate} />
       {/*Auction SportNFTs*/}
       <Route path={'/auction/sportnfts/explorer'} exact component={SportNFTsExplorer} />
-      <Route path={'/auction/sportnfts/create'} exact component={SportNFTsCreate} />
       {/*Auction Music/EventsNFTs*/}
       <Route path={'/auction/musiceventsnfts/explorer'} exact component={MusicEventsNFTsExplorer} />
       <Route path={'/auction/musiceventsnfts/create'} exact component={MusicEventsNFTsCreate} />

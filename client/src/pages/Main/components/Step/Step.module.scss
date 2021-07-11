@@ -84,6 +84,11 @@
   box-shadow: 0px 20px 30px rgba(254, 0, 108, 0.2);
   border-radius: 46px; 
 }
+.displaynone{
+  @media(max-width: $drawOpenMaxWidth){
+    display: none;
+  }
+}
 .nonglow {
   @media (max-width: $drawOpenMaxWidth) {
     box-shadow: 0px 20px 30px rgba(254, 0, 108, 0.2);

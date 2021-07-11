@@ -1,17 +1,18 @@
-import React, {useImperativeHandle,forwardRef, useContext, useState, useEffect} from 'react'
+import React, {useImperativeHandle,forwardRef, useContext, useState, useEffect, useRef} from 'react'
 
-import{Modal, ModalOverlay, ModalContent,useDisclosure, Input} from '@chakra-ui/react'
+import{Modal, ModalOverlay, ModalContent,useDisclosure, Input, Tooltip} from '@chakra-ui/react'
 import styles from './BidModal.module.scss'
 import {ThemeContext} from "context/ThemeContext"
 import {AiOutlineClose, IoIosCloseCircle} from 'react-icons/all'
 import ApiUtils from 'utils/api'
 import WavesUtils from 'utils/waves'
 import AlertUtils from 'utils/alert'
-import cx from 'classnames'
-import photo from 'assets/images/photo.png'
+import {CopyToClipboard} from 'react-copy-to-clipboard'
+import WavesConfig from 'config/waves'
 
 const BidModal = ({auctionData, priceAssetId, customer}, ref) => {
   auctionData = auctionData? auctionData: {}
+  const clipboard = useRef(null)
 
   if(!auctionData.bid){
     auctionData.bid = 0
@@ -19,6 +20,15 @@ const BidModal = ({auctionData, priceAssetId, customer}, ref) => {
   const {theme} = useContext(ThemeContext);
   const {isOpen, onOpen, onClose} = useDisclosure()
   const [bid, setBid] = useState('')
+  const [imgLink, setImgLink] = useState()
+  const [description, setDescription] =useState('')
+  const aboutDescription = 'This is the Soccer Player NFT for ' + auctionData.name
+
+  const [nft, setNFT] = useState({
+    name: '',
+    decimals: 0,
+    description: ''
+  })
 
   const [price, setPrice] = useState({
       name: '',
@@ -30,15 +40,29 @@ const BidModal = ({auctionData, priceAssetId, customer}, ref) => {
     if(isNaN(bid) || bid <= 0) {
       AlertUtils.SystemAlert('Bid amount is not valid');
         return;
+    } else if(bid <= auctionData.startValue / (10 ** price.decimals)) {
+      AlertUtils.SystemAlert('Bid amount is must be greater than last winner\'s amount.' )
     }
     AlertUtils.SystemAlert('Buying and Selling NFT are subject to risk so better you will do your own research before buying. Be aware of scam assets as we are only a platform to provide services')
-    WavesUtils.BidAuction(auctionData.id, bid, auctionData.price_id)
+    WavesUtils.sportBidAuction(auctionData.id, bid)
     AlertUtils.SystemAlert("You have successfully placed a bid. When someone else places a higher bid, your bid will be returned back to you")
   }
 
   useEffect(() => {
     ApiUtils.getAssetInfo(priceAssetId, setPrice)
-  }, [priceAssetId])
+    ApiUtils.getAssetInfo(auctionData.id, setNFT)
+
+    let endDescription = 0
+    let linkstart = 0
+    let linkend = 0
+    let nftDescription = nft.description
+    endDescription = nftDescription.search('IPFS Link:')
+    linkstart = nftDescription.search('https://ipfs.io')
+    linkend = nftDescription.search('Hash:')
+    setDescription(nftDescription.slice(0,endDescription))
+    setImgLink(nftDescription.slice(linkstart, linkend))
+
+  }, [priceAssetId, auctionData.id, nft])
 
   useImperativeHandle(ref, () => ({
     openModal() {
@@ -56,7 +80,7 @@ const BidModal = ({auctionData, priceAssetId, customer}, ref) => {
       <ModalContent style ={{ borderRadius: '16px', boxShadow:' 0px 20px 20px rgba(0, 0, 0, 0.15)', backgroundColor: '#F7F9FA'}} className={styles.modalContent}>
           <div className={styles.modalArea} style={{backgroundColor:theme.bidModalBackground}}>
             <div className ={styles.imageArea}>
-              <img src={photo} className={styles.image}/>
+              <img src={imgLink} className={styles.image}/>
             </div>
             <div className={styles.dataArea} style={{backgroundColor:theme.stepBackground}}>
               <div className={styles.closeButton}>
@@ -66,12 +90,18 @@ const BidModal = ({auctionData, priceAssetId, customer}, ref) => {
               <div className={styles.assetArea}>
                 <div className={styles.assetDataArea}>
                   <div className ={styles.nameArea}>
-                    <div className={styles.title} style={{color:theme.commentText}}>Name of Asset</div>
+                    <div className={styles.title} style={{color:theme.commentText}}>
+                      Name of Asset
+                    </div>
                     <div className={styles.value} style={{color: theme.primaryText}}>{auctionData.name}</div>
                   </div>
                   <div className ={styles.aboutArea}>
                     <div className={styles.title} style={{color:theme.commentText}}>About this Asset</div>
-                    <div className={styles.about} style={{color: theme.primaryText}}>{auctionData.assetComment}</div>
+                    <div className={styles.about} style={{color: theme.primaryText}}>
+                      This is the Soccer Player NFT for 
+                      <br/>
+                      {auctionData.name}
+                    </div>
                   </div>
                   <div className ={styles.priceArea}>
                     <div className={styles.minPriceArea}>
@@ -89,16 +119,22 @@ const BidModal = ({auctionData, priceAssetId, customer}, ref) => {
                 </div>
                 <div className={styles.assetIdArea}>
                   <div className={styles.idArea}>
-                    <div className={styles.title} style={{color:theme.commentText}}>NFT Asset amount</div>
-                    <div className={styles.idInput} style={{color: theme.primaryText}}>{auctionData.nft_amount ? auctionData.nft_amount / (10 ** price.decimals) : 0}</div>
-                  </div>
-                  <div className={styles.idArea}>
                     <div className={styles.title} style={{color:theme.commentText}}>Price Asset ID</div>
-                    <div className={styles.idInput} style={{color: theme.primaryText}}>{auctionData.price_id}</div>
+                    <div className={styles.idInput} style={{color: theme.primaryText}}>{price.name}</div>
                   </div>
                   <div className={styles.idArea}>
-                    <div className={styles.title} style={{color:theme.commentText}}>NFT Asset ID</div>
-                    <div className={styles.idInput} style={{color: theme.primaryText}}>{auctionData.nft_id}</div>
+                    <div className={styles.title} style={{color:theme.commentText}}>
+                      NFT Asset ID 
+                      <Tooltip placement="right" label={description}>
+                        <span className={styles.question} style={{backgroundColor: theme.buttonBack}} onClick={() => clipboard.current.click()}>
+                        ?
+                        </span>
+                      </Tooltip>
+                      <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + nft.name}>
+                        <span ref={clipboard}></span>
+                      </CopyToClipboard>
+                    </div>
+                    <div className={styles.idInput} style={{color: theme.primaryText}}>{nft.name}</div>
                   </div>
                   <div className={styles.idArea}>
                     <div className={styles.title} style={{color:theme.commentText}}>Current Winner</div>

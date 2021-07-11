@@ -11,17 +11,14 @@ import {ThemeContext} from 'context/ThemeContext'
 function Auction({data, priceAssetId, customer}){
   const carousel = useRef(null)
   const {theme} = useContext(ThemeContext)
-  const [dataList, setDataList] = useState()
+  const [dataList, setDataList] = useState(data)
   const [visibleMobSearch, setVisibleMobSearch] = useState(false)
   const [searchVal, setSearchVal]=useState('')
 
-  // useEffect(() => {
-  //   setDataList(data)
-  // }, [data])
+  useEffect(() => {
+    setDataList(data)
+  }, [data])
 
-  // if(!data){
-  //   data={}
-  // }
   const searchAuction= (searchVal) => {
     setSearchVal(searchVal)
     let newData = []
@@ -30,8 +27,10 @@ function Auction({data, priceAssetId, customer}){
         newData.push(data[i])
       }
     }
-    if(searchVal !== ''){
-     setDataList(newData)
+    if(searchVal !== '' && searchVal){
+      setDataList(newData)
+    } else {
+      setDataList(data)
     }
   }
 
@@ -64,7 +63,7 @@ function Auction({data, priceAssetId, customer}){
           {/* <div className = {styles.viewTitle}> </div> */}
         </div>
         <hr className = {styles.border}></hr>
-        <Carousel ref={carousel} data={data} priceAssetId={priceAssetId} customer={customer}/>
+        <Carousel ref={carousel} data={dataList} priceAssetId={priceAssetId} customer={customer}/>
       </div>
       <img src = {Next} className = {styles.rightIcon} onClick={()=>{carousel.current.next()}} alt = ""/>
     </>

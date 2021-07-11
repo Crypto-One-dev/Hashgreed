@@ -5,6 +5,7 @@ import "owl.carousel/dist/assets/owl.theme.green.css"
 import OwlCarousel from 'react-owl-carousel'
 import AuctionCell from '../AuctionCell/AuctionCell'
 import SportBidModal from 'components/SportBidModal/BidModal'
+import AliceCarousel from 'react-alice-carousel'
 
 function Carousel({data, priceAssetId, customer}, ref){
     const carousel = useRef(null)
@@ -14,23 +15,41 @@ function Carousel({data, priceAssetId, customer}, ref){
         setAuctionData(auctionData)
         bidModal.current.openModal()
     }
+    
     var id = 0;
     useImperativeHandle(ref, () => ({
         prev() {
             carousel.current.prev()
+            // carousel.current.slidePrev()
         },
         next() {
             carousel.current.next()
+            // carousel.current.slideNext()
         }
       }
-      ))
+    ))
+
+    const responsive = {
+        0:{
+            items: 2.5
+        },
+        600:{
+            items: 3
+        },
+        900:{
+            items: 4
+        },
+        1200:{
+            items: 4
+        },
+    }
 
     return(
         <>
             <SportBidModal ref={bidModal} auctionData={auctionData} priceAssetId={priceAssetId} customer={customer} />
             <OwlCarousel className="owl-theme" responsiveClass={true} margin={0} dots={false} ref={carousel} responsive={{
                 0:{
-                    items: 2.5
+                    items: 2
                 },
                 600:{
                     items: 3
@@ -42,6 +61,10 @@ function Carousel({data, priceAssetId, customer}, ref){
                     items: 4
                 }
             }}>
+            {/* <AliceCarousel
+                responsive = {responsive}
+                ref={carousel} disableDotsControls={true} disableButtonsControls={true} playButtonEnabled={false} autoPlayActionDisabled={true} autoPlay={false}> */}
+
                 {
                     data && data.map(auction =>{
                         id++;
@@ -51,6 +74,7 @@ function Carousel({data, priceAssetId, customer}, ref){
                     )
                 }
             </OwlCarousel>
+            {/* </AliceCarousel> */}
         </>
     )
 }

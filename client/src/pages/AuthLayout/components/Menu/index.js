@@ -131,7 +131,6 @@ function Menu() {
             </PopoverTrigger>
             <PopoverContent bg='rgba(0, 4, 81, 0.4)'  className={styles.auctionContent}> 
               <div className={styles.nftsubmenu}>
-                <div className={styles.subitem} onClick={() => gotoPage('/auction/sportnfts/create')}>Create</div>
                 <div className={styles.subitem} onClick={() => gotoPage('/auction/sportnfts/explorer')}>Explore</div>
               </div>
             </PopoverContent>

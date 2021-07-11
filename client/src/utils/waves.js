@@ -464,6 +464,34 @@ const BidAuction = async (auctionID, bidAmount, bidAssetID) => {
   }
 }
 
+const sportBidAuction = async (auctionID, bidAmount) => {
+  try {
+    if (window.waves) {
+      const bid_decimals = WavesConfig.USDT_DECIMALS
+      await window.waves.invoke({
+        dApp: WavesConfig.SPORT_SCRIPT,
+        payment: [{
+          assetId: WavesConfig.USDT_ID,
+          amount: bidAmount * (10 ** bid_decimals)
+        }],
+        call: {
+          function: 'bid',
+          args: [
+            {
+              "type": "string",
+              "value": auctionID
+            }
+          ]
+        },
+        chainId: WavesConfig.CHAIN_ID
+      }).broadcast()
+    }
+  } catch (e) {
+    console.error(e)
+    AlertUtils.SystemAlert(e)
+  }
+}
+
 const CreateLoan = async (days,amount) => {
   try {
     if (window.waves) {
@@ -534,6 +562,7 @@ const WavesUtils = {
   StartAuction,
   WithdrawAuction,
   BidAuction,
+  sportBidAuction,
   CreateLoan,
   RepayLoan,
 }
