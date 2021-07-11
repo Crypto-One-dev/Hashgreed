@@ -12,7 +12,11 @@ import AlertUtils from 'utils/alert'
 import WavesConfig from 'config/waves'
 import walletContainer from 'redux/containers/wallet'
 import {CopyToClipboard} from 'react-copy-to-clipboard'
-import { Tooltip } from '@chakra-ui/react'
+import{
+    Popover,
+    PopoverTrigger,
+    PopoverContent
+  } from '@chakra-ui/react'
 import { ThemeContext } from 'context/ThemeContext'
 
 function Create({ walletState }) {
@@ -127,14 +131,33 @@ function Create({ walletState }) {
                         <div className={styles.inputarea}>
                             <div className={styles.inputTitle} style={{ color: theme.commentText }}>
                                 NFT asset ID
-                                <Tooltip placement="right" label={nft.description}>
-                                  <span className={styles.question} style={{backgroundColor: theme.buttonBack}} onClick={() => clipboard.current.click()}>
-                                  ?
-                                  </span>
-                                </Tooltip>
-                                <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + nftID}>
-                                  <span ref={clipboard}></span>
-                                </CopyToClipboard>
+                                {
+                                    nft.description && nft.description !== '' && nft.description !== null ?
+                                    <>
+                                    <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + nftID}>
+                                    <span ref={clipboard}></span>
+                                    </CopyToClipboard>
+                                    <Popover  placement='bottom'>
+                                    <PopoverTrigger>
+                                        <span className={styles.question} style={{backgroundColor: theme.buttonBack}} onClick={() => clipboard.current.click()}>
+                                        ?
+                                        </span>
+                                    </PopoverTrigger>
+                                    <PopoverContent bg='rgba(0, 4, 81, 0.4)' className = {styles.content}>
+                                        {
+                                        nft.description && nft.description !== '' && nft.description !== null ?
+                                        <div className={styles.submenu}>
+                                            <div className={styles.subitem} >{nft.description}</div>
+                                        </div>
+                                        :
+                                        null
+                                        }
+                                    </PopoverContent>
+                                    </Popover>
+                                    </>
+                                    :
+                                    null
+                                }
                             </div>
                             <Input className={styles.inputValue} style={{ color: theme.primaryText }} value={nftID} onChange={(e) => setNFTIDs(e.target.value)} variant='flushed' placeholder='' />
                         </div>

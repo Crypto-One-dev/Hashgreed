@@ -12,7 +12,7 @@ function Explorer({walletState}){
     const [auctions, setAuctions] = useState([])
     const [height, setHeight] = useState(0)
     const {theme} = useContext(ThemeContext)
-    const auctionType = 'ForexNFTs'
+    const auctionType = 'ServicesNFTs'
 
     useEffect(() => {
       let interval = -1
@@ -34,24 +34,24 @@ function Explorer({walletState}){
     return (
         <div className = {styles.explorer}>
             <div className ={styles.nftType}>
-                <div className={styles.enabledNFT} style={{color: theme.primaryText, borderColor:theme.buttonBack}}>Forex NFTs</div>
+                <div className={styles.enabledNFT} style={{color: theme.primaryText, borderColor:theme.buttonBack}}>Services NFTs</div>
             </div>
             {
                 auctions && auctions.live && auctions.live.length > 0 &&
                 <div className = {styles.auctionarea}>
-                    <Auction title={'Live Auction'} auctionType={'ForexNFTs'} auction={'live'} data={auctions.live} height={height} />
+                    <Auction title={'Live Auction'} auctionType={'ServicesNFTs'} auction={'live'} data={auctions.live} height={height} />
                 </div>
             }
             {
                 auctions && auctions.live && auctions.expired.length > 0 &&
                 <div className = {styles.expiredarea}>
-                    <Auction title={'Expired Auction'} auctionType={'ForexNFTs'} auction={'expired'} data={auctions.expired} height={height} />
+                    <Auction title={'Expired Auction'} auctionType={'ServicesNFTs'} auction={'expired'} data={auctions.expired} height={height} />
                 </div>
             }
             {
                 auctions && auctions.live && auctions.soldout.length > 0 &&
                 <div className = {styles.soldoutarea}>
-                    <Auction title={'Soldout Auction'} auctionType={'ForexNFTs'} auction={'soldout'} data={auctions.soldout} height={height} />
+                    <Auction title={'Soldout/Withdrawn Auction'} auctionType={'ServicesNFTs'} auction={'soldout'} data={auctions.soldout} height={height} />
                 </div>
             }
         </div>

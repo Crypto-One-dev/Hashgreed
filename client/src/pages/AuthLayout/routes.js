@@ -17,8 +17,8 @@ import MusicEventsNFTsExplorer from 'pages/Auction/MusicEventsNFTs/Explorer'
 import MusicEventsNFTsCreate from 'pages/Auction/MusicEventsNFTs/Create'
 import GameNFTsExplorer from 'pages/Auction/GameNFTs/Explorer'
 import GameNFTsCreate from 'pages/Auction/GameNFTs/Create'
-import ForexNFTsExplorer from 'pages/Auction/ForexNFTs/Explorer'
-import ForexNFTsCreate from 'pages/Auction/ForexNFTs/Create'
+import ServicesNFTsExplorer from 'pages/Auction/ServicesNFTs/Explorer'
+import ServicesNFTsCreate from 'pages/Auction/ServicesNFTs/Create'
 import Defi from 'pages/Defi'
 import Stake from 'pages/Defi/Stake'
 import Loans from 'pages/Defi/Loan'
@@ -52,9 +52,9 @@ function AuthRoutes() {
       {/*Auction GameNFTs*/}
       <Route path={'/auction/gamenfts/explorer'} exact component={GameNFTsExplorer} />
       <Route path={'/auction/gamenfts/create'} exact component={GameNFTsCreate} />
-      {/*Auction ForexNFTs*/}
-      <Route path={'/auction/forexnfts/explorer'} exact component={ForexNFTsExplorer} />
-      <Route path={'/auction/forexnfts/create'} exact component={ForexNFTsCreate} />
+      {/*Auction ServicesNFTs*/}
+      <Route path={'/auction/servicesnfts/explorer'} exact component={ServicesNFTsExplorer} />
+      <Route path={'/auction/servicesnfts/create'} exact component={ServicesNFTsCreate} />
       {/*Staking*/}
       <Route path={'/defi'} exact component={Defi} />
       <Route path={'/defi/stake'} exact component={Stake} />

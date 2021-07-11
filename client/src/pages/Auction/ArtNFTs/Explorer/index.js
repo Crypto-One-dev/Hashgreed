@@ -51,7 +51,7 @@ function Explorer({walletState}){
             {
                 auctions && auctions.live && auctions.soldout.length > 0 &&
                 <div className = {styles.soldoutarea}>
-                    <Auction title={'Soldout Auction'} auctionType={'ArtNFTs'} auction={'soldout'} data={auctions.soldout} height={height} customer={walletState.address} />
+                    <Auction title={'Soldout/Withdrawn Auction'} auctionType={'ArtNFTs'} auction={'soldout'} data={auctions.soldout} height={height} customer={walletState.address} />
                 </div>
             }
         </div>

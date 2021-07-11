@@ -1,6 +1,10 @@
 import React, {useImperativeHandle,forwardRef, useContext, useState, useEffect, useRef} from 'react'
 
-import{Modal, ModalOverlay, ModalContent,useDisclosure, Input, Tooltip} from '@chakra-ui/react'
+import{Modal, ModalOverlay, ModalContent,useDisclosure, Input, 
+  Popover,
+  PopoverTrigger,
+  PopoverContent
+} from '@chakra-ui/react'
 import styles from './BidModal.module.scss'
 import {ThemeContext} from "context/ThemeContext"
 import {AiOutlineClose, IoIosCloseCircle} from 'react-icons/all'
@@ -58,8 +62,8 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
   else if(auctionType === 'GameNFTs'){
     auctionTypeText = 'Game NFTs'
   }
-  else if(auctionType === 'ForexNFTs'){
-    auctionTypeText = 'Forex NFTs'
+  else if(auctionType === 'ServicesNFTs'){
+    auctionTypeText = 'Services NFTs'
   }
 
   const [nft, setNFT] = useState({
@@ -154,14 +158,6 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
                   <div className ={styles.nameArea}>
                     <div className={styles.title} style={{color:theme.commentText}}>
                       Name of Asset
-                      <Tooltip placement="right" label={nft.description}>
-                        <span className={styles.question} style={{backgroundColor: theme.buttonBack}} onClick={() => clipboard.current.click()}>
-                        ?
-                        </span>
-                      </Tooltip>
-                      <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + auctionData.assetName}>
-                        <span ref={clipboard}></span>
-                      </CopyToClipboard>
                     </div>
                     <div className={styles.value} style={{color: theme.primaryText}}>{auctionData.assetName}</div>
                   </div>
@@ -193,7 +189,36 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
                     <div className={styles.idInput} style={{color: theme.primaryText}}>{auctionData.price_id}</div>
                   </div>
                   <div className={styles.idArea}>
-                    <div className={styles.title} style={{color:theme.commentText}}>NFT Asset ID</div>
+                    <div className={styles.title} style={{color:theme.commentText}}>
+                      NFT Asset ID 
+                      {
+                        nft.description && nft.description !== '' && nft.description !== null ?
+                        <>
+                        <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + auctionData.nft_id}>
+                          <span ref={clipboard}></span>
+                        </CopyToClipboard>
+                        <Popover  placement='bottom'>
+                          <PopoverTrigger>
+                            <span className={styles.question} style={{backgroundColor: theme.buttonBack}} onClick={() => clipboard.current.click()}>
+                            ?
+                            </span>
+                          </PopoverTrigger>
+                          <PopoverContent bg='rgba(0, 4, 81, 0.4)' className = {styles.content}>
+                            {
+                              nft.description && nft.description !== '' && nft.description !== null ?
+                              <div className={styles.submenu}>
+                                <div className={styles.subitem} >{nft.description}</div>
+                              </div>
+                              :
+                              null
+                            }
+                          </PopoverContent>
+                        </Popover>
+                        </>
+                        :
+                        null
+                      }
+                    </div>
                     <div className={styles.idInput} style={{color: theme.primaryText}}>{auctionData.nft_id}</div>
                   </div>
                   <div className={styles.idArea}>

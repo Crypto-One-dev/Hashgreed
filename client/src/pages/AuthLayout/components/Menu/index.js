@@ -174,12 +174,12 @@ function Menu() {
             trigger="click"
           >
             <PopoverTrigger>
-              <div className={styles.subitem} style={{borderBottom:'none'}}>Forex NFTs</div>
+              <div className={styles.subitem} style={{borderBottom:'none'}}>Services NFTs</div>
             </PopoverTrigger>
             <PopoverContent bg='rgba(0, 4, 81, 0.4)'  className={styles.auctionContent}> 
               <div className={styles.nftsubmenu}>
-                <div className={styles.subitem} onClick={() => gotoPage('/auction/forexnfts/create')}>Create</div>
-                <div className={styles.subitem} onClick={() => gotoPage('/auction/forexnfts/explorer')}>Explore</div>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/servicesnfts/create')}>Create</div>
+                <div className={styles.subitem} onClick={() => gotoPage('/auction/servicesnfts/explorer')}>Explore</div>
               </div>
             </PopoverContent>
           </Popover>

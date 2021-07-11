@@ -101,6 +101,7 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
               </PopoverTrigger>
               <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
                 <div className={styles.submenu}>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/artnfts/create');}}>Create</div>
                   <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/artnfts/explorer');}}>Explore</div>
                 </div>
               </PopoverContent>
@@ -151,12 +152,12 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
             </Popover>
             <Popover>
               <PopoverTrigger>
-                <div className={styles.subitem}>Forex NFTs</div>
+                <div className={styles.subitem}>Services NFTs</div>
               </PopoverTrigger>
               <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
                 <div className={styles.submenu}>
-                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/forexnfts/create');}}>Create</div>
-                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/forexnfts/explorer');}}>Explore</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/servicesnfts/create');}}>Create</div>
+                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/servicesnfts/explorer');}}>Explore</div>
                 </div>
               </PopoverContent>
             </Popover>

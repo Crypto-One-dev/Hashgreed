@@ -1,6 +1,10 @@
 import React, {useImperativeHandle,forwardRef, useContext, useState, useEffect, useRef} from 'react'
 
-import{Modal, ModalOverlay, ModalContent,useDisclosure, Input, Tooltip} from '@chakra-ui/react'
+import{Modal, ModalOverlay, ModalContent,useDisclosure, Input, Tooltip,
+  Popover,
+  PopoverTrigger,
+  PopoverContent
+} from '@chakra-ui/react'
 import styles from './BidModal.module.scss'
 import {ThemeContext} from "context/ThemeContext"
 import {AiOutlineClose, IoIosCloseCircle} from 'react-icons/all'
@@ -22,7 +26,6 @@ const BidModal = ({auctionData, priceAssetId, customer}, ref) => {
   const [bid, setBid] = useState('')
   const [imgLink, setImgLink] = useState()
   const [description, setDescription] =useState('')
-  const aboutDescription = 'This is the Soccer Player NFT for ' + auctionData.name
 
   const [nft, setNFT] = useState({
     name: '',
@@ -125,14 +128,33 @@ const BidModal = ({auctionData, priceAssetId, customer}, ref) => {
                   <div className={styles.idArea}>
                     <div className={styles.title} style={{color:theme.commentText}}>
                       NFT Asset ID 
-                      <Tooltip placement="right" label={description}>
-                        <span className={styles.question} style={{backgroundColor: theme.buttonBack}} onClick={() => clipboard.current.click()}>
-                        ?
-                        </span>
-                      </Tooltip>
-                      <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + nft.name}>
-                        <span ref={clipboard}></span>
-                      </CopyToClipboard>
+                      {
+                        description && description !== '' && description !== null ?
+                        <>
+                        <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + auctionData.id}>
+                          <span ref={clipboard}></span>
+                        </CopyToClipboard>
+                        <Popover  placement='bottom'>
+                          <PopoverTrigger>
+                            <span className={styles.question} style={{backgroundColor: theme.buttonBack}} onClick={() => clipboard.current.click()}>
+                            ?
+                            </span>
+                          </PopoverTrigger>
+                          <PopoverContent bg='rgba(0, 4, 81, 0.4)' className = {styles.content}>
+                            {
+                              description && description !== '' && description !== null ?
+                              <div className={styles.submenu}>
+                                <div className={styles.subitem} >{description}</div>
+                              </div>
+                              :
+                              null
+                            }
+                          </PopoverContent>
+                        </Popover>
+                        </>
+                        :
+                        null
+                      }
                     </div>
                     <div className={styles.idInput} style={{color: theme.primaryText}}>{nft.name}</div>
                   </div>

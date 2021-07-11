@@ -183,6 +183,9 @@
           @media(max-width: 600px){
             margin-bottom: 15px;
           }
+          .content{
+            max-width: 90%;
+          }
           .question {
             color: white;
             font-size: 10px;
@@ -192,6 +195,35 @@
             cursor: pointer;
             margin: 0px 0px 0px 10px;
             padding: 0 5px;
+          }
+          .submenu {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(0, 4, 81, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-sizing: border-box;
+            backdrop-filter: blur(3px);
+            .subitem {
+              padding: 10px 15px;
+              text-align: left;
+              font-size: 14px;
+              font-weight: 500;
+              color: white;
+              cursor: pointer;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              align-items: center;
+              @media(max-width: $mobileWidth){
+                font-size: 9px;
+              }
+            }
+            .auctionContent{
+              width: 250px;
+              backdrop-filter: blur(5px);
+              margin-left: 60px;
+            }
           }
           .idInput{
             word-wrap: break-word;

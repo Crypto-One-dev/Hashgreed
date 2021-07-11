@@ -4,7 +4,6 @@ import "owl.carousel/dist/assets/owl.carousel.css"
 import "owl.carousel/dist/assets/owl.theme.green.css"
 import OwlCarousel from 'react-owl-carousel'
 import AuctionCell from '../AuctionCell/AuctionCell'
-import ApiUtils from 'utils/api'
 import BidModal from 'components/BidModal/BidModal'
 
 function Carousel({category, auctionType, data, height, customer}, ref){
