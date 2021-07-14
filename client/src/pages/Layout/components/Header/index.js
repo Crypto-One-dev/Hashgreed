@@ -1,4 +1,4 @@
-import React, {useCallback, useContext} from 'react'
+import React, {useCallback, useContext, useEffect} from 'react'
 import cx from 'classnames'
 import {useHistory} from 'react-router-dom'
 import {FaBars} from 'react-icons/all'
@@ -19,7 +19,14 @@ function Header({walletState, walletActions}) {
   const {theme, setTheme} = useContext(ThemeContext);
   
   const verification = useCallback(() => history.push('/explorer'), [history])
-  
+  useEffect(() => {
+    const googleTranslateElementInit = () => {
+      new window.google.translate.TranslateElement({pageLanguage: 'en', layout: 0}, 'google_translate_element')
+    }
+    setTimeout(() => {
+      googleTranslateElementInit();
+    }, 2000);
+  }, []);
 
   return (
     <div className={styles.header}  style={{backgroundColor: theme.balancesBack, color: theme.primaryText}}>
@@ -36,7 +43,7 @@ function Header({walletState, walletActions}) {
         <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />
         <a className={styles.explorer} onClick={walletState.address != null? verification : null} style={{color: theme.verificationColor}}>Cerification Explorer</a>
         <a className={cx(styles.account, styles.filled)} onClick={account} style={{backgroundColor: theme.buttonBack}}>Account</a>
-        <a className={styles.lang} style={{color: theme.commentText}}>EN</a>
+        <a className={styles.lang} style={{color: theme.commentText}} id="google_translate_element"></a>
       </div>
       <FaBars className={styles.drawer} onClick={() => onOpen()}/>
       <Drawer isOpen={isOpen} onClose={onClose} />

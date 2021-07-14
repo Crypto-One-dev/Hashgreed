@@ -40,7 +40,14 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
     if(isOpen) { // onOpen
       setActiveMenu(path[1])
     }
-  }, [isOpen])
+    const googleTranslateElementInit = () => {
+      new window.google.translate.TranslateElement({pageLanguage: 'en', layout: 0}, 'google_translate_element')
+      console.log( new window.google.translate.TranslateElement({pageLanguage: 'en', layout: 0}, 'google_translate_element'))
+    }
+    setTimeout(() => {
+      googleTranslateElementInit();
+    }, 2000);
+  }, [isOpen,path])
 
   const openSubMenu = (active) => {
     if(active === activeMenu) {
@@ -241,6 +248,7 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
             <hr className={styles.hr}/>
           </div>
           <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />
+          <div className={styles.translate} id="google_translate_element"></div>
           <div className={styles.balances}>
             {walletState.address && <Balances />}
           </div>
