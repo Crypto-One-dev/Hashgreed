@@ -14,7 +14,7 @@ function Footer({walletState, walletActions}) {
   return (
     <div className={styles.footer} style={{backgroundColor: theme.footerBackground}}>
       <div className={styles.description}>
-        Our application is using Waves Signer to connect your account and sign all transactions. To import an existing account, add it first in <a href="https://waves.exchange/investments/staking/USDN">waves.exchange</a>. Our Web Application will never have any access to your private key or secret seed, all your accounts should be managed at <a href="https://waves.exchange/investments/staking/USDN">waves.exchange</a>. Never enter your private key or secret seed in any 3rd party application.
+        Our application uses Waves Signer to connect your account and sign all transactions. To import an existing account, do it first at <a href="https://waves.exchange/">waves.exchange</a>. Our Web Application never has any access to your private key or secret seed words, all your accounts should be managed at <a href="https://waves.exchange/">waves.exchange</a>. Never enter your private key or secret seed words in any 3rd party application.
       </div>
       <div className={styles.logoNlink}>
         <div className={styles.logo}>

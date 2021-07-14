@@ -39,19 +39,19 @@ function Explorer({walletState}){
             {
                 auctions && auctions.live && auctions.live.length > 0 &&
                 <div className = {styles.auctionarea}>
-                    <Auction title={'Live Auction'} auctionType={'HashDealz'} auction={'live'} data={auctions.live} height={height} />
+                    <Auction title={'Live Auction'} auctionType={'HashDealz'} auction={'live'} data={auctions.live} height={height} customer={walletState.address} />
                 </div>
             }
             {
                 auctions && auctions.live && auctions.expired.length > 0 &&
                 <div className = {styles.expiredarea}>
-                    <Auction title={'Expired Auction'} auctionType={'HashDealz'} auction={'expired'} data={auctions.expired} height={height} />
+                    <Auction title={'Expired Auction'} auctionType={'HashDealz'} auction={'expired'} data={auctions.expired} height={height} customer={walletState.address} />
                 </div>
             }
             {
                 auctions && auctions.live && auctions.soldout.length > 0 &&
                 <div className = {styles.soldoutarea}>
-                    <Auction title={'Soldout/Withdrawn Auction'} auctionType={'HashDealz'} auction={'soldout'} data={auctions.soldout} height={height} />
+                    <Auction title={'Soldout/Withdrawn Auction'} auctionType={'HashDealz'} auction={'soldout'} data={auctions.soldout} height={height} customer={walletState.address} />
                 </div>
             }
         </div>

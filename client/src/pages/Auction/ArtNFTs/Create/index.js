@@ -66,7 +66,7 @@ function Create({ walletState }) {
             return
         }
         if (isNaN(duration) || duration <= 0) {
-            AlertUtils.SystemAlert('Duration in blocks is not valid')
+            AlertUtils.SystemAlert('Duration in minutes is not valid')
             return
         }
         if (acceptedFiles.length !== 1) {
@@ -172,7 +172,7 @@ function Create({ walletState }) {
                             <Input className={styles.inputValue} style={{ color: theme.primaryText }} value={nftAmount} onChange={(e) => setNFTAmount(e.target.value)} variant='flushed' placeholder='' />
                         </div>
                         <div className={styles.inputarea}>
-                            <div className={styles.inputTitle} style={{ color: theme.commentText }}>Duration in block</div>
+                            <div className={styles.inputTitle} style={{ color: theme.commentText }}>Duration in minutes</div>
                             <Input className={styles.inputValue} style={{ color: theme.primaryText }} value={duration} onChange={(e) => setDuration(e.target.value)} variant='flushed' placeholder='' />
                         </div>
                     </div>

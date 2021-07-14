@@ -39,6 +39,8 @@ const BidModal = ({auctionData, priceAssetId, customer}, ref) => {
       description: ''
   })
 
+  const commentText = 'Hashgreed charges 1% fee on all Sport NFT Auctions'
+
   const Bid = () => {
     if(isNaN(bid) || bid <= 0) {
       AlertUtils.SystemAlert('Bid amount is not valid');
@@ -173,7 +175,7 @@ const BidModal = ({auctionData, priceAssetId, customer}, ref) => {
                 <Input variant="unstyled" className={styles.inputBox} value={bid} onChange={(e) => setBid(e.target.value)}/>
                 <a className={styles.button} style={{backgroundColor:theme.buttonBack}} onClick={Bid}>Place a bid</a>
               </div>
-              <div className={styles.comment}><div style={{color:theme.commentText}}>A 10% royalty goes to the creator for future resale</div></div>
+              <div className={styles.comment}><div style={{color:theme.commentText}}>{commentText}</div></div>
             </div>
           </div>
       </ModalContent>

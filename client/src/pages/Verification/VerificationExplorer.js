@@ -239,13 +239,13 @@ function VerificationExplorer({match}){
                                       <QRCode value={WavesConfig.BASE_URL + '/explorer/' + certification.txid} includeMargin={true} className={styles.qrpdf} />
                                     </div>
                                     <div className={styles.titleArea}>
-                                      <div className={styles.proof} style={{color: theme.primaryText}}>
+                                      <div className={styles.proof} style={{color: theme.certificationText}}>
                                           <b>Proof</b>
                                       </div>
                                       <div className={styles.prfCertifcation}>
                                         <b>OF CERTIFICATION</b>
                                       </div>
-                                      <div className={styles.comment} style={{color: theme.primaryText}}>
+                                      <div className={styles.comment} style={{color: theme.certificationText}}>
                                         <b>You certified the following data on waves blockchain</b>
                                       </div>
                                     </div>
@@ -255,14 +255,14 @@ function VerificationExplorer({match}){
                                         {certification.title || certification.reference}
                                       </div>                        
                                       <br/>{certification.hash ? 'File Hash' : 'Message ID'}: <br/>
-                                      <div className={styles.imgHash} style={{color: theme.primaryText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
+                                      <div className={styles.imgHash} style={{color: theme.certificationText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
                                         {certification.hash || certification.messageid}
                                       </div>
-                                      <div className={styles.mobHash} style={{color: theme.primaryText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
+                                      <div className={styles.mobHash} style={{color: theme.certificationText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
                                         {certification.hash ? certification.hash.length > 20 ? certification.hash.slice(0,20) + '...' : certification.hash : ''}
                                       </div>
                                       <br/>Date: <br/>
-                                      <div style={{color: theme.primaryText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
+                                      <div style={{color: theme.certificationText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
                                         {moment(certification.timestamp).toString()}
                                       </div>
                                     </div>

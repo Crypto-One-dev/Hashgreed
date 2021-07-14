@@ -16,6 +16,11 @@ function Main({walletState, walletActions}) {
   const {theme} = useContext(ThemeContext);
 
   const login = () => {
+    // loginMdl.current.openModal()
+    WavesUtils.unlockWallet('SEED', walletActions.unlockWallet, walletActions.lockWallet)
+  }
+
+  const startLogin = () => {
     loginMdl.current.openModal()
   }
 
@@ -37,7 +42,7 @@ function Main({walletState, walletActions}) {
         To import an existing acount, do it first at <a href="https://waves.exchange/" style={{color: theme.buttonBack}}>waves.exchange</a>
       </div> 
       <div className={styles.startnow}>
-        <a className={cx(styles.start, styles.filled)} onClick={walletState.address ? gotoOverview : login} style={{backgroundColor: theme.buttonBack}}>Start now</a>
+        <a className={cx(styles.start, styles.filled)} onClick={walletState.address ? gotoOverview : startLogin} style={{backgroundColor: theme.buttonBack}}>Start now</a>
       </div>
       <Steps login={login} />
     </div>

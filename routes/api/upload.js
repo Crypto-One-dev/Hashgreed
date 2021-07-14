@@ -85,6 +85,7 @@ router.post('/email', async (req, res) => {
           pass: password
         }
       })
+      console.log(transport)
       transport.sendMail({
         from: login,
         to: [email_sender, email_recipient],

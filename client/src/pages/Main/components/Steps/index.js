@@ -9,7 +9,7 @@ import Step3Logo from 'assets/images/Step3.png'
 import walletContainer from 'redux/containers/wallet'
 import {ThemeContext} from "context/ThemeContext";
 
-const Step1Content = "Click on the SIGN IN buttonbelow and enter your password or create a new account if you don't have an account or multiple accounts they will be listed in the next screen. Select one to connect."
+const Step1Content = "Click on the SIGN IN button, enter your password or create a new account. If you have multiple accounts, they will be shown to you and you can select one to connect."
 const Step2Content = "Congratulations! You are connected and ready to Hashgreed. We recommend going to step 3 to confirm backup of your account if it’s a new one."
 const Step3Content = 'If you just created a new account, kindly click on \"Manage Accounts\" below to access your waves.exchange account and retrieve your seed words. Write it and keep it safe.'
 

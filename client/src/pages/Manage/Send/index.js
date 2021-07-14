@@ -76,7 +76,7 @@ function Send({walletState}){
                     <div className = {styles.confirm}>
                         <div className = {styles.fee} >
                             <div className = {styles.feetitle} style={{color: theme.feeText}}>Transaction fee:</div>
-                            <div className = {styles.feevalue} style={{color: theme.feeText}}>{fee}Waves</div>
+                            <div className = {styles.feevalue} style={{color: theme.feeText}}>{fee} Waves</div>
                         </div>
                         <a className={cx(styles.button, styles.filled)} onClick={confirmTransfer} style={{backgroundColor: theme.buttonBack}}>Confirm transfer</a>
                     </div>

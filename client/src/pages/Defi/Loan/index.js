@@ -61,7 +61,7 @@ function Loan({ walletState }) {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.depositTitle} style={{ color: theme.primaryText }}>Loan</div>
-          <div className={styles.totalBorrowed} style={{ color: theme.buttonBack }}> TotalBorrowed: <div style={{ color: theme.primaryText, marginLeft: '10px' }}>{curLoanAmount} USDT</div> </div>
+          <div className={styles.totalBorrowed} style={{ color: theme.buttonBack }}> Total Borrowed: <div style={{ color: theme.primaryText, marginLeft: '10px' }}>{curLoanAmount} USDT</div> </div>
         </div>
         <hr className={styles.border} />
         <div className={styles.description} style={{ color: theme.primaryText }}>

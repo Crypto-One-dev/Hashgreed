@@ -23,7 +23,7 @@ function LoginModal({onSignMethods}, ref){
     return(
              <Modal onClose={onClose} size={'xl'}  isOpen={isOpen} isCentered >
                 <ModalOverlay />
-                <ModalContent className={styles.modal} style ={{ borderRadius: '30px', boxShadow:'0px 30px 20.0752px rgba(0, 4, 81, 0.2)', margin: '0px 20px', backgroundColor: theme.itemBackground}}>
+                <ModalContent className={styles.modal} style ={{ borderRadius: '30px', boxShadow:'0px 30px 20.0752px rgba(0, 4, 81, 0.2)', margin: '0px 20px', backgroundColor: theme.modalBackground}}>
                     <ModalHeader className = {styles.modalHeader} color="#1E0E62" fontWeight="semibold" fontSize="38px" textAlign = "center" mt ="20px" style={{color: theme.primaryText}}>Connect wallet</ModalHeader>
                     <ModalBody color = "rgba(21, 20, 57, 0.4)" fontSize = "12px" fontWeight="500" textAlign="center" style={{color: theme.commentText}}>
                             By connecting, I accept Hashgreed’s Term of use 

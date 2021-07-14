@@ -51,7 +51,7 @@ function Stake({walletState}){
             <div className = {styles.container}>
                 <div className = {styles.header}>
                     <div className={styles.stakeTitle} style={{color: theme.primaryText}}>Stake <div className={styles.depositTitle}>Deposit</div></div>
-                    <div className={styles.totalStaked} style={{color: theme.primaryText}}> TotalStaked: {staked} RKMT</div>
+                    <div className={styles.totalStaked} style={{color: theme.primaryText}}> Total Staked: {staked} RKMT</div>
                 </div>
                 <hr className = {styles.border}/>                
                 <Flex className={styles.stats} style={{color: theme.primaryText}}>

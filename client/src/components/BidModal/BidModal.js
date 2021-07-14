@@ -47,24 +47,32 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
   }
 
   let auctionTypeText = ''
+  let commentType=''
   if(auctionType === 'ArtNFTs'){
     auctionTypeText = 'Art NFTs'
+    commentType = 'Art NFT'
   }
   else if(auctionType === 'HashDealz'){
     auctionTypeText = 'HashDealz'
+    commentType = 'HashDealz'
   }
   else if(auctionType === 'SportNFTs'){
     auctionTypeText = 'Sport NFTs'
+    commentType = 'Sport NFT'
   }
   else if(auctionType === 'MusicEventsNFTs'){
     auctionTypeText = 'Music/Events NFTs'
+    commentType = 'Music/Events NFT'
   }
   else if(auctionType === 'GameNFTs'){
     auctionTypeText = 'Game NFTs'
+    commentType = 'Game NFT'
   }
   else if(auctionType === 'ServicesNFTs'){
     auctionTypeText = 'Services NFTs'
+    commentType = 'Services NFT'
   }
+  const commentText = 'Hashgreed charges 5% fee on all ' + commentType + ' Auctions'
 
   const [nft, setNFT] = useState({
       name: '',
@@ -82,14 +90,15 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
     AlertUtils.SystemAlert("NFT successfully withdraw")
   }
 
-  const Bid = () => {
+  const Bid = async () => {
     if(isNaN(bid) || bid <= 0) {
       AlertUtils.SystemAlert('Bid amount is not valid');
         return;
     }
     AlertUtils.SystemAlert('Buying and Selling NFT are subject to risk so better you will do your own research before buying. Be aware of scam assets as we are only a platform to provide services')
-    WavesUtils.BidAuction(auctionData.id, bid, auctionData.price_id)
+    await WavesUtils.BidAuction(auctionData.id, bid, auctionData.price_id)
     AlertUtils.SystemAlert("You have successfully placed a bid. When someone else places a higher bid, your bid will be returned back to you")
+    setBid(0)
   }
 
   useEffect(() => {
@@ -239,17 +248,17 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
                     <Input variant="unstyled" className={styles.inputBox} value={bid} onChange={(e) => setBid(e.target.value)}/>
                     <a className={styles.button} style={{backgroundColor:theme.buttonBack}} onClick={Bid}>Place a bid</a>
                   </div>
-                  <div className={styles.comment}><div style={{color:theme.commentText}}>A 10% royalty goes to the creator for future resale</div></div>
+                  <div className={styles.comment}><div style={{color:theme.commentText}}>{commentText}</div></div>
                 </>
                 :
                 category === 'expired' && customer === auctionData.winner ?
                 <>
                   <div className={styles.buttonArea} style={{backgroundColor: '#C8C6C7'}} >
                     <div className={styles.inputTitle}>{price.name} </div>
-                    <Input variant="unstyled" className={styles.inputBox}/>
+                    <Input variant="unstyled" className={styles.inputBox} disabled/>
                     <a className={styles.button} style={{backgroundColor:theme.disabledButtonBack}}>Place a bid</a>
                   </div>
-                  <div className={styles.comment}><div style={{color:theme.commentText}}>A 10% royalty goes to the creator for future resale</div></div>
+                  <div className={styles.comment}><div style={{color:theme.commentText}}>{commentText}</div></div>
                 </>
                 :
                 null
