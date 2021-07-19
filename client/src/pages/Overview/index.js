@@ -32,8 +32,8 @@ function Overview({walletState, walletActions, priceState, priceActions}) {
     if(walletState.address) {
       const proc = () => {
         priceActions.setPrice('RKMT', 0);
-        ApiUtils.getPrice(WavesConfig.WAVES_ID, 'WAVES', priceActions.setPrice);
-        ApiUtils.getPrice(WavesConfig.RKMT_ID, 'RKMT', priceActions.setPrice);
+        ApiUtils.getPrice(WavesConfig.WAVES_ID,  WavesConfig.USDT_DECIMALS, 'WAVES', priceActions.setPrice);
+        ApiUtils.getPrice(WavesConfig.RKMT_ID, WavesConfig.WAVES_DECIMALS + WavesConfig.RKMT_DECIMALS, 'RKMT', priceActions.setPrice);
         ApiUtils.getTransactions(walletState.address, setTransactions);
       }
       proc()

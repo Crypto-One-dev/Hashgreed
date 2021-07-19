@@ -24,7 +24,7 @@ function FileCertification({certifications, owner}){
           <div className={styles.header}>
           <div className={styles.titleBar}>
             <div className={styles.title} style={{color: theme.primaryText}}>
-              Latest Certified
+              Latest Certified files
             </div>
             <a ref={viewMore} className={styles.view} href='#' target="_blank" rel="noreferrer">View more</a>
           </div>

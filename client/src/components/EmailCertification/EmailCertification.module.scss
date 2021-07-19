@@ -48,6 +48,9 @@
               font-weight: 500;
               margin-right: 40px;
               color: rgba(0, 4, 81, 0.7);
+              @media (max-width:600px){
+                font-size: 13px;
+              }
             }
           }
           .line{

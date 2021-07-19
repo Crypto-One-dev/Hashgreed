@@ -1,12 +1,13 @@
 import React, {useContext} from 'react'
 
-import {FaFacebookF, FaGooglePlusG, FaTwitter} from 'react-icons/all'
+import {FaFacebookF, FaTelegram, FaTwitter} from 'react-icons/all'
 
 import styles from './Footer.module.scss'
 import Logo from 'assets/images/Footer.svg'
 import {ThemeContext} from "context/ThemeContext";
 
 import walletContainer from 'redux/containers/wallet'
+import Pdf from 'assets/usecase.pdf';
 
 function Footer({walletState, walletActions}) {
   const {theme} = useContext(ThemeContext);
@@ -21,20 +22,19 @@ function Footer({walletState, walletActions}) {
           <img src={Logo} alt="" />
         </div>
         <div className={styles.links}>
-          <a>Privacy Policy</a>
-          <a>Terms</a>
-          <a><FaTwitter size='16px' /></a>
-          <a><FaFacebookF size='16px' /></a>
-          <a><FaGooglePlusG size='24px' /></a>
+          <a href="https://clique.krosscoin.io/images/Terms-and-Conditions.pdf" target="_blank" rel="noreferrer">Terms of use</a>
+          <a href="https://twitter.com/hashgreed" target="_blank" rel="noreferrer"><FaTwitter size='16px' /></a>
+          <a href="https://facebook.com/krosscoin" target="_blank" rel="noreferrer"><FaFacebookF size='16px' /></a>
+          <a href="https://t.me/krosscoin_kss" target="_blank" rel="noreferrer"><FaTelegram size='24px' /></a>
         </div>
       </div>
       <hr className={styles.border} />
       <div className={styles.linkNinfo}>
         <div className={styles.links}>
-          <a>About</a>
-          <a>FAQ</a>
-          <a>Use Case</a>
-          <a>Contacts</a>
+          <a href="/about"> About</a>
+          <a href="/faq">FAQ</a>
+          <a  href={Pdf} target="_blank">Use Cases</a>
+          <a href="/contact">Contacts</a>
         </div>
         <div>
           © 2021 Hashgreed. Powered by krosscoin | All rights reserved.

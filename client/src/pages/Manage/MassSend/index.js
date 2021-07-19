@@ -86,7 +86,7 @@ function MassSend({walletState, walletActions}){
                 <hr className = {styles.border}/>
                 <div className = {styles.massTransfer}>
                     {recipients.map((recipient, index) => (
-                        <div className={styles.recipient} key={index}>
+                        <div className={styles.recipient} key={index} style = {{background: theme.itemBackground}}>
                             <div className={styles.address}>
                                 <div className={styles.inputTitle} style={{color: theme.commentText}}>
                                     Recipient Address/Alias
@@ -135,7 +135,7 @@ function MassSend({walletState, walletActions}){
                     <div className = {styles.confirm}>
                         <div className = {styles.fee}>
                             <div className = {styles.feetitle} style={{color: theme.feeText}}>Transaction fee:</div>
-                            <div className = {styles.feevalue} style={{color: theme.feeText}}>{massSendFee}Waves</div>
+                            <div className = {styles.feevalue} style={{color: theme.feeText}}>{massSendFee} Waves</div>
                         </div>
                         <a className={cx(styles.button, styles.filled)} style={{backgroundColor: theme.buttonBack}} onClick={confirmTransfer}>Confirm mass transfer</a>
                     </div>

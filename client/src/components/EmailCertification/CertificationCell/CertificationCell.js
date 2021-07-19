@@ -54,6 +54,78 @@ function CertificationCell({cert, owner}){
             <br/>
             TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
           </div>
+          <div className ={styles.mobreferences} style={{color: theme.primaryText}}>
+            {
+              cert.reference.length>20 ? 
+                <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                  <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                    Reference: 
+                    {cert.reference.slice(0,20) + '...'}
+                  </div>
+                  <CopyToClipboard text={cert.reference}>
+                    <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                  </CopyToClipboard>
+                </div>
+                :
+                <>
+                  Reference: 
+                  {cert.reference}
+                </>
+            }
+            {
+              txid.length>20 ? 
+                <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                  <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                    TXId: 
+                    <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid.slice(0,20) + '...'}</a>
+                  </div>
+                  <CopyToClipboard text={txid}>
+                    <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                  </CopyToClipboard>
+                </div>
+                :
+                <>
+                TXId: 
+                <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
+                </>
+              }
+          </div>
+          <div className ={styles.semimobreferences} style={{color: theme.primaryText}}>
+            {
+              cert.reference.length>15 ? 
+                <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                  <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                    Reference: 
+                    {cert.reference.slice(0,15) + '...'}
+                  </div>
+                  <CopyToClipboard text={cert.reference}>
+                    <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                  </CopyToClipboard>
+                </div>
+                :
+                <>
+                  Reference: 
+                  {cert.reference}
+                </>
+            }
+            {
+              txid.length>15 ? 
+                <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                  <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                    TXId: 
+                    <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid.slice(0,15) + '...'}</a>
+                  </div>
+                  <CopyToClipboard text={txid}>
+                    <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                  </CopyToClipboard>
+                </div>
+                :
+                <>
+                TXId: 
+                <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
+                </>
+            }
+          </div>
           <div className={styles.mobActions}>
               <CopyToClipboard text={WavesConfig.BASE_URL + '/explorer/' + txid}>
                 <FaPaste className={styles.action} style={{color: theme.iconBack}} />

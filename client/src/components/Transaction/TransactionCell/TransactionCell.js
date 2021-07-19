@@ -1,13 +1,14 @@
 import React, {useContext, useState} from 'react'
 
 import moment from 'moment';
-import {FaCertificate, FaEnvelope, FaFileContract, FaLongArrowAltDown, FaLongArrowAltUp, FaQuestion, FaRegEnvelope, FaSignature} from 'react-icons/all';
+import {FaPaste} from 'react-icons/all';
 import {base58Decode, bytesToString} from '@waves/ts-lib-crypto';
 
 import WavesConfig from 'config/waves';
 import styles from './TransactionCell.module.scss'
 import {ThemeContext} from 'context/ThemeContext'
 import fileIcon from 'assets/icons/RKMT.png'
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 function TransactionCell ({transaction, owner}){
 
@@ -75,7 +76,132 @@ function TransactionCell ({transaction, owner}){
                   <br/>
                   TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${transaction.data.id}`} target="_blank" rel="noreferrer">{transaction.data.id}</a>
               </div>
-              
+              <div className ={styles.mobreferences} style={{color: theme.primaryText}}>
+                  {
+                      type === 'to' || type === 'from' ?
+                        <>
+                          {
+                          target.length>15 ? 
+                            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                                <b>Transfer {type}: </b>
+                                {target.slice(0,15) + '...'}
+                              </div>
+                              <CopyToClipboard text={target}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </div>
+                            :
+                            <>
+                            <b>Transfer {type}: </b>
+                            {target}
+                            </>
+                          }
+                        </>
+                      : type === 'fc' ?
+                        <>
+                          {
+                          title.length>15 ? 
+                            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                                <b>File Certification: </b>
+                                {title.slice(0,15) + '...'}
+                              </div>
+                              <CopyToClipboard text={title}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </div>
+                            :
+                            <>
+                            <b>File Certification:</b>
+                            {title}
+                            </>
+                          }
+                        </>
+                      : type === 'ec' ?
+                        <>
+                          {
+                          reference.length>15 ? 
+                            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                                <b>Email Certification: </b>
+                                {reference.slice(0,15) + '...'}
+                              </div>
+                              <CopyToClipboard text={reference}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </div>
+                            :
+                            <>
+                            <b>Email Certification:</b>
+                            {reference}
+                            </>
+                          }
+                        </>
+                      : type === 'MA' && publisher === owner ?
+                        <>
+                          {
+                          title.length>15 ? 
+                            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                                <b>Agreement request: </b>
+                                {title.slice(0,15) + '...'}
+                              </div>
+                              <CopyToClipboard text={title}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </div>
+                            :
+                            <>
+                            <b>Agreement request: </b>
+                            {title}
+                            </>
+                          }
+                        </>
+                      : type === 'MA' && publisher !== owner ?
+                        <>
+                          {
+                          title.length>15 ? 
+                            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                                <b>Signature requested: </b>
+                                {title.slice(0,15) + '...'}
+                              </div>
+                              <CopyToClipboard text={title}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </div>
+                            :
+                            <>
+                            <b>Signature requested: </b>
+                            {title}
+                            </>
+                          }
+                        </>
+                      :
+                          null
+                  }
+                  <div>
+                      {
+                      transaction.data.id.length>15 ? 
+                        <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                          <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                            TXId: 
+                            <a href={`${WavesConfig.EXPLORER_URL}/tx/${transaction.data.id}`} target="_blank" rel="noreferrer">{transaction.data.id.slice(0,15) + '...'}</a>
+                          </div>
+                          <CopyToClipboard text={transaction.data.id}>
+                            <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                          </CopyToClipboard>
+                        </div>
+                        :
+                        <>
+                        TXId: 
+                        <a href={`${WavesConfig.EXPLORER_URL}/tx/${transaction.data.id}`} target="_blank" rel="noreferrer">{transaction.data.id}</a>
+                        </>
+                      }
+                  </div>
+              </div>
+
             </div>
         </div>
     )

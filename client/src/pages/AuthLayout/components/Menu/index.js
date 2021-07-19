@@ -111,7 +111,7 @@ function Menu() {
             trigger="click"
           >
             <PopoverTrigger>
-              <div className={styles.subitem}>HashDeals</div>
+              <div className={styles.subitem}>HashDealz</div>
             </PopoverTrigger>
             <PopoverContent bg='rgba(0, 4, 81, 0.4)'  className={styles.auctionContent}> 
               <div className={styles.nftsubmenu}>

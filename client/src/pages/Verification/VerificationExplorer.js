@@ -109,7 +109,7 @@ function VerificationExplorer({match}){
     return(
         <div className={styles.verficationExplorer}>
             <div className={styles.container}>
-                <div className={styles.verificationTitle} style={{color: theme.primaryText}}>Cerification Explorer</div>
+                <div className={styles.verificationTitle} style={{color: theme.primaryText}}>Certification Explorer</div>
                 <hr className = {styles.border}/>
                 {
                     !searchFlag || !certification || certification === null ?
@@ -259,11 +259,14 @@ function VerificationExplorer({match}){
                                         {certification.hash || certification.messageid}
                                       </div>
                                       <div className={styles.mobHash} style={{color: theme.certificationText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
-                                        {certification.hash ? certification.hash.length > 20 ? certification.hash.slice(0,20) + '...' : certification.hash : ''}
+                                        {certification.hash ? certification.hash.length > 15 ? certification.hash.slice(0,15) + '...' : certification.hash : ''}
                                       </div>
                                       <br/>Date: <br/>
-                                      <div style={{color: theme.certificationText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
+                                      <div className={styles.time} style={{color: theme.certificationText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
                                         {moment(certification.timestamp).toString()}
+                                      </div>
+                                      <div className={styles.mobtime} style={{color: theme.certificationText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
+                                        {moment(certification.timestamp).toString().length > 15 ? moment(certification.timestamp).toString().slice(0,20) + '...' : moment(certification.timestamp).toString() }
                                       </div>
                                     </div>
                                     <div className={styles.footer} style={{color: theme.commentText}}>

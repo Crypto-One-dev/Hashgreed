@@ -41,6 +41,9 @@
         font-size: 14px;
         padding: 10px 120px;
       }
+      @media(max-width: 350px){
+        padding: 10px 60px;
+      }
     }
     margin-bottom: 100px;
   }

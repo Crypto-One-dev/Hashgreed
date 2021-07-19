@@ -133,14 +133,6 @@
       font-weight: 500;
       display: none;
       width: calc(100% - 20px);
-      @media (max-width:1000px){
-          margin-right: 100px;
-      }
-      @media (max-width:900px){
-          word-break: break-all;
-          margin-right: 10px;
-          margin-left: 10px;
-      }
       @media (max-width:$mobileWidth){
         display: block;
         width: 100%;  
@@ -149,7 +141,89 @@
         margin-right: 0;
         margin-left: 5px;
       }
-  }
+      @media (max-width: 350px){
+        display: none;
+      }
+      .clipboard{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        .action{
+          color: #FE006C;
+          margin-left: 10px ;
+          cursor: pointer;
+          @media (max-width:600px){
+            justify-content: flex-end;
+            align-items: center;
+          }
+        }
+      }
+      .txclipboard{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        .action{
+          color: #FE006C;
+          margin-left: 10px ;
+          cursor: pointer;
+          @media (max-width:600px){
+            justify-content: flex-end;
+            align-items: center;
+          }
+        }
+      }
+    }
+    .semiMobReferences{
+      align-items: flex-start;
+      text-align: left;
+      margin-left: 30px;
+      margin-right: 300px;
+      color: #000451;
+      font-size: 15px;
+      font-weight: 500;
+      display: none;
+      width: calc(100% - 20px);
+      @media (max-width:350px){
+        display: block;
+        width: 100%;  
+        font-size: 12px;
+        word-break: break-all;
+        margin-right: 0;
+        margin-left: 5px;
+      }
+      .clipboard{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        .action{
+          color: #FE006C;
+          margin-left: 10px ;
+          cursor: pointer;
+          @media (max-width:600px){
+            justify-content: flex-end;
+            align-items: center;
+          }
+        }
+      }
+      .txclipboard{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        .action{
+          color: #FE006C;
+          margin-left: 10px ;
+          cursor: pointer;
+          @media (max-width:600px){
+            justify-content: flex-end;
+            align-items: center;
+          }
+        }
+      }
+    }
     .mobActions{
       display: none;
       @media (max-width:$mobileWidth){

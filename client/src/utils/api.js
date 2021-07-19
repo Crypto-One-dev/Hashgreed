@@ -3,13 +3,14 @@ import axios from 'axios'
 import WavesConfig from 'config/waves'
 import AlertUtils from 'utils/alert'
 
-const getPrice = (token, type, callback) => {
-  axios
-    .get('https://marketdata.wavesplatform.com/api/candles/' + token + '/' + WavesConfig.USDN_ID + '/1440/1')
+const getPrice = async (token, tokenDecimal, type, callback) => {
+  console.log(token)
+  await axios
+    .get('https://matcher.waves.exchange/matcher/orderbook/' + token + '/' + WavesConfig.USDN_ID +'/status')
     .then(res => {
       try {
         if (callback)
-          callback(type, parseFloat(res.data[0].vwap))
+          callback(type, parseFloat(res.data.lastPrice)/(10 ** tokenDecimal))
       } catch (err) {
         console.error(err)
       }

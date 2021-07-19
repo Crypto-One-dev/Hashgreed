@@ -119,6 +119,19 @@
       width: 100%;
       .tmob{
         margin-top: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        .action{
+          color: #FE006C;
+          margin-right: 15px ;
+          cursor: pointer;
+          @media (max-width:600px){
+            justify-content: flex-end;
+            align-items: center;
+          }
+      }
       }
       @media (min-width:600px){
           display: none;  

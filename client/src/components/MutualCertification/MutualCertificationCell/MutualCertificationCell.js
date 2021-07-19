@@ -4,7 +4,6 @@ import download from 'downloadjs';
 import moment from 'moment';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {FaDownload, FaFileContract, FaPaste, FaPencilAlt, FaRegFilePdf, FaRegPlusSquare, RiAddCircleFill} from 'react-icons/all';
-import {Button, Modal, ModalOverlay, ModalContent, ModalBody} from '@chakra-ui/react';
 
 import WavesConfig from 'config/waves';
 import WavesUtils from 'utils/waves';
@@ -99,8 +98,22 @@ function MutualCertificationCell({detail, owner, walletState, toggleDetail}){
               isOwner ? <>You created an agreement request: <b>{detail.title}</b></>
                       : <>Your signature is requested: <b>{detail.title}</b></>
             }
-            <div className={styles.tmob}>Hash: <span>{(detail.hash).slice(0,25)+'...'}</span></div>
-            <div className={styles.tmob}>TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid.slice(0,25)+'...'}</a></div>
+            <div className={styles.tmob}>
+              <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+                Hash: <span>{(detail.hash).slice(0,25)+'...'}</span>
+              </div>
+              <CopyToClipboard text={detail.hash}>
+                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+              </CopyToClipboard>
+            </div>
+            <div className={styles.tmob}>
+              <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+              TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid.slice(0,25)+'...'}</a>
+              </div>
+              <CopyToClipboard text={detail.hash}>
+                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+              </CopyToClipboard>             
+            </div>
         </div>
       </div>
     </div>

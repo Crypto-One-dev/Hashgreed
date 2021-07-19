@@ -18,10 +18,10 @@ function Layout({walletState, walletActions, priceActions}) {
     if(walletState.address) {
       const proc = () => {
         WavesUtils.getBalance(walletActions.setBalance, walletActions.lockWallet)
-        ApiUtils.getPrice(WavesConfig.WAVES_ID, 'WAVES', priceActions.setPrice)
-        ApiUtils.getPrice(WavesConfig.RKMT_ID, 'RKMT', priceActions.setPrice)
-        ApiUtils.getPrice(WavesConfig.USDT_ID, 'USDT', priceActions.setPrice)
-        ApiUtils.getPrice(WavesConfig.HASH_ID, 'HASH', priceActions.setPrice)
+        ApiUtils.getPrice(WavesConfig.WAVES_ID, WavesConfig.USDT_DECIMALS, 'WAVES', priceActions.setPrice)
+        ApiUtils.getPrice(WavesConfig.RKMT_ID, WavesConfig.WAVES_DECIMALS + WavesConfig.RKMT_DECIMALS, 'RKMT', priceActions.setPrice)
+        ApiUtils.getPrice(WavesConfig.USDT_ID, WavesConfig.WAVES_DECIMALS, 'USDT', priceActions.setPrice)
+        ApiUtils.getPrice(WavesConfig.HASH_ID, WavesConfig.USDT_DECIMALS, 'HASH', priceActions.setPrice)
       }
       proc()
       interval = setInterval(proc, 60000)

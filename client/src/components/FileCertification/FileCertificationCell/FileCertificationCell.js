@@ -70,12 +70,10 @@ function FileCertificationCell({detail, owner, walletState}){
                   {
                     revoked?
                       // <span className={styles.status}>
-                      <FaBan className={styles.action}>
+                      
                         <a href={"http://wavesexplorer.com/tx/" + revoked} target="_blank" rel="noreferrer">
-                          REVOKED
+                          <FaBan className={styles.action}/>
                         </a>
-                      {/* </span> */}
-                      </FaBan>
                     :
                       <FaTimes className={styles.action} onClick={() => ShowModal(true)} style={{color: theme.iconBack}} />
                   }
@@ -93,11 +91,104 @@ function FileCertificationCell({detail, owner, walletState}){
                     TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
               </div>
               <div className ={styles.mobReferences} style={{color: theme.primaryText}}>
-                    Reference: <b>{detail.title.length>25 ? detail.title.slice(0,25)+ "...": detail.title}</b>
-                    <br/>
-                    Hash: <span>{detail.hash.length>25 ? detail.hash.slice(0,25)+"...": detail.hash}</span>
-                    <br/>
-                    TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid.length>25 ? txid.slice(0,25)+"...": txid}</a>
+                    <div className={detail.title.length>20 ? styles.clipboard: null}>
+                      {
+                        detail.title.length>20 ? 
+                        <>
+                          <div className={styles.clipboard}>
+                            Reference:&nbsp;
+                            <b>{detail.title.slice(0,20)+ "..."}</b>
+                            </div>
+                            <CopyToClipboard text={detail.title}>
+                              <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                            </CopyToClipboard>
+                          </>
+                        : 
+                        <div>
+                          Reference:<b>{detail.title}</b>
+                        </div>
+                      }
+                      </div>
+                      <div className={detail.hash.length>20 ? styles.clipboard : null}>
+                        Hash:&nbsp;
+                        {
+                          detail.hash.length>20 ?
+                            <>
+                              {detail.hash.slice(0,20)+"..."}
+                              <CopyToClipboard text={detail.hash}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </>
+                            : 
+                            detail.hash
+                        }
+                      </div>
+                        {
+                         txid.length>20 ?
+                            <div className={styles.clipboard}>
+                              <div className={styles.txclipboard}>
+                                TXId:&nbsp;
+                                <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid.slice(0,20)+"..."}</a>
+                              </div>
+                              <CopyToClipboard text={txid}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </div>
+                            : 
+                            <div>
+                              TXId:&nbsp;<a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
+                            </div>
+                        }
+              </div>
+              <div className ={styles.semiMobReferences} style={{color: theme.primaryText}}>
+                    <div className={detail.title.length>15 ? styles.clipboard: null}>
+                      {
+                        detail.title.length>15 ? 
+                        <>
+                          <div className={styles.clipboard}>
+                            Reference:&nbsp;
+                            <b>{detail.title.slice(0,15)+ "..."}</b>
+                            </div>
+                            <CopyToClipboard text={detail.title}>
+                              <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                            </CopyToClipboard>
+                          </>
+                        : 
+                        <div>
+                          Reference:<b>{detail.title}</b>
+                        </div>
+                      }
+                      </div>
+                      <div className={detail.hash.length>15 ? styles.clipboard : null}>
+                        Hash:&nbsp;
+                        {
+                          detail.hash.length>15 ?
+                            <>
+                              {detail.hash.slice(0,15)+"..."}
+                              <CopyToClipboard text={detail.hash}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </>
+                            : 
+                            detail.hash
+                        }
+                      </div>
+                        {
+                         txid.length>15 ?
+                            <div className={styles.clipboard}>
+                              <div className={styles.txclipboard}>
+                                TXId:&nbsp;
+                                <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid.slice(0,15)+"..."}</a>
+                              </div>
+                              <CopyToClipboard text={txid}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </div>
+                            : 
+                            <div>
+                              TXId:&nbsp;<a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
+                            </div>
+                        }
               </div>
               <div className={styles.mobActions}>
                   {
@@ -108,11 +199,9 @@ function FileCertificationCell({detail, owner, walletState}){
                   }
                   {
                     revoked?
-                      <FaBan className={styles.action}>
                         <a href={"http://wavesexplorer.com/tx/" + revoked} target="_blank" rel="noreferrer">
-                          REVOKED
+                          <FaBan className={styles.action}/>
                         </a>
-                      </FaBan>
                     :
                       <FaTimes className={styles.action} onClick={() => ShowModal(true)} style={{color: theme.iconBack}} />
                   }

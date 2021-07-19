@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState, useContext} from 'react'
+import React, {useCallback, useEffect, useState, useContext, useRef} from 'react'
 import {useHistory, useLocation} from 'react-router-dom'
 import {
   Drawer,
@@ -21,12 +21,14 @@ import WAVES from 'assets/icons/WAVES.svg'
 import styles from './Drawer.module.scss'
 import {ThemeContext} from 'context/ThemeContext';
 import ColorModeSwitcher from 'components/ColorModeSwitcher/ColorModeSwitcher'
+import Pdf from 'assets/usecase.pdf';
 
 import walletContainer from 'redux/containers/wallet'
 
 function HashgreedDrawer({isOpen, onClose, walletState}) {
   const location  = useLocation()
   const path = location.pathname.split('/')
+  const ref = useRef(null)
   
   const [activeMenu, setActiveMenu] = useState('')
   const [activeSubMenu, setActiveSubMenu] = useState('')
@@ -40,14 +42,7 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
     if(isOpen) { // onOpen
       setActiveMenu(path[1])
     }
-    const googleTranslateElementInit = () => {
-      new window.google.translate.TranslateElement({pageLanguage: 'en', layout: 0}, 'google_translate_element')
-      console.log( new window.google.translate.TranslateElement({pageLanguage: 'en', layout: 0}, 'google_translate_element'))
-    }
-    setTimeout(() => {
-      googleTranslateElementInit();
-    }, 2000);
-  }, [isOpen,path])
+  }, [isOpen,path,ref.current])
 
   const openSubMenu = (active) => {
     if(active === activeMenu) {
@@ -115,7 +110,7 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
             </Popover>
             <Popover>
               <PopoverTrigger>
-                <div className={styles.subitem}>HashDeals</div>
+                <div className={styles.subitem}>HashDealz</div>
               </PopoverTrigger>
               <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
                 <div className={styles.submenu}>
@@ -234,21 +229,20 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
       <DrawerContent style={{backgroundColor: theme.menuBackground, color:'white', opacity:'0.9', width: '100%', maxWidth: '500px'}}>
         <DrawerCloseButton marginRight="15px"/>
         <DrawerBody>
-          <div className={styles.routes}>
+          <div className={styles.routes} ref={ref}>
             <div className={styles.link} onClick={() => { onClose(); gotoPage('/');}}>Account</div>
             <hr className={styles.hr}/>
-            <div className={styles.link} onClick={() => { onClose(); gotoPage('/explorer');}}>Cerification Explorer</div>
+            <div className={styles.link} onClick={() => { onClose(); gotoPage('/explorer');}}>Certification Explorer</div>
             <hr className={styles.hr}/>
             {walletState.address && <AuthRoutes />}
-            <div className={styles.link} onClick={() => { onClose(); gotoPage('/explorer');}}>About</div>
+            <div className={styles.link} onClick={() => { onClose(); gotoPage('/about');}}>About</div>
             <hr className={styles.hr}/>
-            <div className={styles.link} onClick={() => { onClose(); gotoPage('/explorer');}}>F.A.Q.</div>
+            <div className={styles.link} onClick={() => { onClose(); gotoPage('/faq');}}>F.A.Q.</div>
             <hr className={styles.hr}/>
-            <div className={styles.link} onClick={() => { onClose(); gotoPage('/explorer');}}>Use Case</div>
+            <div className={styles.link} onClick={() => { onClose();}}><a href={Pdf} target="_blank">Use Cases</a></div>
             <hr className={styles.hr}/>
           </div>
           <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />
-          <div className={styles.translate} id="google_translate_element"></div>
           <div className={styles.balances}>
             {walletState.address && <Balances />}
           </div>

@@ -26,10 +26,11 @@ function LoginModal({onSignMethods}, ref){
                 <ModalContent className={styles.modal} style ={{ borderRadius: '30px', boxShadow:'0px 30px 20.0752px rgba(0, 4, 81, 0.2)', margin: '0px 20px', backgroundColor: theme.modalBackground}}>
                     <ModalHeader className = {styles.modalHeader} color="#1E0E62" fontWeight="semibold" fontSize="38px" textAlign = "center" mt ="20px" style={{color: theme.primaryText}}>Connect wallet</ModalHeader>
                     <ModalBody color = "rgba(21, 20, 57, 0.4)" fontSize = "12px" fontWeight="500" textAlign="center" style={{color: theme.commentText}}>
-                            By connecting, I accept Hashgreed’s Term of use 
+                            By connecting, I accept Hashgreed’s <a href="https://clique.krosscoin.io/images/Terms-and-Conditions.pdf" target="_blank" rel="noreferrer" style={{cursor:'pointer', color: theme.primaryText}}>Terms of use</a> 
                     </ModalBody>
-                    <ModalFooter style={{display: 'flex', flexDirection: 'column'}}>
+                    <ModalFooter style={{display: 'flex', flexDirection: 'column', marginBottom: '20px'}}>
                         <a onClick={() => onSignMethods('CLOUD')}
+                        className={styles.emailLogin}
                             style={{
                                 background: '#FE006C',
                                 backgroundColor: theme.buttonBack,
@@ -94,18 +95,6 @@ function LoginModal({onSignMethods}, ref){
                             <div style ={{width: '100%'}}>Login by Exchange Seed</div>   
                             <img src={seedIcon} style={{width:'70px', position:'absolute',right:'10px', top:'-30px'}} alt=""/>
                         </a>
-                        <div className = {styles.sign} style ={{
-                            color : theme.commentText,
-                            fontSize : "12px",
-                            fontWeight : "500",
-                            textAlign : "center",
-                            display: 'flex',
-                            flexDirection:'row',
-                            cursor: 'pointer',
-                            marginBottom: '30px'
-                        }}>Dont have an account?
-                        <div style ={{color : theme.signUp, marginLeft: '5px'}}> Sign up</div>
-                        </div>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
