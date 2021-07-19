@@ -367,32 +367,60 @@
             @media (min-width: $drawOpenMaxWidth){
                 display: none;
               }
-            text-align: left;
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 10px;
             font-size: 12px;
+            align-items: center;
+            .signLink{
+                word-wrap: initial;
+            }
           }
         }
         .signTxt{
             margin-bottom: 10px;
             color: #676566;
             @media (max-width: $drawOpenMaxWidth){
-                text-align: left;
-                font-size: 12px;
-                margin-top: 5px;
-                width: 50%;
+                display: none;
+              }
+        }
+        .signTxtMob{
+            margin-bottom: 10px;
+            color: #676566;
+            text-align: left;
+            font-size: 12px;
+            margin-top: 5px;
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-grow: 1;
+            padding-right: 10px;
+            @media (min-width: $drawOpenMaxWidth){
+                display: none;
               }
         }
 
         .signLink {
           margin-bottom: 10px;
           color: #F34F93;
-          @media (max-width: $drawOpenMaxWidth){
+        }
+        .signLinkMob {
+            margin-bottom: 10px;
             text-align: left;
             font-size: 12px;
             margin-top: 5px;
             width: 50%;
+            color: #F34F93;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-grow: 1;
+            padding-right: 10px;
+            @media (min-width: $drawOpenMaxWidth){
+                display: none;
+            }
           }
-        }
 
         .counterparts_title {
           font-size: 18px;
@@ -411,6 +439,11 @@
                 display: flex;
                 flex-direction: column;    
             }
+            .signLink {
+                @media (max-width: $drawOpenMaxWidth){
+                  display: none;
+                }
+              }
             .counterList{
                 @media(max-width: $drawOpenMaxWidth){
                     display: flex;
@@ -421,7 +454,7 @@
                     align-items: center;
                     padding-left: 5%;
                     height: 40px;
-                    justify-content: space-between;
+                    flex-grow: 1;
                     font-size: 12px;
                 }
             }

@@ -16,7 +16,8 @@ import walletContainer from 'redux/containers/wallet'
 import MutualCertification from 'components/MutualCertification/MutualCertification'
 import AlertUtils from 'utils/alert'
 import {ThemeContext} from 'context/ThemeContext'
-
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { FaPaste } from 'react-icons/all';
 function Mutual({walletState}){
 
     const [certifications, setCertifications] = useState([])
@@ -180,6 +181,9 @@ function Mutual({walletState}){
                     </div>
                     <div className={styles.valuemob}>
                       {creator && creator.slice(0,25)+'...'}
+                      <CopyToClipboard text={creator}>
+                        <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                      </CopyToClipboard>  
                     </div>
                   </div>
                   <div className={styles.subData}>
@@ -191,6 +195,9 @@ function Mutual({walletState}){
                     </div>
                     <div className={styles.valuemob}>
                       <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer" className={styles.signLink} >{txid && txid.slice(0,25)+'...'}</a>
+                      <CopyToClipboard text={txid}>
+                        <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                      </CopyToClipboard>  
                     </div>
                   </div>
                 </div>
@@ -204,6 +211,11 @@ function Mutual({walletState}){
                           each.status === 'PENDING' ?
                             <>
                               <div className={styles.signTxt}>{each.address}</div>
+                              <div className={styles.signTxtMob}>{each.address && each.address.slice(0,15)+'...'}
+                                <CopyToClipboard text={each.address}>
+                                  <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                </CopyToClipboard> 
+                              </div>
                               <span
                                 className={cx(styles.signStatus, each.address === walletState.address ? styles.sign : styles.pending, each.address === walletState.address ? styles.clickable : null)}
                                 onClick={each.address === walletState.address ? sign : null}
@@ -217,6 +229,12 @@ function Mutual({walletState}){
                             < >
                               <div className={styles.signLink}>
                                 <a href={`${WavesConfig.EXPLORER_URL}/tx/${each.status}`} target="_blank" rel="noreferrer">{each.address}</a>
+                              </div>
+                              <div className={styles.signLinkMob}>
+                                <a href={`${WavesConfig.EXPLORER_URL}/tx/${each.status}`} target="_blank" rel="noreferrer">{each.address && each.address.slice(0,15)+'...'}</a>
+                                <CopyToClipboard text={each.address}>
+                                  <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                </CopyToClipboard> 
                               </div>
                               <span className={cx(styles.signStatus, styles.signed)}>Signed</span>
                             </>

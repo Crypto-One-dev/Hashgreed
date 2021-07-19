@@ -110,7 +110,7 @@ function MutualCertificationCell({detail, owner, walletState, toggleDetail}){
               <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
               TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid.slice(0,25)+'...'}</a>
               </div>
-              <CopyToClipboard text={detail.hash}>
+              <CopyToClipboard text={txid}>
                 <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
               </CopyToClipboard>             
             </div>
