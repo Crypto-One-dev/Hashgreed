@@ -33,7 +33,8 @@ function Footer({walletState, walletActions}) {
         <div className={styles.links}>
           <a href="/about"> About</a>
           <a href="/faq">FAQ</a>
-          <a  href={Pdf} target="_blank">Use Cases</a>
+          {/* <a  href={Pdf} target="_blank">Use Cases</a> */}
+          <a  href="/usecase">Use Cases</a>
           <a href="/contact">Contacts</a>
         </div>
         <div>

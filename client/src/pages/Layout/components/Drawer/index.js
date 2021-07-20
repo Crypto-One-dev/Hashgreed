@@ -239,7 +239,7 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
             <hr className={styles.hr}/>
             <div className={styles.link} onClick={() => { onClose(); gotoPage('/faq');}}>F.A.Q.</div>
             <hr className={styles.hr}/>
-            <div className={styles.link} onClick={() => { onClose();}}><a href={Pdf} target="_blank">Use Cases</a></div>
+            <div className={styles.link} onClick={() => { onClose(); gotoPage('/usecase');}}>Use Cases</div>
             <hr className={styles.hr}/>
           </div>
           <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />

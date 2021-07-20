@@ -35,9 +35,9 @@ function TransactionCell ({transaction, owner}){
               <img src = {fileIcon} className = {styles.fileIcon} alt = ""/>
               <div className = {styles.amount} style={{color: theme.primaryText}}>
                 {
-                  type === 'fc' ? 100.0000 :
-                  type === 'ec' ? 100.0000 :
-                  type === 'MA' ? 300.0000 :
+                  type === 'fc' ? parseFloat(100).toFixed(4) :
+                  type === 'ec' ? parseFloat(100).toFixed(4) :
+                  type === 'MA' ? parseFloat(300).toFixed(4) :
                   parseFloat(transaction.data.amount).toFixed(4) 
                 }
               </div>
@@ -50,9 +50,9 @@ function TransactionCell ({transaction, owner}){
                 <div className = {styles.actions}>
                   <div className = {styles.amount} style={{color: theme.primaryText}}>
                     {
-                      type === 'fc' ? 100.0000 :
-                      type === 'ec' ? 100.0000 :
-                      type === 'MA' ? 300.0000 :
+                      type === 'fc' ? parseFloat(100).toFixed(4) :
+                      type === 'ec' ? parseFloat(100).toFixed(4) :
+                      type === 'MA' ? parseFloat(300).toFixed(4) :
                       parseFloat(transaction.data.amount).toFixed(4) 
                     }
                   </div>
@@ -92,10 +92,15 @@ function TransactionCell ({transaction, owner}){
                               </CopyToClipboard>
                             </div>
                             :
-                            <>
-                            <b>Transfer {type}: </b>
-                            {target}
-                            </>
+                            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                                <b>Transfer {type}: </b>
+                                {target}
+                              </div>
+                              <CopyToClipboard text={target}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </div>
                           }
                         </>
                       : type === 'fc' ?
@@ -112,10 +117,15 @@ function TransactionCell ({transaction, owner}){
                               </CopyToClipboard>
                             </div>
                             :
-                            <>
-                            <b>File Certification:</b>
-                            {title}
-                            </>
+                            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                                <b>File Certification: </b>
+                                {title}
+                              </div>
+                              <CopyToClipboard text={title}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </div>
                           }
                         </>
                       : type === 'ec' ?
@@ -132,10 +142,15 @@ function TransactionCell ({transaction, owner}){
                               </CopyToClipboard>
                             </div>
                             :
-                            <>
-                            <b>Email Certification:</b>
-                            {reference}
-                            </>
+                            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                                <b>Email Certification: </b>
+                                {reference}
+                              </div>
+                              <CopyToClipboard text={reference}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </div>
                           }
                         </>
                       : type === 'MA' && publisher === owner ?
@@ -152,10 +167,15 @@ function TransactionCell ({transaction, owner}){
                               </CopyToClipboard>
                             </div>
                             :
-                            <>
-                            <b>Agreement request: </b>
-                            {title}
-                            </>
+                            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                                <b>Agreement request: </b>
+                                {title}
+                              </div>
+                              <CopyToClipboard text={title}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </div>
                           }
                         </>
                       : type === 'MA' && publisher !== owner ?
@@ -172,10 +192,15 @@ function TransactionCell ({transaction, owner}){
                               </CopyToClipboard>
                             </div>
                             :
-                            <>
-                            <b>Signature requested: </b>
-                            {title}
-                            </>
+                            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                                <b>Signature requested: </b>
+                                {title}
+                              </div>
+                              <CopyToClipboard text={title}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </div>
                           }
                         </>
                       :
@@ -194,10 +219,15 @@ function TransactionCell ({transaction, owner}){
                           </CopyToClipboard>
                         </div>
                         :
-                        <>
-                        TXId: 
-                        <a href={`${WavesConfig.EXPLORER_URL}/tx/${transaction.data.id}`} target="_blank" rel="noreferrer">{transaction.data.id}</a>
-                        </>
+                        <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                          <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                            TXId: 
+                            <a href={`${WavesConfig.EXPLORER_URL}/tx/${transaction.data.id}`} target="_blank" rel="noreferrer">{transaction.data.id}</a>
+                          </div>
+                          <CopyToClipboard text={transaction.data.id}>
+                            <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                          </CopyToClipboard>
+                        </div>
                       }
                   </div>
               </div>

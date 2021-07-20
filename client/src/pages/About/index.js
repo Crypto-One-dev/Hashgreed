@@ -12,7 +12,9 @@ function About(){
                 <div className={styles.aboutData}>
                     <br/>
                     Hashgreed is a multi-purpose dApp platform for file, agreements, email certification along with NFT marketplace and DeFi solutions
+                    <br/><br/>
                     Hashgreed is a web dApp by Vinekross LLC, who run the Krosscoin Project.
+                    <br/><br/>
                     Vinekross LLC (L18958) is a Nevis registered company.
                 </div>
             </div>

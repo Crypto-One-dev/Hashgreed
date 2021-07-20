@@ -216,10 +216,128 @@ function VerificationExplorer({match}){
                                         TxID: <b>{certification.txid}</b> 
                                       </div>
                                       <div className={styles.certDataMob} style={{color: theme.primaryText}}>
-                                        By: <b>{certification.address ? certification.address.length>20 ? certification.address.slice(0,20)+'...' : certification.address : ''}</b> <br/>
-                                        Reference: <b>{certification.title || certification.reference}</b> <br/>
-                                        File hash: <b>{certification.hash ? certification.hash.length > 20 ? certification.hash.slice(0,20) + '...' : certification.hash : ''}</b> <br/>
-                                        TxID: <b>{certification.txid ? certification.txid.length > 20 ? certification.txid.slice(0,20) + '...' : certification.txid : ''}</b> 
+                                      {
+                                        certification.address ?
+                                          certification.address.length > 20 ?
+                                              <div className={styles.clipboard}>
+                                                <div className={styles.txclipboard}>
+                                                  By:&nbsp;
+                                                  <b>{certification.address.slice(0,20)+"..."}</b>
+                                                </div>
+                                                <CopyToClipboard text={certification.address}>
+                                                  <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                                </CopyToClipboard>
+                                              </div>
+                                            : 
+                                            <div className={styles.clipboard}>
+                                              <div className={styles.txclipboard}>
+                                                By:&nbsp;
+                                                <b>{certification.address}</b>
+                                              </div>
+                                              <CopyToClipboard text={certification.address}>
+                                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                              </CopyToClipboard>
+                                            </div>
+                                            :
+                                            ''
+                                        }
+                                        {
+                                        certification.title ?
+                                          certification.title.length > 20 ?
+                                              <div className={styles.clipboard}>
+                                                <div className={styles.txclipboard}>
+                                                Reference:&nbsp;
+                                                  <b>{certification.title.slice(0,20)+"..."}</b>
+                                                </div>
+                                                <CopyToClipboard text={certification.title}>
+                                                  <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                                </CopyToClipboard>
+                                              </div>
+                                            : 
+                                            <div className={styles.clipboard}>
+                                              <div className={styles.txclipboard}>
+                                              Reference:&nbsp;
+                                                <b>{certification.title}</b>
+                                              </div>
+                                              <CopyToClipboard text={certification.title}>
+                                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                              </CopyToClipboard>
+                                            </div>
+                                            :
+                                            certification.reference ?
+                                            certification.reference.length > 20 ?
+                                                <div className={styles.clipboard}>
+                                                  <div className={styles.txclipboard}>
+                                                  Reference:&nbsp;
+                                                    <b>{certification.reference.slice(0,20)+"..."}</b>
+                                                  </div>
+                                                  <CopyToClipboard text={certification.reference}>
+                                                    <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                                  </CopyToClipboard>
+                                                </div>
+                                              : 
+                                              <div className={styles.clipboard}>
+                                                <div className={styles.txclipboard}>
+                                                Reference:&nbsp;
+                                                  <b>{certification.reference}</b>
+                                                </div>
+                                                <CopyToClipboard text={certification.reference}>
+                                                  <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                                </CopyToClipboard>
+                                              </div>
+                                              :
+                                              ''
+                                        }
+                                        {
+                                        certification.hash ?
+                                        certification.hash.length > 20 ?
+                                              <div className={styles.clipboard}>
+                                                <div className={styles.txclipboard}>
+                                                File hash:&nbsp;
+                                                  <b>{certification.hash.slice(0,20)+"..."}</b>
+                                                </div>
+                                                <CopyToClipboard text={certification.hash}>
+                                                  <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                                </CopyToClipboard>
+                                              </div>
+                                            : 
+                                            <div className={styles.clipboard}>
+                                              <div className={styles.txclipboard}>
+                                              File hash:&nbsp;
+                                                <b>{certification.hash}</b>
+                                              </div>
+                                              <CopyToClipboard text={certification.hash}>
+                                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                              </CopyToClipboard>
+                                            </div>
+                                            :
+                                            ''
+                                        }
+                                        {
+                                        certification.txid ?
+                                        certification.txid.length > 20 ?
+                                              <div className={styles.clipboard}>
+                                                <div className={styles.txclipboard}>
+                                                TxID:&nbsp;
+                                                  <b>{certification.txid.slice(0,20)+"..."}</b>
+                                                </div>
+                                                <CopyToClipboard text={certification.txid}>
+                                                  <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                                </CopyToClipboard>
+                                              </div>
+                                            : 
+                                            <div className={styles.clipboard}>
+                                              <div className={styles.txclipboard}>
+                                              TxID:&nbsp;
+                                                <b>{certification.txid}</b>
+                                              </div>
+                                              <CopyToClipboard text={certification.txid}>
+                                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                              </CopyToClipboard>
+                                            </div>
+                                            :
+                                            ''
+                                        }
                                       </div>
                                       <div className={styles.qrArea}>
                                         <div className={styles.qr}>
@@ -232,63 +350,59 @@ function VerificationExplorer({match}){
                                 </div>
 
                               </div>
-                              <div className={styles.explorerList}>
-                                  <div className={styles.item}>
-                                    <div className={styles.header}>
-                                      <img src={Logo} className={styles.logo} alt=""/>
-                                      <QRCode value={WavesConfig.BASE_URL + '/explorer/' + certification.txid} includeMargin={true} className={styles.qrpdf} />
+                              <div className={styles.explorerArea}>
+                                <div className={styles.explorerList}>
+                                    <div className={styles.item}>
+                                      <div className={styles.header}>
+                                        <img src={Logo} className={styles.logo} alt=""/>
+                                        <QRCode value={WavesConfig.BASE_URL + '/explorer/' + certification.txid} includeMargin={true} className={styles.qrpdf} />
+                                      </div>
+                                      <div className={styles.titleArea}>
+                                        <div className={styles.proof} style={{color: theme.certificationText}}>
+                                            <b>Proof</b>
+                                        </div>
+                                        <div className={styles.prfCertifcation}>
+                                          <b>OF CERTIFICATION</b>
+                                        </div>
+                                        <div className={styles.comment} style={{color: theme.certificationText}}>
+                                          <b>You certified the following data on waves blockchain</b>
+                                        </div>
+                                      </div>
+                                      <div className={styles.dataArea} style={{color: theme.commentText}}>
+                                        Reference:<br/>
+                                        <div style={{color: theme.buttonBack, fontSize: '28px', fontWeight: '700'}}>
+                                          {certification.title || certification.reference}
+                                        </div>                        
+                                        <br/>{certification.hash ? 'File Hash' : 'Message ID'}: <br/>
+                                        <div className={styles.imgHash} style={{color: theme.certificationText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
+                                          {certification.hash || certification.messageid}
+                                        </div>
+                                        <br/>Date: <br/>
+                                        <div className={styles.time} style={{color: theme.certificationText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
+                                          {moment(certification.timestamp).toString()}
+                                        </div>
+                                      </div>
+                                      <div className={styles.footer} style={{color: theme.commentText}}>
+                                        <a href={`${WavesConfig.EXPLORER_URL}/tx/${certification.txid}`} target="_blank" rel="noreferrer">
+                                          See on Waves
+                                        </a>
+                                        <a href={`${WavesConfig.BASE_URL}`} target="_blank" rel="noreferrer">
+                                          New Certification
+                                        </a>
+                                      </div>
+                                        
+                                        {
+                                            certification.status?
+                                                <span className={styles.status}>
+                                                    <a href={"http://wavesexplorer.com/tx/" + certification.status.replace('REVOKED_', '')} target="_blank" rel="noreferrer">
+                                                        REVOKED
+                                                    </a>
+                                                </span>
+                                            :
+                                                null
+                                        }
                                     </div>
-                                    <div className={styles.titleArea}>
-                                      <div className={styles.proof} style={{color: theme.certificationText}}>
-                                          <b>Proof</b>
-                                      </div>
-                                      <div className={styles.prfCertifcation}>
-                                        <b>OF CERTIFICATION</b>
-                                      </div>
-                                      <div className={styles.comment} style={{color: theme.certificationText}}>
-                                        <b>You certified the following data on waves blockchain</b>
-                                      </div>
-                                    </div>
-                                    <div className={styles.dataArea} style={{color: theme.commentText}}>
-                                      Reference:<br/>
-                                      <div style={{color: theme.buttonBack, fontSize: '28px', fontWeight: '700'}}>
-                                        {certification.title || certification.reference}
-                                      </div>                        
-                                      <br/>{certification.hash ? 'File Hash' : 'Message ID'}: <br/>
-                                      <div className={styles.imgHash} style={{color: theme.certificationText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
-                                        {certification.hash || certification.messageid}
-                                      </div>
-                                      <div className={styles.mobHash} style={{color: theme.certificationText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
-                                        {certification.hash ? certification.hash.length > 15 ? certification.hash.slice(0,15) + '...' : certification.hash : ''}
-                                      </div>
-                                      <br/>Date: <br/>
-                                      <div className={styles.time} style={{color: theme.certificationText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
-                                        {moment(certification.timestamp).toString()}
-                                      </div>
-                                      <div className={styles.mobtime} style={{color: theme.certificationText, fontWeight:'500', paddingRight: '30px', marginBottom: '10px'}}>
-                                        {moment(certification.timestamp).toString().length > 15 ? moment(certification.timestamp).toString().slice(0,20) + '...' : moment(certification.timestamp).toString() }
-                                      </div>
-                                    </div>
-                                    <div className={styles.footer} style={{color: theme.commentText}}>
-                                      <a href={`${WavesConfig.EXPLORER_URL}/tx/${certification.txid}`} target="_blank" rel="noreferrer">
-                                        See on Waves
-                                      </a>
-                                      <a href={`${WavesConfig.BASE_URL}`} target="_blank" rel="noreferrer">
-                                        New Certification
-                                      </a>
-                                    </div>
-                                      
-                                      {
-                                          certification.status?
-                                              <span className={styles.status}>
-                                                  <a href={"http://wavesexplorer.com/tx/" + certification.status.replace('REVOKED_', '')} target="_blank" rel="noreferrer">
-                                                      REVOKED
-                                                  </a>
-                                              </span>
-                                          :
-                                              null
-                                      }
-                                  </div>
+                                </div>
                               </div>
                             </div>
                         :

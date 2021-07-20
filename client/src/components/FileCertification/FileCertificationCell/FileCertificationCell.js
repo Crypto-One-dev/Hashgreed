@@ -84,7 +84,7 @@ function FileCertificationCell({detail, owner, walletState}){
                 </div>
               </div>
               <div className ={styles.references} style={{color: theme.primaryText}}>
-                    Reference: <b>{detail.title}</b>
+                    Reference: <span>{detail.title}</span>
                     <br/>
                     Hash: <span>{detail.hash}</span>
                     <br/>
@@ -94,19 +94,25 @@ function FileCertificationCell({detail, owner, walletState}){
                     <div className={detail.title.length>20 ? styles.clipboard: null}>
                       {
                         detail.title.length>20 ? 
-                        <>
-                          <div className={styles.clipboard}>
-                            Reference:&nbsp;
-                            <b>{detail.title.slice(0,20)+ "..."}</b>
+                          <>
+                            <div className={styles.clipboard}>
+                              Reference:&nbsp;
+                              <b>{detail.title.slice(0,20)+ "..."}</b>
                             </div>
                             <CopyToClipboard text={detail.title}>
                               <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
                             </CopyToClipboard>
                           </>
                         : 
-                        <div>
-                          Reference:<b>{detail.title}</b>
-                        </div>
+                          <div className={styles.clipboard}>
+                            <div className={styles.clipboard}>
+                              Reference:&nbsp;
+                              <b>{detail.title}</b>
+                            </div>
+                            <CopyToClipboard text={detail.title}>
+                              <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                            </CopyToClipboard>
+                          </div>
                       }
                       </div>
                       <div className={detail.hash.length>20 ? styles.clipboard : null}>
@@ -120,7 +126,12 @@ function FileCertificationCell({detail, owner, walletState}){
                               </CopyToClipboard>
                             </>
                             : 
-                            detail.hash
+                            <div className={styles.clipboard}>
+                              {detail.hash}
+                              <CopyToClipboard text={detail.hash}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </div>
                         }
                       </div>
                         {
@@ -154,9 +165,15 @@ function FileCertificationCell({detail, owner, walletState}){
                             </CopyToClipboard>
                           </>
                         : 
-                        <div>
-                          Reference:<b>{detail.title}</b>
-                        </div>
+                          <div className={styles.clipboard}>
+                            <div className={styles.clipboard}>
+                              Reference:&nbsp;
+                              <b>{detail.title}</b>
+                            </div>
+                            <CopyToClipboard text={detail.title}>
+                              <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                            </CopyToClipboard>
+                          </div>
                       }
                       </div>
                       <div className={detail.hash.length>15 ? styles.clipboard : null}>
@@ -170,7 +187,12 @@ function FileCertificationCell({detail, owner, walletState}){
                               </CopyToClipboard>
                             </>
                             : 
-                            detail.hash
+                            <>
+                              {detail.hash}
+                              <CopyToClipboard text={detail.hash}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
+                            </>
                         }
                       </div>
                         {
@@ -185,8 +207,14 @@ function FileCertificationCell({detail, owner, walletState}){
                               </CopyToClipboard>
                             </div>
                             : 
-                            <div>
-                              TXId:&nbsp;<a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
+                            <div className={styles.clipboard}>
+                              <div className={styles.txclipboard}>
+                                TXId:&nbsp;
+                                <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
+                              </div>
+                              <CopyToClipboard text={txid}>
+                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                              </CopyToClipboard>
                             </div>
                         }
               </div>

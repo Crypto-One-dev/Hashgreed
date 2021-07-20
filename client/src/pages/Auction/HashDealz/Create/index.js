@@ -18,6 +18,11 @@ import{
     PopoverContent
   } from '@chakra-ui/react'
 import { ThemeContext } from 'context/ThemeContext'
+import "owl.carousel/dist/assets/owl.carousel.css"
+import "owl.carousel/dist/assets/owl.theme.green.css"
+import OwlCarousel from 'react-owl-carousel'
+import Prev from 'assets/images/left.png'
+import Next from 'assets/images/right.png'
 
 function Create({ walletState }) {
 
@@ -34,7 +39,9 @@ function Create({ walletState }) {
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({ accept: 'image/jpeg, image/png' })
     const [uploading, setUploading] = useState(false)
     const clipboard = useRef(null);
+    const [imgsrc, setImgsrc] = useState([])
     const assetType = 'HashDealz'
+    const carousel = useRef(null)
 
     const [nft, setNFT] = useState({
       name: '',
@@ -50,7 +57,17 @@ function Create({ walletState }) {
             }
             proc()
         }
-    }, [walletState.address, nftID])
+        num=0
+        setImgsrc([])
+        acceptedFiles && acceptedFiles.map((cert) =>{
+            let reader = new FileReader()
+            reader.readAsDataURL(cert)
+            reader.onloadend = function () {
+                setImgsrc(imgsrc => imgsrc.concat(URL.createObjectURL(cert))) 
+                console.log(acceptedFiles)
+            }
+        })
+    }, [walletState.address, nftID, acceptedFiles])
 
     const setNFTIDs = (id) => {
       setNFTID(id)
@@ -74,7 +91,6 @@ function Create({ walletState }) {
             return
         }
         const tx = await WavesUtils.StartAuction(parseInt(duration), parseFloat(price), priceID, nftID, parseFloat(nftAmount))
-        // const tx={id:0}
         if (tx) {
             setUploading(true)
             await ApiUtils.auctionUpload(acceptedFiles[0], tx.id, assetType, assetName, assetComment)
@@ -91,6 +107,7 @@ function Create({ walletState }) {
         AlertUtils.SystemAlert('Auction was successfully started')
     }
 
+var num=0
     return (
         <div className={styles.create}>
             <div className={styles.container}>
@@ -101,17 +118,47 @@ function Create({ walletState }) {
                 <hr className={styles.border} />
                 <div {...getRootProps()} className={styles.dropzone}>
                     <BsPlusCircle size={40} style={{ color: theme.dropZone }} />
-                    <input {...getInputProps()} />
+                    <input {...getInputProps()} multiple/>
                     <p className={styles.upload} style={{ color: theme.dropZone }}>
                         {
-                            acceptedFiles.length === 1 ?
-                                acceptedFiles[0].path
+                            acceptedFiles.length>=1 ?
+                            acceptedFiles.map(option => (
+                                option.path + ' '
+                            ))
                                 :
                                 "Click to select or drag and drop a file here"
                         }
                     </p>
                     <p className={styles.uploadComment} style={{ color: theme.commentText }}>Max files size: 10GB</p>
                 </div>
+                {/* <div className={styles.carouselArea}>
+                    <div className={styles.piccarousel}>
+                        <img src = {Prev} className = {styles.leftIcon} style={{color: theme.primaryText}} onClick={()=>{carousel.current.prev()}} alt = ""/>
+                                    <OwlCarousel className="owl-theme" responsiveClass={true} margin={0} dots={false} ref={carousel} responsive={{
+                            0:{
+                                items: 1
+                            },
+                            600:{
+                                items: 2
+                            },
+                            900:{
+                                items: 3
+                            },
+                            1200:{
+                                items: 4
+                            }
+                        }}>
+                        {
+                                imgsrc && imgsrc.map((result) =>{
+                                    num++;
+                                    console.log(num,result)
+                                    return <img key={num} src={result} style={{heigth: '300px'}} alt=""/>
+                                })
+                            }
+                        </OwlCarousel>
+                        <img src = {Next} className = {styles.rightIcon} onClick={()=>{carousel.current.next()}} alt = ""/>
+                    </div>
+                </div> */}
                 <div className={styles.datasarea}>
                     <div className={styles.assetData}>
                         <div className={styles.inputarea}>

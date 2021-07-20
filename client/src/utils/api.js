@@ -55,7 +55,6 @@ const getTransactions = async (address, callback) => {
         data: cert
       })
     })
-
     let transfers = [...send.data.data, ...receive.data.data, ...certArray]
     transfers = transfers.sort((l, r) => {
       if (l.data.timestamp > r.data.timestamp)

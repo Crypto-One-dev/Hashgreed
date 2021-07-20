@@ -7,6 +7,7 @@ import Verification from 'pages/Verification/VerificationExplorer'
 import Faq from 'pages/Faq'
 import Contact from 'pages/Contact'
 import About from 'pages/About'
+import Usecase from 'pages/Usecase'
 
 const VerificationExplorer = () => <Verification/>
 
@@ -19,6 +20,7 @@ function Content() {
       <Route path={'/faq'} component={Faq} />
       <Route path={'/contact'} component={Contact} />
       <Route path={'/about'} component={About} />
+      <Route path={'/usecase'} component={Usecase} />
       <Route component={AuthLayout} />
     </Switch>
   )

@@ -39,7 +39,7 @@ function Header({walletState, walletActions}) {
       <div className={styles.about} style={{color: theme.commentText}}>
         <a href="/about">About</a>
         <a href="/faq">F.A.Q.</a>
-        <a href={Pdf} target="_blank">Use Cases</a>
+        <a href="/usecase">Use Cases</a>
       </div>
       <div className={styles.menu} >
         <ColorModeSwitcher theme={theme} setTheme={setTheme} className={styles.colorModeSwitcher} />

@@ -232,20 +232,69 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             .proofArea{
                 display: flex;
                 flex-direction: column;
                 box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
                 border-radius: 16.8116px;
                 margin: 0 5px;
+                margin-top: 20px;
+                padding-top: 30px;
                 margin-bottom: 50px;
                 padding-bottom: 30px;
                 align-items: center;
+                justify-content: flex-start;
                 width: 100%;
-                max-width: 1000px;
+                max-width: 1000px;               
                 @media (max-width: 600px){
                     width: calc(100% - 30px);
+                }
+                @media(max-width: 1100px){
+                 width: 1000px;
+                }
+                @media(max-width: 1000px){
+                  width: 900px;
+                }
+                @media(max-width: 900px){
+                  width: 820px;
+                }
+                @media(max-width: 820px){
+                  width: 720px;
+                  padding-top: 0;
+                }
+                @media(max-width: 720px){
+                  width: 630px;
+                }
+                @media(max-width: 630px){
+                  width: 520px;
+                }
+                @media(max-width: 570px){
+                  width: 470px;
+                }
+                @media(max-width: 540px){
+                  width: 430px;
+                }
+                @media(max-width: 490px){
+                  width: 410px;
+                }
+                @media(max-width: 470px){
+                  width: 360px;
+                }
+                @media(max-width: 420px){
+                  width: 330px;
+                }
+                @media(max-width: 390px){
+                  width: 310px;
+                }
+                @media(max-width: 375px){
+                  width: 290px;
+                }
+                @media(max-width: 350px){
+                  width: 260px;
+                }
+                @media(max-width: 315px){
+                  width: 220px;
                 }
                 .mainArea{
                     display: flex;
@@ -257,6 +306,7 @@
                     margin-bottom: 40px;
                     @media (max-width:$mobileWidth){
                       padding: 0 15px;
+                      margin-bottom: 0;
                     }
                     .titleBar {
                       display: flex;
@@ -459,6 +509,36 @@
                               word-break: break-all;
                               font-size: 12px;
                             }
+                            .clipboard{
+                              display: flex;
+                              flex-direction: row;
+                              justify-content: space-between;
+                              align-items: center;
+                              .action{
+                                color: #FE006C;
+                                margin-left: 10px ;
+                                cursor: pointer;
+                                @media (max-width:600px){
+                                  justify-content: flex-end;
+                                  align-items: center;
+                                }
+                              }
+                            }
+                            .txclipboard{
+                              display: flex;
+                              flex-direction: row;
+                              justify-content: flex-start;
+                              align-items: center;
+                              .action{
+                                color: #FE006C;
+                                margin-left: 10px ;
+                                cursor: pointer;
+                                @media (max-width:600px){
+                                  justify-content: flex-end;
+                                  align-items: center;
+                                }
+                              }
+                            }
                           }
                           .qrArea{
                             display: flex;
@@ -490,156 +570,218 @@
                       }
                     }
                 }
-                .explorerList {
-                  background: url('../../assets/images/certificate_bg.jpg') no-repeat;
-                  padding: 5px 50px;
-                  // width: 915px;
-                  // height: 652px;
-                  zoom: 1;
-                  background-position: center;
-                  @media(max-width: 1000px){
-                    // zoom: 0.9;
-                    // -webkit-transform: scale(0.9);
-                    transform: scale(0.9);
+                .explorerArea{
+                  @media(max-width:1024px){
+                    height: 660px;
+                    width: 940px;
                   }
-                  @media(max-width: 900px){
-                    // zoom: 0.8;
-                    // -webkit-transform: scale(0.8);
-                    transform: scale(0.8);
+                  @media(max-width:1000px){
+                    height: 600px;
+                    width: 820px;
                   }
-                  @media(max-width: 820px){
-                    // zoom: 0.7;
-                    // -webkit-transform: scale(0.7);
-                    transform: scale(0.7);
+                  @media(max-width:900px){
+                    height: 600px;
+                    width: 730px;
                   }
-                  @media(max-width: 720px){
-                    // zoom: 0.6;
-                    // -webkit-transform: scale(0.6);
-                    transform: scale(0.6);
+                  @media(max-width:820px){
+                    height: 500px;
+                    width: 650px;
                   }
-                  @media(max-width: 630px){
-                    // zoom: 0.5;
-                    -webkit-transform: scale(0.5);
+                  @media(max-width:720px){
+                    height: 400px;
+                    width: 550px;
                   }
-                  @media(max-width: 560px){
-                    // zoom: 0.4;
-                    -webkit-transform: scale(0.4);
+                  @media(max-width:630px){
+                    margin-top: 20px;
+                    height: 350px;
+                    width: 460px;
                   }
-                  @media(max-width: 470px){
-                    // zoom: 0.3;
-                    -webkit-transform: scale(0.3);
+                  @media(max-width:560px){
+                    height: 280px;
+                    width: 368px;
                   }
-                  @media(max-width: 360px){
-                    // zoom: 0.25;
-                    -webkit-transform: scale(0.25);
+                  @media(max-width:470px){
+                    height: 200px;
+                    width: 280px;
+                    
                   }
-                  @media(max-width: 315px){
-                    // zoom: 0.2;
-                    -webkit-transform: scale(0.2);
+                  @media(max-width:375px){
+                    height: 180px;
+                    width: 270px;
                   }
-                  .item {
-                    position:relative;
-                    background-repeat: no-repeat;
+                  @media(max-width:360px){
+                    height: 180px;
+                    width: 230px;
+                  }
+                  @media(max-width:320px){
+                    height: 160px;
+                    width : 230px;
+                  }
+                  @media(max-width:320px){
+                    height: 140px;
+                    width : 180px;
+                  }
+                  .explorerList {
+                    background: url('../../assets/images/certificate_bg.jpg') no-repeat;
+                    padding: 5px 50px;
+                    width: 915px;
+                    height: 652px;
+                    transform-origin: top left;
                     background-position: center;
-                    background-size: cover;
-                    resize: both;
-                    display: flex;
-                    flex-direction: column;
-            
-                    margin-bottom: 25px;
-                    padding: 20px 5px;
-                    font-size: 18px;
-                    word-break: break-all;
-            
-                    position: relative;
-                    padding-left: 16rem;
                     @media(max-width: 1000px){
-                      padding-left: 30%;
-                    }             
-
-                    .header{
-                      display: flex;
-                      flex-direction: row;
-                      justify-content: space-between;
-                      width: 100%;
-                      padding-right: 1rem;
-                      .qrpdf {
-                        width: 140px;
-                        height:140px;
-                        opacity: 0.6;
-                      }
+                      // zoom: 0.9;
+                      -webkit-transform: scale(0.9);
+                      // transform: scale(0.9);
                     }
-                    .titleArea{
+                    @media(max-width: 900px){
+                      // zoom: 0.8;
+                      -webkit-transform: scale(0.8);
+                      // transform: scale(0.8);
+                    }
+                    @media(max-width: 820px){
+                      // zoom: 0.7;
+                      -webkit-transform: scale(0.7);
+                      // transform: scale(0.7);
+                    }
+                    @media(max-width: 720px){
+                      // zoom: 0.6;
+                      -webkit-transform: scale(0.6);
+                      // transform: scale(0.6);
+                    }
+                    @media(max-width: 630px){
+                      // zoom: 0.5;
+                      -webkit-transform: scale(0.5);
+                      // transform: scale(0.5);
+                    }
+                    @media(max-width: 560px){
+                      // zoom: 0.4;
+                      -webkit-transform: scale(0.4);
+                      // transform: scale(0.4);
+                    }
+                    @media(max-width: 470px){
+                      // zoom: 0.3;
+                      -webkit-transform: scale(0.3);
+                      // padding-bottom: -300px;
+                      // transform: scale(0.3);
+                    }
+                    @media(max-width: 360px){
+                      // zoom: 0.25;
+                      -webkit-transform: scale(0.25);
+                      // transform: scale(0.25);
+                    }
+                    @media(max-width: 315px){
+                      // zoom: 0.2;
+                      -webkit-transform: scale(0.2);
+                      // transform: scale(0.2);
+                    }
+                    .item {
+                      position:relative;
+                      background-repeat: no-repeat;
+                      background-position: center;
+                      background-size: cover;
+                      resize: both;
                       display: flex;
                       flex-direction: column;
-                      justify-content: flex-start;
-                      align-items: flex-start;
-                      line-height: 45px;
-                      .proof{
-                        font-size: 72px;
-                      }
-                      .prfCertification{
-                        font-size: 24px;
-                        color: #000000;
-                      }
-                      .comment{
-                        font-size: 14px;
-                        @media (max-width: $mobileWidth) {
-                          font-size: 22px;
-                        }
-                      }
-                    }
-                    .dataArea{
-                      display: flex;
-                      flex-direction: column;
-                      align-items: flex-start;
-                      font-size: 16px;
-                      font-weight: 700;
-                      margin-top: 10px;
-                      margin-bottom: 40px;
-                      line-height: 25px;
-                      text-align: left;
+              
+                      margin-bottom: 25px;
+                      padding: 20px 5px;
+                      font-size: 18px;
                       word-break: break-all;
-                      @media (max-width: $mobileWidth) {
-                        font-size: 24px;
-                        line-height: 27px;
-                      }
-                      .imgHash{
-                        @media (max-width: 1000px) {
-                          // display: none;
+              
+                      position: relative;
+                      padding-left: 16rem;
+                      @media(max-width: 1000px){
+                        padding-left: 30%;
+                      }             
+  
+                      .header{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        width: 100%;
+                        padding-right: 1rem;
+                        .qrpdf {
+                          width: 140px;
+                          height:140px;
+                          opacity: 0.6;
                         }
                       }
-                      .mobHash{
-                        display: none;
-                        @media (max-width: 1000px){
-                          // display: flex;
+                      .titleArea{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        align-items: flex-start;
+                        line-height: 45px;
+                        .proof{
+                          font-size: 72px;
+                        }
+                        .prfCertification{
+                          font-size: 24px;
+                          color: #000000;
+                        }
+                        .comment{
+                          font-size: 14px;
+                          @media (max-width: $mobileWidth) {
+                            font-size: 22px;
+                          }
                         }
                       }
-                    }
-                    .footer{
-                      display: flex;
-                      flex-direction: row;
-                      justify-content: space-between;
-                      padding-right: 120px;
-                      font-size: 14px;
-                      font-weight: 700;
-                      @media (max-width: $mobileWidth) {
-                        font-size: 24px;
+                      .dataArea{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        font-size: 16px;
+                        font-weight: 700;
+                        margin-top: 10px;
+                        margin-bottom: 40px;
+                        line-height: 25px;
+                        text-align: left;
+                        word-break: break-all;
+                        @media (max-width: $mobileWidth) {
+                          font-size: 24px;
+                          line-height: 27px;
+                        }
+                        .imgHash{
+                          @media (max-width: $mobileWidth) {
+                            // display: none;
+                          }
+                        }
+                        .time{
+                          font-size: 15px;
+                          font-weight: 500;
+                          text-align: left;
+                          @media(max-width: $mobileWidth){
+                            font-size: 12px;
+                            padding-left: 5px;
+                          }
+                        }
                       }
-                    }
-                    .status {
-                      background-color: red;
-                      color: white;
-                      font-size: 20px;
-                      margin-right: 10px;
-                      padding: 0 5px;
-            
-                      position: absolute;
-                      right: 35px;
-                      top: 25px;
+                      .footer{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        padding-right: 120px;
+                        font-size: 14px;
+                        font-weight: 700;
+                        @media (max-width: $mobileWidth) {
+                          font-size: 24px;
+                        }
+                      }
+                      .status {
+                        background-color: red;
+                        color: white;
+                        font-size: 20px;
+                        margin-right: 10px;
+                        padding: 0 5px;
+              
+                        position: absolute;
+                        right: 35px;
+                        top: 25px;
+                      }
                     }
                   }
                 }
+                
             }
             
           }

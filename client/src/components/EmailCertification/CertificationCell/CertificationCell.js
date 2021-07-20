@@ -50,14 +50,29 @@ function CertificationCell({cert, owner}){
             </div>
           </div>
           <div className ={styles.references} style={{color: theme.primaryText}}>
-            Reference: <b>{cert.reference}</b>
-            <br/>
-            TXId: <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
+            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                Reference: 
+                {cert.reference}
+              </div>
+              <CopyToClipboard text={cert.reference}>
+                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+              </CopyToClipboard>
+            </div>
+            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                TXId: 
+                <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
+              </div>
+              <CopyToClipboard text={txid}>
+                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+              </CopyToClipboard>
+            </div>
           </div>
           <div className ={styles.mobreferences} style={{color: theme.primaryText}}>
             {
               cert.reference.length>20 ? 
-                <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+              <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
                   <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
                     Reference: 
                     {cert.reference.slice(0,20) + '...'}
@@ -67,10 +82,15 @@ function CertificationCell({cert, owner}){
                   </CopyToClipboard>
                 </div>
                 :
-                <>
-                  Reference: 
-                  {cert.reference}
-                </>
+                <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                  <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                    Reference: 
+                    {cert.reference}
+                  </div>
+                  <CopyToClipboard text={cert.reference}>
+                    <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                  </CopyToClipboard>
+                </div>
             }
             {
               txid.length>20 ? 
@@ -84,10 +104,15 @@ function CertificationCell({cert, owner}){
                   </CopyToClipboard>
                 </div>
                 :
-                <>
-                TXId: 
-                <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
-                </>
+                <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                  <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                    TXId: 
+                    <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
+                  </div>
+                  <CopyToClipboard text={txid}>
+                    <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                  </CopyToClipboard>
+                </div>
               }
           </div>
           <div className ={styles.semimobreferences} style={{color: theme.primaryText}}>
@@ -103,10 +128,15 @@ function CertificationCell({cert, owner}){
                   </CopyToClipboard>
                 </div>
                 :
-                <>
-                  Reference: 
-                  {cert.reference}
-                </>
+                <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                  <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                    Reference: 
+                    {cert.reference}
+                  </div>
+                  <CopyToClipboard text={cert.reference}>
+                    <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                  </CopyToClipboard>
+                </div>
             }
             {
               txid.length>15 ? 
@@ -120,10 +150,15 @@ function CertificationCell({cert, owner}){
                   </CopyToClipboard>
                 </div>
                 :
-                <>
-                TXId: 
-                <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
-                </>
+                <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between', alignItems: 'center'}}>
+                  <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+                    TXId: 
+                    <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid}</a>
+                  </div>
+                  <CopyToClipboard text={txid}>
+                    <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                  </CopyToClipboard>
+                </div>
             }
           </div>
           <div className={styles.mobActions}>

@@ -122,6 +122,21 @@
           margin-left: 5px;
           display: none;
         }
+        .clipboard{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        .action{
+          color: #FE006C;
+          margin-left: 10px ;
+          cursor: pointer;
+          @media (max-width:600px){
+            justify-content: flex-end;
+            align-items: center;
+          }
+        }
+      }
     }
     .mobReferences{
       align-items: flex-start;
