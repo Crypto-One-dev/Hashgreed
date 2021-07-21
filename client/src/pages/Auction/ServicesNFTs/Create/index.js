@@ -18,6 +18,10 @@ import{
     PopoverContent
   } from '@chakra-ui/react'
 import { ThemeContext } from 'context/ThemeContext'
+import "react-alice-carousel/lib/alice-carousel.css"
+import AliceCarousel from 'react-alice-carousel'
+import Prev from 'assets/images/left.png'
+import Next from 'assets/images/right.png'
 
 function Create({ walletState }) {
 
@@ -34,7 +38,9 @@ function Create({ walletState }) {
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({ accept: 'image/jpeg, image/png' })
     const [uploading, setUploading] = useState(false)
     const clipboard = useRef(null);
+    const [imgsrc, setImgsrc] = useState([])
     const assetType = 'ServicesNFTs'
+    const carousel = useRef(null)
 
     const [nft, setNFT] = useState({
       name: '',
@@ -50,7 +56,16 @@ function Create({ walletState }) {
             }
             proc()
         }
-    }, [walletState.address, nftID])
+        num=0
+        setImgsrc([])
+        acceptedFiles && acceptedFiles.map((cert) =>{
+            let reader = new FileReader()
+            reader.readAsDataURL(cert)
+            reader.onloadend = function () {
+                setImgsrc(imgsrc => imgsrc.concat(URL.createObjectURL(cert))) 
+            }
+        })
+    }, [walletState.address, nftID, acceptedFiles, setImgsrc])
 
     const setNFTIDs = (id) => {
       setNFTID(id)
@@ -69,15 +84,20 @@ function Create({ walletState }) {
             AlertUtils.SystemAlert('Duration in minutes is not valid')
             return
         }
-        if (acceptedFiles.length !== 1) {
-            AlertUtils.SystemAlert('You must upload 1 image for NFT')
+        if (acceptedFiles.length < 1) {
+            AlertUtils.SystemAlert('You must upload at least 1 image for Services NFTs')
+            return
+        }
+        if (acceptedFiles.length > 8) {
+            AlertUtils.SystemAlert('You can upload up to 8 images for Services NFTs')
             return
         }
         const tx = await WavesUtils.StartAuction(parseInt(duration), parseFloat(price), priceID, nftID, parseFloat(nftAmount))
-        // const tx={id:0}
         if (tx) {
             setUploading(true)
-            await ApiUtils.auctionUpload(acceptedFiles[0], tx.id, assetType, assetName, assetComment)
+            acceptedFiles.forEach(async (file) => { 
+                await ApiUtils.auctionUpload(file, tx.id, assetType, assetName, assetComment)
+            });
         }
         setDuration('')
         setPrice('')
@@ -87,10 +107,13 @@ function Create({ walletState }) {
         setAssetName('')
         setAssetComment('')
         acceptedFiles.splice(0, acceptedFiles.length)
+        setImgsrc([])
+        acceptedFiles.length =0;
         setUploading(false)
         AlertUtils.SystemAlert('Auction was successfully started')
     }
 
+var num=0
     return (
         <div className={styles.create}>
             <div className={styles.container}>
@@ -101,17 +124,44 @@ function Create({ walletState }) {
                 <hr className={styles.border} />
                 <div {...getRootProps()} className={styles.dropzone}>
                     <BsPlusCircle size={40} style={{ color: theme.dropZone }} />
-                    <input {...getInputProps()} />
+                    <input {...getInputProps()} multiple/>
                     <p className={styles.upload} style={{ color: theme.dropZone }}>
                         {
-                            acceptedFiles.length === 1 ?
-                                acceptedFiles[0].path
+                            acceptedFiles.length>=1 ?
+                            acceptedFiles.length === 1?
+                                acceptedFiles.length + ' image is selected.'
+                                :
+                                acceptedFiles.length + ' images are selected.'
                                 :
                                 "Click to select or drag and drop a file here"
                         }
                     </p>
                     <p className={styles.uploadComment} style={{ color: theme.commentText }}>Max files size: 10GB</p>
                 </div>
+                {
+                    imgsrc && imgsrc.length > 0 ?
+                        <div className={styles.carouselArea}>
+                            <div className={styles.piccarousel}>
+                                <img src = {Prev} className = {styles.leftIcon} style={{color: theme.primaryText}} onClick={()=>{carousel.current.slidePrev()}} alt = ""/>
+                                <AliceCarousel
+                                ref={carousel} disableDotsControls={true} disableButtonsControls={true} playButtonEnabled={false} autoPlayActionDisabled={true}>
+                                {
+                                        imgsrc && imgsrc.map((result) =>{
+                                            num++;
+                                            return (
+                                            <div className = {styles.picCell} key={num} style={{backgroundColor: theme.stepBackground}}>
+                                                <img src={result} className={styles.img} alt=""/>
+                                            </div>
+                                            ) 
+                                        })
+                                    }
+                                </AliceCarousel>
+                                <img src = {Next} className = {styles.rightIcon} onClick={()=>{carousel.current.slideNext()}} alt = ""/>
+                            </div>
+                        </div>
+                    :
+                        null
+                }
                 <div className={styles.datasarea}>
                     <div className={styles.assetData}>
                         <div className={styles.inputarea}>

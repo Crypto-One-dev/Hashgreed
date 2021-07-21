@@ -18,9 +18,8 @@ import{
     PopoverContent
   } from '@chakra-ui/react'
 import { ThemeContext } from 'context/ThemeContext'
-import "owl.carousel/dist/assets/owl.carousel.css"
-import "owl.carousel/dist/assets/owl.theme.green.css"
-import OwlCarousel from 'react-owl-carousel'
+import "react-alice-carousel/lib/alice-carousel.css"
+import AliceCarousel from 'react-alice-carousel'
 import Prev from 'assets/images/left.png'
 import Next from 'assets/images/right.png'
 
@@ -64,10 +63,9 @@ function Create({ walletState }) {
             reader.readAsDataURL(cert)
             reader.onloadend = function () {
                 setImgsrc(imgsrc => imgsrc.concat(URL.createObjectURL(cert))) 
-                console.log(acceptedFiles)
             }
         })
-    }, [walletState.address, nftID, acceptedFiles])
+    }, [walletState.address, nftID, acceptedFiles, setImgsrc])
 
     const setNFTIDs = (id) => {
       setNFTID(id)
@@ -86,14 +84,20 @@ function Create({ walletState }) {
             AlertUtils.SystemAlert('Duration in minutes is not valid')
             return
         }
-        if (acceptedFiles.length !== 1) {
-            AlertUtils.SystemAlert('You must upload 1 image for NFT')
+        if (acceptedFiles.length < 1) {
+            AlertUtils.SystemAlert('You must upload at least 1 image for HashDealz')
+            return
+        }
+        if (acceptedFiles.length > 8) {
+            AlertUtils.SystemAlert('You can upload up to 8 images for HashDealz')
             return
         }
         const tx = await WavesUtils.StartAuction(parseInt(duration), parseFloat(price), priceID, nftID, parseFloat(nftAmount))
         if (tx) {
             setUploading(true)
-            await ApiUtils.auctionUpload(acceptedFiles[0], tx.id, assetType, assetName, assetComment)
+            acceptedFiles.forEach(async (file) => { 
+                await ApiUtils.auctionUpload(file, tx.id, assetType, assetName, assetComment)
+            });
         }
         setDuration('')
         setPrice('')
@@ -103,6 +107,8 @@ function Create({ walletState }) {
         setAssetName('')
         setAssetComment('')
         acceptedFiles.splice(0, acceptedFiles.length)
+        setImgsrc([])
+        acceptedFiles.length =0;
         setUploading(false)
         AlertUtils.SystemAlert('Auction was successfully started')
     }
@@ -122,43 +128,40 @@ var num=0
                     <p className={styles.upload} style={{ color: theme.dropZone }}>
                         {
                             acceptedFiles.length>=1 ?
-                            acceptedFiles.map(option => (
-                                option.path + ' '
-                            ))
+                            acceptedFiles.length === 1?
+                                acceptedFiles.length + ' image is selected.'
+                                :
+                                acceptedFiles.length + ' images are selected.'
                                 :
                                 "Click to select or drag and drop a file here"
                         }
                     </p>
                     <p className={styles.uploadComment} style={{ color: theme.commentText }}>Max files size: 10GB</p>
                 </div>
-                {/* <div className={styles.carouselArea}>
-                    <div className={styles.piccarousel}>
-                        <img src = {Prev} className = {styles.leftIcon} style={{color: theme.primaryText}} onClick={()=>{carousel.current.prev()}} alt = ""/>
-                                    <OwlCarousel className="owl-theme" responsiveClass={true} margin={0} dots={false} ref={carousel} responsive={{
-                            0:{
-                                items: 1
-                            },
-                            600:{
-                                items: 2
-                            },
-                            900:{
-                                items: 3
-                            },
-                            1200:{
-                                items: 4
-                            }
-                        }}>
-                        {
-                                imgsrc && imgsrc.map((result) =>{
-                                    num++;
-                                    console.log(num,result)
-                                    return <img key={num} src={result} style={{heigth: '300px'}} alt=""/>
-                                })
-                            }
-                        </OwlCarousel>
-                        <img src = {Next} className = {styles.rightIcon} onClick={()=>{carousel.current.next()}} alt = ""/>
-                    </div>
-                </div> */}
+                {
+                    imgsrc && imgsrc.length > 0 ?
+                        <div className={styles.carouselArea}>
+                            <div className={styles.piccarousel}>
+                                <img src = {Prev} className = {styles.leftIcon} style={{color: theme.primaryText}} onClick={()=>{carousel.current.slidePrev()}} alt = ""/>
+                                <AliceCarousel
+                                ref={carousel} disableDotsControls={true} disableButtonsControls={true} playButtonEnabled={false} autoPlayActionDisabled={true}>
+                                {
+                                        imgsrc && imgsrc.map((result) =>{
+                                            num++;
+                                            return (
+                                            <div className = {styles.picCell} key={num} style={{backgroundColor: theme.stepBackground}}>
+                                                <img src={result} className={styles.img} alt=""/>
+                                            </div>
+                                            ) 
+                                        })
+                                    }
+                                </AliceCarousel>
+                                <img src = {Next} className = {styles.rightIcon} onClick={()=>{carousel.current.slideNext()}} alt = ""/>
+                            </div>
+                        </div>
+                    :
+                        null
+                }
                 <div className={styles.datasarea}>
                     <div className={styles.assetData}>
                         <div className={styles.inputarea}>

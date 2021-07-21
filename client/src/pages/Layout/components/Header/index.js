@@ -22,8 +22,8 @@ function Header({walletState, walletActions}) {
   
   const verification = useCallback(() => history.push('/explorer'), [history])
   useEffect(() => {
-    const googleTranslateElementInit = () => {
-      new window.google.translate.TranslateElement({pageLanguage: 'en', layout: 0}, 'google_translate_element')
+    const googleTranslateElementInit = async () => {
+      await new window.google.translate.TranslateElement({pageLanguage: 'en', layout: 0}, 'google_translate_element')
     }
     setTimeout(() => {
       googleTranslateElementInit();

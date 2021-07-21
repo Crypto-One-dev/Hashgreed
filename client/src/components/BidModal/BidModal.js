@@ -14,7 +14,10 @@ import AlertUtils from 'utils/alert'
 import WavesConfig from 'config/waves'
 import cx from 'classnames'
 import {CopyToClipboard} from 'react-copy-to-clipboard'
-
+import "react-alice-carousel/lib/alice-carousel.css"
+import AliceCarousel from 'react-alice-carousel'
+import Prev from 'assets/images/left.png'
+import Next from 'assets/images/right.png'
 
 const BidModal = ({auctionData, auctionType, category, height, customer}, ref) => {
   auctionData = auctionData? auctionData: {}
@@ -32,6 +35,7 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
     auctionData.id = ''
     auctionData.winner = ''
     auctionData.avatar = ''
+    auctionData.avatars = []
   }
   if(!auctionData.bid){
     auctionData.bid = 0
@@ -40,6 +44,7 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
   const {isOpen, onOpen, onClose} = useDisclosure()
   const [bid, setBid] = useState('')
   const clipboard = useRef(null)
+  const carousel = useRef(null)
   
   let duration = auctionData.end_block - height
   if(duration < 0){
@@ -106,6 +111,7 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
       ApiUtils.getAssetInfo(auctionData.nft_id, setNFT)
     if(auctionData.price_id && auctionData.price_id !== '')
       ApiUtils.getAssetInfo(auctionData.price_id, setPrice)
+    
   }, [auctionData.nft_id, auctionData.price_id, setNFT, setPrice])
 
   useImperativeHandle(ref, () => ({
@@ -117,15 +123,49 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
     }
   }
   ))
+  let num=0
+
+  const Alice = () => {
+    return (
+      <AliceCarousel 
+                    ref={carousel} disableDotsControls={true} disableButtonsControls={true} playButtonEnabled={false} autoPlayActionDisabled={true}>
+                    {
+                            auctionData.avatars && auctionData.avatars.map((result) =>{
+                                num++;
+                                return (
+                                <div className = {styles.picCell} key={num} style={{backgroundColor: theme.stepBackground}}>
+                                    <img src={`https://ipfs.io/ipfs/${result}`} className={styles.img} alt=""/>
+                                </div>
+                                ) 
+                            })
+                        }
+                    </AliceCarousel>
+    )
+  }
 
   return(
     <Modal onClose={onClose} size={'5xl'}  isOpen={isOpen} isCentered >
       <ModalOverlay />
-      <ModalContent style ={{ borderRadius: '16px', boxShadow:' 0px 20px 20px rgba(0, 0, 0, 0.15)', backgroundColor: '#F7F9FA', marginBottom: '20px'}} className={styles.modalContent}>
+      <ModalContent style ={{ borderRadius: '16px', boxShadow:' 0px 20px 20px rgba(0, 0, 0, 0.15)', backgroundColor: theme.bidModalBackground, marginBottom: '20px'}} className={styles.modalContent}>
           <div className={styles.modalArea} style={{backgroundColor:theme.bidModalBackground}}>
-            <div className ={styles.imageArea}>
-              <img src={`https://ipfs.io/ipfs/${auctionData.avatar}`} className={styles.image} alt=""/>
-            </div>
+            {
+              auctionType === 'HashDealz' || auctionType === 'ServicesNFTs'?
+              <div className ={styles.imageArea}>
+                <div className={styles.carouselArea}>
+                  <div className={styles.piccarousel}>
+                    <Alice/>
+                    <div className={styles.arrow}>
+                      <img src = {Prev} className = {styles.leftIcon} style={{color: theme.primaryText}} onClick={()=>{carousel.current.slidePrev()}} alt = ""/>
+                      <img src = {Next} className = {styles.rightIcon} onClick={()=>{carousel.current.slideNext()}} alt = ""/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              :
+              <div className ={styles.imageArea}>
+                <img src={`https://ipfs.io/ipfs/${auctionData.avatar}`} className={styles.image} alt=""/>
+              </div>
+            }
             <div className={styles.dataArea} style={{backgroundColor:theme.stepBackground}}>
               <div className={styles.closeButton}>
                   <AiOutlineClose className={styles.icon} onClick={() => onClose()}/>

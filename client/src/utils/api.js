@@ -4,9 +4,12 @@ import WavesConfig from 'config/waves'
 import AlertUtils from 'utils/alert'
 
 const getPrice = async (token, tokenDecimal, type, callback) => {
-  console.log(token)
-  await axios
-    .get('https://matcher.waves.exchange/matcher/orderbook/' + token + '/' + WavesConfig.USDN_ID +'/status')
+  let unit = WavesConfig.USDN_ID
+  if(type == 'RKMT'){
+    unit = WavesConfig.USDT_ID
+  }
+    await axios
+    .get('https://matcher.waves.exchange/matcher/orderbook/' + token + '/' + unit +'/status')
     .then(res => {
       try {
         if (callback)
@@ -15,6 +18,7 @@ const getPrice = async (token, tokenDecimal, type, callback) => {
         console.error(err)
       }
     })
+  
 }
 
 const getBalance = async (tokenAddress, callback) => {

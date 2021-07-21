@@ -217,7 +217,7 @@ router.post('/getAuctions', async (req, res) => {
     }, nodeUrl)
     let result = []
     for(key in auctions) {
-      if(key.length === 44) { // auction id
+      if(key.length === 44 || key.length === 43) { // auction id
         let auction = {id: key}
         updateAuction(auction, 'end_block', auctions, key, '')
         updateAuction(auction, 'nft_amount', auctions, key, '_lot_amount')
@@ -230,17 +230,28 @@ router.post('/getAuctions', async (req, res) => {
         updateAuction(auction, 'operator', auctions, key, '_lot_passed')
         const owner = auction.operator ? auction.operator : auction.winner ? auction.winner : auction.organizer
         // const found = await File.find({ txid: owner === address ? key + '_original' : key }).limit(1).exec()
-        const found = await Auction.find({ txid: key + '_original'}).limit(1).exec()
+        const found = await Auction.find({ txid: key + '_original'}).exec()
         if(found.length > 0)
         {
           auction.avatar = found[0].link
           auction.assetType = found[0].assetType
           auction.assetName = found[0].assetName
           auction.assetComment = found[0].assetComment
+          if(auction.assetType === 'HashDealz' || auction.assetType === 'ServicesNFTs'){
+            auction.avatars=[]
+            for(let i=0; i< found.length; i++){
+              auction.avatars[i] = found[i].link
+            }
+            console.log(auction)
+          }
+          else {
+            auction.avatars = null
+          }
         }
         else
         {
           auction.avatar = null
+          auction.avatars = null
           auction.assetType = null
           auction.assetName = null
           auction.assetComment = null

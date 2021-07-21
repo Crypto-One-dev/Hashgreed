@@ -197,15 +197,15 @@ function FileCertificationCell({detail, owner, walletState}){
                       </div>
                         {
                          txid.length>15 ?
-                            <div className={styles.clipboard}>
-                              <div className={styles.txclipboard}>
-                                TXId:&nbsp;
-                                <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid.slice(0,15)+"..."}</a>
+                              <div className={styles.clipboard}>
+                                <div className={styles.txclipboard}>
+                                  TXId:&nbsp;
+                                  <a href={`${WavesConfig.EXPLORER_URL}/tx/${txid}`} target="_blank" rel="noreferrer">{txid.slice(0,15)+"..."}</a>
+                                </div>
+                                <CopyToClipboard text={txid}>
+                                  <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
+                                </CopyToClipboard>
                               </div>
-                              <CopyToClipboard text={txid}>
-                                <FaPaste className={styles.action} style={{color: theme.iconBack}}/>
-                              </CopyToClipboard>
-                            </div>
                             : 
                             <div className={styles.clipboard}>
                               <div className={styles.txclipboard}>
