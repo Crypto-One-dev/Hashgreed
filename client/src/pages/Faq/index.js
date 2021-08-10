@@ -63,6 +63,20 @@ function Faq(){
                     <br/><br/>
                     Definitely Yes! Join us on Telegram to learn about it and participate. Referral rewards are in various forms; KSS, Fiat and BUSD.
                     <br/><br/>
+                    <b>11. How do i get the asset ID of any waves based asset?</b>
+                    <br/><br/>
+                    You can get the asset ID of any Waves based asset by going to your waves.exchange account and clicking on the Assets tab. Then click or search for any currency of your choice and copy the ID.
+                    <br/>
+                    However, here are the Asset IDs of the featured Assets on Hashgreed.
+                    <br/><br/>
+                    RKMT : 2fCdmsn6maErwtLuzxoUrCBkh2vx5SvXtMKAJtN4YBgd
+                    <br/><br/>
+                    HASH: 7RgM3A5AVCUZFbL3EwBicv1eHFCVsaY8z71yda77zrAv
+                    <br/><br/>
+                    USDT: 34N9YcEETLWn93qYQ64EsP1x89tSruJU44RrEMSXXEPJ
+                    <br/><br/>
+                    WAVES: WAVES
+                    <br/><br/>
                 </div>
             </div>
         </div>
