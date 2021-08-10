@@ -206,22 +206,7 @@
                 margin-top: 70px;
             }
 
-            .certification{
-                flex:5;
-                display: flex;
-                flex-direction: row;
-                align-items: right;
-                place-content: flex-end;
-                margin-right: 50px;
-                @media (max-width:600px) {
-                    margin-right: 0px;
-                }
-                @media (max-width:550px) {
-                    justify-content: center;
-                }
-            }
             .transaction{
-                flex:5;
                 display: flex;
                 flex-direction: row;
                 @media (max-width:550px) {
