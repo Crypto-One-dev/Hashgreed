@@ -125,7 +125,6 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
               </PopoverTrigger>
               <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='70%'> 
                 <div className={styles.submenu}>
-                  <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/sportnfts/create');}}>Create</div>
                   <div className={styles.subitem} onClick={() => { onClose(); gotoPage('/auction/sportnfts/explorer');}}>Explore</div>
                 </div>
               </PopoverContent>
