@@ -5,20 +5,19 @@ import AlertUtils from 'utils/alert'
 
 const getPrice = async (token, tokenDecimal, type, callback) => {
   let unit = WavesConfig.USDN_ID
-  if(type == 'RKMT'){
+  if(type == 'RKMT' || type == 'HASH'){
     unit = WavesConfig.USDT_ID
   }
-    await axios
-    .get('https://matcher.waves.exchange/matcher/orderbook/' + token + '/' + unit +'/status')
-    .then(res => {
-      try {
-        if (callback)
-          callback(type, parseFloat(res.data.lastPrice)/(10 ** tokenDecimal))
-      } catch (err) {
-        console.error(err)
-      }
-    })
-  
+  await axios
+  .get('https://matcher.waves.exchange/matcher/orderbook/' + token + '/' + unit +'/status')
+  .then(res => {
+    try {
+      if (callback)
+        callback(type, parseFloat(res.data.lastPrice)/(10 ** tokenDecimal))
+    } catch (err) {
+      console.error(err)
+    }
+  })
 }
 
 const getBalance = async (tokenAddress, callback) => {

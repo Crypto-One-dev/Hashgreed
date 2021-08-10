@@ -44,6 +44,7 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
   const {isOpen, onOpen, onClose} = useDisclosure()
   const [bid, setBid] = useState('')
   const clipboard = useRef(null)
+  const clipboardPrice = useRef(null)
   const carousel = useRef(null)
   
   let duration = auctionData.end_block - height
@@ -128,18 +129,18 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
   const Alice = () => {
     return (
       <AliceCarousel 
-                    ref={carousel} disableDotsControls={true} disableButtonsControls={true} playButtonEnabled={false} autoPlayActionDisabled={true}>
-                    {
-                            auctionData.avatars && auctionData.avatars.map((result) =>{
-                                num++;
-                                return (
-                                <div className = {styles.picCell} key={num} style={{backgroundColor: theme.stepBackground}}>
-                                    <img src={`https://ipfs.io/ipfs/${result}`} className={styles.img} alt=""/>
-                                </div>
-                                ) 
-                            })
-                        }
-                    </AliceCarousel>
+        ref={carousel} disableDotsControls={true} disableButtonsControls={true} playButtonEnabled={false} autoPlayActionDisabled={true}>
+        {
+          auctionData.avatars && auctionData.avatars.map((result) =>{
+              num++;
+              return (
+              <div className = {styles.picCell} key={num} style={{backgroundColor: theme.stepBackground}}>
+                  <img src={`https://ipfs.io/ipfs/${result}`} className={styles.img} alt=""/>
+              </div>
+              ) 
+          })
+        }
+      </AliceCarousel>
     )
   }
 
@@ -234,7 +235,36 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
                     <div className={styles.idInput} style={{color: theme.primaryText}}>{auctionData.nft_amount / (10 ** nft.decimals)}</div>
                   </div>
                   <div className={styles.idArea}>
-                    <div className={styles.title} style={{color:theme.commentText}}>Price Asset ID</div>
+                    <div className={styles.title} style={{color:theme.commentText}}>
+                      Price Asset ID
+                      {
+                        price.description && price.description !== '' && price.description !== null ?
+                        <>
+                        <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + auctionData.price_id}>
+                          <span ref={clipboardPrice}></span>
+                        </CopyToClipboard>
+                        <Popover  placement='bottom'>
+                          <PopoverTrigger>
+                            <span className={styles.question} style={{backgroundColor: theme.buttonBack}} onClick={() => clipboardPrice.current.click()}>
+                            ?
+                            </span>
+                          </PopoverTrigger>
+                          <PopoverContent bg='rgba(0, 4, 81, 0.4)' className = {styles.content}>
+                            {
+                              price.description && price.description !== '' && price.description !== null ?
+                              <div className={styles.submenu}>
+                                <div className={styles.subitem} >{price.description}</div>
+                              </div>
+                              :
+                              null
+                            }
+                          </PopoverContent>
+                        </Popover>
+                        </>
+                        :
+                        null
+                      }
+                      </div>
                     <div className={styles.idInput} style={{color: theme.primaryText}}>{auctionData.price_id}</div>
                   </div>
                   <div className={styles.idArea}>

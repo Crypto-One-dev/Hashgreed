@@ -34,6 +34,7 @@ function Create({ walletState }) {
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({ accept: 'image/jpeg, image/png' })
     const [uploading, setUploading] = useState(false)
     const clipboard = useRef(null);
+    const clipboardPrice = useRef(null);
     const assetType = 'ArtNFTs'
 
     const [nft, setNFT] = useState({
@@ -42,15 +43,23 @@ function Create({ walletState }) {
       description: ''
     })
 
+    const [priceData, setPriceData] = useState({
+        name: '',
+        decimals: 0,
+        description: ''
+    })
+
     useEffect(() => {
         if (walletState.address) {
             const proc = () => {
                 if(nftID && nftID !== '')
                     ApiUtils.getAssetInfo(nftID, setNFT)
+                if(priceID && priceID !== '')
+                    ApiUtils.getAssetInfo(priceID, setPriceData)
             }
             proc()
         }
-    }, [walletState.address, nftID])
+    }, [walletState.address, nftID, priceID])
 
     const setNFTIDs = (id) => {
       setNFTID(id)
@@ -125,7 +134,36 @@ function Create({ walletState }) {
                     </div>
                     <div className={styles.assetIds}>
                         <div className={styles.inputarea}>
-                            <div className={styles.inputTitle} style={{ color: theme.commentText }}>Price asset ID</div>
+                            <div className={styles.inputTitle} style={{ color: theme.commentText }}>
+                                Price asset ID
+                                {
+                                    priceData.description && priceData.description !== '' && priceData.description !== null ?
+                                    <>
+                                    <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + priceID}>
+                                    <span ref={clipboardPrice}></span>
+                                    </CopyToClipboard>
+                                    <Popover  placement='bottom'>
+                                    <PopoverTrigger>
+                                        <span className={styles.question} style={{backgroundColor: theme.buttonBack}} onClick={() => clipboardPrice.current.click()}>
+                                        ?
+                                        </span>
+                                    </PopoverTrigger>
+                                    <PopoverContent bg='rgba(0, 4, 81, 0.4)' className = {styles.content}>
+                                        {
+                                        priceData.description && priceData.description !== '' && priceData.description !== null ?
+                                        <div className={styles.submenu}>
+                                            <div className={styles.subitem} >{priceData.description}</div>
+                                        </div>
+                                        :
+                                        null
+                                        }
+                                    </PopoverContent>
+                                    </Popover>
+                                    </>
+                                    :
+                                    null
+                                }
+                            </div>
                             <Input className={styles.inputValue} style={{ color: theme.primaryText }} value={priceID} onChange={(e) => setPriceID(e.target.value)} variant='flushed' placeholder='' />
                         </div>
                         <div className={styles.inputarea}>

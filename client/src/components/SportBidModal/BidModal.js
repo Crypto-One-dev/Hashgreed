@@ -17,6 +17,7 @@ import WavesConfig from 'config/waves'
 const BidModal = ({auctionData, priceAssetId, customer}, ref) => {
   auctionData = auctionData? auctionData: {}
   const clipboard = useRef(null)
+  const clipboardPrice = useRef(null)
 
   if(!auctionData.bid){
     auctionData.bid = 0
@@ -124,7 +125,36 @@ const BidModal = ({auctionData, priceAssetId, customer}, ref) => {
                 </div>
                 <div className={styles.assetIdArea}>
                   <div className={styles.idArea}>
-                    <div className={styles.title} style={{color:theme.commentText}}>Price Asset ID</div>
+                    <div className={styles.title} style={{color:theme.commentText}}>
+                      Price Asset ID
+                      {
+                        price.description && price.description !== '' && price.description !== null ?
+                        <>
+                        <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + auctionData.price_id}>
+                          <span ref={clipboardPrice}></span>
+                        </CopyToClipboard>
+                        <Popover  placement='bottom'>
+                          <PopoverTrigger>
+                            <span className={styles.question} style={{backgroundColor: theme.buttonBack}} onClick={() => clipboardPrice.current.click()}>
+                            ?
+                            </span>
+                          </PopoverTrigger>
+                          <PopoverContent bg='rgba(0, 4, 81, 0.4)' className = {styles.content}>
+                            {
+                              price.description && price.description !== '' && price.description !== null ?
+                              <div className={styles.submenu}>
+                                <div className={styles.subitem} >{price.description}</div>
+                              </div>
+                              :
+                              null
+                            }
+                          </PopoverContent>
+                        </Popover>
+                        </>
+                        :
+                        null
+                      }
+                      </div>
                     <div className={styles.idInput} style={{color: theme.primaryText}}>{price.name}</div>
                   </div>
                   <div className={styles.idArea}>
