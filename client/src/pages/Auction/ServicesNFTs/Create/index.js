@@ -264,10 +264,6 @@ var num=0
                     </div>
                 </div>
                 <div className={styles.feearea}>
-                    <div className={styles.certification} style={{ color: theme.feeText }}>
-                        <div className={styles.feeTitle} style={{ color: theme.feeText }}>Certification fee:</div>
-                        <div className={styles.fee} style={{ color: theme.feeText }}>{certFee} RKMT</div>
-                    </div>
                     <div className={styles.transaction} >
                         <div className={styles.feeTitle} style={{ color: theme.feeText }}>Transaction fee:</div>
                         <div className={styles.fee} style={{ color: theme.feeText }}>{transactionFee} Waves</div>
