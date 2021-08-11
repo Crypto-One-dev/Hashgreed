@@ -267,39 +267,48 @@ const BidModal = ({auctionData, auctionType, category, height, customer}, ref) =
                       </div>
                     <div className={styles.idInput} style={{color: theme.primaryText}}>{auctionData.price_id}</div>
                   </div>
-                  <div className={styles.idArea}>
-                    <div className={styles.title} style={{color:theme.commentText}}>
-                      NFT Asset ID 
-                      {
-                        nft.description && nft.description !== '' && nft.description !== null ?
-                        <>
-                        <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + auctionData.nft_id}>
-                          <span ref={clipboard}></span>
-                        </CopyToClipboard>
-                        <Popover  placement='bottom'>
-                          <PopoverTrigger>
-                            <span className={styles.question} style={{backgroundColor: theme.buttonBack}} onClick={() => clipboard.current.click()}>
-                            ?
-                            </span>
-                          </PopoverTrigger>
-                          <PopoverContent bg='rgba(0, 4, 81, 0.4)' className = {styles.content}>
-                            {
-                              nft.description && nft.description !== '' && nft.description !== null ?
-                              <div className={styles.submenu}>
-                                <div className={styles.subitem} >{nft.description}</div>
-                              </div>
-                              :
-                              null
-                            }
-                          </PopoverContent>
-                        </Popover>
-                        </>
-                        :
-                        null
-                      }
+                  { auctionType !== 'HashDealz'?
+                    <div className={styles.idArea}>
+                      <div className={styles.title} style={{color:theme.commentText}}>
+                        NFT Asset ID 
+                        {
+                          nft.description && nft.description !== '' && nft.description !== null ?
+                          <>
+                          <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + auctionData.nft_id}>
+                            <span ref={clipboard}></span>
+                          </CopyToClipboard>
+                          <Popover  placement='bottom'>
+                            <PopoverTrigger>
+                              <span className={styles.question} style={{backgroundColor: theme.buttonBack}} onClick={() => clipboard.current.click()}>
+                              ?
+                              </span>
+                            </PopoverTrigger>
+                            <PopoverContent bg='rgba(0, 4, 81, 0.4)' className = {styles.content}>
+                              {
+                                nft.description && nft.description !== '' && nft.description !== null ?
+                                <div className={styles.submenu}>
+                                  <div className={styles.subitem} >{nft.description}</div>
+                                </div>
+                                :
+                                null
+                              }
+                            </PopoverContent>
+                          </Popover>
+                          </>
+                          :
+                          null
+                        }
+                      </div>
+                      <div className={styles.idInput} style={{color: theme.primaryText}}>{auctionData.nft_id}</div>
                     </div>
-                    <div className={styles.idInput} style={{color: theme.primaryText}}>{auctionData.nft_id}</div>
-                  </div>
+                    :
+                    <div className={styles.idArea}>
+                      <div className={styles.title} style={{color:theme.commentText}}>
+                        Auction Creator Address
+                      </div>
+                      <div className={styles.idInput} style={{color: theme.primaryText}}>{auctionData.organizer}</div>
+                    </div>
+                    }
                   <div className={styles.idArea}>
                     <div className={styles.title} style={{color:theme.commentText}}>Current Winner</div>
                     <div className={styles.idInput} style={{color: theme.primaryText}}>{auctionData.winner? auctionData.winner : ''}</div>

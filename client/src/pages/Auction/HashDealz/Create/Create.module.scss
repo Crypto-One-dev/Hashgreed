@@ -196,7 +196,13 @@
                 .inputarea{
                    margin-right: 20px;
                     @media (max-width: 600px){
-                        margin-right: 20px;
+                        margin-right: 0;
+                    }
+
+                    .inputValue{
+                        font-size: 18px;
+                        font-weight: 500;
+                        color: #151439;
                     }
                     .content{
                         max-width: 90%;

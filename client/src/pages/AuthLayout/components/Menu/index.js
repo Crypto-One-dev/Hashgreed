@@ -83,7 +83,7 @@ function Menu() {
       <Popover>
         <PopoverTrigger>
           <div className={cx(styles.menuitem, path[1] === 'auction' ? styles.activeitem : null)}>
-            NFT Auctions
+            Marketplaces
           </div>
         </PopoverTrigger>
         <PopoverContent bg='rgba(0, 4, 81, 0.4)'>

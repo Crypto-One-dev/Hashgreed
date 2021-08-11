@@ -93,7 +93,7 @@ function HashgreedDrawer({isOpen, onClose, walletState}) {
         <hr className={styles.hr}/>
         <Popover>
           <PopoverTrigger>
-            <div className={styles.link}>NFT Auctions</div>
+            <div className={styles.link}>Marketplaces</div>
           </PopoverTrigger>
           <PopoverContent bg='rgba(0, 4, 81, 0.4)' maxWidth='90%' marginLeft='7%'>
             <div className={styles.submenu}>

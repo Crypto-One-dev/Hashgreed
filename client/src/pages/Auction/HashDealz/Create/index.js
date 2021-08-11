@@ -15,7 +15,8 @@ import {CopyToClipboard} from 'react-copy-to-clipboard'
 import{
     Popover,
     PopoverTrigger,
-    PopoverContent
+    PopoverContent,
+    FormLabel
   } from '@chakra-ui/react'
 import { ThemeContext } from 'context/ThemeContext'
 import "react-alice-carousel/lib/alice-carousel.css"
@@ -33,7 +34,7 @@ function Create({ walletState }) {
     const [assetName, setAssetName] = useState('')
     const [assetComment, setAssetComment] = useState('')
     const [priceID, setPriceID] = useState('')
-    const [nftID, setNFTID] = useState()
+    const [nftID, setNFTID] = useState(WavesConfig.RKMT_ID)
     const [nftAmount, setNFTAmount] = useState('')
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({ accept: 'image/jpeg, image/png' })
     const [uploading, setUploading] = useState(false)
@@ -109,7 +110,6 @@ function Create({ walletState }) {
         setDuration('')
         setPrice('')
         setPriceID('')
-        setNFTID('')
         setNFTAmount('')
         setAssetName('')
         setAssetComment('')
@@ -217,7 +217,7 @@ var num=0
                         <div className={styles.inputarea}>
                             <div className={styles.inputTitle} style={{ color: theme.commentText }}>
                                 NFT asset ID
-                                {
+                                {/* {
                                     nft.description && nft.description !== '' && nft.description !== null ?
                                     <>
                                     <CopyToClipboard text={WavesConfig.EXPLORER_URL + '/assets/' + nftID}>
@@ -243,9 +243,9 @@ var num=0
                                     </>
                                     :
                                     null
-                                }
+                                } */}
                             </div>
-                            <Input className={styles.inputValue} style={{ color: theme.primaryText }} value={nftID} onChange={(e) => setNFTIDs(e.target.value)} variant='flushed' placeholder='' />
+                            <Input variant="unstyled" className={styles.inputValue} style={{ color: theme.primaryText }} value={WavesConfig.RKMT_ID} onChange={(e) => setNFTIDs(e.target.value)} variant='flushed' placeholder='' disabled/>
                         </div>
                     </div>
                     <div className={styles.auctionDatas}>
